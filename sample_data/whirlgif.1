@@ -1,0 +1,316 @@
+.\" whirlgif.1
+.\"
+.\" The Graphics Interchange Format (c) is the Copyright property of
+.\" Compuserve Incorporated.  GIF(sm) is a Service Mark property of
+.\" Compuserve Incorporated.
+.\"
+.TH WHIRLGIF 1 "February 1999"
+.AT 3
+.SH NAME
+whirlgif \- reads a series of GIF87a or
+GIF89a files, and produces
+one single GIF89a file composed of those images.
+.SH SYNOPSIS
+.B whirlgif
+.RI [ "global-options" ]
+.RI [ "file-options " { GIFfile "|\fB-i\fP " incfile "}] ..."
+.sp
+The
+.I global-options
+are one or more of:
+.br
+.in +5
+.B  \-v
+.br
+.BI \-trans " index"
+.br
+.BR \-background " {\fIcolor\fP|\fIindex\fP}"
+.br
+.B \-time
+.I delay
+.br
+.B \-globmap
+.br
+.B \-minimize
+.br
+.B \-o
+.I outfile
+.br
+.B \-loop
+.RI [ count ]
+.br
+.B \-comment
+.I comment
+.br
+.B \-disp
+.I method
+.in -5
+.sp
+The
+.I file-options
+are one or more of:
+.br
+.in +5
+.B \-off
+.I x:y-pair
+.br
+.BR \-trans " {\fIcolor\fP|\fIindex\fP}"
+.br
+.B \-time
+.I delay
+.br
+.B \-disp
+.I method
+.sp
+.SH DESCRIPTION
+When
+.I Whirlgif
+processes a series of GIF files,
+the first file defines the so called screen size and the background
+color of the resulting GIF.  The background color may be changed by an
+option.
+.sp
+The input files may be in either GIF87a or GIF89a format.  If a GIF
+file contains more than one image, only the first image is read.  To
+help saving bandwidth on the internet, there are options for forcing
+all GIFs in the series to use the same color map and to create
+sub-GIFs which only give the difference between one image and the next.
+.PP
+.SH OPTIONS
+.PP
+.TP
+.B \-v
+Verbose mode.  Output is written to the error out file.
+This is a global option and must be given before any
+.IR GIFfile s.
+.TP
+\fB\-trans\fP \fIindex\fP|\fIcolor\fP
+Set the color identified with
+.I index
+or the color code
+.BI # xxxxxx \fR,\fP
+where
+.I xxxxxx
+is a hex
+.B RGB
+index to be transparent.
+When this option is used as a
+.IR file-option ,
+its setting is valid for all subsequent
+.IR GIFfile s,
+until it is used again.
+
+.TP
+\fB\-background\fP index
+Set the color identified with its
+.I index
+to be the background color, possibly
+overriding the background color defined in the first
+.IR GIFfile .
+This is a global option and must be given before any
+.IR GIFfile s.
+.TP
+\fB\-time\fP \fIdelay\fP
+Defines inter\-frame timing in units of 1/100 second.  Whenever a value of
+\fIdelay\fP is set by means of the \fB\-time\fP option, this value will
+be valid for the following
+.IR GIFfile s
+until a new value is set.
+.TP
+\fB\-globmap\fP
+Use the color map of the first
+.I GIFfile
+as the global color map throughout
+the
+.IR outfile .
+If the color maps of subsequent
+.IR GIFfile s
+contain
+colors that are not in the global color map, the nearest colors in a
+3 dimensional RGB space will be chosen.
+This is a global option and must be given before any
+.IR GIFfile s.
+.TP
+\fB\-minimize\fP
+Only the smallest rectangles covering the difference between two
+.IR GIFfile s
+will be output.  All
+.IR GIFfile s
+must be of the same size and have the same offset.
+This is tested, and may result in an error message.
+This is a global option and must be given before any
+.IR GIFfile s.
+.sp
+As a side effect, the \fB\-minimize\fP
+option forces the same (global)color map to be used throughout the
+.IR outfile .
+.TP
+\fB\-o\fP outfile
+Write the results to
+.I outfile
+This is a global option and must be given before any
+.IR GIFfile s.
+.TP
+\fB\-loop\fP [\fIcount\fP]
+Add the Netscape 'loop' extension.  If count is omitted, 0 (zero) is
+assumed.
+This is a global option and must be given before any
+.IR GIFfile s.
+.TP
+.B "\-comment \fIcomment\fP"
+Define a \fBComment Extension\fP block
+within the resulting GIF file.
+This block will be written at the end of the file.
+A comment block can be at most 254 characters long, including line
+shifts.
+It may be used for copyright notices.
+This is a global option and must be given before any
+.IR GIFfile s.
+.TP
+\fB\-disp\fP \fImethod\fP
+Sets the image 'disposal' method.  When this option is used as a
+.IR file-option ,
+its setting is valid for all subsequent
+.IR GIFfile s,
+until it is used again.  The methods may be one of
+the keywords:
+.sp
+.in +5
+.ti -5
+.B none
+No disposal specified.
+.sp
+.ti -5
+.B back
+Restore to background color.
+Fill the image's space with the background color.
+.sp
+.ti -5
+.B prev
+Restore to previous, restores the screen area
+to what was there before.  Netscape has a problem with this option.
+.sp
+.ti -5
+.B not
+Do not dispose.  The default, the next image will overlay this one.
+.sp
+.in -5
+.TP
+\fB\-i\fP incfile
+Read a list of names from
+.I incfile
+.TP
+.B "\-off \fIx:y-pair\fP"
+Sets the position of the next
+.I GIFfile
+or the set of
+.IR GIFfile s
+in an
+.IR incfile .
+.sp
+The \fIx:y-pair\fP consists of two integers, separated by one
+character which cannot be part of a number.  A colon, ':' is preferred.
+The two integers define the position of the upper left corner of the
+next image within the 'screen' of the resulting GIF.
+The integers are added to a possible offset within the next
+.IR GIFfile .
+One or both may be negative.
+Negative numbers will re-position an image upwards
+and/or to the left within its own 'screen'.
+The 'screen' of a GIF is the term used in the GIF definitions for the
+area, a GIF covers.
+.SH TIPS
+.PP
+If you don't specify an output file, the GIF will be sent to stdout.
+This is a good thing if you're using whirlgif in a CGI script,
+but could cause problems if you run from a terminal and forget to
+redirect stdout.
+.sp
+The output file (if any) and the loop option
+.B MUST
+be specified before any GIF images.
+.sp
+You can specify several delay statements on the command line to change
+the delay between images in the middle of an animation, e.g.
+.sp
+.ti -5
+whirlgif \-time 25 a.gif b.gif c.gif \-time 100 d.gif \-time 25 e.gif f.gif
+.sp
+Usually, the bacground color is defined by the first
+.IR GIFfile ,
+and often it is index number zero (0).
+If you are animating with a transparent color,
+a good method is usually to use the same color as the background.
+.sp
+It is possible, but may cause problems for some programs, to specify
+several transparency statements on the command line.
+.sp
+The size of the resulting GIF and the global color map is
+defined by the first
+.IR GIFfile .
+If you have a large background GIF and have several smaller GIFs, you
+may make some kind of a bulletin board by a command of the following form:
+.sp
+.ti -5
+whirlgif large.gif -off 77:44 small1.gif -off 22:99 small2.giff ...
+.sp
+You may build in some timing between the small GIFs.
+.SH LIMITATIONS
+.PP
+The loop 'count' is ineffective because Netspcape always loops infinitely.
+.SH BUGS
+.PP
+.I Whirlgif
+should be able to specify delay and offset in an 'incfile' list (see next bug).
+.sp
+Does not handle filenames starting with a \- (hypen), except in 'incfile'.
+.SH TODO
+.PP
+.ti +2
+\- Make a graphic interface.  Perhaps by re-implementing the
+algorithms in Java(tm).
+.sp
+.ti +2
+\- option for other choices of unification methods for colormaps.
+The nearest point in the 3 dimensional RGB color space may not be
+the best choice.
+.sp
+.ti +2
+\- define extension block in order to have frame lists.
+.sp
+.ti +2
+\- define single-letter options and use
+.IR getopt (3)
+like most UNIX programs.
+.SH AVAILABILITY
+.PP
+This program is available via the
+archive for comp.soruces.unix
+.B http://sources.isc.org/
+(and also via http://www.danbbs.dk/~dino/whirlgif/ ).
+.SH AUTHORs
+.PP
+V3.00 \- 3.04 Hans Dinsen-Hansen <dino@danbbs.dk>
+.br
+Based on
+Whirlgif V2.02 by Kevin Kadow <kadokev@msg.net>
+.br
+.ti +5
+& Hans Dinsen-Hansen <dino@danbbs.dk>
+.br
+which is again based on 'txtmerge' written by:
+.br
+Mark Podlipec <podlipec@BayNetworks.com> 
+.br
+Man Page by Mintak Ng <mintak@hitak.com>
+.br
+.ti +5
+& Hans Dinsen-Hansen <dino@danbbs.dk>
+.sp
+.SH COPYRIGHT NOTICES
+.PP
+The Graphics Interchange Format (c) is the Copyright property of
+Compuserve Incorporated.  GIF(sm) is a Service Mark property of
+Compuserve Incorporated.
+.sp
+See other Copyright notices in the accompanying texts.

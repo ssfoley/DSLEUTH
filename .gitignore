@@ -1,3 +1,9 @@
+# Input and Output file directories
+Input/*
+Output/*
+Scenarios/*
+Whirlgif/*
+
 # Compiled Object files
 *.slo
 *.lo

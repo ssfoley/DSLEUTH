@@ -1,0 +1,429 @@
+# FILE: 'scenario file' for SLEUTH land cover transition model 
+#       (UGM  v3.0) 
+#       Comments start with # 
+# 
+#   I. Path Name Variables 
+#  II. Running Status (Echo) 
+# III. Output ASCII Files 
+#  IV. Log File Preferences 
+#   V. Working Grids 
+#  VI. Random Number Seed 
+# VII. Monte Carlo Iteration 
+#VIII. Coefficients 
+#      A. Coefficients and Growth Types 
+#      B. Modes and Coefficient Settings 
+#  IX. Prediction Date Range 
+#   X. Input Images 
+#  XI. Output Images 
+# XII. Colortable Settings 
+#      A. Date_Color 
+#      B. Non-Landuse Colortable 
+#      C. Land Cover Colortable 
+#      D. Growth Type Images 
+#      E. Deltatron Images
+#XIII. Self Modification Parameters 
+
+# I.PATH NAME VARIABLES 
+#   INPUT_DIR: relative or absolute path where input image files and 
+#              (if modeling land cover) 'landuse.classes' file are 
+#              located. 
+#   OUTPUT_DIR: relative or absolute path where all output files will 
+#               be located. 
+#   WHIRLGIF_BINARY: relative path to 'whirlgif' gif animation program. 
+#                    These must be compiled before execution. 
+INPUT_DIR=../Input/demo200/ 
+OUTPUT_DIR=../Output/demo200_test/
+WHIRLGIF_BINARY=../Whirlgif/whirlgif 
+
+# II. RUNNING STATUS (ECHO) 
+#  Status of model run, monte carlo iteration, and year will be 
+#  printed to the screen during model execution. 
+ECHO(YES/NO)=yes 
+
+# III. Output Files 
+# INDICATE TYPES OF ASCII DATA FILES TO BE WRITTEN TO OUTPUT_DIRECTORY. 
+# 
+#   COEFF_FILE: contains coefficient values for every run, monte carlo 
+#               iteration and year. 
+#   AVG_FILE: contains measured values of simulated data averaged over 
+#             monte carlo iterations for every run and control year. 
+#   STD_DEV_FILE: contains standard diviation of averaged values 
+#                 in the AVG_FILE. 
+#   MEMORY_MAP: logs memory map to file 'memory.log' 
+#   LOGGING: will create a 'LOG_#' file where # signifies the processor 
+#            number that created the file if running code in parallel. 
+#            Otherwise, # will be 0. Contents of the LOG file may be 
+#            described below. 
+WRITE_COEFF_FILE(YES/NO)=yes
+WRITE_AVG_FILE(YES/NO)=yes
+WRITE_STD_DEV_FILE(YES/NO)=yes 
+WRITE_MEMORY_MAP(YES/NO)=YES
+LOGGING(YES/NO)=YES
+
+# IV. Log File Preferences 
+# INDICATE CONTENT OF LOG_# FILE (IF LOGGING == ON). 
+#   LANDCLASS_SUMMARY: (if landuse is being modeled) summary of input 
+#                      from 'landuse.classes' file 
+#   SLOPE_WEIGHTS(YES/NO): annual slope weight values as effected 
+#                          by slope_coeff 
+#   READS(YES/NO)= notes if a file is read in 
+#   WRITES(YES/NO)= notes if a file is written 
+#   COLORTABLES(YES/NO)= rgb lookup tables for all colortables generated 
+#   PROCESSING_STATUS(0:off/1:low verbosity/2:high verbosity)= 
+#   TRANSITION_MATRIX(YES/NO)= pixel count and annual probability of 
+#                              land class transitions 
+#   URBANIZATION_ATTEMPTS(YES/NO)= number of times an attempt to urbanize 
+#                                  a pixel occurred 
+#   INITIAL_COEFFICIENTS(YES/NO)= initial coefficient values for 
+#                                 each monte carlo 
+#   BASE_STATISTICS(YES/NO)= measurements of urban control year data 
+#   DEBUG(YES/NO)= data dump of igrid object and grid pointers 
+#   TIMINGS(0:off/1:low verbosity/2:high verbosity)= time spent within 
+#     each module. If running in parallel, LOG_0 will contain timing for 
+#     complete job. 
+LOG_LANDCLASS_SUMMARY(YES/NO)=yes 
+LOG_SLOPE_WEIGHTS(YES/NO)=no 
+LOG_READS(YES/NO)=no
+LOG_WRITES(YES/NO)=no
+LOG_COLORTABLES(YES/NO)=no
+LOG_PROCESSING_STATUS(0:off/1:low verbosity/2:high verbosity)=1 
+LOG_TRANSITION_MATRIX(YES/NO)=yes
+LOG_URBANIZATION_ATTEMPTS(YES/NO)=no 
+LOG_INITIAL_COEFFICIENTS(YES/NO)=no 
+LOG_BASE_STATISTICS(YES/NO)=yes 
+LOG_DEBUG(YES/NO)= yes
+LOG_TIMINGS(0:off/1:low verbosity/2:high verbosity)=1
+
+# V. WORKING GRIDS 
+# The number of working grids needed from memory during model execution is
+
+# designated up front. This number may change depending upon modes. If 
+# NUM_WORKING_GRIDS needs to be increased, the execution will be exited
+# and an error message will be written to the screen and to 'ERROR_LOG'
+# in the OUTPUT_DIRECTORY. If the number may be decreased an optimal  
+# number will be written to the end of the LOG_0 file. 
+NUM_WORKING_GRIDS=4
+
+# VI. RANDOM NUMBER SEED 
+# This number initializes the random number generator. This seed will be
+# used to initialize each model run. 
+RANDOM_SEED=1
+
+# VII. MONTE CARLO ITERATIONS 
+# Each model run may be completed in a monte carlo fashion. 
+#  For CALIBRATION or TEST mode measurements of simulated data will be
+#  taken for years of known data, and averaged over the number of monte  
+#  carlo iterations. These averages are written to the AVG_FILE, and  
+#  the associated standard diviation is written to the STD_DEV_FILE.  
+#  The averaged values are compared to the known data, and a Pearson
+#  correlation coefficient measure is calculated and written to the  
+#  control_stats.log file. The input per run may be associated across 
+#  files using the 'index' number in the files' first column. 
+# 
+MONTE_CARLO_ITERATIONS=4
+
+# VIII. COEFFICIENTS 
+# The coefficients effect how the growth rules are applied to the data.
+# Setting requirements:
+#    *_START values >= *_STOP values
+#    *_STEP values > 0
+#   if no coefficient increment is desired:
+#    *_START == *_STOP
+#    *_STEP == 1 
+# For additional information about how these values affect simulated
+# land cover change see our publications and PROJECT GIGALOPOLIS
+#  site: (www.ncgia.ucsb.edu/project/gig/About/abGrowth.htm). 
+#  A. COEFFICIENTS AND GROWTH TYPES 
+#     DIFFUSION: affects SPONTANEOUS GROWTH and search distance along the 
+#                road network as part of ROAD INFLUENCED GROWTH. 
+#     BREED: NEW SPREADING CENTER probability and affects number of ROAD 
+#            INFLUENCED GROWTH attempts. 
+#     SPREAD: the probabilty of ORGANIC GROWTH from established urban
+#             pixels occuring.              
+#     SLOPE_RESISTANCE: affects the influence of slope to urbanization. As
+#                       value increases, the ability to urbanize
+#                       ever steepening slopes decreases. 
+#     ROAD_GRAVITY: affects the outward distance from a selected pixel for
+#                   which a road pixel will be searched for as part of
+#                   ROAD INFLUENCED GROWTH. 
+#
+#  B. MODES AND COEFFICIENT SETTINGS 
+#     TEST: TEST mode will perform a single run through the historical 
+#           data using the CALIBRATION_*_START values to initialize 
+#           growth, complete the MONTE_CARLO_ITERATIONS, and then conclude
+#           execution. GIF images of the simulated urban growth will be 
+#           written to the OUTPUT_DIRECTORY. 
+#     CALIBRATE: CALIBRATE will perform monte carlo runs through the 
+#                historical data using every combination of the
+#                coefficient values indicated. The CALIBRATION_*_START  
+#                coefficient values will initialize the first run. A  
+#                coefficient will then be increased by its *_STEP value,  
+#                and another run performed. This will be repeated for all
+#                possible permutations of given ranges and increments. 
+#     PREDICTION: PREDICTION will perform a single run, in monte carlo 
+#                 fashion, using the PREDICTION_*_BEST_FIT values 
+#                 for initialization.
+
+CALIBRATION_DIFFUSION_START= 5 
+CALIBRATION_DIFFUSION_STEP=  1 
+CALIBRATION_DIFFUSION_STOP=  5 
+
+CALIBRATION_BREED_START=     5 
+CALIBRATION_BREED_STEP=      1 
+CALIBRATION_BREED_STOP=      5 
+
+CALIBRATION_SPREAD_START=    10 
+CALIBRATION_SPREAD_STEP=     1 
+CALIBRATION_SPREAD_STOP=     10 
+
+CALIBRATION_SLOPE_START=     95 
+CALIBRATION_SLOPE_STEP=      1 
+CALIBRATION_SLOPE_STOP=      95 
+
+CALIBRATION_ROAD_START=      5 
+CALIBRATION_ROAD_STEP=       1 
+CALIBRATION_ROAD_STOP=       5 
+
+PREDICTION_DIFFUSION_BEST_FIT=  20 
+PREDICTION_BREED_BEST_FIT=  20 
+PREDICTION_SPREAD_BEST_FIT=  20 
+PREDICTION_SLOPE_BEST_FIT=  20 
+PREDICTION_ROAD_BEST_FIT=  20 
+
+# IX. PREDICTION DATE RANGE 
+# The urban and road images used to initialize growth during 
+# prediction are those with dates equal to, or greater than, 
+# the PREDICTION_START_DATE. If the PREDICTION_START_DATE is greater 
+# than any of the urban dates, the last urban file on the list will be 
+# used. Similarly, if the PREDICTION_START_DATE is greater 
+# than any of the road dates, the last road file on the list will be 
+# used. The prediction run will terminate at PREDICTION_STOP_DATE. 
+# 
+PREDICTION_START_DATE=1990 
+PREDICTION_STOP_DATE=2010 
+
+# X. INPUT IMAGES 
+# The model expects grayscale, GIF image files with file name 
+# format as described below. For more information see our 
+# PROJECT GIGALOPOLIS web site: 
+# (www.ncgia.ucsb.edu/project/gig/About/dtInput.htm). 
+# 
+# IF LAND COVER IS NOT BEING MODELED: Remove or comment out 
+# the LANDUSE_DATA data input flags below. 
+# 
+#    <  >  = user selected fields 
+#   [<  >] = optional fields 
+# 
+# Urban data GIFs 
+#  format:  <location>.urban.<date>.[<user info>].gif 
+# 
+# 
+URBAN_DATA= demo200.urban.1930.gif 
+URBAN_DATA= demo200.urban.1950.gif 
+URBAN_DATA= demo200.urban.1970.gif 
+URBAN_DATA= demo200.urban.1990.gif 
+# 
+# Road data GIFs 
+#  format:  <location>.roads.<date>.[<user info>].gif 
+# 
+ROAD_DATA= demo200.roads.1930.gif 
+ROAD_DATA= demo200.roads.1950.gif 
+ROAD_DATA= demo200.roads.1970.gif 
+ROAD_DATA= demo200.roads.1990.gif 
+# 
+# Landuse data GIFs 
+#  format:  <location>.landuse.<date>.[<user info>].gif 
+# 
+#LANDUSE_DATA= demo200.landuse.1930.gif 
+#LANDUSE_DATA= demo200.landuse.1990.gif 
+# 
+# Excluded data GIF 
+#  format:  <location>.excluded.[<user info>].gif 
+# 
+EXCLUDED_DATA= demo200.excluded.gif 
+# 
+# Slope data GIF 
+#  format:  <location>.slope.[<user info>].gif 
+# 
+SLOPE_DATA= demo200.slope.gif 
+# 
+# Background data GIF 
+#  format:   <location>.hillshade.[<user info>].gif 
+# 
+#BACKGROUND_DATA= demo200.hillshade.gif 
+BACKGROUND_DATA= demo200.hillshade.water.gif 
+
+# XI. OUTPUT IMAGES 
+#   WRITE_COLOR_KEY_IMAGES: Creates image maps of each colortable. 
+#                           File name format: 'key_[type]_COLORMAP' 
+#                           where [type] represents the colortable. 
+#   ECHO_IMAGE_FILES: Creates GIF of each input file used in that job. 
+#                     File names format: 'echo_of_[input_filename]' 
+#                     where [input_filename] represents the input name. 
+#   ANIMATION: if whirlgif has been compiled, and the WHIRLGIF_BINARY 
+#              path has been defined, animated gifs begining with the 
+#              file name 'animated' will be created in PREDICT mode. 
+WRITE_COLOR_KEY_IMAGES(YES/NO)=yes 
+ECHO_IMAGE_FILES(YES/NO)=yes
+ANIMATION(YES/NO)= yes 
+
+# XII. COLORTABLE SETTINGS 
+#  A. DATE COLOR SETTING 
+#     The date will automatically be placed in the lower left corner 
+#     of output images. DATE_COLOR may be designated in with red, green, 
+#     and blue values (format: <red_value, green_value, blue_value> ) 
+#     or with hexadecimal begining with '0X' (format: <0X######> ). 
+#default DATE_COLOR= 0XFFFFFF white 
+DATE_COLOR=     0XFFFFFF #white 
+
+#  B. URBAN (NON-LANDUSE) COLORTABLE SETTINGS 
+#     1. URBAN MODE OUTPUTS 
+#         TEST mode: Annual images of simulated urban growth will be 
+#                    created using SEED_COLOR to indicate urbanized areas.
+
+#         CALIBRATE mode: Images will not be created. 
+#         PREDICT mode: Annual probability images of simulated urban 
+#                       growth will be created using the PROBABILITY 
+#                       _COLORTABLE. The initializing urban data will be 
+#                       indicated by SEED_COLOR. 
+# 
+#     2. COLORTABLE SETTINGS 
+#          SEED_COLOR: initializing and extrapolated historic urban extent
+
+#          WATER_COLOR: BACKGROUND_DATA is used as a backdrop for
+ 
+#                       simulated urban growth. If pixels in this file  
+#                       contain the value zero (0), they will be filled 
+#                       with the color value in WATER_COLOR. In this way, 
+#                       major water bodies in a study area may be included 
+#                       in output images. 
+#SEED_COLOR= 0XFFFF00 #yellow 
+SEED_COLOR=  249, 209, 110 #pale yellow 
+#WATER_COLOR=  0X0000FF # blue 
+WATER_COLOR=  20, 52, 214 # royal blue
+
+#     3. PROBABILITY COLORTABLE FOR URBAN GROWTH 
+#        For PREDICTION, annual probability images of urban growth 
+#        will be created using the monte carlo iterations. In these 
+#        images, the higher the value the more likely urbanizaion is. 
+#        In order to interpret these 'continuous' values more easily 
+#        they may be color classified by range. 
+# 
+#        If 'hex' is not present then the range is transparent. 
+#        The transparent range must be the first on the list. 
+#        The max number of entries is 100. 
+#          PROBABILITY_COLOR: a color value in hexadecimal that indicates
+#                             a probability range. 
+#            low/upper: indicate the boundaries of the range. 
+# 
+#                  low,  upper,   hex,  (Optional Name) 
+PROBABILITY_COLOR=   0,    50,         , #transparent 
+PROBABILITY_COLOR=   50,   60, 0X005A00, #0, 90,0 dark green
+PROBABILITY_COLOR=   60,   70, 0X008200, #0,130,0 
+PROBABILITY_COLOR=   70,   80, 0X00AA00, #0,170,0 
+PROBABILITY_COLOR=   80,   90, 0X00D200, #0,210,0 
+PROBABILITY_COLOR=   90,   95, 0X00FF00, #0,255,0 light green
+PROBABILITY_COLOR=   95,  100, 0X8B0000, #dark red 
+
+#  C. LAND COVER COLORTABLE 
+#  Land cover input images should be in grayscale GIF image format. 
+#  The 'pix' value indicates a land class grayscale pixel value in 
+#  the image. If desired, the model will create color classified 
+#  land cover output. The output colortable is designated by the 
+#  'hex/rgb' values. 
+#    pix: input land class pixel value 
+#    name: text string indicating land class 
+#    flag: special case land classes 
+#          URB - urban class (area is included in urban input data 
+#                and will not be transitioned by deltatron) 
+#          UNC - unclass (NODATA areas in image) 
+#          EXC - excluded (land class will be ignored by deltatron) 
+#    hex/rgb: hexidecimal or rgb (red, green, blue) output colors 
+# 
+#              pix, name,     flag,   hex/rgb, #comment 
+LANDUSE_CLASS=  0,  Unclass , UNC   , 0X000000 
+LANDUSE_CLASS=  1,  Urban   , URB   , 0X8b2323 #dark red
+LANDUSE_CLASS=  2,  Agric   ,       , 0Xffec8b #pale yellow 
+LANDUSE_CLASS=  3,  Range   ,       , 0Xee9a49 #tan 
+LANDUSE_CLASS=  4,  Forest  ,       , 0X006400 
+LANDUSE_CLASS=  5,  Water   , EXC   , 0X104e8b 
+LANDUSE_CLASS=  6,  Wetland ,       , 0X483d8b 
+LANDUSE_CLASS=  7,  Barren  ,       , 0Xeec591 
+
+#  D. GROWTH TYPE IMAGE OUTPUT CONTROL AND COLORTABLE 
+# 
+#  From here you can control the output of the Z grid 
+#  (urban growth) just after it is returned from the spr_spread() 
+#  function. In this way it is possible to see the different types 
+#  of growth that have occured for a particular growth cycle. 
+# 
+#  VIEW_GROWTH_TYPES(YES/NO) provides an on/off 
+#  toggle to control whether the images are generated. 
+# 
+#  GROWTH_TYPE_PRINT_WINDOW provides a print window 
+#  to control the amount of images created. 
+#  format:  <start_run>,<end_run>,<start_monte_carlo>, 
+#           <end_monte_carlo>,<start_year>,<end_year> 
+#  for example: 
+#  GROWTH_TYPE_PRINT_WINDOW=run1,run2,mc1,mc2,year1,year2 
+#  so images are only created when 
+#  run1<= current run <=run2 AND 
+#  mc1 <= current monte carlo <= mc2 AND 
+#  year1 <= currrent year <= year2 
+# 
+#  0 == first 
+VIEW_GROWTH_TYPES(YES/NO)=NO 
+GROWTH_TYPE_PRINT_WINDOW=0,0,0,0,1995,2020 
+PHASE0G_GROWTH_COLOR=  0xff0000 # seed urban area 
+PHASE1G_GROWTH_COLOR=  0X00ff00 # diffusion growth 
+PHASE2G_GROWTH_COLOR=  0X0000ff # NOT USED 
+PHASE3G_GROWTH_COLOR=  0Xffff00 # breed growth 
+PHASE4G_GROWTH_COLOR=  0Xffffff # spread growth 
+PHASE5G_GROWTH_COLOR=  0X00ffff # road influenced growth 
+
+#************************************************************ 
+# 
+#  E. DELTATRON AGING SECTION 
+# 
+#  From here you can control the output of the deltatron grid 
+#  just before they are aged 
+# 
+#  VIEW_DELTATRON_AGING(YES/NO) provides an on/off 
+#  toggle to control whether the images are generated. 
+# 
+#  DELTATRON_PRINT_WINDOW provides a print window 
+#  to control the amount of images created. 
+#  format:  <start_run>,<end_run>,<start_monte_carlo>, 
+#           <end_monte_carlo>,<start_year>,<end_year> 
+#  for example: 
+#  DELTATRON_PRINT_WINDOW=run1,run2,mc1,mc2,year1,year2 
+#  so images are only created when 
+#  run1<= current run <=run2 AND 
+#  mc1 <= current monte carlo <= mc2 AND 
+#  year1 <= currrent year <= year2 
+# 
+#  0 == first 
+VIEW_DELTATRON_AGING(YES/NO)=NO 
+DELTATRON_PRINT_WINDOW=0,0,0,0,1930,2020 
+DELTATRON_COLOR=  0x000000 # index 0 No or dead deltatron 
+DELTATRON_COLOR=  0X00FF00 # index 1 age = 1 year 
+DELTATRON_COLOR=  0X00D200 # index 2 age = 2 year 
+DELTATRON_COLOR=  0X00AA00 # index 3 age = 3 year 
+DELTATRON_COLOR=  0X008200 # index 4 age = 4 year 
+DELTATRON_COLOR=  0X005A00 # index 5 age = 5 year 
+
+# XIII. SELF-MODIFICATION PARAMETERS 
+#       SLEUTH is a self-modifying cellular automata. For more  
+#       information see our PROJECT GIGALOPOLIS web site
+#       (www.ncgia.ucsb.edu/project/gig/About/abGrowth.htm) 
+#       and publications (and/or grep 'self modification' in code). 
+ROAD_GRAV_SENSITIVITY=0.01 
+SLOPE_SENSITIVITY=0.1 
+CRITICAL_LOW=0.97 
+CRITICAL_HIGH=1.3 
+#CRITICAL_LOW=0.0 
+#CRITICAL_HIGH=10000000000000.0 
+CRITICAL_SLOPE=21.0 
+BOOM=1.01 
+BUST=0.9 
+  

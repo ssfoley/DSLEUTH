@@ -1,0 +1,51 @@
+Rev 3.04	21Feb99 Hans Dinsen-Hansen
+	Drastic changes of the original GIF decoder.  The code can now
+	read LZW as well as RunLength encoded data from e.g. GNU plot.
+	Default disposal changed.  Changes in forward declarations
+	inspired by the Amiga people.
+
+Rev 3.03	02Feb99 Hans Dinsen-Hansen
+	Patched misleading error messages from the decoder when minimizing
+	GIFs from GNU plot.
+
+Rev 3.02	01Nov98 Hans Dinsen-Hansen
+	Fixed an error in the loop option.  Further minimizing of outfile.
+	Search for nearest color bottom to top, to be conformant with most
+	paint programs.   Modifications of Makefile to be more conformant
+	with the requirements in news:comp.sources.unix
+
+Rev 3.01      Sep/Oct98 Hans Dinsen-Hansen
+	Never published.  Modifications for dealing with microSoft
+	problems.  Filenames changed to the infamous 8+3 DOS format for
+	what used to be gif{en,de}code.c.
+
+Rev 3.00	29Jul98 Hans Dinsen-Hansen
+	Included re-encoding of GIFs, permitting minimizing of the
+	resulting GIF, by outputting only the smallest differing
+	rectangle between two GIFs.  Option for forcing the first
+	color map to be globally used, by choosing the nearest color,
+	if a local color does not exist in the global map.
+
+Rev 2.02	09Sep97 Hans Dinsen-Hansen
+	Pernmitted GIF89a input; do not use the local colormap
+	if it is equal to the global; option for background index;
+	included the comment block within the GIF & option for a
+	user defined commentblock; fixed the disposal option.
+
+Rev 2.01	31Aug96 Kevin Kadow
+	Added 'disp' options to set image disposal, fixed errors in
+	comment block and with the Netscape loop extension.
+
+Rev 2.00	05Feb96 Kevin Kadow
+	Added transparency and gif comments.
+
+Rev 1.10	29Jan96 Kevin Kadow
+	First release of whirlgif.
+
+txtmerge:
+
+Rev 1.01	08Jan92	Mark Podlipec
+	Use all colormaps, not just 1st.
+
+Rev 1.00	23Jul91	Mark Podlipec
+	creation
