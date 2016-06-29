@@ -19,7 +19,7 @@ src/ - the source code for SLEUTH
 
 # Installation
 
-Coming soon...
+Coming soon... hopefully.
 
 # How to run
 
