@@ -36,13 +36,13 @@
 **                                                                           **
 *******************************************************************************
 \*****************************************************************************/
-void
+static void
     spr_LogSlopeWeights (FILE * fp, int array_size, SWGHT_TYPE * lut);
-void
+static void
     spr_spiral (int index,                                   /* IN     */
                 int *i_out,                                  /* OUT    */
                 int *j_out);                               /* OUT    */
-void
+static void
     spr_phase1n3 (COEFF_TYPE diffusion_coefficient,          /* IN     */
                   COEFF_TYPE breed_coefficient,              /* IN     */
                   GRID_P z,                                  /* IN     */
@@ -53,7 +53,7 @@ void
                   int *sng,                                  /* IN/OUT */
                   int *sdc);                               /* IN/OUT */
 
-void
+static void
     spr_phase4 (COEFF_TYPE spread_coefficient,               /* IN     */
                 GRID_P z,                                    /* IN     */
                 GRID_P excld,                                /* IN     */
@@ -63,7 +63,7 @@ void
                 int *og);                                  /* IN/OUT */
 
 
-void
+static void
     spr_phase5 (COEFF_TYPE road_gravity,                     /* IN     */
                 COEFF_TYPE diffusion_coefficient,            /* IN     */
                 COEFF_TYPE breed_coefficient,                /* IN     */
@@ -75,23 +75,23 @@ void
                 SWGHT_TYPE * swght,                          /* IN     */
                 int *rt,                                     /* IN/OUT */
                 GRID_P workspace);                         /* MOD    */
-void
+static void
     spr_get_slp_weights (int array_size,                     /* IN     */
                          SWGHT_TYPE * lut);                /* OUT    */
-BOOLEAN spr_road_search (int i_grwth_center,          /* IN     */
+static BOOLEAN spr_road_search (int i_grwth_center,          /* IN     */
                                 int j_grwth_center,          /* IN     */
                                 int *i_road,                 /* OUT    */
                                 int *j_road,                 /* OUT    */
                                 int max_search_index,        /* IN     */
                                 GRID_P roads);             /* IN     */
-
+static
   BOOLEAN spr_road_walk (int i_road_start,                   /* IN     */
                          int j_road_start,                   /* IN     */
                          int *i_road_end,                    /* OUT    */
                          int *j_road_end,                    /* OUT    */
                          GRID_P roads,                       /* IN     */
                          double diffusion_coefficient);    /* IN     */
-
+static
   BOOLEAN spr_urbanize_nghbr (int i,                         /* IN     */
                               int j,                         /* IN     */
                               int *i_nghbr,                  /* OUT    */
@@ -103,13 +103,13 @@ BOOLEAN spr_road_search (int i_grwth_center,          /* IN     */
                               SWGHT_TYPE * swght,            /* IN     */
                               PIXEL pixel_value,             /* IN     */
                               int *stat);                  /* OUT    */
-
+static
   void spr_get_neighbor (int i_in,                           /* IN     */
                          int j_in,                           /* IN     */
                          int *i_out,                         /* OUT    */
                          int *j_out);                      /* OUT    */
 
- BOOLEAN
+static BOOLEAN
     spr_urbanize (int row,                                   /* IN     */
                   int col,                                   /* IN     */
                   GRID_P z,                                  /* IN     */
@@ -120,9 +120,9 @@ BOOLEAN spr_road_search (int i_grwth_center,          /* IN     */
                   PIXEL pixel_value,                         /* IN     */
                   int *stat);                              /* OUT    */
 
- COEFF_TYPE
+static COEFF_TYPE
     spr_GetDiffusionValue (COEFF_TYPE diffusion_coeff);    /* IN    */
- COEFF_TYPE
+static COEFF_TYPE
     spr_GetRoadGravValue (COEFF_TYPE rg_coeff);            /* IN    */
 
 /*****************************************************************************\
@@ -145,7 +145,7 @@ char spread_c_sccs_id[] = "@(#)spread.c	1.427	12/4/00";
 **
 **
 */
- void
+static void
   spr_phase1n3 (COEFF_TYPE diffusion_coefficient,            /* IN     */
                 COEFF_TYPE breed_coefficient,                /* IN     */
                 GRID_P z,                                    /* IN     */
@@ -247,7 +247,7 @@ char spread_c_sccs_id[] = "@(#)spread.c	1.427	12/4/00";
 **
 **
 */
- void
+static void
   spr_phase4 (COEFF_TYPE spread_coefficient,                 /* IN     */
               GRID_P z,                                      /* IN     */
               GRID_P excld,                                  /* IN     */
@@ -342,7 +342,7 @@ char spread_c_sccs_id[] = "@(#)spread.c	1.427	12/4/00";
 **
 **
 */
- void
+static void
   spr_phase5 (COEFF_TYPE road_gravity,                       /* IN     */
               COEFF_TYPE diffusion_coefficient,              /* IN     */
               COEFF_TYPE breed_coefficient,                  /* IN     */
@@ -542,7 +542,7 @@ char spread_c_sccs_id[] = "@(#)spread.c	1.427	12/4/00";
 **
 **
 */
- void
+static void
   spr_get_slp_weights (int array_size,                       /* IN     */
                        SWGHT_TYPE * lut)                   /* OUT    */
 {
@@ -590,7 +590,7 @@ char spread_c_sccs_id[] = "@(#)spread.c	1.427	12/4/00";
 **
 **
 */
- void
+static void
   spr_LogSlopeWeights (FILE * fp, int array_size, SWGHT_TYPE * lut)
 {
   int i;
@@ -630,7 +630,7 @@ char spread_c_sccs_id[] = "@(#)spread.c	1.427	12/4/00";
 **
 **
 */
- COEFF_TYPE
+static COEFF_TYPE
   spr_GetDiffusionValue (COEFF_TYPE diffusion_coeff)
 {
 
@@ -661,7 +661,7 @@ char spread_c_sccs_id[] = "@(#)spread.c	1.427	12/4/00";
 **
 **
 */
- COEFF_TYPE
+static COEFF_TYPE
   spr_GetRoadGravValue (COEFF_TYPE rg_coeff)
 {
 
@@ -693,7 +693,7 @@ char spread_c_sccs_id[] = "@(#)spread.c	1.427	12/4/00";
 **
 **
 */
- BOOLEAN
+static BOOLEAN
   spr_urbanize (int row,                                     /* IN     */
                 int col,                                     /* IN     */
                 GRID_P z,                                    /* IN     */
@@ -776,7 +776,7 @@ char spread_c_sccs_id[] = "@(#)spread.c	1.427	12/4/00";
 **
 **
 */
-
+static
   void
   spr_get_neighbor (int i_in,                                /* IN     */
                     int j_in,                                /* IN     */
@@ -828,7 +828,7 @@ char spread_c_sccs_id[] = "@(#)spread.c	1.427	12/4/00";
 **
 **
 */
-
+static
     BOOLEAN
   spr_urbanize_nghbr (int i,                                 /* IN     */
                       int j,                                 /* IN     */
@@ -888,7 +888,7 @@ char spread_c_sccs_id[] = "@(#)spread.c	1.427	12/4/00";
 **
 **
 */
-
+static
     BOOLEAN
   spr_road_walk (int i_road_start,                           /* IN     */
                  int j_road_start,                           /* IN     */
@@ -960,7 +960,7 @@ char spread_c_sccs_id[] = "@(#)spread.c	1.427	12/4/00";
 **
 **
 */
-
+static
     BOOLEAN
   spr_road_search (int i_grwth_center,                       /* IN     */
                    int j_grwth_center,                       /* IN     */
@@ -1015,7 +1015,7 @@ char spread_c_sccs_id[] = "@(#)spread.c	1.427	12/4/00";
 **
 **
 */
- void
+static void
   spr_spiral (int index,                                     /* IN     */
               int *i_out,                                    /* OUT    */
               int *j_out)                                  /* OUT    */
@@ -1276,7 +1276,8 @@ void
   int temp1 = 0;
   float temp2 = 0;
 
-  //#pragma omp parallel for default(shared) reduction(+:temp1,temp2) schedule(dynamic, 2048)
+  //part test 1
+  #pragma omp parallel for default(shared) reduction(+:temp1,temp2) schedule(dynamic, 2048)
   for (i = 0; i < total_pixels; i++)
   {
     if ((z[i] == 0) && (delta[i] > 0))
