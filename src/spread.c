@@ -3,6 +3,7 @@
 #include <string.h>
 #include <math.h>
 #include <errno.h>
+#include <omp.h>
 #include "igrid_obj.h"
 #include "landclass_obj.h"
 #include "globals.h"
@@ -1272,16 +1273,24 @@ void
   (*num_growth_pix) = 0;
   (*average_slope) = 0.0;
 
+  int temp1 = 0;
+  float temp2 = 0;
+
+  #pragma omp parallel for default(shared) reduction(+:temp1,temp2) schedule(dynamic, 2048)
   for (i = 0; i < total_pixels; i++)
   {
     if ((z[i] == 0) && (delta[i] > 0))
     {
       /* new growth being placed into array */
-      (*average_slope) += (float) slp[i];
+      temp2 += (float) slp[i];
       z[i] = delta[i];
-      (*num_growth_pix)++;
+      temp1++;
     }
   }
+
+  (*num_growth_pix) = temp1;
+  (*average_slope) = temp2;
+
   *pop = util_count_pixels (total_pixels, z, GE, PHASE0G);
 
   if (*num_growth_pix == 0)
