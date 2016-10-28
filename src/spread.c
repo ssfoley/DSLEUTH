@@ -1276,7 +1276,7 @@ void
   int temp1 = 0;
   float temp2 = 0;
 
-  #pragma omp parallel for default(shared) reduction(+:temp1,temp2) schedule(dynamic, 2048)
+  //#pragma omp parallel for default(shared) reduction(+:temp1,temp2) schedule(dynamic, 2048)
   for (i = 0; i < total_pixels; i++)
   {
     if ((z[i] == 0) && (delta[i] > 0))
