@@ -638,23 +638,8 @@ static COEFF_TYPE
   double rows_sq;
   double cols_sq;
 
-  //part test 2
-  #pragma omp parallel num_threads(2)
-  {
-    #pragma omp sections
-    {
-      #pragma omp section
-      {
-        rows_sq = igrid_GetNumRows () * igrid_GetNumRows ();
-      }
-      #pragma omp section
-      {
-        cols_sq = igrid_GetNumCols () * igrid_GetNumCols ();
-      }
-    }
-  }
-  
-  
+  rows_sq = igrid_GetNumRows () * igrid_GetNumRows ();
+  cols_sq = igrid_GetNumCols () * igrid_GetNumCols ();
 
   /*
    * diffusion_value's MAXIMUM (IF diffusion_coeff == 100)
@@ -1292,7 +1277,7 @@ void
   float temp2 = 0;
 
   //part test 1
-  //#pragma omp parallel for default(shared) reduction(+:temp1,temp2) schedule(dynamic, 2048)
+  #pragma omp parallel for default(shared) reduction(+:temp1,temp2) schedule(dynamic, 2048)
   for (i = 0; i < total_pixels; i++)
   {
     if ((z[i] == 0) && (delta[i] > 0))
