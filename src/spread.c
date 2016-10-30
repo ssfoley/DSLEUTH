@@ -639,22 +639,22 @@ static COEFF_TYPE
   double cols_sq;
 
   //part test 2
-  #pragma omp parallel num_threads(2)
-  {
-    #pragma omp sections
-    {
-      #pragma omp section
-      {
-        rows_sq = igrid_GetNumRows () * igrid_GetNumRows ();
-      }
-      #pragma omp section
-      {
-        cols_sq = igrid_GetNumCols () * igrid_GetNumCols ();
-      }
-    }
-  }
-  
-  
+  // #pragma omp parallel num_threads(2)
+  // {
+  //   #pragma omp sections
+  //   {
+  //     #pragma omp section
+  //     {
+  //       rows_sq = igrid_GetNumRows () * igrid_GetNumRows ();
+  //     }
+  //     #pragma omp section
+  //     {
+  //       cols_sq = igrid_GetNumCols () * igrid_GetNumCols ();
+  //     }
+  //   }
+  // }
+  rows_sq = igrid_GetNumRows () * igrid_GetNumRows ();
+  cols_sq = igrid_GetNumCols () * igrid_GetNumCols ();
 
   /*
    * diffusion_value's MAXIMUM (IF diffusion_coeff == 100)
