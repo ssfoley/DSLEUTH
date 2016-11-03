@@ -276,6 +276,21 @@ static void
   assert (swght != NULL);
   assert (og != NULL);
 
+  //part test 5
+  //#pragma omp parallel
+  //{
+  //#pragma omp sections
+    //{
+  //#pragma omp section
+    //{
+  //nrows = igrid_GetNumRows ();
+  //}
+  //#pragma omp section
+    //{
+  //ncols = igrid_GetNumCols ();
+  //}
+  //}
+  //}
   nrows = igrid_GetNumRows ();
   ncols = igrid_GetNumCols ();
   assert (nrows > 0);
@@ -393,6 +408,22 @@ static void
   assert (swght != NULL);
   assert (rt != NULL);
   assert (workspace != NULL);
+
+  //part test 6
+  //#pragma omp parallel
+  //{
+  //#pragma omp sections
+    //{
+  //#pragma omp section
+    //{
+  //nrows = igrid_GetNumRows ();
+  //}
+  //#pragma omp section
+    //{
+  //ncols = igrid_GetNumCols ();
+  //}
+  //}
+  //}
   nrows = igrid_GetNumRows ();
   ncols = igrid_GetNumCols ();
   assert (nrows > 0);
@@ -639,8 +670,8 @@ static COEFF_TYPE
   double cols_sq;
 
   //part test 2
-  // #pragma omp parallel num_threads(2)
-  // {
+  //#pragma omp parallel num_threads(2)
+  //{
   //   #pragma omp sections
   //   {
   //     #pragma omp section
@@ -684,8 +715,22 @@ static COEFF_TYPE
   int row;
   int col;
 
-  row = igrid_GetNumRows ();
-  col = igrid_GetNumCols ();
+  #pragma omp parallel
+  {
+    #pragma omp sections
+    {
+      #pragma omp section
+      {
+	row = igrid_GetNumRows ();
+      }
+      #pragma omp section
+      {
+	col = igrid_GetNumCols ();
+      }
+    }
+  }
+  //row = igrid_GetNumRows ();
+  //col = igrid_GetNumCols ();
 
   /*
    * rg_value's MAXIMUM (IF rg_coeff == 100)
@@ -723,7 +768,21 @@ static BOOLEAN
   BOOLEAN val;
   int nrows;
   int ncols;
-
+  //part test 3
+  //#pragma omp parallel num_threads(2)
+  //{
+  //#pragma omp sections 
+    //{
+  //#pragma omp section
+    //{
+  //nrows = igrid_GetNumRows ();
+  //}
+  //#pragma omp section
+    //{
+  //ncols = igrid_GetNumCols ();
+  //}
+  //}
+  //}
   nrows = igrid_GetNumRows ();
   ncols = igrid_GetNumCols ();
   assert (nrows > 0);
@@ -805,6 +864,21 @@ static
   int nrows;
   int ncols;
 
+  //part test 4
+  //#pragma omp parallel num_threads(2)
+  //{
+  //#pragma omp sections
+    //{
+  //#pragma omp section
+    //{
+  //nrows = igrid_GetNumRows ();
+  //}
+  //#pragma omp section
+    //{
+  //ncols = igrid_GetNumCols ();
+  //}
+  //}
+  //}
   nrows = igrid_GetNumRows ();
   ncols = igrid_GetNumCols ();
   assert (nrows > 0);
@@ -1054,8 +1128,23 @@ static void
   int nrows;
   int ncols;
 
-  nrows = igrid_GetNumRows ();
-  ncols = igrid_GetNumCols ();
+  //part test 7
+  #pragma omp parallel
+  {
+    #pragma omp sections
+    {
+      #pragma omp section
+      {
+	nrows = igrid_GetNumRows ();
+      }
+      #pragma omp section
+      {
+	ncols = igrid_GetNumCols ();
+      }
+    }
+  }
+  //nrows = igrid_GetNumRows ();
+  //ncols = igrid_GetNumCols ();
   assert (nrows > 0);
   assert (ncols > 0);
 
@@ -1292,7 +1381,7 @@ void
   float temp2 = 0;
 
   //part test 1
-  #pragma omp parallel for default(shared) reduction(+:temp1,temp2) schedule(dynamic, 2048)
+  //#pragma omp parallel for default(shared) reduction(+:temp1,temp2) schedule(dynamic, 2048)
   for (i = 0; i < total_pixels; i++)
   {
     if ((z[i] == 0) && (delta[i] > 0))

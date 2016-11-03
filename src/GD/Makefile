@@ -9,8 +9,8 @@
 
 CC=gcc 
 AR=ar
-CFLAGS=-O
-LIBS=-L./ -lgd -lm
+CFLAGS=-O -pg -fopenmp
+LIBS=-L./ -lgd -lm -pg -fopenmp
 
 all: libgd.a gddemo giftogd webgif
 
