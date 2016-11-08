@@ -715,22 +715,22 @@ static COEFF_TYPE
   int row;
   int col;
 
-  #pragma omp parallel
-  {
-    #pragma omp sections
-    {
-      #pragma omp section
-      {
-	row = igrid_GetNumRows ();
-      }
-      #pragma omp section
-      {
-	col = igrid_GetNumCols ();
-      }
-    }
-  }
+  //#pragma omp parallel
+  //{
+  //#pragma omp sections
+    //{
+  //#pragma omp section
+    //{
   //row = igrid_GetNumRows ();
+  //}
+  //#pragma omp section
+    //{
   //col = igrid_GetNumCols ();
+  //}
+  //}
+  //}
+  row = igrid_GetNumRows ();
+  col = igrid_GetNumCols ();
 
   /*
    * rg_value's MAXIMUM (IF rg_coeff == 100)
@@ -1129,22 +1129,22 @@ static void
   int ncols;
 
   //part test 7
-  #pragma omp parallel
-  {
-    #pragma omp sections
-    {
-      #pragma omp section
-      {
-	nrows = igrid_GetNumRows ();
-      }
-      #pragma omp section
-      {
-	ncols = igrid_GetNumCols ();
-      }
-    }
-  }
+  //#pragma omp parallel
+  //{
+  //#pragma omp sections
+    //{
+  //#pragma omp section
+    //{
   //nrows = igrid_GetNumRows ();
+  //}
+  //#pragma omp section
+    //{
   //ncols = igrid_GetNumCols ();
+  //}
+  //}
+  //}
+  nrows = igrid_GetNumRows ();
+  ncols = igrid_GetNumCols ();
   assert (nrows > 0);
   assert (ncols > 0);
 
