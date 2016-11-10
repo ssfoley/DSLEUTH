@@ -85,13 +85,7 @@ void
 
 
   FUNC_INIT;
-  #pragma omp parallel
-  {
-    #pragma omp sections
-    {
-      #pragma omp secion 
-      {
-        timer_Start (GRW_GROWTH);
+  timer_Start (GRW_GROWTH);
   total_pixels = mem_GetTotalPixels ();
   deltatron_ptr = pgrid_GetDeltatronPtr ();
   assert (total_pixels > 0);
@@ -194,10 +188,13 @@ void
         scen_CloseLog ();
       }
     }
-      }
-      #pragma omp section 
-      {
-        sng = 0;
+
+    /* 
+     *
+     * APPLY THE CELLULAR AUTOMATON RULES FOR THIS YEAR 
+     *
+     */
+    sng = 0;
     sdg = 0;
     sdc = 0;
     og = 0;
@@ -219,140 +216,6 @@ void
     stats_SetOG (og);
     stats_SetRT (rt);
     stats_SetPOP (pop);
-      }
-    }
-  }
-  // timer_Start (GRW_GROWTH);
-  // total_pixels = mem_GetTotalPixels ();
-  // deltatron_ptr = pgrid_GetDeltatronPtr ();
-  // assert (total_pixels > 0);
-  // assert (deltatron_ptr != NULL);
-
-
-  // if (proc_GetProcessingType () == PREDICTING)
-  // {
-  //   proc_SetCurrentYear (scen_GetPredictionStartDate ());
-  // }
-  // else
-  // {
-  //   proc_SetCurrentYear (igrid_GetUrbanYear (0));
-  // }
-  // util_init_grid (z_ptr, 0);
-  // if (scen_GetDoingLanduseFlag ())
-  // {
-  //   grw_landuse_init (deltatron_ptr,
-  //                     land1_ptr);
-  // }
-
-  // seed_ptr = igrid_GetUrbanGridPtr (__FILE__, func, __LINE__, 0);
-  // util_condition_gif (total_pixels,
-  //                     seed_ptr,
-  //                     GT,
-  //                     0,
-  //                     z_ptr,
-  //                     PHASE0G);
-  // seed_ptr = igrid_GridRelease (__FILE__, func, __LINE__, seed_ptr);
-
-  // if (scen_GetEchoFlag ())
-  // {
-  //   printf ("\n%s %u ******************************************\n",
-  //           __FILE__, __LINE__);
-  //   if (proc_GetProcessingType () == CALIBRATING)
-  //   {
-  //     printf ("%s %u Run = %u of %u (%8.1f percent complete)\n",
-  //             __FILE__, __LINE__,
-  //             proc_GetCurrentRun (), proc_GetTotalRuns (),
-  //             (100.0 * proc_GetCurrentRun ()) / proc_GetTotalRuns ());
-  //   }
-  //   printf ("%s %u Monte Carlo = %u of %u\n", __FILE__, __LINE__,
-  //     proc_GetCurrentMonteCarlo () + 1, scen_GetMonteCarloIterations ());
-  //   fprintf (stdout, "%s %u proc_GetCurrentYear=%u\n",
-  //            __FILE__, __LINE__, proc_GetCurrentYear ());
-  //   fprintf (stdout, "%s %u proc_GetStopYear=%u\n",
-  //            __FILE__, __LINE__, proc_GetStopYear ());
-  // }
-
-  // if (scen_GetLogFlag ())
-  // {
-  //   if (scen_GetLogProcessingStatusFlag () > 0)
-  //   {
-  //     scen_Append2Log ();
-  //     grw_completion_status (scen_GetLogFP ());
-  //     scen_CloseLog ();
-  //   }
-  // }
-  // while (proc_GetCurrentYear () < proc_GetStopYear ())
-  // {
-  //   /*
-  //    *
-  //    * INCREMENT CURRENT YEAR
-  //    *
-  //    */
-  //   proc_IncrementCurrentYear ();
-
-  //   if (scen_GetEchoFlag ())
-  //   {
-  //     fprintf (stdout, " %u", proc_GetCurrentYear ());
-  //     fflush (stdout);
-  //     if (((proc_GetCurrentYear () + 1) % 10) == 0)
-  //     {
-  //       fprintf (stdout, "\n");
-  //       fflush (stdout);
-  //     }
-  //     if (proc_GetCurrentYear () == proc_GetStopYear ())
-  //     {
-  //       fprintf (stdout, "\n");
-  //       fflush (stdout);
-  //     }
-  //   }
-
-  //   if (scen_GetLogFlag ())
-  //   {
-  //     if (scen_GetLogProcessingStatusFlag () > 1)
-  //     {
-  //       scen_Append2Log ();
-  //       fprintf (scen_GetLogFP (), " %u", proc_GetCurrentYear ());
-  //       if (((proc_GetCurrentYear () + 1) % 10) == 0)
-  //       {
-  //         fprintf (scen_GetLogFP (), "\n");
-  //         fflush (scen_GetLogFP ());
-  //       }
-  //       if (proc_GetCurrentYear () == proc_GetStopYear ())
-  //       {
-  //         fprintf (scen_GetLogFP (), "\n");
-  //         fflush (scen_GetLogFP ());
-  //       }
-  //       scen_CloseLog ();
-  //     }
-  //   }
-
-    /* 
-     *
-     * APPLY THE CELLULAR AUTOMATON RULES FOR THIS YEAR 
-     *
-     */
-    // sng = 0;
-    // sdg = 0;
-    // sdc = 0;
-    // og = 0;
-    // rt = 0;
-    // pop = 0;
-    // timer_Start (SPREAD_TOTAL_TIME);
-    // spr_spread (&average_slope,
-    //             &num_growth_pix,
-    //             &sng,
-    //             &sdc,
-    //             &og,
-    //             &rt,
-    //             &pop,
-    //             z_ptr);
-    // timer_Stop (SPREAD_TOTAL_TIME);
-    // stats_SetSNG (sng);
-    // stats_SetSDG (sdg);
-    // stats_SetSDG (sdc);
-    // stats_SetOG (og);
-    // stats_SetRT (rt);
-    // stats_SetPOP (pop);
 
     if (scen_GetViewGrowthTypesFlag ())
     {

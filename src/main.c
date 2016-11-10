@@ -7,6 +7,7 @@
 #ifdef CATCH_SIGNALS
 #include <signal.h>
 #endif
+#include <omp.h>
 #include <stddef.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -563,6 +564,7 @@ int
                slope_resistance <= coeff_GetStopSlopeResist ();
                slope_resistance += coeff_GetStepSlopeResist ())
           {
+            #pragma omp parallel for default(shared) schedule(dynamic, 2048)
             for (road_gravity = coeff_GetStartRoadGravity ();
                  road_gravity <= coeff_GetStopRoadGravity ();
                  road_gravity += coeff_GetStepRoadGravity ())
@@ -580,7 +582,10 @@ int
 
               InitRandom (scen_GetRandomSeed ());
 
-              restart_run++;
+              #pragma omp critical
+              {
+                restart_run++;
+              }
 
               coeff_SetCurrentDiffusion ((double) diffusion_coeff);
               coeff_SetCurrentSpread ((double) spread_coeff);
