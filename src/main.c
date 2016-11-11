@@ -547,7 +547,7 @@ int
      */
     proc_SetStopYear (igrid_GetUrbanYear (igrid_GetUrbanCount () - 1));
 
-
+    #pragma omp parallel for default(shared) private(breed_coeff,spread_coeff,slope_resistance,road_gravity) schedule(dynamic, 1024)
     for (diffusion_coeff = coeff_GetStartDiffusion ();
          diffusion_coeff <= coeff_GetStopDiffusion ();
          diffusion_coeff += coeff_GetStepDiffusion ())
@@ -564,7 +564,6 @@ int
                slope_resistance <= coeff_GetStopSlopeResist ();
                slope_resistance += coeff_GetStepSlopeResist ())
           {
-            #pragma omp parallel for default(shared) schedule(dynamic, 2048)
             for (road_gravity = coeff_GetStartRoadGravity ();
                  road_gravity <= coeff_GetStopRoadGravity ();
                  road_gravity += coeff_GetStepRoadGravity ())
