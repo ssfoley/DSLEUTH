@@ -211,7 +211,7 @@ void
                 z_ptr);
     timer_Stop (SPREAD_TOTAL_TIME);
     stats_SetSNG (sng);
-    stats_SetSDG (sdg);
+    //stats_SetSDG (sdg);
     stats_SetSDG (sdc);
     stats_SetOG (og);
     stats_SetRT (rt);

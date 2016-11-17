@@ -6,6 +6,7 @@ The coeff_obj.c module encapsulates the parameter data structures
 *******************************************************************************
 ******************************************************************************/
 
+#include <omp.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
@@ -28,7 +29,9 @@ char coeff_obj_c_sccs_id[] = "@(#)coeff_obj.c	1.84	12/4/00";
 *******************************************************************************
 \*****************************************************************************/
 static coeff_val_info saved_coefficient;
+#pragma omp threadprivate(saved_coefficient)
 static coeff_val_info current_coefficient;
+#pragma omp threadprivate(current_coefficient)
 static coeff_int_info step_coeff;
 static coeff_int_info start_coeff;
 static coeff_int_info stop_coeff;
