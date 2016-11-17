@@ -1256,8 +1256,6 @@ void
   breed_coefficient = coeff_GetCurrentBreed ();
   spread_coefficient = coeff_GetCurrentSpread ();
 
-  printf("%s\n", "spread");
-
   scratch_gif1 = mem_GetWGridPtr (__FILE__, func, __LINE__);
   scratch_gif3 = mem_GetWGridPtr (__FILE__, func, __LINE__);
 

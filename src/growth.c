@@ -151,7 +151,10 @@ void
      * INCREMENT CURRENT YEAR
      *
      */
-    proc_IncrementCurrentYear ();
+     #pragma omp critical
+     {
+      proc_IncrementCurrentYear ();
+     }
 
     if (scen_GetEchoFlag ())
     {
