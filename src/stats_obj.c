@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <errno.h>
 #include <math.h>
-#include <omp.h>
 #include "ugm_defines.h"
 #include "pgrid_obj.h"
 #include "proc_obj.h"
@@ -100,7 +99,6 @@ static struct
   stats_val_t this_year;
 }
 record;
-#pragma omp threadprivate(record)
 
 static struct
 {
@@ -122,7 +120,6 @@ static struct
   long excluded_failure;
 }
 urbanization_attempt;
-#pragma omp threadprivate(urbanization_attempt)
 
 static int sidx;
 static int ridx;

@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <omp.h>
 #include "ugm_defines.h"
 #include "ugm_macros.h"
 #include "coeff_obj.h"
@@ -28,9 +27,7 @@ static int last_run;
 static int last_mc;
 static int current_run;
 static int current_monte_carlo;
-#pragma omp threadprivate(current_monte_carlo)
 static int current_year;
-#pragma omp threadprivate(current_year)
 static int stop_year;
 static BOOLEAN restart_flag;
 static BOOLEAN last_run_flag;

@@ -547,7 +547,7 @@ int
      */
     proc_SetStopYear (igrid_GetUrbanYear (igrid_GetUrbanCount () - 1));
 
-    #pragma omp parallel for default(shared) private(breed_coeff,spread_coeff,slope_resistance,road_gravity)
+    //#pragma omp parallel for default(shared) private(breed_coeff,spread_coeff,slope_resistance,road_gravity) num_threads(10) schedule(dynamic, 100)
     for (diffusion_coeff = coeff_GetStartDiffusion ();
          diffusion_coeff <= coeff_GetStopDiffusion ();
          diffusion_coeff += coeff_GetStepDiffusion ())
@@ -570,9 +570,7 @@ int
             {
               sprintf (fname, "%s%s%u", scen_GetOutputDir (),
                        RESTART_FILE, glb_mype);
-              #pragma omp critical
-              {
-                out_write_restart_data (fname,
+              out_write_restart_data (fname,
                                       diffusion_coeff,
                                       breed_coeff,
                                       spread_coeff,
@@ -580,10 +578,13 @@ int
                                       road_gravity,
                                       scen_GetRandomSeed (),
                                       restart_run);
-                restart_run++;
-              }
 
               InitRandom (scen_GetRandomSeed ());
+
+              //#pragma omp critical
+              //{
+                restart_run++;
+              //}
 
               coeff_SetCurrentDiffusion ((double) diffusion_coeff);
               coeff_SetCurrentSpread ((double) spread_coeff);
@@ -609,10 +610,7 @@ int
               }
 #else
               drv_driver ();
-              #pragma omp critical
-              {
-                proc_IncrementNumRunsExecThisCPU ();
-              }
+              proc_IncrementNumRunsExecThisCPU ();
               if (scen_GetLogFlag ())
               {
                 if (scen_GetLogTimingsFlag () > 1)
@@ -624,10 +622,8 @@ int
               }
 #endif
 
-              #pragma omp critical
-              {
-                proc_IncrementCurrentRun ();
-              }
+
+              proc_IncrementCurrentRun ();
               if (proc_GetProcessingType () == TESTING)
               {
                 stats_ConcatenateControlFiles ();
