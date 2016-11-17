@@ -82,7 +82,7 @@ void
   struct colortable *colortable_ptr;
 
   FUNC_INIT;
-  timer_Start (DRV_DRIVER);
+  //timer_Start (DRV_DRIVER);
   total_pixels = mem_GetTotalPixels ();
   z_cumulate_ptr = pgrid_GetCumulatePtr ();
   sim_landuse_ptr = pgrid_GetLand1Ptr ();
@@ -186,7 +186,7 @@ void
   stats_Analysis (fmatch);
 
   /* end of:  if(proc_GetProcessingType() == PREDICTING) */
-  timer_Stop (DRV_DRIVER);
+  //timer_Stop (DRV_DRIVER);
 
   /*
    *
@@ -194,8 +194,8 @@ void
    * overflowing
    *
    */
-  timer_Stop (TOTAL_TIME);
-  timer_Start (TOTAL_TIME);
+  //timer_Stop (TOTAL_TIME);
+  //timer_Start (TOTAL_TIME);
   FUNC_END;
 }
 

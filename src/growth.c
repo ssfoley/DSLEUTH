@@ -85,7 +85,7 @@ void
 
 
   FUNC_INIT;
-  timer_Start (GRW_GROWTH);
+  //timer_Start (GRW_GROWTH);
   total_pixels = mem_GetTotalPixels ();
   deltatron_ptr = pgrid_GetDeltatronPtr ();
   assert (total_pixels > 0);
@@ -200,7 +200,7 @@ void
     og = 0;
     rt = 0;
     pop = 0;
-    timer_Start (SPREAD_TOTAL_TIME);
+    //timer_Start (SPREAD_TOTAL_TIME);
     spr_spread (&average_slope,
                 &num_growth_pix,
                 &sng,
@@ -209,7 +209,7 @@ void
                 &rt,
                 &pop,
                 z_ptr);
-    timer_Stop (SPREAD_TOTAL_TIME);
+    //timer_Stop (SPREAD_TOTAL_TIME);
     stats_SetSNG (sng);
     //stats_SetSDG (sdg);
     stats_SetSDG (sdc);
@@ -263,7 +263,7 @@ void
 
     coeff_WriteCurrentCoeff ();
   }
-  timer_Stop (GRW_GROWTH);
+  //timer_Stop (GRW_GROWTH);
   FUNC_END;
 }
 

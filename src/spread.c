@@ -1313,7 +1313,7 @@ void
    */
 
 
-  timer_Start (SPR_PHASE1N3);
+  //timer_Start (SPR_PHASE1N3);
   spr_phase1n3 (diffusion_coefficient,                       /* IN     */
                 breed_coefficient,                           /* IN     */
                 z,                                           /* IN     */
@@ -1323,14 +1323,14 @@ void
                 swght,                                       /* IN     */
                 sng,                                         /* IN/OUT */
                 sdc);                                      /* IN/OUT */
-  timer_Stop (SPR_PHASE1N3);
+  //timer_Stop (SPR_PHASE1N3);
 
   /*
    *
    * PHASE 4 - ORGANIC GROWTH
    *
    */
-  timer_Start (SPR_PHASE4);
+  //timer_Start (SPR_PHASE4);
   spr_phase4 (spread_coefficient,                            /* IN     */
               z,                                             /* IN     */
               excld,                                         /* IN     */
@@ -1338,14 +1338,14 @@ void
               slp,                                           /* IN     */
               swght,                                         /* IN     */
               og);                                         /* IN/OUT */
-  timer_Stop (SPR_PHASE4);
+  //timer_Stop (SPR_PHASE4);
 
   /*
    *
    * PHASE 5 - ROAD INFLUENCE GROWTH
    *
    */
-  timer_Start (SPR_PHASE5);
+  //timer_Start (SPR_PHASE5);
   spr_phase5 (road_gravity,                                  /* IN     */
               diffusion_coefficient,                         /* IN     */
               breed_coefficient,                             /* IN     */
@@ -1357,7 +1357,7 @@ void
               swght,                                         /* IN     */
               rt,                                            /* IN/OUT */
               scratch_gif3);                               /* MOD    */
-  timer_Stop (SPR_PHASE5);
+  //timer_Stop (SPR_PHASE5);
 
   util_condition_gif (total_pixels,                          /* IN     */
                       delta,                                 /* IN     */
