@@ -263,6 +263,7 @@ void
 
     coeff_WriteCurrentCoeff ();
   }
+  
   timer_Stop (GRW_GROWTH);
   FUNC_END;
 }

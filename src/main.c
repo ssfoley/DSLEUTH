@@ -564,27 +564,25 @@ int
                slope_resistance <= coeff_GetStopSlopeResist ();
                slope_resistance += coeff_GetStepSlopeResist ())
           {
+            #pragma omp parallel for default(shared)
             for (road_gravity = coeff_GetStartRoadGravity ();
                  road_gravity <= coeff_GetStopRoadGravity ();
                  road_gravity += coeff_GetStepRoadGravity ())
             {
               sprintf (fname, "%s%s%u", scen_GetOutputDir (),
                        RESTART_FILE, glb_mype);
-              out_write_restart_data (fname,
-                                      diffusion_coeff,
-                                      breed_coeff,
-                                      spread_coeff,
-                                      slope_resistance,
-                                      road_gravity,
-                                      scen_GetRandomSeed (),
-                                      restart_run);
+              // out_write_restart_data (fname,
+              //                           diffusion_coeff,
+              //                           breed_coeff,
+              //                           spread_coeff,
+              //                           slope_resistance,
+              //                           road_gravity,
+              //                           scen_GetRandomSeed (),
+              //                           restart_run);
 
               InitRandom (scen_GetRandomSeed ());
 
-              //#pragma omp critical
-              //{
-                restart_run++;
-              //}
+              //restart_run++;
 
               coeff_SetCurrentDiffusion ((double) diffusion_coeff);
               coeff_SetCurrentSpread ((double) spread_coeff);
@@ -610,7 +608,10 @@ int
               }
 #else
               drv_driver ();
-              proc_IncrementNumRunsExecThisCPU ();
+              #pragma omp critical
+              {
+                proc_IncrementNumRunsExecThisCPU ();
+              }
               if (scen_GetLogFlag ())
               {
                 if (scen_GetLogTimingsFlag () > 1)
@@ -621,9 +622,10 @@ int
                 }
               }
 #endif
-
-
-              proc_IncrementCurrentRun ();
+              #pragma omp critical
+              {
+                proc_IncrementCurrentRun ();
+              }
               if (proc_GetProcessingType () == TESTING)
               {
                 stats_ConcatenateControlFiles ();
