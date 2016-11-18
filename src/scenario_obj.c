@@ -141,9 +141,9 @@ void
   }
   else
   {
-    sprintf (msg_buf, "%s is already open", log_filename);
-    LOG_ERROR (msg_buf);
-    EXIT (1);
+    // sprintf (msg_buf, "%s is already open", log_filename);
+    // LOG_ERROR (msg_buf);
+    // EXIT (1);
   }
   FUNC_END;
 }
