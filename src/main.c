@@ -3,7 +3,7 @@
 #ifdef MPI
 #include <mpi.h>
 #endif
-#define CATCH_SIGNALS
+//#define CATCH_SIGNALS
 #ifdef CATCH_SIGNALS
 #include <signal.h>
 #endif
