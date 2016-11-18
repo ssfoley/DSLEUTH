@@ -121,7 +121,7 @@ static struct
   long excluded_failure;
 }
 urbanization_attempt;
-#pragma omp threadprivate(urbanization_attempt);
+#pragma omp threadprivate(urbanization_attempt)
 
 static int sidx;
 static int ridx;
