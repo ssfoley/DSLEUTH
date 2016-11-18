@@ -128,22 +128,22 @@ void
 void
   timer_Start (int val)
 {
-  char func[] = "timer_Start";
-  if ((val < 0) || (val > actual_num_timers))
-  {
-    sprintf (msg_buf, "(val < 0) || (val > actual_num_timers)");
-    LOG_ERROR (msg_buf);
-    EXIT (1);
-  }
-  if (array[val].running)
-  {
-    sprintf (msg_buf, "array[%u].running", val);
-    LOG_ERROR (msg_buf);
-    EXIT (1);
-  }
-  array[val].start = clock ();
-  array[val].num_calls++;
-  array[val].running = TRUE;
+  // char func[] = "timer_Start";
+  // if ((val < 0) || (val > actual_num_timers))
+  // {
+  //   sprintf (msg_buf, "(val < 0) || (val > actual_num_timers)");
+  //   LOG_ERROR (msg_buf);
+  //   EXIT (1);
+  // }
+  // if (array[val].running)
+  // {
+  //   sprintf (msg_buf, "array[%u].running", val);
+  //   LOG_ERROR (msg_buf);
+  //   EXIT (1);
+  // }
+  // array[val].start = clock ();
+  // array[val].num_calls++;
+  // array[val].running = TRUE;
 }
 
 /******************************************************************************
@@ -191,24 +191,24 @@ double
 void
   timer_Stop (int val)
 {
-  char func[] = "timer_Stop";
-  if ((val < 0) || (val > actual_num_timers))
-  {
-    sprintf (msg_buf, "(val < 0) || (val > actual_num_timers)");
-    LOG_ERROR (msg_buf);
-    EXIT (1);
-  }
-  if (!array[val].running)
-  {
-    sprintf (msg_buf, "array[%u].running", val);
-    LOG_ERROR (msg_buf);
-    EXIT (1);
-  }
-  array[val].running = FALSE;
-  array[val].stop = clock ();
-  array[val].total_time += ((float) (array[val].stop - array[val].start)
-                            * 1000) / CLOCKS_PER_SEC;
-  array[val].average_time = array[val].total_time / array[val].num_calls;
+  // char func[] = "timer_Stop";
+  // if ((val < 0) || (val > actual_num_timers))
+  // {
+  //   sprintf (msg_buf, "(val < 0) || (val > actual_num_timers)");
+  //   LOG_ERROR (msg_buf);
+  //   EXIT (1);
+  // }
+  // if (!array[val].running)
+  // {
+  //   sprintf (msg_buf, "array[%u].running", val);
+  //   LOG_ERROR (msg_buf);
+  //   EXIT (1);
+  // }
+  // array[val].running = FALSE;
+  // array[val].stop = clock ();
+  // array[val].total_time += ((float) (array[val].stop - array[val].start)
+  //                           * 1000) / CLOCKS_PER_SEC;
+  // array[val].average_time = array[val].total_time / array[val].num_calls;
 }
 
 /******************************************************************************
