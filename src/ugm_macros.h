@@ -97,14 +97,14 @@
 #define FUNC_INIT                                                         \
         CALL_TRACE;                                                       \
         glb_call_stack_index++;                                           \
-        if( glb_call_stack_index >= CALL_STACK_SIZE )                     \
-        { printf("\n ERROR: call_stack overflow\n");                      \
-          printf("increase the size of CALL_STACK_SIZE and recompile\n"); \
-          for(glb_i=0;glb_i<glb_call_stack_index;glb_i++)                 \
-          {                                                               \
-            printf("glb_call_stack[%u]=%s\n",glb_i,glb_call_stack[glb_i]);\
-          }                                                               \
-        }                                                                 \
+        // if( glb_call_stack_index >= CALL_STACK_SIZE )                     \
+        // { printf("\n ERROR: call_stack overflow\n");                      \
+        //   printf("increase the size of CALL_STACK_SIZE and recompile\n"); \
+        //   for(glb_i=0;glb_i<glb_call_stack_index;glb_i++)                 \
+        //   {                                                               \
+        //     printf("glb_call_stack[%u]=%s\n",glb_i,glb_call_stack[glb_i]);\
+        //   }                                                               \
+        // }                                                                 \
         strcpy(glb_call_stack[glb_call_stack_index],func)
        
 #define FUNC_END                                                          \
