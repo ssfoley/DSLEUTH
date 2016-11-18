@@ -109,12 +109,12 @@
        
 #define FUNC_END                                                          \
         glb_call_stack_index--;                                           \
-        if(glb_call_stack_index<0)                                        \
-        {                                                                 \
-          printf("%s %u %s ERROR glb_call_stack_index= %d\n"              \
-               ,__FILE__,__LINE__,func,glb_call_stack_index);             \
-          EXIT(1);                                                        \
-        }                                                                 \
+        // if(glb_call_stack_index<0)                                        \
+        // {                                                                 \
+        //   printf("%s %u %s ERROR glb_call_stack_index= %d\n"              \
+        //        ,__FILE__,__LINE__,func,glb_call_stack_index);             \
+        //   EXIT(1);                                                        \
+        // }                                                                 \
         RETURN_TRACE
 
 #define ROUND_BYTES_TO_WORD_BNDRY(bytes) (((bytes)+(BYTES_PER_WORD)-1)/   \
