@@ -160,21 +160,21 @@ void
 double
   timer_Read (int val)
 {
-  char func[] = "timer_Read";
-  if ((val < 0) || (val > actual_num_timers))
-  {
-    sprintf (msg_buf, "(val < 0) || (val > actual_num_timers)");
-    LOG_ERROR (msg_buf);
-    EXIT (1);
-  }
-  if (!array[val].running)
-  {
-    sprintf (msg_buf, "array[%u].running", val);
-    LOG_ERROR (msg_buf);
-    EXIT (1);
-  }
-  return (((double) (clock () - array[val].start)
-           * 1000) / CLOCKS_PER_SEC) + array[val].total_time;
+  // char func[] = "timer_Read";
+  // if ((val < 0) || (val > actual_num_timers))
+  // {
+  //   sprintf (msg_buf, "(val < 0) || (val > actual_num_timers)");
+  //   LOG_ERROR (msg_buf);
+  //   EXIT (1);
+  // }
+  // if (!array[val].running)
+  // {
+  //   sprintf (msg_buf, "array[%u].running", val);
+  //   LOG_ERROR (msg_buf);
+  //   EXIT (1);
+  // }
+  // return (((double) (clock () - array[val].start)
+  //          * 1000) / CLOCKS_PER_SEC) + array[val].total_time;
 }
 
 /******************************************************************************
