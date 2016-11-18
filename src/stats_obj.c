@@ -2180,32 +2180,32 @@ static void
 
   stats_UpdateRunningTotal (index);
 
-  if (record.monte_carlo == 0)
-  {
-    FILE_OPEN (fp, filename, "wb");
-    for (i = 0; i < scen_GetMonteCarloIterations (); i++)
-    {
-      num_written = fwrite (&record, sizeof (record), 1, fp);
-      if (num_written != 1)
-      {
-        printf ("%s %u ERROR\n", __FILE__, __LINE__);
-      }
-    }
+  // if (record.monte_carlo == 0)
+  // {
+  //   FILE_OPEN (fp, filename, "wb");
+  //   for (i = 0; i < scen_GetMonteCarloIterations (); i++)
+  //   {
+  //     num_written = fwrite (&record, sizeof (record), 1, fp);
+  //     if (num_written != 1)
+  //     {
+  //       printf ("%s %u ERROR\n", __FILE__, __LINE__);
+  //     }
+  //   }
 
-  }
-  else
-  {
-    FILE_OPEN (fp, filename, "r+b");
-    rewind (fp);
-    fseek_loc = fseek (fp, sizeof (record) * record.monte_carlo, SEEK_SET);
-    num_written = fwrite (&record, sizeof (record), 1, fp);
-    if (num_written != 1)
-    {
-      printf ("%s %u ERROR\n", __FILE__, __LINE__);
-    }
+  // }
+  // else
+  // {
+  //   FILE_OPEN (fp, filename, "r+b");
+  //   rewind (fp);
+  //   fseek_loc = fseek (fp, sizeof (record) * record.monte_carlo, SEEK_SET);
+  //   num_written = fwrite (&record, sizeof (record), 1, fp);
+  //   if (num_written != 1)
+  //   {
+  //     printf ("%s %u ERROR\n", __FILE__, __LINE__);
+  //   }
 
-  }
-  fclose (fp);
+  // }
+  // fclose (fp);
 
 }
 /******************************************************************************
