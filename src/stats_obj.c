@@ -36,11 +36,11 @@ char stats_obj_c_sccs_id[] = "@(#)stats_obj.c	1.72	12/4/00";
 #define SIZE_CIR_Q 5000
 
 #define Q_STORE(R,C)                                                     \
-  if((sidx+1==ridx)||((sidx+1==SIZE_CIR_Q)&&!ridx)){                     \
-    printf("Error Circular Queue Full\n");                               \
-    printf("Increase SIZE_CIR_Q and recompile\n");                       \
-    printf("sidx=%d ridx=%d SIZE_CIR_Q=%d\n",sidx,ridx,SIZE_CIR_Q);      \
-    EXIT(1);}                                                            \
+  // if((sidx+1==ridx)||((sidx+1==SIZE_CIR_Q)&&!ridx)){                     \
+  //   printf("Error Circular Queue Full\n");                               \
+  //   printf("Increase SIZE_CIR_Q and recompile\n");                       \
+  //   printf("sidx=%d ridx=%d SIZE_CIR_Q=%d\n",sidx,ridx,SIZE_CIR_Q);      \
+  //   EXIT(1);}                                                            \
   cir_q[sidx].row = R;                                                   \
   cir_q[sidx].col = C;                                                   \
   sidx++;                                                                \
