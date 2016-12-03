@@ -2222,85 +2222,85 @@ static void
 static void
   stats_ProcessGrowLog (int run, int year)
 {
-  char func[] = "stats_ProcessGrowLog";
-  FILE *fp;
-  int index;
-  int fseek_loc;
-  int i;
-  int mc_count = 0;
-  char filename[MAX_FILENAME_LEN];
-  char command[MAX_FILENAME_LEN + 3];
+  // char func[] = "stats_ProcessGrowLog";
+  // FILE *fp;
+  // int index;
+  // int fseek_loc;
+  // int i;
+  // int mc_count = 0;
+  // char filename[MAX_FILENAME_LEN];
+  // char command[MAX_FILENAME_LEN + 3];
 
-  sprintf (filename, "%sgrow_%u_%u.log", scen_GetOutputDir (), run, year);
-  sprintf (command, "rm %s", filename);
+  // sprintf (filename, "%sgrow_%u_%u.log", scen_GetOutputDir (), run, year);
+  // sprintf (command, "rm %s", filename);
 
-  FILE_OPEN (fp, filename, "rb");
+  // FILE_OPEN (fp, filename, "rb");
 
-  if (proc_GetProcessingType () != PREDICTING)
-  {
-    while (fread (&record, sizeof (record), 1, fp))
-    {
-      if (mc_count >= scen_GetMonteCarloIterations ())
-      {
-        sprintf (msg_buf, "mc_count >= scen_GetMonteCarloIterations ()");
-        LOG_ERROR (msg_buf);
-        EXIT (1);
-      }
-      if (feof (fp) || ferror (fp))
-      {
-        sprintf (msg_buf, "feof (fp) || ferror (fp)");
-        LOG_ERROR (msg_buf);
-        EXIT (1);
-      }
-      index = igrid_UrbanYear2Index (year);
-      stats_CalStdDev (index);
-      mc_count++;
-    }
-  }
-  else
-  {
-    while (fread (&record, sizeof (record), 1, fp))
-    {
-      if (mc_count >= scen_GetMonteCarloIterations ())
-      {
-        sprintf (msg_buf, "mc_count >= scen_GetMonteCarloIterations ()");
-        LOG_ERROR (msg_buf);
-        EXIT (1);
-      }
-      if (feof (fp) || ferror (fp))
-      {
-        sprintf (msg_buf, "feof (fp) || ferror (fp)");
-        LOG_ERROR (msg_buf);
-        EXIT (1);
-      }
-      stats_UpdateRunningTotal (0);
-    }
-    stats_CalAverages (0);
-    rewind (fp);
-    mc_count = 0;
-    while (fread (&record, sizeof (record), 1, fp))
-    {
-      if (mc_count >= scen_GetMonteCarloIterations ())
-      {
-        sprintf (msg_buf, "mc_count >= scen_GetMonteCarloIterations ()");
-        LOG_ERROR (msg_buf);
-        sprintf (msg_buf, "mc_count= %u scen_GetMonteCarloIterations= %u",
-                 mc_count, scen_GetMonteCarloIterations ());
-        LOG_ERROR (msg_buf);
-        EXIT (1);
-      }
-      if (feof (fp) || ferror (fp))
-      {
-        sprintf (msg_buf, "feof (fp) || ferror (fp)");
-        LOG_ERROR (msg_buf);
-        EXIT (1);
-      }
-      stats_CalStdDev (0);
-      mc_count++;
-    }
-  }
-  fclose (fp);
-  system (command);
+  // if (proc_GetProcessingType () != PREDICTING)
+  // {
+  //   while (fread (&record, sizeof (record), 1, fp))
+  //   {
+  //     if (mc_count >= scen_GetMonteCarloIterations ())
+  //     {
+  //       sprintf (msg_buf, "mc_count >= scen_GetMonteCarloIterations ()");
+  //       LOG_ERROR (msg_buf);
+  //       EXIT (1);
+  //     }
+  //     if (feof (fp) || ferror (fp))
+  //     {
+  //       sprintf (msg_buf, "feof (fp) || ferror (fp)");
+  //       LOG_ERROR (msg_buf);
+  //       EXIT (1);
+  //     }
+  //     index = igrid_UrbanYear2Index (year);
+  //     stats_CalStdDev (index);
+  //     mc_count++;
+  //   }
+  // }
+  // else
+  // {
+  //   while (fread (&record, sizeof (record), 1, fp))
+  //   {
+  //     if (mc_count >= scen_GetMonteCarloIterations ())
+  //     {
+  //       sprintf (msg_buf, "mc_count >= scen_GetMonteCarloIterations ()");
+  //       LOG_ERROR (msg_buf);
+  //       EXIT (1);
+  //     }
+  //     if (feof (fp) || ferror (fp))
+  //     {
+  //       sprintf (msg_buf, "feof (fp) || ferror (fp)");
+  //       LOG_ERROR (msg_buf);
+  //       EXIT (1);
+  //     }
+  //     stats_UpdateRunningTotal (0);
+  //   }
+  //   stats_CalAverages (0);
+  //   rewind (fp);
+  //   mc_count = 0;
+  //   while (fread (&record, sizeof (record), 1, fp))
+  //   {
+  //     if (mc_count >= scen_GetMonteCarloIterations ())
+  //     {
+  //       sprintf (msg_buf, "mc_count >= scen_GetMonteCarloIterations ()");
+  //       LOG_ERROR (msg_buf);
+  //       sprintf (msg_buf, "mc_count= %u scen_GetMonteCarloIterations= %u",
+  //                mc_count, scen_GetMonteCarloIterations ());
+  //       LOG_ERROR (msg_buf);
+  //       EXIT (1);
+  //     }
+  //     if (feof (fp) || ferror (fp))
+  //     {
+  //       sprintf (msg_buf, "feof (fp) || ferror (fp)");
+  //       LOG_ERROR (msg_buf);
+  //       EXIT (1);
+  //     }
+  //     stats_CalStdDev (0);
+  //     mc_count++;
+  //   }
+  // }
+  // fclose (fp);
+  // system (command);
 }
 /******************************************************************************
 *******************************************************************************
