@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
+#include <omp.h>
 #include "globals.h"
 #include "igrid_obj.h"
 #include "pgrid_obj.h"
@@ -60,6 +61,7 @@ static int wgrid_free[MEM_ARRAY_SIZE];
 static int wgrid_free_tos;
 static int min_wgrid_free_tos;
 static mem_track_info wgrid_array[MEM_ARRAY_SIZE];
+#pragma omp threadprivate(wgrid_array)
 static PIXEL *mem_check_array[MEM_ARRAY_SIZE];
 static int mem_check_count;
 static int mem_check_size;
