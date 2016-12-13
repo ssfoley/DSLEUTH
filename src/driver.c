@@ -260,12 +260,9 @@ static
     {
       if (scen_GetLogCoeffFlag ())
       {
-        #pragma omp critical
-        {
-          scen_Append2Log ();
-          coeff_LogCurrent (scen_GetLogFP ());
-          scen_CloseLog ();
-        }
+        scen_Append2Log ();
+        coeff_LogCurrent (scen_GetLogFP ());
+        scen_CloseLog ();
       }
     }
 

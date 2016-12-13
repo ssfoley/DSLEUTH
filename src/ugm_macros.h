@@ -105,7 +105,7 @@
         //     printf("glb_call_stack[%u]=%s\n",glb_i,glb_call_stack[glb_i]);\
         //   }                                                               \
         // }                                                                 \
-        strcpy(glb_call_stack[glb_call_stack_index],func)
+        // strcpy(glb_call_stack[glb_call_stack_index],func)
        
 #define FUNC_END                                                          \
         glb_call_stack_index--;                                           \
