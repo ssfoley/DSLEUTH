@@ -277,20 +277,20 @@ static void
   assert (og != NULL);
 
   //part test 5
-  #pragma omp parallel
-  {
-  #pragma omp sections
-    {
-  #pragma omp section
-    {
-  nrows = igrid_GetNumRows ();
-  }
-  #pragma omp section
-    {
-  ncols = igrid_GetNumCols ();
-  }
-  }
-  }
+  // #pragma omp parallel
+  // {
+  // #pragma omp sections
+  //   {
+  // #pragma omp section
+  //   {
+  // nrows = igrid_GetNumRows ();
+  // }
+  // #pragma omp section
+  //   {
+  // ncols = igrid_GetNumCols ();
+  // }
+  // }
+  // }
   nrows = igrid_GetNumRows ();
   ncols = igrid_GetNumCols ();
   assert (nrows > 0);
@@ -670,20 +670,20 @@ static COEFF_TYPE
   double cols_sq;
 
   //part test 2
-  #pragma omp parallel num_threads(2)
-  {
-    #pragma omp sections
-    {
-      #pragma omp section
-      {
-        rows_sq = igrid_GetNumRows () * igrid_GetNumRows ();
-      }
-      #pragma omp section
-      {
-        cols_sq = igrid_GetNumCols () * igrid_GetNumCols ();
-      }
-    }
-  }
+  // #pragma omp parallel num_threads(2)
+  // {
+  //   #pragma omp sections
+  //   {
+  //     #pragma omp section
+  //     {
+  //       rows_sq = igrid_GetNumRows () * igrid_GetNumRows ();
+  //     }
+  //     #pragma omp section
+  //     {
+  //       cols_sq = igrid_GetNumCols () * igrid_GetNumCols ();
+  //     }
+  //   }
+  // }
   rows_sq = igrid_GetNumRows () * igrid_GetNumRows ();
   cols_sq = igrid_GetNumCols () * igrid_GetNumCols ();
 
@@ -1129,20 +1129,20 @@ static void
   int ncols;
 
   //part test 7
-  #pragma omp parallel
-  {
-  #pragma omp sections
-    {
-  #pragma omp section
-    {
-  nrows = igrid_GetNumRows ();
-  }
-  #pragma omp section
-    {
-  ncols = igrid_GetNumCols ();
-  }
-  }
-  }
+  // #pragma omp parallel
+  // {
+  // #pragma omp sections
+  //   {
+  // #pragma omp section
+  //   {
+  // nrows = igrid_GetNumRows ();
+  // }
+  // #pragma omp section
+  //   {
+  // ncols = igrid_GetNumCols ();
+  // }
+  // }
+  // }
   nrows = igrid_GetNumRows ();
   ncols = igrid_GetNumCols ();
   assert (nrows > 0);
