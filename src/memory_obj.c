@@ -333,18 +333,33 @@ void
   igrid_free_tos = 0;
   pgrid_free_tos = 0;
   wgrid_free_tos = 0;
+  //india.slope.gif的行数
   nrows = igrid_GetNumRows ();
+  //india.slope.gif的列数
   ncols = igrid_GetNumCols ();
+  //india.slope.gif点的总数
   total_pixels = nrows * ncols;
+  //gif输入文件的总数
   igrid_count = igrid_GetIGridCount ();
+  //定值6
   pgrid_count = pgrid_GetPGridCount ();
+  //场景文件给出的NUM_WORKING_GRIDS
   wgrid_count = wgrid_GetWGridCount ();
 
   check_pixel_count = igrid_count + pgrid_count + wgrid_count + 1;
 
+  //sizeof(long) * total_pixels
   bytes_p_grid = BYTES_PER_PIXEL * total_pixels;
+  //(sizeof(long) * total_pixels + sizeof(long) - 1) / sizeof(long) * sizeof(long)
+  //sizeof(long) * total_pixels
   bytes_p_grid_rounded2wordboundary =
     ROUND_BYTES_TO_WORD_BNDRY (bytes_p_grid);
+
+  if (bytes_p_grid == bytes_p_grid_rounded2wordboundary)
+  {
+    printf("%s\n", "bytes_p_grid == bytes_p_grid_rounded2wordboundary");
+  }
+
 #ifdef PACKING
   bytes_p_packed_grid = BYTES_PER_PIXEL_PACKED * total_pixels;
   bytes_p_packed_grid_rounded2wordboundary =
@@ -355,6 +370,7 @@ void
       check_pixel_count * (size_t)BYTES_PER_PIXEL;
   igrid_size = bytes_p_packed_grid_rounded2wordboundary / BYTES_PER_WORD;
 #else
+  //
   bytes2allocate = (size_t)igrid_count * bytes_p_grid_rounded2wordboundary +
     pgrid_count * bytes_p_grid_rounded2wordboundary +
     wgrid_count * bytes_p_grid_rounded2wordboundary +

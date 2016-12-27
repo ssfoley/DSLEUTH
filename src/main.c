@@ -100,6 +100,8 @@ int
   char processing_str[MAX_FILENAME_LEN];
   int i;
 #ifdef CATCH_SIGNALS
+  // 信号操作
+  // 与业务逻辑无关
   struct sigaction act, oact;
 
   tracer = 1;
@@ -122,10 +124,13 @@ int
   glb_npes = 1;
 #endif
 
+  //初始化计时器
   timer_Init ();
   timer_Start (TOTAL_TIME);
 
+  //初始化调用栈顶部索引
   glb_call_stack_index = -1;
+  //函数入栈
   FUNC_INIT;
 
   /*
@@ -135,6 +140,7 @@ int
    */
   if (argc != 3)
   {
+    //参数不足
     print_usage (argv[0]);
   }
   if ((strcmp (argv[1], "predict")) &&
@@ -142,29 +148,37 @@ int
       (strcmp (argv[1], "test")) &&
       (strcmp (argv[1], "calibrate")))
   {
+    //参数格式不正确
     print_usage (argv[0]);
   }
   if (strcmp (argv[1], "predict") == 0)
   {
+    //初始化proc_obj.c中的静态全局变量type_of_processing
     proc_SetProcessingType (PREDICTING);
     strcpy (processing_str, "PREDICTING");
   }
   if (strcmp (argv[1], "restart") == 0)
   {
+    //初始化proc_obj.c中的静态全局变量type_of_processing
     proc_SetProcessingType (CALIBRATING);
+    //初始化proc_obj.c中的静态全局变量restart_flag
     proc_SetRestartFlag (TRUE);
     strcpy (processing_str, "restart CALIBRATING");
   }
   if (strcmp (argv[1], "test") == 0)
   {
+    //初始化proc_obj.c中的静态全局变量type_of_processing
     proc_SetProcessingType (TESTING);
     strcpy (processing_str, "TESTING");
   }
   if (strcmp (argv[1], "calibrate") == 0)
   {
+    //初始化proc_obj.c中的静态全局变量type_of_processing
     proc_SetProcessingType (CALIBRATING);
     strcpy (processing_str, "CALIBRATING");
   }
+  //根据场景文件初始化scenario_obj.c中的变量，该函数将进行入栈出栈操作
+  //同时，将wgrid_obj.c中的num_working_grids初始化为scenario_obj.c里结构体scenario中的num_working_grids
   scen_init (argv[2]);
 
   /*
@@ -187,12 +201,18 @@ int
  * int scen_GetLanduseClassGrayscale (int i);
  * 
  */
+  //将landclass_obj.c中的静态全局变量num_landclasses初始化为scenario_obj.c里结构体scenario中的num_landuse_classes
   landclassSetNumClasses (scen_GetNumLanduseClasses ());
   for (i = 0; i < scen_GetNumLanduseClasses (); i++)
   {
+    //将landclass_obj.c中的静态全局数组的第i个Classes的num属性设置为scenario_obj.c里结构体scenario中的数组landuse_class中的第i个landuse_class_info的属性grayscale
     landclassSetGrayscale (i, scen_GetLanduseClassGrayscale (i));
+    //将landclass_obj.c中的静态全局数组的第i个Classes的name属性设置为scenario_obj.c里结构体scenario中的数组landuse_class中的第i个landuse_class_info的属性name
     landclassSetName (i, scen_GetLanduseClassName (i));
+    //将landclass_obj.c中的静态全局数组的第i个Classes的id属性设置为scenario_obj.c里结构体scenario中的数组landuse_class中的第i个landuse_class_info的属性type
+    //同时，将id的值与字符串EXC比较以设置trans属性
     landclassSetType (i, scen_GetLanduseClassType (i));
+    //将scenario_obj.c里结构体scenario中的数组landuse_class中的第i个landuse_class_info的属性color分解为红、绿、蓝三色存储在landclass_obj.c中的静态全局数组的第i个Classes的属性里
     landclassSetColor (i, scen_GetLanduseClassColor (i));
   }
 
@@ -225,30 +245,51 @@ int
   }
   else
   {
+    //将proc_obj.c中的静态全局变量current_run设置为0
     proc_SetCurrentRun (0);
   }
+  //将coeff_obj.c中的静态全局结构体start_coeff的diffusion属性设置为scenario_obj.c中的静态全局结构体scenario中的结构体start里的diffusion属性
   coeff_SetStartDiffusion (scen_GetCoeffDiffusionStart ());
+  //将coeff_obj.c中的静态全局结构体start_coeff的spread属性设置为scenario_obj.c中的静态全局结构体scenario中的结构体start里的spread属性
   coeff_SetStartSpread (scen_GetCoeffSpreadStart ());
+  //将coeff_obj.c中的静态全局结构体start_coeff的breed属性设置为scenario_obj.c中的静态全局结构体scenario中的结构体start里的breed属性
   coeff_SetStartBreed (scen_GetCoeffBreedStart ());
+  //将coeff_obj.c中的静态全局结构体start_coeff的slope_resistance属性设置为scenario_obj.c中的静态全局结构体scenario中的结构体start里的slope_resistance属性
   coeff_SetStartSlopeResist (scen_GetCoeffSlopeResistStart ());
+  //将coeff_obj.c中的静态全局结构体start_coeff的road_gravity属性设置为scenario_obj.c中的静态全局结构体scenario中的结构体start里的road_gravity属性
   coeff_SetStartRoadGravity (scen_GetCoeffRoadGravityStart ());
 
+  //将coeff_obj.c中的静态全局结构体stop_coeff的diffusion属性设置为scenario_obj.c中的静态全局结构体scenario中的结构体stop里的diffusion属性
   coeff_SetStopDiffusion (scen_GetCoeffDiffusionStop ());
+  //将coeff_obj.c中的静态全局结构体stop_coeff的spread属性设置为scenario_obj.c中的静态全局结构体scenario中的结构体stop里的spread属性
   coeff_SetStopSpread (scen_GetCoeffSpreadStop ());
+  //将coeff_obj.c中的静态全局结构体stop_coeff的breed属性设置为scenario_obj.c中的静态全局结构体scenario中的结构体stop里的breed属性
   coeff_SetStopBreed (scen_GetCoeffBreedStop ());
+  //将coeff_obj.c中的静态全局结构体stop_coeff的slope_resistance属性设置为scenario_obj.c中的静态全局结构体scenario中的结构体stop里的slope_resistance属性
   coeff_SetStopSlopeResist (scen_GetCoeffSlopeResistStop ());
+  //将coeff_obj.c中的静态全局结构体stop_coeff的road_gravity属性设置为scenario_obj.c中的静态全局结构体scenario中的结构体stop里的road_gravity属性
   coeff_SetStopRoadGravity (scen_GetCoeffRoadGravityStop ());
 
+  //将coeff_obj.c中的静态全局结构体step_coeff的diffusion属性设置为scenario_obj.c中的静态全局结构体scenario中的结构体step里的diffusion属性
   coeff_SetStepDiffusion (scen_GetCoeffDiffusionStep ());
+  //将coeff_obj.c中的静态全局结构体step_coeff的spread属性设置为scenario_obj.c中的静态全局结构体scenario中的结构体step里的spread属性
   coeff_SetStepSpread (scen_GetCoeffSpreadStep ());
+  //将coeff_obj.c中的静态全局结构体step_coeff的breed属性设置为scenario_obj.c中的静态全局结构体scenario中的结构体step里的breed属性
   coeff_SetStepBreed (scen_GetCoeffBreedStep ());
+  //将coeff_obj.c中的静态全局结构体step_coeff的slope_resistance属性设置为scenario_obj.c中的静态全局结构体scenario中的结构体step里的slope_resistance属性
   coeff_SetStepSlopeResist (scen_GetCoeffSlopeResistStep ());
+  //将coeff_obj.c中的静态全局结构体step_coeff的road_gravity属性设置为scenario_obj.c中的静态全局结构体scenario中的结构体step里的road_gravity属性
   coeff_SetStepRoadGravity (scen_GetCoeffRoadGravityStep ());
 
+  //将coeff_obj.c中的静态全局结构体best_fit_coeff的diffusion属性设置为scenario_obj.c中的静态全局结构体scenario中的结构体best_fit里的diffusion属性
   coeff_SetBestFitDiffusion (scen_GetCoeffDiffusionBestFit ());
+  //将coeff_obj.c中的静态全局结构体best_fit_coeff的spread属性设置为scenario_obj.c中的静态全局结构体scenario中的结构体best_fit里的spread属性
   coeff_SetBestFitSpread (scen_GetCoeffSpreadBestFit ());
+  //将coeff_obj.c中的静态全局结构体best_fit_coeff的breed属性设置为scenario_obj.c中的静态全局结构体scenario中的结构体best_fit里的breed属性
   coeff_SetBestFitBreed (scen_GetCoeffBreedBestFit ());
+  //将coeff_obj.c中的静态全局结构体best_fit_coeff的slope_resistance属性设置为scenario_obj.c中的静态全局结构体scenario中的结构体best_fit里的slope_resistance属性
   coeff_SetBestFitSlopeResist (scen_GetCoeffSlopeResistBestFit ());
+  //将coeff_obj.c中的静态全局结构体best_fit_coeff的road_gravity属性设置为scenario_obj.c中的静态全局结构体scenario中的结构体best_fit里的road_gravity属性
   coeff_SetBestFitRoadGravity (scen_GetCoeffRoadGravityBestFit ());
 
   /*
@@ -256,6 +297,8 @@ int
    * INITIALIZE IGRID
    *
    */
+   //根据场景文件设置igrid_bj.c中的静态全局结构体igrid里的location属性
+   //根据输入文件对igrid进行初始化
   igrid_init ();
 
   /*
