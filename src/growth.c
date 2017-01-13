@@ -98,6 +98,7 @@ void
   }
   else
   {
+    //对同一静态全局变量做修改，需处理
     proc_SetCurrentYear (igrid_GetUrbanYear (0));
   }
   util_init_grid (z_ptr, 0);

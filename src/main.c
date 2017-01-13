@@ -360,6 +360,7 @@ int
 #ifdef MPI
   MPI_Barrier (MPI_COMM_WORLD);
 #endif
+  //为igrid，pgrid，wgrid分配空间
   mem_Init ();
   if (scen_GetLogFlag ())
   {
@@ -379,6 +380,10 @@ int
    */
   if (scen_GetDoingLanduseFlag ())
   {
+    //根据场景文件中LANDUSE_CLASS的最大pix设置landclass_obj.c里的max_landclass_num
+    //根据是否在场景文件中有flag属性建立小规模LANDUSE_CLASS集合class_indices，并num_reduced_classes设置为该小集合中LANDUSE_CLASS的数目
+    //将flag为URB的LANDUSE_CLASS的pix赋给urban_code
+    //将ugm_read设为真
     landclass_Init ();
     if (scen_GetLogLandclassSummaryFlag ())
     {
@@ -453,6 +458,7 @@ int
    * INITIALIZE THE PGRID GRIDS
    *
    */
+   //将memory_obj.c中分配的6个pgrid对应到pgrid_obj.c中的6个变量
   pgrid_Init ();
 
   if (scen_GetLogFlag ())
@@ -482,6 +488,7 @@ int
     }
   }
 
+  //设置最大迭代值
   proc_SetLastMonteCarlo (scen_GetMonteCarloIterations () - 1);
   /*
    *
@@ -590,7 +597,6 @@ int
      */
     proc_SetStopYear (igrid_GetUrbanYear (igrid_GetUrbanCount () - 1));
 
-    //#pragma omp parallel for default(shared) private(breed_coeff,spread_coeff,slope_resistance,road_gravity) num_threads(10) schedule(dynamic, 100)
     for (diffusion_coeff = coeff_GetStartDiffusion ();
          diffusion_coeff <= coeff_GetStopDiffusion ();
          diffusion_coeff += coeff_GetStepDiffusion ())
@@ -612,6 +618,7 @@ int
                  road_gravity <= coeff_GetStopRoadGravity ();
                  road_gravity += coeff_GetStepRoadGravity ())
             {
+              
               sprintf (fname, "%s%s%u", scen_GetOutputDir (),
                        RESTART_FILE, glb_mype);
               out_write_restart_data (fname,

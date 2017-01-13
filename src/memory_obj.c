@@ -355,11 +355,6 @@ void
   bytes_p_grid_rounded2wordboundary =
     ROUND_BYTES_TO_WORD_BNDRY (bytes_p_grid);
 
-  if (bytes_p_grid == bytes_p_grid_rounded2wordboundary)
-  {
-    printf("%s\n", "bytes_p_grid == bytes_p_grid_rounded2wordboundary");
-  }
-
 #ifdef PACKING
   bytes_p_packed_grid = BYTES_PER_PIXEL_PACKED * total_pixels;
   bytes_p_packed_grid_rounded2wordboundary =
@@ -369,8 +364,8 @@ void
     wgrid_count * bytes_p_grid_rounded2wordboundary +
       check_pixel_count * (size_t)BYTES_PER_PIXEL;
   igrid_size = bytes_p_packed_grid_rounded2wordboundary / BYTES_PER_WORD;
+  printf("%s\n", "PACKING");
 #else
-  //
   bytes2allocate = (size_t)igrid_count * bytes_p_grid_rounded2wordboundary +
     pgrid_count * bytes_p_grid_rounded2wordboundary +
     wgrid_count * bytes_p_grid_rounded2wordboundary +
@@ -535,6 +530,7 @@ void
 static void
   mem_InvalidateCheckArray ()
 {
+  //为空白块填入无效值
   int i;
   for (i = 0; i < mem_check_count; i++)
   {
@@ -598,6 +594,7 @@ static void
              temp_ptr, end_ptr);
   }
   mem_check_count = 0;
+  //划分出每个grid对应的存储段， 每个段被2个空白块包围，左右各1个， mem_check_array存储用于间隔的空白块地址
   for (i = 0; i < igrid_GetIGridCount (); i++)
   {
     mem_check_array[mem_check_count++] = temp_ptr;
@@ -653,6 +650,7 @@ static void
              mem_check_array[mem_check_count - 1], mem_check_count - 1);
     fprintf (fp, "%d End of memory \n", end_ptr);
   }
+  //wgrid_GetWGridCount()
   min_wgrid_free_tos = wgrid_free_tos;
 
 }

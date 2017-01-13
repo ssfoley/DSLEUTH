@@ -84,7 +84,9 @@ void
   FUNC_INIT;
   timer_Start (DRV_DRIVER);
   total_pixels = mem_GetTotalPixels ();
+  //指向已分配内存，多线程共享同一内存块
   z_cumulate_ptr = pgrid_GetCumulatePtr ();
+  //指向已分配内存，多线程共享同一内存块
   sim_landuse_ptr = pgrid_GetLand1Ptr ();
 
   assert (total_pixels > 0);
@@ -226,10 +228,14 @@ static
   int *new_indices;
 
   FUNC_INIT;
+  //指向double数组，多线程指向同一数组
   class_slope = trans_GetClassSlope ();
+  //指向double数组，多线程指向同一数组
   ftransition = trans_GetFTransition ();
+  //指向已分配内存，多线程共享同一内存块
   z_ptr = pgrid_GetZPtr ();
   total_pixels = mem_GetTotalPixels ();
+  //指向int数组，多线程指向同一数组
   new_indices = landclass_GetNewIndicesPtr ();
   num_monte_carlo = scen_GetMonteCarloIterations ();
 
@@ -243,6 +249,7 @@ static
 
   for (imc = 0; imc < scen_GetMonteCarloIterations (); imc++)
   {
+    //对同一静态全局变量做修改，需处理
     proc_SetCurrentMonteCarlo (imc);
 
     /*
@@ -250,6 +257,7 @@ static
      * RESET THE PARAMETERS
      *
      */
+    //对同一静态全局变量做修改，需处理
     coeff_SetCurrentDiffusion (coeff_GetSavedDiffusion ());
     coeff_SetCurrentSpread (coeff_GetSavedSpread ());
     coeff_SetCurrentBreed (coeff_GetSavedBreed ());
@@ -271,6 +279,7 @@ static
      * RUN SIMULATION
      *
      */
+    //对同一静态全局变量做修改，需处理
     stats_InitUrbanizationAttempts ();
     grw_grow (z_ptr, land1_ptr);
     if (scen_GetLogFlag ())
