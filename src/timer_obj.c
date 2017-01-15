@@ -65,8 +65,8 @@ char timer_obj_c_sccs_id[] = "@(#)timer_obj.c	1.81	12/4/00";
 void
   timer_MemoryLog (FILE * fp)
 {
-  LOG_MEM (fp, &array[0], sizeof (ugm_timer_t), MAX_NUM_TIMERS);
-  LOG_MEM (fp, &actual_num_timers, sizeof (int), 1);
+  // LOG_MEM (fp, &array[0], sizeof (ugm_timer_t), MAX_NUM_TIMERS);
+  // LOG_MEM (fp, &actual_num_timers, sizeof (int), 1);
 }
 
 /******************************************************************************
@@ -160,21 +160,21 @@ void
 double
   timer_Read (int val)
 {
-  char func[] = "timer_Read";
-  if ((val < 0) || (val > actual_num_timers))
-  {
-    sprintf (msg_buf, "(val < 0) || (val > actual_num_timers)");
-    LOG_ERROR (msg_buf);
-    EXIT (1);
-  }
-  if (!array[val].running)
-  {
-    sprintf (msg_buf, "array[%u].running", val);
-    LOG_ERROR (msg_buf);
-    EXIT (1);
-  }
-  return (((double) (clock () - array[val].start)
-           * 1000) / CLOCKS_PER_SEC) + array[val].total_time;
+  // char func[] = "timer_Read";
+  // if ((val < 0) || (val > actual_num_timers))
+  // {
+  //   sprintf (msg_buf, "(val < 0) || (val > actual_num_timers)");
+  //   LOG_ERROR (msg_buf);
+  //   EXIT (1);
+  // }
+  // if (!array[val].running)
+  // {
+  //   sprintf (msg_buf, "array[%u].running", val);
+  //   LOG_ERROR (msg_buf);
+  //   EXIT (1);
+  // }
+  // return (((double) (clock () - array[val].start)
+  //          * 1000) / CLOCKS_PER_SEC) + array[val].total_time;
 }
 
 /******************************************************************************
