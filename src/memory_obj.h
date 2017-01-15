@@ -8,7 +8,7 @@ void mem_LogPartition(FILE* fp);
 int mem_GetPackedBytesPerGrid();
 GRID_P mem_GetIGridPtr( char* owner );
 
-GRID_P mem_GetPGridPtr( char* owner );
+GRID_P mem_GetPGridPtr( char* owner, int i );
 
 GRID_P mem_GetWGridPtr( char* module, char* who, int line );
 

@@ -611,7 +611,7 @@ static void
       pgrid_array[i][j].ptr = (GRID_P) temp_ptr;
       temp_ptr += pgrid_size;
       strcpy (pgrid_array[i][j].current_owner, "");
-      mem_pgrid_push (i);
+      mem_pgrid_push (i, j);
       if (fp)
       {
         fprintf (fp, "%d mem_check_array[%2u]\n",
@@ -998,10 +998,10 @@ void
     {
       fprintf (fp, "%d igrid_array[%u].ptr\n", igrid_array[i].ptr, i);
     }
-    for (i = 0; i < pgrid_GetPGridCount (); i++)
-    {
-      fprintf (fp, "pgrid_array[%u].ptr = %d\n", i, pgrid_array[i].ptr);
-    }
+    // for (i = 0; i < pgrid_GetPGridCount (); i++)
+    // {
+    //   fprintf (fp, "pgrid_array[%u].ptr = %d\n", i, pgrid_array[i].ptr);
+    // }
     for (i = 0; i < wgrid_GetWGridCount (); i++)
     {
       fprintf (fp, "wgrid_array[%u].ptr = %d\n", i, wgrid_array[i].ptr);
