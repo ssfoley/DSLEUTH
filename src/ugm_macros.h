@@ -16,6 +16,8 @@
   #define EXIT(code) exit(code)
 #endif
 
+#define NUM_THREADS 2
+
 #define TRANS_OFFSET(i,j) (i)*landclass_GetNumLandclasses() + (j)
 
 #define PRINT_INT(x) printf("%s = %d\n",#x,(x))

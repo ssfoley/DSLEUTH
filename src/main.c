@@ -7,6 +7,7 @@
 #ifdef CATCH_SIGNALS
 #include <signal.h>
 #endif
+#include <omp.h>
 #include <stddef.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -563,6 +564,7 @@ int
                slope_resistance <= coeff_GetStopSlopeResist ();
                slope_resistance += coeff_GetStepSlopeResist ())
           {
+            #pragma omp parallel for default(shared) num_threads(NUM_THREADS)
             for (road_gravity = coeff_GetStartRoadGravity ();
                  road_gravity <= coeff_GetStopRoadGravity ();
                  road_gravity += coeff_GetStepRoadGravity ())

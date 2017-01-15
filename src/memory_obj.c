@@ -53,11 +53,12 @@ static PIXEL invalid_val;
 static int igrid_free[MEM_ARRAY_SIZE];
 static int igrid_free_tos;
 static mem_track_info igrid_array[MEM_ARRAY_SIZE];
-static int pgrid_free[MEM_ARRAY_SIZE];
-static int pgrid_free_tos;
-static mem_track_info pgrid_array[MEM_ARRAY_SIZE];
+//将所有线程共享一个pgrid栈改为每个线程单独拥有一个栈
+static int pgrid_free[NUM_THREADS][MEM_ARRAY_SIZE];
+static int pgrid_free_tos[NUM_THREADS];
+static mem_track_info pgrid_array[NUM_THREADS][MEM_ARRAY_SIZE];
 static int wgrid_free[MEM_ARRAY_SIZE];
-static int wgrid_free_tos;
+static int *wgrid_free_tos;
 static int min_wgrid_free_tos;
 static mem_track_info wgrid_array[MEM_ARRAY_SIZE];
 static PIXEL *mem_check_array[MEM_ARRAY_SIZE];
@@ -304,7 +305,7 @@ GRID_P
 /******************************************************************************
 *******************************************************************************
 ** FUNCTION NAME: mem_Init
-** PURPOSE:       initialization routine
+** PURPOSE:       initialization routine with number of threads
 ** AUTHOR:        Keith Clarke
 ** PROGRAMMER:    Tommy E. Cathey of NESC (919)541-1500
 ** CREATION DATE: 11/11/1999
@@ -329,7 +330,11 @@ void
 
   invalid_val = INVALID_VAL;
   igrid_free_tos = 0;
-  pgrid_free_tos = 0;
+  for (int i = 0; i < NUM_THREADS; ++i)
+  {
+    pgrid_free_tos[i] = 0;
+  }
+  //pgrid_free_tos = 0;
   wgrid_free_tos = 0;
   nrows = igrid_GetNumRows ();
   ncols = igrid_GetNumCols ();
@@ -338,7 +343,7 @@ void
   pgrid_count = pgrid_GetPGridCount ();
   wgrid_count = wgrid_GetWGridCount ();
 
-  check_pixel_count = igrid_count + pgrid_count + wgrid_count + 1;
+  check_pixel_count = igrid_count + pgrid_count * NUM_THREADS + wgrid_count + 1;
 
   bytes_p_grid = BYTES_PER_PIXEL * total_pixels;
   bytes_p_grid_rounded2wordboundary =
@@ -354,7 +359,7 @@ void
   igrid_size = bytes_p_packed_grid_rounded2wordboundary / BYTES_PER_WORD;
 #else
   bytes2allocate = (size_t)igrid_count * bytes_p_grid_rounded2wordboundary +
-    pgrid_count * bytes_p_grid_rounded2wordboundary +
+    pgrid_count * NUM_THREADS * bytes_p_grid_rounded2wordboundary +
     wgrid_count * bytes_p_grid_rounded2wordboundary +
       check_pixel_count * (size_t)BYTES_PER_PIXEL;
   igrid_size = bytes_p_grid_rounded2wordboundary / BYTES_PER_WORD;
@@ -596,21 +601,40 @@ static void
     }
   }
 
-  for (i = 0; i < pgrid_GetPGridCount (); i++)
+  for (i = 0; i < NUM_THREADS; ++i)
   {
-    mem_check_array[mem_check_count++] = temp_ptr;
-    temp_ptr += mem_check_size;
-    pgrid_array[i].ptr = (GRID_P) temp_ptr;
-    temp_ptr += pgrid_size;
-    strcpy (pgrid_array[i].current_owner, "");
-    mem_pgrid_push (i);
-    if (fp)
+    for (int j = 0; j < pgrid_GetPGridCount (); ++j)
     {
-      fprintf (fp, "%d mem_check_array[%2u]\n",
-               mem_check_array[mem_check_count - 1], mem_check_count - 1);
-      fprintf (fp, "%d pgrid_array[%2u]\n", pgrid_array[i].ptr, i);
+      mem_check_array[mem_check_count++] = temp_ptr;
+      temp_ptr += mem_check_size;
+      pgrid_array[i][j].ptr = (GRID_P) temp_ptr;
+      temp_ptr += pgrid_size;
+      strcpy (pgrid_array[i][j].current_owner, "");
+      mem_pgrid_push (i);
+      if (fp)
+      {
+        fprintf (fp, "%d mem_check_array[%2u]\n",
+                mem_check_array[mem_check_count - 1], mem_check_count - 1);
+        fprintf (fp, "%d pgrid_array[%2u]\n", pgrid_array[i].ptr, i);
+      }
     }
   }
+
+  // for (i = 0; i < pgrid_GetPGridCount (); i++)
+  // {
+  //   mem_check_array[mem_check_count++] = temp_ptr;
+  //   temp_ptr += mem_check_size;
+  //   pgrid_array[i].ptr = (GRID_P) temp_ptr;
+  //   temp_ptr += pgrid_size;
+  //   strcpy (pgrid_array[i].current_owner, "");
+  //   mem_pgrid_push (i);
+  //   if (fp)
+  //   {
+  //     fprintf (fp, "%d mem_check_array[%2u]\n",
+  //              mem_check_array[mem_check_count - 1], mem_check_count - 1);
+  //     fprintf (fp, "%d pgrid_array[%2u]\n", pgrid_array[i].ptr, i);
+  //   }
+  // }
 
   for (i = 0; i < wgrid_GetWGridCount (); i++)
   {
@@ -778,7 +802,7 @@ static int
 /******************************************************************************
 *******************************************************************************
 ** FUNCTION NAME: mem_pgrid_push
-** PURPOSE:       push a pgrid onto a stack
+** PURPOSE:       push a pgrid onto a specific stack depending on parameter i
 ** AUTHOR:        Keith Clarke
 ** PROGRAMMER:    Tommy E. Cathey of NESC (919)541-1500
 ** CREATION DATE: 11/11/1999
@@ -787,24 +811,24 @@ static int
 **
 */
 static void
-  mem_pgrid_push (int i)
+  mem_pgrid_push (int i, int j)
 {
   char func[] = "mem_pgrid_push";
-  if (pgrid_free_tos >= 50)
+  if (pgrid_free_tos[i] >= 50)
   {
-    sprintf (msg_buf, "pgrid_free_tos >= 50");
+    sprintf (msg_buf, "pgrid_free_tos[%d] >= 50", i);
     LOG_ERROR (msg_buf);
     EXIT (1);
   }
-  pgrid_free[pgrid_free_tos] = i;
-  pgrid_array[i].free = TRUE;
-  pgrid_free_tos++;
+  pgrid_free[i][pgrid_free_tos] = i;
+  pgrid_array[i][j].free = TRUE;
+  pgrid_free_tos[i]++;
 }
 
 /******************************************************************************
 *******************************************************************************
 ** FUNCTION NAME: mem_pgrid_pop
-** PURPOSE:       pop a pgrid from the stack
+** PURPOSE:       pop a pgrid from the specific stack
 ** AUTHOR:        Keith Clarke
 ** PROGRAMMER:    Tommy E. Cathey of NESC (919)541-1500
 ** CREATION DATE: 11/11/1999
@@ -813,18 +837,18 @@ static void
 **
 */
 static int
-  mem_pgrid_pop ()
+  mem_pgrid_pop (int i)
 {
   char func[] = "mem_pgrid_pop";
-  pgrid_free_tos--;
+  pgrid_free_tos[i]--;
   if (pgrid_free_tos < 0)
   {
-    sprintf (msg_buf, "pgrid_free_tos < 0");
+    sprintf (msg_buf, "pgrid_free_tos[%d] < 0", i);
     LOG_ERROR (msg_buf);
     EXIT (1);
   }
-  pgrid_array[pgrid_free_tos].free = FALSE;
-  return pgrid_free[pgrid_free_tos];
+  pgrid_array[i][pgrid_free_tos].free = FALSE;
+  return pgrid_free[i][pgrid_free_tos];
 }
 
 /******************************************************************************
