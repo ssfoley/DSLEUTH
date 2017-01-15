@@ -58,7 +58,7 @@ static int pgrid_free[NUM_THREADS][MEM_ARRAY_SIZE];
 static int pgrid_free_tos[NUM_THREADS];
 static mem_track_info pgrid_array[NUM_THREADS][MEM_ARRAY_SIZE];
 static int wgrid_free[MEM_ARRAY_SIZE];
-static int *wgrid_free_tos;
+static int wgrid_free_tos;
 static int min_wgrid_free_tos;
 static mem_track_info wgrid_array[MEM_ARRAY_SIZE];
 static PIXEL *mem_check_array[MEM_ARRAY_SIZE];
@@ -91,8 +91,8 @@ static void mem_partition ();
 static void mem_allocate ();
 static void mem_igrid_push (int i);
 static int mem_igrid_pop ();
-static void mem_pgrid_push (int i);
-static int mem_pgrid_pop ();
+static void mem_pgrid_push (int i, int j);
+static int mem_pgrid_pop (int i);
 static void mem_wgrid_push (int i);
 static int mem_wgrid_pop ();
 static void mem_InvalidateGrid (GRID_P ptr);
@@ -100,7 +100,7 @@ static void mem_CheckInvalidateGrid (GRID_P ptr);
 static void mem_InvalidateCheckArray ();
 void mem_Init ();
 GRID_P mem_GetIGridPtr (char *owner);
-GRID_P mem_GetPGridPtr (char *owner);
+GRID_P mem_GetPGridPtr (char *owner, int i);
 GRID_P mem_GetWGridPtr (char *module, char *who, int line);
 GRID_P mem_GetWGridFree (char *module, char *who, int line, GRID_P ptr);
 
@@ -213,7 +213,7 @@ GRID_P
 /******************************************************************************
 *******************************************************************************
 ** FUNCTION NAME: mem_GetPGridPtr
-** PURPOSE:       return ptr to next pgrid
+** PURPOSE:       return ptr to next pgrid in the specific stack
 ** AUTHOR:        Keith Clarke
 ** PROGRAMMER:    Tommy E. Cathey of NESC (919)541-1500
 ** CREATION DATE: 11/11/1999
@@ -222,13 +222,13 @@ GRID_P
 **
 */
 GRID_P
-  mem_GetPGridPtr (char *owner)
+  mem_GetPGridPtr (char *owner, int i)
 {
   int index;
 
-  index = mem_pgrid_pop ();
-  strcpy (pgrid_array[index].current_owner, owner);
-  return pgrid_array[index].ptr;
+  index = mem_pgrid_pop (i);
+  strcpy (pgrid_array[i][index].current_owner, owner);
+  return pgrid_array[i][index].ptr;
 }
 
 /******************************************************************************
@@ -318,6 +318,7 @@ void
 {
   char func[] = "mem_Init";
   int check_pixel_count;
+  int i;
 
 
   sprintf (mem_log_filename, "%smemory.log", scen_GetOutputDir ());
@@ -330,7 +331,7 @@ void
 
   invalid_val = INVALID_VAL;
   igrid_free_tos = 0;
-  for (int i = 0; i < NUM_THREADS; ++i)
+  for (i = 0; i < NUM_THREADS; ++i)
   {
     pgrid_free_tos[i] = 0;
   }
@@ -573,7 +574,7 @@ static void
 static void
   mem_partition (FILE * fp)
 {
-  int i;
+  int i, j;
   PIXEL *temp_ptr = (PIXEL *) mem_ptr;
   PIXEL *end_ptr;
 
@@ -603,7 +604,7 @@ static void
 
   for (i = 0; i < NUM_THREADS; ++i)
   {
-    for (int j = 0; j < pgrid_GetPGridCount (); ++j)
+    for (j = 0; j < pgrid_GetPGridCount (); ++j)
     {
       mem_check_array[mem_check_count++] = temp_ptr;
       temp_ptr += mem_check_size;
@@ -615,7 +616,7 @@ static void
       {
         fprintf (fp, "%d mem_check_array[%2u]\n",
                 mem_check_array[mem_check_count - 1], mem_check_count - 1);
-        fprintf (fp, "%d pgrid_array[%2u]\n", pgrid_array[i].ptr, i);
+        fprintf (fp, "%d pgrid_array[%2u][%2u]\n", pgrid_array[i][j].ptr, i, j);
       }
     }
   }
@@ -820,7 +821,7 @@ static void
     LOG_ERROR (msg_buf);
     EXIT (1);
   }
-  pgrid_free[i][pgrid_free_tos] = i;
+  pgrid_free[i][pgrid_free_tos[i]] = j;
   pgrid_array[i][j].free = TRUE;
   pgrid_free_tos[i]++;
 }
@@ -841,14 +842,14 @@ static int
 {
   char func[] = "mem_pgrid_pop";
   pgrid_free_tos[i]--;
-  if (pgrid_free_tos < 0)
+  if (pgrid_free_tos[i] < 0)
   {
     sprintf (msg_buf, "pgrid_free_tos[%d] < 0", i);
     LOG_ERROR (msg_buf);
     EXIT (1);
   }
-  pgrid_array[i][pgrid_free_tos].free = FALSE;
-  return pgrid_free[i][pgrid_free_tos];
+  pgrid_array[i][pgrid_free_tos[i]].free = FALSE;
+  return pgrid_free[i][pgrid_free_tos[i]];
 }
 
 /******************************************************************************
