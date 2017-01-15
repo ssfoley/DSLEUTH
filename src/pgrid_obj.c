@@ -3,6 +3,7 @@
 #include "memory_obj.h"
 #include "scenario_obj.h"
 #include "ugm_macros.h"
+#include <omp.h>
 
 /*****************************************************************************\
 *******************************************************************************
@@ -91,12 +92,14 @@ void
 {
   char func[] = "pgrid_Init";
 
-  z.ptr = mem_GetPGridPtr (func);
-  deltatron.ptr = mem_GetPGridPtr (func);
-  delta.ptr = mem_GetPGridPtr (func);
-  land1.ptr = mem_GetPGridPtr (func);
-  land2.ptr = mem_GetPGridPtr (func);
-  cumulate.ptr = mem_GetPGridPtr (func);
+  int i = omp_get_thread_num();
+
+  z.ptr = mem_GetPGridPtr (func, i);
+  deltatron.ptr = mem_GetPGridPtr (func, i);
+  delta.ptr = mem_GetPGridPtr (func, i);
+  land1.ptr = mem_GetPGridPtr (func, i);
+  land2.ptr = mem_GetPGridPtr (func, i);
+  cumulate.ptr = mem_GetPGridPtr (func, i);
 }
 
 /******************************************************************************
