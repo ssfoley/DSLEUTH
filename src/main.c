@@ -516,27 +516,27 @@ int
      * PREDICTION RUNS
      *
      */
-    proc_SetStopYear (scen_GetPredictionStopDate ());
-    InitRandom (scen_GetRandomSeed ());
-    coeff_SetCurrentDiffusion ((double) coeff_GetBestFitDiffusion ());
-    coeff_SetCurrentSpread ((double) coeff_GetBestFitSpread ());
-    coeff_SetCurrentBreed ((double) coeff_GetBestFitBreed ());
-    coeff_SetCurrentSlopeResist ((double) coeff_GetBestFitSlopeResist ());
-    coeff_SetCurrentRoadGravity ((double) coeff_GetBestFitRoadGravity ());
-    if (glb_mype == 0)
-    {
-      drv_driver ();
-      proc_IncrementNumRunsExecThisCPU ();
-    }
-    if (scen_GetLogFlag ())
-    {
-      if (scen_GetLogTimingsFlag () > 1)
-      {
-        scen_Append2Log ();
-        timer_LogIt (scen_GetLogFP ());
-        scen_CloseLog ();
-      }
-    }
+    // proc_SetStopYear (scen_GetPredictionStopDate ());
+    // InitRandom (scen_GetRandomSeed ());
+    // coeff_SetCurrentDiffusion ((double) coeff_GetBestFitDiffusion ());
+    // coeff_SetCurrentSpread ((double) coeff_GetBestFitSpread ());
+    // coeff_SetCurrentBreed ((double) coeff_GetBestFitBreed ());
+    // coeff_SetCurrentSlopeResist ((double) coeff_GetBestFitSlopeResist ());
+    // coeff_SetCurrentRoadGravity ((double) coeff_GetBestFitRoadGravity ());
+    // if (glb_mype == 0)
+    // {
+    //   drv_driver ();
+    //   proc_IncrementNumRunsExecThisCPU ();
+    // }
+    // if (scen_GetLogFlag ())
+    // {
+    //   if (scen_GetLogTimingsFlag () > 1)
+    //   {
+    //     scen_Append2Log ();
+    //     timer_LogIt (scen_GetLogFP ());
+    //     scen_CloseLog ();
+    //   }
+    // }
   }
   else
   {
