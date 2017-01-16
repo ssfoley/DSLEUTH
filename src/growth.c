@@ -82,12 +82,13 @@ void
   int og;
   int rt;
   int pop;
+  int thread_id = omp_get_thread_num();
 
 
   FUNC_INIT;
   timer_Start (GRW_GROWTH);
   total_pixels = mem_GetTotalPixels ();
-  deltatron_ptr = pgrid_GetDeltatronPtr ();
+  deltatron_ptr = pgrid_GetDeltatronPtr (thread_id);
   assert (total_pixels > 0);
   assert (deltatron_ptr != NULL);
 
@@ -374,6 +375,7 @@ static
   GRID_P land2_ptr;
   double *class_slope;
   double *ftransition;
+  int thread_id = omp_get_thread_num();
 
 
   FUNC_INIT;
@@ -388,9 +390,9 @@ static
   grw_landuse_ws1 = mem_GetWGridPtr (__FILE__, func, __LINE__);
   deltatron_workspace1 = mem_GetWGridPtr (__FILE__, func, __LINE__);
   slp_ptr = igrid_GetSlopeGridPtr (__FILE__, func, __LINE__);
-  deltatron_ptr = pgrid_GetDeltatronPtr ();
-  z_ptr = pgrid_GetZPtr ();
-  land2_ptr = pgrid_GetLand2Ptr ();
+  deltatron_ptr = pgrid_GetDeltatronPtr (thread_id);
+  z_ptr = pgrid_GetZPtr (thread_id);
+  land2_ptr = pgrid_GetLand2Ptr (thread_id);
   class_slope = trans_GetClassSlope ();
   ftransition = trans_GetFTransition ();
 
