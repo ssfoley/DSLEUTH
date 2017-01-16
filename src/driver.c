@@ -216,7 +216,7 @@ static
   void
   drv_monte_carlo (GRID_P cumulate_ptr, GRID_P land1_ptr)
 {
-  printf("%s\n", "drv_monte_carlo");
+  //printf("%s\n", "drv_monte_carlo");
   char func[] = "drv_monte_carlo";
   int imc;
   int i;

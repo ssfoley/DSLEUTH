@@ -1129,6 +1129,7 @@ void
                GRID_P z                                      /* IN/OUT */
   )                                                        /* MOD    */
 {
+  printf("%s\n", "spr_spread");
   char func[] = "Spread";
   GRID_P delta;
   int i;
