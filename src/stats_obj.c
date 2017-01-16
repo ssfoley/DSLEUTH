@@ -759,8 +759,9 @@ static void
   char func[] = "stats_CalLeesalee";
   GRID_P z_ptr;
   GRID_P urban_ptr;
+  int thread_id = omp_get_thread_num();
 
-  z_ptr = pgrid_GetZPtr ();
+  z_ptr = pgrid_GetZPtr (thread_id);
   urban_ptr = igrid_GetUrbanGridPtrByYear (__FILE__, func,
                                        __LINE__, proc_GetCurrentYear ());
   record.this_year.leesalee = 1.0;
@@ -1373,10 +1374,11 @@ static void
   double slope;
   double rad;
   double mean_cluster_size;
+  int thread_id = omp_get_thread_num();
 
   total_pixels = mem_GetTotalPixels ();
   assert (total_pixels > 0);
-  z_ptr = pgrid_GetZPtr ();
+  z_ptr = pgrid_GetZPtr (thread_id);
   assert (z_ptr != NULL);
 
   slope_ptr = igrid_GetSlopeGridPtr (__FILE__, func, __LINE__);
