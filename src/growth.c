@@ -68,6 +68,7 @@ static void grw_completion_status (FILE * fp);
 void
   grw_grow (GRID_P z_ptr, GRID_P land1_ptr)
 {
+  printf("%s\n", "grw_grow");
   char func[] = "grw_grow";
   char gif_filename[MAX_FILENAME_LEN];
   char date_str[5];
