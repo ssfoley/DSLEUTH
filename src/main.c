@@ -584,11 +584,13 @@ int
 
               restart_run++;
 
-              coeff_SetCurrentDiffusion ((double) diffusion_coeff);
-              coeff_SetCurrentSpread ((double) spread_coeff);
-              coeff_SetCurrentBreed ((double) breed_coeff);
-              coeff_SetCurrentSlopeResist ((double) slope_resistance);
-              coeff_SetCurrentRoadGravity ((double) road_gravity);
+              int thread_id = omp_get_thread_num();
+
+              coeff_SetCurrentDiffusion ((double) diffusion_coeff, thread_id);
+              coeff_SetCurrentSpread ((double) spread_coeff, thread_id);
+              coeff_SetCurrentBreed ((double) breed_coeff, thread_id);
+              coeff_SetCurrentSlopeResist ((double) slope_resistance, thread_id);
+              coeff_SetCurrentRoadGravity ((double) road_gravity, thread_id);
 
 
 #ifdef MPI

@@ -27,8 +27,8 @@ char coeff_obj_c_sccs_id[] = "@(#)coeff_obj.c	1.84	12/4/00";
 **                                                                           **
 *******************************************************************************
 \*****************************************************************************/
-static coeff_val_info saved_coefficient;
-static coeff_val_info current_coefficient;
+static coeff_val_info saved_coefficient[NUM_THREADS];
+static coeff_val_info current_coefficient[NUM_THREADS];
 static coeff_int_info step_coeff;
 static coeff_int_info start_coeff;
 static coeff_int_info stop_coeff;
@@ -63,17 +63,17 @@ static char coeff_filename[MAX_FILENAME_LEN];
 **
 */
 void
-  coeff_SetCurrentDiffusion (double val)
+  coeff_SetCurrentDiffusion (double val， int i)
 {
   if (val == 0)
   {
-    current_coefficient.diffusion = 1;
-    saved_coefficient.diffusion = 1;
+    current_coefficient[i].diffusion = 1;
+    saved_coefficient[i].diffusion = 1;
   }
   else
   {
-    current_coefficient.diffusion = val;
-    saved_coefficient.diffusion = val;
+    current_coefficient[i].diffusion = val;
+    saved_coefficient[i].diffusion = val;
   }
 }
 
@@ -89,17 +89,17 @@ void
 **
 */
 void
-  coeff_SetCurrentSpread (double val)
+  coeff_SetCurrentSpread (double val, int i)
 {
   if (val == 0)
   {
-    current_coefficient.spread = 1;
-    saved_coefficient.spread = 1;
+    current_coefficient[i].spread = 1;
+    saved_coefficient[i].spread = 1;
   }
   else
   {
-    current_coefficient.spread = val;
-    saved_coefficient.spread = val;
+    current_coefficient[i].spread = val;
+    saved_coefficient[i].spread = val;
   }
 }
 /******************************************************************************
@@ -114,17 +114,17 @@ void
 **
 */
 void
-  coeff_SetCurrentBreed (double val)
+  coeff_SetCurrentBreed (double val, int i)
 {
   if (val == 0)
   {
-    current_coefficient.breed = 1;
-    saved_coefficient.breed = 1;
+    current_coefficient[i].breed = 1;
+    saved_coefficient[i].breed = 1;
   }
   else
   {
-    current_coefficient.breed = val;
-    saved_coefficient.breed = val;
+    current_coefficient[i].breed = val;
+    saved_coefficient[i].breed = val;
   }
 }
 
@@ -140,17 +140,17 @@ void
 **
 */
 void
-  coeff_SetCurrentSlopeResist (double val)
+  coeff_SetCurrentSlopeResist (double val, int i)
 {
   if (val == 0)
   {
-    current_coefficient.slope_resistance = 1;
-    saved_coefficient.slope_resistance = 1;
+    current_coefficient[i].slope_resistance = 1;
+    saved_coefficient[i].slope_resistance = 1;
   }
   else
   {
-    current_coefficient.slope_resistance = val;
-    saved_coefficient.slope_resistance = val;
+    current_coefficient[i].slope_resistance = val;
+    saved_coefficient[i].slope_resistance = val;
   }
 }
 
@@ -166,17 +166,17 @@ void
 **
 */
 void
-  coeff_SetCurrentRoadGravity (double val)
+  coeff_SetCurrentRoadGravity (double val, int i)
 {
   if (val == 0)
   {
-    current_coefficient.road_gravity = 1;
-    saved_coefficient.road_gravity = 1;
+    current_coefficient[i].road_gravity = 1;
+    saved_coefficient[i].road_gravity = 1;
   }
   else
   {
-    current_coefficient.road_gravity = val;
-    saved_coefficient.road_gravity = val;
+    current_coefficient[i].road_gravity = val;
+    saved_coefficient[i].road_gravity = val;
   }
 }
 
@@ -533,9 +533,9 @@ void
 **
 */
 void
-  coeff_SetSavedDiffusion (double val)
+  coeff_SetSavedDiffusion (double val, int i)
 {
-  saved_coefficient.diffusion = val;
+  saved_coefficient[i].diffusion = val;
 }
 
 /******************************************************************************
@@ -550,9 +550,9 @@ void
 **
 */
 void
-  coeff_SetSavedSpread (double val)
+  coeff_SetSavedSpread (double val, int i)
 {
-  saved_coefficient.spread = val;
+  saved_coefficient[i].spread = val;
 }
 
 /******************************************************************************
@@ -567,9 +567,9 @@ void
 **
 */
 void
-  coeff_SetSavedBreed (double val)
+  coeff_SetSavedBreed (double val, int i)
 {
-  saved_coefficient.breed = val;
+  saved_coefficient[i].breed = val;
 }
 
 /******************************************************************************
@@ -584,9 +584,9 @@ void
 **
 */
 void
-  coeff_SetSavedSlopeResist (double val)
+  coeff_SetSavedSlopeResist (double val, int i)
 {
-  saved_coefficient.slope_resistance = val;
+  saved_coefficient[i].slope_resistance = val;
 }
 
 /******************************************************************************
@@ -601,9 +601,9 @@ void
 **
 */
 void
-  coeff_SetSavedRoadGravity (double val)
+  coeff_SetSavedRoadGravity (double val, int i)
 {
-  saved_coefficient.road_gravity = val;
+  saved_coefficient[i].road_gravity = val;
 }
 
 
@@ -629,7 +629,8 @@ void
 double
   coeff_GetSavedDiffusion ()
 {
-  return saved_coefficient.diffusion;
+  int i = omp_get_thread_num();
+  return saved_coefficient[i].diffusion;
 }
 
 /******************************************************************************
@@ -646,7 +647,8 @@ double
 double
   coeff_GetSavedSpread ()
 {
-  return saved_coefficient.spread;
+  int i = omp_get_thread_num();
+  return saved_coefficient[i].spread;
 }
 
 /******************************************************************************
@@ -663,7 +665,8 @@ double
 double
   coeff_GetSavedBreed ()
 {
-  return saved_coefficient.breed;
+  int i = omp_get_thread_num();
+  return saved_coefficient[i].breed;
 }
 
 /******************************************************************************
@@ -680,7 +683,8 @@ double
 double
   coeff_GetSavedSlopeResist ()
 {
-  return saved_coefficient.slope_resistance;
+  int i = omp_get_thread_num();
+  return saved_coefficient[i].slope_resistance;
 }
 
 /******************************************************************************
@@ -697,7 +701,8 @@ double
 double
   coeff_GetSavedRoadGravity ()
 {
-  return saved_coefficient.road_gravity;
+  int i = omp_get_thread_num();
+  return saved_coefficient[i].road_gravity;
 }
 
 /******************************************************************************
@@ -714,7 +719,8 @@ double
 double
   coeff_GetCurrentDiffusion ()
 {
-  return current_coefficient.diffusion;
+  int i = omp_get_thread_num();
+  return current_coefficient[i].diffusion;
 }
 
 /******************************************************************************
@@ -731,7 +737,8 @@ double
 double
   coeff_GetCurrentSpread ()
 {
-  return current_coefficient.spread;
+  int i = omp_get_thread_num();
+  return current_coefficient[i].spread;
 }
 
 /******************************************************************************
@@ -748,7 +755,8 @@ double
 double
   coeff_GetCurrentBreed ()
 {
-  return current_coefficient.breed;
+  int i = omp_get_thread_num();
+  return current_coefficient[i].breed;
 }
 
 /******************************************************************************
@@ -765,7 +773,8 @@ double
 double
   coeff_GetCurrentSlopeResist ()
 {
-  return current_coefficient.slope_resistance;
+  int i = omp_get_thread_num();
+  return current_coefficient[i].slope_resistance;
 }
 
 /******************************************************************************
@@ -782,7 +791,8 @@ double
 double
   coeff_GetCurrentRoadGravity ()
 {
-  return current_coefficient.road_gravity;
+  int i = omp_get_thread_num();
+  return current_coefficient[i].road_gravity;
 }
 
 /******************************************************************************

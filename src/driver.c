@@ -80,12 +80,13 @@ void
   char filename[256];
   fmatch_t fmatch = 0.0;
   struct colortable *colortable_ptr;
+  int thread_id = omp_get_thread_num();
 
   FUNC_INIT;
   timer_Start (DRV_DRIVER);
   total_pixels = mem_GetTotalPixels ();
-  z_cumulate_ptr = pgrid_GetCumulatePtr ();
-  sim_landuse_ptr = pgrid_GetLand1Ptr ();
+  z_cumulate_ptr = pgrid_GetCumulatePtr (thread_id);
+  sim_landuse_ptr = pgrid_GetLand1Ptr (thread_id);
 
   assert (total_pixels > 0);
   assert (z_cumulate_ptr != NULL);
