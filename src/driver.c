@@ -225,6 +225,7 @@ static
   int total_pixels;
   int num_monte_carlo;
   int *new_indices;
+  int thread_id = omp_get_thread_num();
 
   FUNC_INIT;
   class_slope = trans_GetClassSlope ();
@@ -251,11 +252,11 @@ static
      * RESET THE PARAMETERS
      *
      */
-    coeff_SetCurrentDiffusion (coeff_GetSavedDiffusion ());
-    coeff_SetCurrentSpread (coeff_GetSavedSpread ());
-    coeff_SetCurrentBreed (coeff_GetSavedBreed ());
-    coeff_SetCurrentSlopeResist (coeff_GetSavedSlopeResist ());
-    coeff_SetCurrentRoadGravity (coeff_GetSavedRoadGravity ());
+    coeff_SetCurrentDiffusion (coeff_GetSavedDiffusion (), thread_id);
+    coeff_SetCurrentSpread (coeff_GetSavedSpread (), thread_id);
+    coeff_SetCurrentBreed (coeff_GetSavedBreed (), thread_id);
+    coeff_SetCurrentSlopeResist (coeff_GetSavedSlopeResist (), thread_id);
+    coeff_SetCurrentRoadGravity (coeff_GetSavedRoadGravity (), thread_id);
 
     if (scen_GetLogFlag ())
     {
