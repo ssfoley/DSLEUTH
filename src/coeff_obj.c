@@ -63,7 +63,7 @@ static char coeff_filename[MAX_FILENAME_LEN];
 **
 */
 void
-  coeff_SetCurrentDiffusion (double val， int i)
+  coeff_SetCurrentDiffusion (double val, int i)
 {
   if (val == 0)
   {
@@ -1181,11 +1181,11 @@ void
 void
   coeff_LogSaved (FILE * fp)
 {
-  LOG_FLOAT (fp, saved_coefficient.diffusion);
-  LOG_FLOAT (fp, saved_coefficient.spread);
-  LOG_FLOAT (fp, saved_coefficient.breed);
-  LOG_FLOAT (fp, saved_coefficient.slope_resistance);
-  LOG_FLOAT (fp, saved_coefficient.road_gravity);
+  // LOG_FLOAT (fp, saved_coefficient.diffusion);
+  // LOG_FLOAT (fp, saved_coefficient.spread);
+  // LOG_FLOAT (fp, saved_coefficient.breed);
+  // LOG_FLOAT (fp, saved_coefficient.slope_resistance);
+  // LOG_FLOAT (fp, saved_coefficient.road_gravity);
 }
 
 /******************************************************************************
@@ -1202,11 +1202,11 @@ void
 void
   coeff_LogCurrent (FILE * fp)
 {
-  LOG_FLOAT (fp, current_coefficient.diffusion);
-  LOG_FLOAT (fp, current_coefficient.spread);
-  LOG_FLOAT (fp, current_coefficient.breed);
-  LOG_FLOAT (fp, current_coefficient.slope_resistance);
-  LOG_FLOAT (fp, current_coefficient.road_gravity);
+  // LOG_FLOAT (fp, current_coefficient.diffusion);
+  // LOG_FLOAT (fp, current_coefficient.spread);
+  // LOG_FLOAT (fp, current_coefficient.breed);
+  // LOG_FLOAT (fp, current_coefficient.slope_resistance);
+  // LOG_FLOAT (fp, current_coefficient.road_gravity);
 }
 
 /******************************************************************************
@@ -1461,18 +1461,18 @@ void
 
   if (scen_GetWriteCoeffFileFlag ())
   {
-    FILE_OPEN (fp, coeff_filename, "a");
+    // FILE_OPEN (fp, coeff_filename, "a");
 
-    fprintf (fp, "%5u %5u %4u %8.2f %8.2f %8.2f %8.2f %8.2f\n",
-             proc_GetCurrentRun (),
-             proc_GetCurrentMonteCarlo (),
-             proc_GetCurrentYear (),
-             current_coefficient.diffusion,
-             current_coefficient.breed,
-             current_coefficient.spread,
-             current_coefficient.slope_resistance,
-             current_coefficient.road_gravity);
-    fclose (fp);
+    // fprintf (fp, "%5u %5u %4u %8.2f %8.2f %8.2f %8.2f %8.2f\n",
+    //          proc_GetCurrentRun (),
+    //          proc_GetCurrentMonteCarlo (),
+    //          proc_GetCurrentYear (),
+    //          current_coefficient.diffusion,
+    //          current_coefficient.breed,
+    //          current_coefficient.spread,
+    //          current_coefficient.slope_resistance,
+    //          current_coefficient.road_gravity);
+    // fclose (fp);
   }
 }
 /******************************************************************************
@@ -1533,94 +1533,94 @@ void
 void
   coeff_SelfModication (double growth_rate, double percent_urban)
 {
-  char func[] = "coeff_SelfModication";
+  // char func[] = "coeff_SelfModication";
 
-  /*
-   *
-   * boom year
-   *
-   */
-  if (growth_rate > scen_GetCriticalHigh ())
-  {
-    current_coefficient.slope_resistance -=
-      (double) (percent_urban * scen_GetSlopeSensitivity ());
-    if (current_coefficient.slope_resistance <= MIN_SLOPE_RESISTANCE_VALUE)
-    {
-      current_coefficient.slope_resistance = 1.0;
-    }
+  // /*
+  //  *
+  //  * boom year
+  //  *
+  //  */
+  // if (growth_rate > scen_GetCriticalHigh ())
+  // {
+  //   current_coefficient.slope_resistance -=
+  //     (double) (percent_urban * scen_GetSlopeSensitivity ());
+  //   if (current_coefficient.slope_resistance <= MIN_SLOPE_RESISTANCE_VALUE)
+  //   {
+  //     current_coefficient.slope_resistance = 1.0;
+  //   }
 
-    current_coefficient.road_gravity +=
-      (double) (percent_urban * scen_GetRdGrvtySensitivity ());
-    if (current_coefficient.road_gravity > MAX_ROAD_GRAVITY_VALUE)
-    {
-      current_coefficient.road_gravity = MAX_ROAD_GRAVITY_VALUE;
-    }
+  //   current_coefficient.road_gravity +=
+  //     (double) (percent_urban * scen_GetRdGrvtySensitivity ());
+  //   if (current_coefficient.road_gravity > MAX_ROAD_GRAVITY_VALUE)
+  //   {
+  //     current_coefficient.road_gravity = MAX_ROAD_GRAVITY_VALUE;
+  //   }
 
-    if (current_coefficient.diffusion < MAX_DIFFUSION_VALUE)
-    {
-      current_coefficient.diffusion *= scen_GetBoom ();
+  //   if (current_coefficient.diffusion < MAX_DIFFUSION_VALUE)
+  //   {
+  //     current_coefficient.diffusion *= scen_GetBoom ();
 
-      if (current_coefficient.diffusion > MAX_DIFFUSION_VALUE)
-      {
-        current_coefficient.diffusion = MAX_DIFFUSION_VALUE;
-      }
+  //     if (current_coefficient.diffusion > MAX_DIFFUSION_VALUE)
+  //     {
+  //       current_coefficient.diffusion = MAX_DIFFUSION_VALUE;
+  //     }
 
-      current_coefficient.breed *= scen_GetBoom ();
-      if (current_coefficient.breed > MAX_BREED_VALUE)
-      {
-        current_coefficient.breed = MAX_BREED_VALUE;
-      }
+  //     current_coefficient.breed *= scen_GetBoom ();
+  //     if (current_coefficient.breed > MAX_BREED_VALUE)
+  //     {
+  //       current_coefficient.breed = MAX_BREED_VALUE;
+  //     }
 
-      current_coefficient.spread *= scen_GetBoom ();
-      if (current_coefficient.spread > MAX_SPREAD_VALUE)
-      {
-        current_coefficient.spread = MAX_SPREAD_VALUE;
-      }
-    }
-  }
+  //     current_coefficient.spread *= scen_GetBoom ();
+  //     if (current_coefficient.spread > MAX_SPREAD_VALUE)
+  //     {
+  //       current_coefficient.spread = MAX_SPREAD_VALUE;
+  //     }
+  //   }
+  // }
 
-  /*
-   *
-   * bust year
-   *
-   */
-  if (growth_rate < scen_GetCriticalLow ())
-  {
-    current_coefficient.slope_resistance +=
-      (double) (percent_urban * scen_GetSlopeSensitivity ());
-    if (current_coefficient.slope_resistance > MAX_SLOPE_RESISTANCE_VALUE)
-    {
-      current_coefficient.slope_resistance = MAX_SLOPE_RESISTANCE_VALUE;
-    }
+  // /*
+  //  *
+  //  * bust year
+  //  *
+  //  */
+  // if (growth_rate < scen_GetCriticalLow ())
+  // {
+  //   current_coefficient.slope_resistance +=
+  //     (double) (percent_urban * scen_GetSlopeSensitivity ());
+  //   if (current_coefficient.slope_resistance > MAX_SLOPE_RESISTANCE_VALUE)
+  //   {
+  //     current_coefficient.slope_resistance = MAX_SLOPE_RESISTANCE_VALUE;
+  //   }
 
-    current_coefficient.road_gravity -=
-      (double) (percent_urban * scen_GetRdGrvtySensitivity ());
-    if (current_coefficient.road_gravity <= MIN_ROAD_GRAVITY_VALUE)
-    {
-      current_coefficient.road_gravity = 1.0;
-    }
+  //   current_coefficient.road_gravity -=
+  //     (double) (percent_urban * scen_GetRdGrvtySensitivity ());
+  //   if (current_coefficient.road_gravity <= MIN_ROAD_GRAVITY_VALUE)
+  //   {
+  //     current_coefficient.road_gravity = 1.0;
+  //   }
 
-    if ((growth_rate < scen_GetCriticalLow ()) &&
-        (current_coefficient.diffusion > 0))
-    {
-      current_coefficient.diffusion *= scen_GetBust ();
-      if (current_coefficient.diffusion <= MIN_DIFFUSION_VALUE)
-      {
-        current_coefficient.diffusion = 1.0;
-      }
+  //   if ((growth_rate < scen_GetCriticalLow ()) &&
+  //       (current_coefficient.diffusion > 0))
+  //   {
+  //     current_coefficient.diffusion *= scen_GetBust ();
+  //     if (current_coefficient.diffusion <= MIN_DIFFUSION_VALUE)
+  //     {
+  //       current_coefficient.diffusion = 1.0;
+  //     }
 
-      current_coefficient.spread *= scen_GetBust ();
-      if (current_coefficient.spread <= MIN_SPREAD_VALUE)
-      {
-        current_coefficient.spread = 1.0;
-      }
+  //     current_coefficient.spread *= scen_GetBust ();
+  //     if (current_coefficient.spread <= MIN_SPREAD_VALUE)
+  //     {
+  //       current_coefficient.spread = 1.0;
+  //     }
 
-      current_coefficient.breed *= scen_GetBust ();
+  //     current_coefficient.breed *= scen_GetBust ();
 
-      if (current_coefficient.breed <= MIN_BREED_VALUE)
-      {
-        current_coefficient.breed = 1.0;
-      }
-    }
-  }
+  //     if (current_coefficient.breed <= MIN_BREED_VALUE)
+  //     {
+  //       current_coefficient.breed = 1.0;
+  //     }
+  //   }
+  // }
 }

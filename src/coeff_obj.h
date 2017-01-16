@@ -27,17 +27,17 @@ void coeff_ConcatenateFiles();
 void coeff_ConcatenateFiles(int current_run);
 #endif
 void coeff_CreateCoeffFile();
-void coeff_SetSavedDiffusion(double val);
-void coeff_SetSavedSpread(double val);
-void coeff_SetSavedBreed(double val);
-void coeff_SetSavedSlopeResist(double val);
-void coeff_SetSavedRoadGravity(double val);
+void coeff_SetSavedDiffusion(double val, int i);
+void coeff_SetSavedSpread(double val, int i);
+void coeff_SetSavedBreed(double val, int i);
+void coeff_SetSavedSlopeResist(double val, int i);
+void coeff_SetSavedRoadGravity(double val, int i);
 
-void coeff_SetCurrentDiffusion(double val);
-void coeff_SetCurrentSpread(double val);
-void coeff_SetCurrentBreed(double val);
-void coeff_SetCurrentSlopeResist(double val);
-void coeff_SetCurrentRoadGravity(double val);
+void coeff_SetCurrentDiffusion(double val, int i);
+void coeff_SetCurrentSpread(double val, int i);
+void coeff_SetCurrentBreed(double val, int i);
+void coeff_SetCurrentSlopeResist(double val, int i);
+void coeff_SetCurrentRoadGravity(double val, int i);
 
 void coeff_SetStepDiffusion(int val);
 void coeff_SetStepSpread(int val);
