@@ -231,7 +231,7 @@ static
   FUNC_INIT;
   class_slope = trans_GetClassSlope ();
   ftransition = trans_GetFTransition ();
-  z_ptr = pgrid_GetZPtr ();
+  z_ptr = pgrid_GetZPtr (thread_id);
   total_pixels = mem_GetTotalPixels ();
   new_indices = landclass_GetNewIndicesPtr ();
   num_monte_carlo = scen_GetMonteCarloIterations ();
