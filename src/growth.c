@@ -242,6 +242,7 @@ void
     {
       grw_non_landuse (z_ptr);
     }
+    printf("%s\n", "end loop");
     seed_ptr = igrid_GetUrbanGridPtr (__FILE__, func, __LINE__, 0);
     util_condition_gif (total_pixels,
                         seed_ptr,
@@ -251,8 +252,6 @@ void
                         PHASE0G);
     seed_ptr = igrid_GridRelease (__FILE__, func, __LINE__, seed_ptr);
 
-    printf("%s\n", "end loop");
-    
     /*
      *
      * DO STATISTICS
