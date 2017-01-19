@@ -219,6 +219,8 @@ void
     stats_SetRT (rt);
     stats_SetPOP (pop);
 
+    printf("%s\n", "end stats_set");
+
     if (scen_GetViewGrowthTypesFlag ())
     {
       sprintf (gif_filename, "%sz_growth_types_%u_%u_%u.gif",
