@@ -219,7 +219,7 @@ void
     stats_SetRT (rt);
     stats_SetPOP (pop);
 
-    printf("%s\n", "end stats_set");
+    //printf("%s\n", "end stats_set");
 
     if (scen_GetViewGrowthTypesFlag ())
     {
@@ -265,6 +265,7 @@ void
      */
     coeff_SelfModication (stats_GetGrowthRate (), stats_GetPercentUrban ());
 
+    printf("%s\n", "end loop");
     coeff_WriteCurrentCoeff ();
   }
   timer_Stop (GRW_GROWTH);
