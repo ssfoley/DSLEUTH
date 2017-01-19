@@ -228,6 +228,7 @@ void
                scen_GetOutputDir (), proc_GetCurrentRun (),
                proc_GetCurrentMonteCarlo (), proc_GetCurrentYear ());
       sprintf (date_str, "%u", proc_GetCurrentYear ());
+      printf("%s\n", "sprintf");
       gdif_WriteGIF (z_ptr,
                      color_GetColortable (GROWTH_COLORTABLE),
                      gif_filename,
@@ -235,7 +236,7 @@ void
                      255);
     }
 
-    printf("%s\n", "end loop");
+    //printf("%s\n", "end loop");
 
     if (scen_GetDoingLanduseFlag ())
     {
