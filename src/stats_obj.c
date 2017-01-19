@@ -119,7 +119,7 @@ static struct
   long slope_failure;
   long excluded_failure;
 }
-urbanization_attempt;
+urbanization_attempt[NUM_THREADS];
 
 static int sidx;
 static int ridx;
@@ -2703,13 +2703,13 @@ static void
 void
   stats_MemoryLog (FILE * fp)
 {
-  LOG_MEM (fp, &cir_q[0], sizeof (ugm_link), SIZE_CIR_Q);
-  LOG_MEM (fp, &stats_actual[0], sizeof (stats_info), MAX_URBAN_YEARS);
-  LOG_MEM (fp, &regression, sizeof (stats_info), 1);
-  LOG_MEM (fp, &average[0], sizeof (stats_val_t), MAX_URBAN_YEARS);
-  LOG_MEM (fp, &std_dev[0], sizeof (stats_val_t), MAX_URBAN_YEARS);
-  LOG_MEM (fp, &running_total[0], sizeof (stats_val_t), MAX_URBAN_YEARS);
-  LOG_MEM (fp, &urbanization_attempt, sizeof (urbanization_attempt), 1);
+  // LOG_MEM (fp, &cir_q[0], sizeof (ugm_link), SIZE_CIR_Q);
+  // LOG_MEM (fp, &stats_actual[0], sizeof (stats_info), MAX_URBAN_YEARS);
+  // LOG_MEM (fp, &regression, sizeof (stats_info), 1);
+  // LOG_MEM (fp, &average[0], sizeof (stats_val_t), MAX_URBAN_YEARS);
+  // LOG_MEM (fp, &std_dev[0], sizeof (stats_val_t), MAX_URBAN_YEARS);
+  // LOG_MEM (fp, &running_total[0], sizeof (stats_val_t), MAX_URBAN_YEARS);
+  // LOG_MEM (fp, &urbanization_attempt, sizeof (urbanization_attempt), 1);
 }
 /******************************************************************************
 *******************************************************************************
@@ -2939,11 +2939,12 @@ static void
 void
   stats_InitUrbanizationAttempts ()
 {
-  urbanization_attempt.successes = 0;
-  urbanization_attempt.z_failure = 0;
-  urbanization_attempt.delta_failure = 0;
-  urbanization_attempt.slope_failure = 0;
-  urbanization_attempt.excluded_failure = 0;
+  int i = omp_get_thread_num();
+  urbanization_attempt[i].successes = 0;
+  urbanization_attempt[i].z_failure = 0;
+  urbanization_attempt[i].delta_failure = 0;
+  urbanization_attempt[i].slope_failure = 0;
+  urbanization_attempt[i].excluded_failure = 0;
 }
 /******************************************************************************
 *******************************************************************************
@@ -2961,23 +2962,25 @@ void
 {
   int total;
 
-  total = urbanization_attempt.successes +
-    urbanization_attempt.z_failure +
-    urbanization_attempt.delta_failure +
-    urbanization_attempt.slope_failure +
-    urbanization_attempt.excluded_failure;
+  int i = omp_get_thread_num();
+
+  total = urbanization_attempt[i].successes +
+    urbanization_attempt[i].z_failure +
+    urbanization_attempt[i].delta_failure +
+    urbanization_attempt[i].slope_failure +
+    urbanization_attempt[i].excluded_failure;
 
   fprintf (fp, "\nLOG OF URBANIZATION ATTEMPTS\n");
   fprintf (fp, "Num Success                = %u\n",
-           urbanization_attempt.successes);
+           urbanization_attempt[i].successes);
   fprintf (fp, "Num Z Type Failures        = %u\n",
-           urbanization_attempt.z_failure);
+           urbanization_attempt[i].z_failure);
   fprintf (fp, "Num Delta Type Failures    = %u\n",
-           urbanization_attempt.delta_failure);
+           urbanization_attempt[i].delta_failure);
   fprintf (fp, "Num Slope Type Failures    = %u\n",
-           urbanization_attempt.slope_failure);
+           urbanization_attempt[i].slope_failure);
   fprintf (fp, "Num Exlcuded Type Failures = %u\n",
-           urbanization_attempt.excluded_failure);
+           urbanization_attempt[i].excluded_failure);
   fprintf (fp, "Total Attempts             = %u\n", total);
 }
 /******************************************************************************
@@ -2994,7 +2997,8 @@ void
 void
   stats_IncrementUrbanSuccess ()
 {
-  urbanization_attempt.successes++;
+  int i = omp_get_thread_num();
+  urbanization_attempt[i].successes++;
 }
 /******************************************************************************
 *******************************************************************************
@@ -3010,7 +3014,8 @@ void
 void
   stats_IncrementZFailure ()
 {
-  urbanization_attempt.z_failure++;
+  int i = omp_get_thread_num();
+  urbanization_attempt[i].z_failure++;
 }
 /******************************************************************************
 *******************************************************************************
@@ -3026,7 +3031,8 @@ void
 void
   stats_IncrementDeltaFailure ()
 {
-  urbanization_attempt.delta_failure++;
+  int i = omp_get_thread_num();
+  urbanization_attempt[i].delta_failure++;
 }
 /******************************************************************************
 *******************************************************************************
@@ -3042,7 +3048,8 @@ void
 void
   stats_IncrementSlopeFailure ()
 {
-  urbanization_attempt.slope_failure++;
+  int i = omp_get_thread_num();
+  urbanization_attempt[i].slope_failure++;
 }
 /******************************************************************************
 *******************************************************************************
@@ -3058,5 +3065,6 @@ void
 void
   stats_IncrementEcludedFailure ()
 {
-  urbanization_attempt.excluded_failure++;
+  int i = omp_get_thread_num();
+  urbanization_attempt[i].excluded_failure++;
 }

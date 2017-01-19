@@ -105,6 +105,7 @@ void
   util_init_grid (z_ptr, 0);
   if (scen_GetDoingLanduseFlag ())
   {
+    printf("%s\n", "scen_GetDoingLanduseFlag");
     grw_landuse_init (deltatron_ptr,
                       land1_ptr);
   }
@@ -235,7 +236,7 @@ void
     }
 
     printf("%s\n", "end loop");
-    
+
     if (scen_GetDoingLanduseFlag ())
     {
       grw_landuse (land1_ptr, num_growth_pix);
