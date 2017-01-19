@@ -229,11 +229,11 @@ void
                proc_GetCurrentMonteCarlo (), proc_GetCurrentYear ());
       sprintf (date_str, "%u", proc_GetCurrentYear ());
       printf("%s\n", "sprintf");
-      gdif_WriteGIF (z_ptr,
-                     color_GetColortable (GROWTH_COLORTABLE),
-                     gif_filename,
-                     date_str,
-                     255);
+      // gdif_WriteGIF (z_ptr,
+      //                color_GetColortable (GROWTH_COLORTABLE),
+      //                gif_filename,
+      //                date_str,
+      //                255);
     }
 
     //printf("%s\n", "end loop");
