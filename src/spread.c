@@ -155,6 +155,7 @@ static void
                 int *sng,                                    /* IN/OUT */
                 int *sdc)                                  /* IN/OUT */
 {
+  printf("%s\n", "spr_phase1n3");
   char func[] = "spr_phase1n3";
   int i;
   int j;
