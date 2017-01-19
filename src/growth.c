@@ -251,6 +251,8 @@ void
                         PHASE0G);
     seed_ptr = igrid_GridRelease (__FILE__, func, __LINE__, seed_ptr);
 
+    printf("%s\n", "end loop");
+    
     /*
      *
      * DO STATISTICS
@@ -265,7 +267,7 @@ void
      */
     coeff_SelfModication (stats_GetGrowthRate (), stats_GetPercentUrban ());
 
-    printf("%s\n", "end loop");
+
     coeff_WriteCurrentCoeff ();
   }
   timer_Stop (GRW_GROWTH);
