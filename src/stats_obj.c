@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <errno.h>
 #include <math.h>
+#include <omp.h>
 #include "ugm_defines.h"
 #include "pgrid_obj.h"
 #include "proc_obj.h"
@@ -98,7 +99,7 @@ static struct
   int year;
   stats_val_t this_year;
 }
-record;
+record[NUM_THREADS];
 
 static struct
 {
@@ -565,45 +566,45 @@ void
 static void
   stats_CalStdDev (int index)
 {
-#define SD(val) pow(((val)*(val)/total_monte_carlo),0.5)
-  int total_monte_carlo;
+// #define SD(val) pow(((val)*(val)/total_monte_carlo),0.5)
+//   int total_monte_carlo;
 
-  total_monte_carlo = scen_GetMonteCarloIterations ();
+//   total_monte_carlo = scen_GetMonteCarloIterations ();
 
-  std_dev[index].sng = SD (record.this_year.sng - average[index].sng);
-  std_dev[index].sdg = SD (record.this_year.sdg - average[index].sdg);
-  std_dev[index].sdc = SD (record.this_year.sdc - average[index].sdc);
-  std_dev[index].og = SD (record.this_year.og - average[index].og);
-  std_dev[index].rt = SD (record.this_year.rt - average[index].rt);
-  std_dev[index].pop = SD (record.this_year.pop - average[index].pop);
-  std_dev[index].area = SD (record.this_year.area - average[index].area);
-  std_dev[index].edges = SD (record.this_year.edges - average[index].edges);
-  std_dev[index].clusters =
-    SD (record.this_year.clusters - average[index].clusters);
-  std_dev[index].xmean = SD (record.this_year.xmean - average[index].xmean);
-  std_dev[index].ymean = SD (record.this_year.ymean - average[index].ymean);
-  std_dev[index].rad = SD (record.this_year.rad - average[index].rad);
-  std_dev[index].slope = SD (record.this_year.slope - average[index].slope);
-  std_dev[index].mean_cluster_size =
-    SD (record.this_year.mean_cluster_size - average[index].mean_cluster_size);
-  std_dev[index].diffusion =
-    SD (record.this_year.diffusion - average[index].diffusion);
-  std_dev[index].spread = SD (record.this_year.spread - average[index].spread);
-  std_dev[index].breed = SD (record.this_year.breed - average[index].breed);
-  std_dev[index].slope_resistance =
-    SD (record.this_year.slope_resistance - average[index].slope_resistance);
-  std_dev[index].road_gravity =
-    SD (record.this_year.road_gravity - average[index].road_gravity);
-  std_dev[index].percent_urban =
-    SD (record.this_year.percent_urban - average[index].percent_urban);
-  std_dev[index].percent_road =
-    SD (record.this_year.percent_road - average[index].percent_road);
-  std_dev[index].growth_rate =
-    SD (record.this_year.growth_rate - average[index].growth_rate);
-  std_dev[index].leesalee =
-    SD (record.this_year.leesalee - average[index].leesalee);
-  std_dev[index].num_growth_pix =
-    SD (record.this_year.num_growth_pix - average[index].num_growth_pix);
+//   std_dev[index].sng = SD (record.this_year.sng - average[index].sng);
+//   std_dev[index].sdg = SD (record.this_year.sdg - average[index].sdg);
+//   std_dev[index].sdc = SD (record.this_year.sdc - average[index].sdc);
+//   std_dev[index].og = SD (record.this_year.og - average[index].og);
+//   std_dev[index].rt = SD (record.this_year.rt - average[index].rt);
+//   std_dev[index].pop = SD (record.this_year.pop - average[index].pop);
+//   std_dev[index].area = SD (record.this_year.area - average[index].area);
+//   std_dev[index].edges = SD (record.this_year.edges - average[index].edges);
+//   std_dev[index].clusters =
+//     SD (record.this_year.clusters - average[index].clusters);
+//   std_dev[index].xmean = SD (record.this_year.xmean - average[index].xmean);
+//   std_dev[index].ymean = SD (record.this_year.ymean - average[index].ymean);
+//   std_dev[index].rad = SD (record.this_year.rad - average[index].rad);
+//   std_dev[index].slope = SD (record.this_year.slope - average[index].slope);
+//   std_dev[index].mean_cluster_size =
+//     SD (record.this_year.mean_cluster_size - average[index].mean_cluster_size);
+//   std_dev[index].diffusion =
+//     SD (record.this_year.diffusion - average[index].diffusion);
+//   std_dev[index].spread = SD (record.this_year.spread - average[index].spread);
+//   std_dev[index].breed = SD (record.this_year.breed - average[index].breed);
+//   std_dev[index].slope_resistance =
+//     SD (record.this_year.slope_resistance - average[index].slope_resistance);
+//   std_dev[index].road_gravity =
+//     SD (record.this_year.road_gravity - average[index].road_gravity);
+//   std_dev[index].percent_urban =
+//     SD (record.this_year.percent_urban - average[index].percent_urban);
+//   std_dev[index].percent_road =
+//     SD (record.this_year.percent_road - average[index].percent_road);
+//   std_dev[index].growth_rate =
+//     SD (record.this_year.growth_rate - average[index].growth_rate);
+//   std_dev[index].leesalee =
+//     SD (record.this_year.leesalee - average[index].leesalee);
+//   std_dev[index].num_growth_pix =
+//     SD (record.this_year.num_growth_pix - average[index].num_growth_pix);
 }
 /******************************************************************************
 *******************************************************************************
@@ -671,34 +672,34 @@ static void
 static void
   stats_UpdateRunningTotal (int index)
 {
-#ifndef lint
-  char func[] = "stats_UpdateRunningTotal";
-#endif
+// #ifndef lint
+//   char func[] = "stats_UpdateRunningTotal";
+// #endif
 
-  running_total[index].sng += record.this_year.sng;
-  running_total[index].sdg += record.this_year.sdg;
-  running_total[index].sdc += record.this_year.sdc;
-  running_total[index].og += record.this_year.og;
-  running_total[index].rt += record.this_year.rt;
-  running_total[index].pop += record.this_year.pop;
-  running_total[index].area += record.this_year.area;
-  running_total[index].edges += record.this_year.edges;
-  running_total[index].clusters += record.this_year.clusters;
-  running_total[index].xmean += record.this_year.xmean;
-  running_total[index].ymean += record.this_year.ymean;
-  running_total[index].rad += record.this_year.rad;
-  running_total[index].slope += record.this_year.slope;
-  running_total[index].mean_cluster_size += record.this_year.mean_cluster_size;
-  running_total[index].diffusion += record.this_year.diffusion;
-  running_total[index].spread += record.this_year.spread;
-  running_total[index].breed += record.this_year.breed;
-  running_total[index].slope_resistance += record.this_year.slope_resistance;
-  running_total[index].road_gravity += record.this_year.road_gravity;
-  running_total[index].percent_urban += record.this_year.percent_urban;
-  running_total[index].percent_road += record.this_year.percent_road;
-  running_total[index].growth_rate += record.this_year.growth_rate;
-  running_total[index].leesalee += record.this_year.leesalee;
-  running_total[index].num_growth_pix += record.this_year.num_growth_pix;
+//   running_total[index].sng += record.this_year.sng;
+//   running_total[index].sdg += record.this_year.sdg;
+//   running_total[index].sdc += record.this_year.sdc;
+//   running_total[index].og += record.this_year.og;
+//   running_total[index].rt += record.this_year.rt;
+//   running_total[index].pop += record.this_year.pop;
+//   running_total[index].area += record.this_year.area;
+//   running_total[index].edges += record.this_year.edges;
+//   running_total[index].clusters += record.this_year.clusters;
+//   running_total[index].xmean += record.this_year.xmean;
+//   running_total[index].ymean += record.this_year.ymean;
+//   running_total[index].rad += record.this_year.rad;
+//   running_total[index].slope += record.this_year.slope;
+//   running_total[index].mean_cluster_size += record.this_year.mean_cluster_size;
+//   running_total[index].diffusion += record.this_year.diffusion;
+//   running_total[index].spread += record.this_year.spread;
+//   running_total[index].breed += record.this_year.breed;
+//   running_total[index].slope_resistance += record.this_year.slope_resistance;
+//   running_total[index].road_gravity += record.this_year.road_gravity;
+//   running_total[index].percent_urban += record.this_year.percent_urban;
+//   running_total[index].percent_road += record.this_year.percent_road;
+//   running_total[index].growth_rate += record.this_year.growth_rate;
+//   running_total[index].leesalee += record.this_year.leesalee;
+//   running_total[index].num_growth_pix += record.this_year.num_growth_pix;
 }
 /******************************************************************************
 *******************************************************************************
@@ -740,7 +741,8 @@ static void
 double
   stats_GetLeesalee ()
 {
-  return record.this_year.leesalee;
+  int i = omp_get_thread_num();
+  return record[i].this_year.leesalee;
 }
 /******************************************************************************
 *******************************************************************************
@@ -764,12 +766,12 @@ static void
   z_ptr = pgrid_GetZPtr (thread_id);
   urban_ptr = igrid_GetUrbanGridPtrByYear (__FILE__, func,
                                        __LINE__, proc_GetCurrentYear ());
-  record.this_year.leesalee = 1.0;
+  record[thread_id].this_year.leesalee = 1.0;
   if (proc_GetProcessingType () != PREDICTING)
   {
     stats_compute_leesalee (z_ptr,                           /* IN     */
                             urban_ptr,                       /* IN     */
-                            &record.this_year.leesalee);   /* OUT    */
+                            &record[thread_id].this_year.leesalee);   /* OUT    */
   }
   urban_ptr = igrid_GridRelease (__FILE__, func, __LINE__, urban_ptr);
 
@@ -788,7 +790,8 @@ static void
 static void
   stats_SetNumGrowthPixels (int val)
 {
-  record.this_year.num_growth_pix = val;
+  int i = omp_get_thread_num();
+  record[i].this_year.num_growth_pix = val;
 }
 /******************************************************************************
 *******************************************************************************
@@ -804,7 +807,8 @@ static void
 int
   stats_GetNumGrowthPixels ()
 {
-  return record.this_year.num_growth_pix;
+  int i = omp_get_thread_num();
+  return record[i].this_year.num_growth_pix;
 }
 /******************************************************************************
 *******************************************************************************
@@ -821,7 +825,8 @@ int
 void
   stats_SetPercentUrban (int val)
 {
-  record.this_year.percent_urban = val;
+  int i = omp_get_thread_num();
+  record[i].this_year.percent_urban = val;
 }
 /******************************************************************************
 *******************************************************************************
@@ -837,8 +842,9 @@ void
 static void
   stats_CalPercentUrban (int total_pixels, int road_pixels, int excld_pixels)
 {
-  record.this_year.percent_urban =
-    (double) (100.0 * (record.this_year.pop + road_pixels) /
+  int i = omp_get_thread_num();
+  record[i].this_year.percent_urban =
+    (double) (100.0 * (record[i].this_year.pop + road_pixels) /
               (total_pixels - road_pixels - excld_pixels));
 }
 /******************************************************************************
@@ -855,7 +861,8 @@ static void
 double
   stats_GetPercentUrban ()
 {
-  return record.this_year.percent_urban;
+  int i = omp_get_thread_num();
+  return record[i].this_year.percent_urban;
 }
 /******************************************************************************
 *******************************************************************************
@@ -872,8 +879,9 @@ double
 static void
   stats_CalGrowthRate ()
 {
-  record.this_year.growth_rate =
-    record.this_year.num_growth_pix / record.this_year.pop * 100.0;
+  int i = omp_get_thread_num();
+  record[i].this_year.growth_rate =
+    record[i].this_year.num_growth_pix / record[i].this_year.pop * 100.0;
 }
 /******************************************************************************
 *******************************************************************************
@@ -889,7 +897,8 @@ static void
 double
   stats_GetGrowthRate ()
 {
-  return record.this_year.growth_rate;
+  int i = omp_get_thread_num();
+  return record[i].this_year.growth_rate;
 }
 /******************************************************************************
 *******************************************************************************
@@ -907,7 +916,8 @@ double
 void
   stats_SetSNG (int val)
 {
-  record.this_year.sng = val;
+  int i = omp_get_thread_num();
+  record[i].this_year.sng = val;
 }
 /******************************************************************************
 *******************************************************************************
@@ -923,7 +933,8 @@ void
 void
   stats_SetSDG (int val)
 {
-  record.this_year.sdg = val;
+  int i = omp_get_thread_num();
+  record[i].this_year.sdg = val;
 }
 /******************************************************************************
 *******************************************************************************
@@ -939,7 +950,8 @@ void
 void
   stats_SetOG (int val)
 {
-  record.this_year.og = val;
+  int i = omp_get_thread_num();
+  record[i].this_year.og = val;
 }
 /******************************************************************************
 *******************************************************************************
@@ -955,7 +967,8 @@ void
 void
   stats_SetRT (int val)
 {
-  record.this_year.rt = val;
+  int i = omp_get_thread_num();
+  record[i].this_year.rt = val;
 }
 /******************************************************************************
 *******************************************************************************
@@ -971,7 +984,8 @@ void
 void
   stats_SetPOP (int val)
 {
-  record.this_year.pop = val;
+  int i = omp_get_thread_num();
+  record[i].this_year.pop = val;
 }
 /******************************************************************************
 *******************************************************************************
@@ -988,7 +1002,8 @@ void
 int
   stats_GetSNG ()
 {
-  return record.this_year.sng;
+  int i = omp_get_thread_num();
+  return record[i].this_year.sng;
 }
 /******************************************************************************
 *******************************************************************************
@@ -1004,7 +1019,8 @@ int
 int
   stats_GetSDG ()
 {
-  return record.this_year.sdg;
+  int i = omp_get_thread_num();
+  return record[i].this_year.sdg;
 }
 /******************************************************************************
 *******************************************************************************
@@ -1020,7 +1036,8 @@ int
 int
   stats_GetOG ()
 {
-  return record.this_year.og;
+  int i = omp_get_thread_num();
+  return record[i].this_year.og;
 }
 /******************************************************************************
 *******************************************************************************
@@ -1036,7 +1053,8 @@ int
 int
   stats_GetRT ()
 {
-  return record.this_year.rt;
+  int i = omp_get_thread_num();
+  return record[i].this_year.rt;
 }
 /******************************************************************************
 *******************************************************************************
@@ -1052,7 +1070,8 @@ int
 int
   stats_GetPOP ()
 {
-  return record.this_year.pop;
+  int i = omp_get_thread_num();
+  return record[i].this_year.pop;
 }
 /******************************************************************************
 *******************************************************************************
@@ -1069,7 +1088,8 @@ int
 void
   stats_SetArea (int val)
 {
-  record.this_year.area = val;
+  int i = omp_get_thread_num();
+  record[i].this_year.area = val;
 }
 /******************************************************************************
 *******************************************************************************
@@ -1085,7 +1105,8 @@ void
 void
   stats_SetEdges (int val)
 {
-  record.this_year.edges = val;
+  int i = omp_get_thread_num();
+  record[i].this_year.edges = val;
 }
 /******************************************************************************
 *******************************************************************************
@@ -1101,7 +1122,8 @@ void
 void
   stats_SetClusters (int val)
 {
-  record.this_year.clusters = val;
+  int i = omp_get_thread_num();
+  record[i].this_year.clusters = val;
 }
 /******************************************************************************
 *******************************************************************************
@@ -1117,7 +1139,8 @@ void
 void
   stats_SetPop (int val)
 {
-  record.this_year.pop = val;
+  int i = omp_get_thread_num();
+  record[i].this_year.pop = val;
 }
 /******************************************************************************
 *******************************************************************************
@@ -1133,7 +1156,8 @@ void
 void
   stats_SetXmean (double val)
 {
-  record.this_year.xmean = val;
+  int i = omp_get_thread_num();
+  record[i].this_year.xmean = val;
 }
 /******************************************************************************
 *******************************************************************************
@@ -1149,7 +1173,8 @@ void
 void
   stats_SetYmean (double val)
 {
-  record.this_year.ymean = val;
+  int i = omp_get_thread_num();
+  record[i].this_year.ymean = val;
 }
 /******************************************************************************
 *******************************************************************************
@@ -1165,7 +1190,8 @@ void
 void
   stats_SetRad (double val)
 {
-  record.this_year.rad = val;
+  int i = omp_get_thread_num();
+  record[i].this_year.rad = val;
 }
 /******************************************************************************
 *******************************************************************************
@@ -1181,7 +1207,8 @@ void
 void
   stats_SetAvgSlope (double val)
 {
-  record.this_year.slope = val;
+  int i = omp_get_thread_num();
+  record[i].this_year.slope = val;
 }
 /******************************************************************************
 *******************************************************************************
@@ -1197,7 +1224,8 @@ void
 void
   stats_SetMeanClusterSize (double val)
 {
-  record.this_year.mean_cluster_size = val;
+  int i = omp_get_thread_num();
+  record[i].this_year.mean_cluster_size = val;
 }
 /******************************************************************************
 *******************************************************************************
@@ -1214,7 +1242,8 @@ void
 int
   stats_GetArea ()
 {
-  return record.this_year.area;
+  int i = omp_get_thread_num();
+  return record[i].this_year.area;
 }
 /******************************************************************************
 *******************************************************************************
@@ -1230,7 +1259,8 @@ int
 int
   stats_GetEdges ()
 {
-  return record.this_year.edges;
+  int i = omp_get_thread_num();
+  return record[i].this_year.edges;
 }
 /******************************************************************************
 *******************************************************************************
@@ -1246,7 +1276,8 @@ int
 int
   stats_GetClusters ()
 {
-  return record.this_year.clusters;
+  int i = omp_get_thread_num();
+  return record[i].this_year.clusters;
 }
 /******************************************************************************
 *******************************************************************************
@@ -1262,7 +1293,8 @@ int
 int
   stats_GetPop ()
 {
-  return record.this_year.pop;
+  int i = omp_get_thread_num();
+  return record[i].this_year.pop;
 }
 /******************************************************************************
 *******************************************************************************
@@ -1278,7 +1310,8 @@ int
 double
   stats_GetXmean ()
 {
-  return record.this_year.xmean;
+  int i = omp_get_thread_num();
+  return record[i].this_year.xmean;
 }
 /******************************************************************************
 *******************************************************************************
@@ -1294,7 +1327,8 @@ double
 double
   stats_GetYmean ()
 {
-  return record.this_year.ymean;
+  int i = omp_get_thread_num();
+  return record[i].this_year.ymean;
 }
 /******************************************************************************
 *******************************************************************************
@@ -1310,7 +1344,8 @@ double
 double
   stats_GetRad ()
 {
-  return record.this_year.rad;
+  int i = omp_get_thread_num();
+  return record[i].this_year.rad;
 }
 /******************************************************************************
 *******************************************************************************
@@ -1326,7 +1361,8 @@ double
 double
   stats_GetAvgSlope ()
 {
-  return record.this_year.slope;
+  int i = omp_get_thread_num();
+  return record[i].this_year.slope;
 }
 /******************************************************************************
 *******************************************************************************
@@ -1342,7 +1378,8 @@ double
 double
   stats_GetMeanClusterSize ()
 {
-  return record.this_year.mean_cluster_size;
+  int i = omp_get_thread_num();
+  return record[i].this_year.mean_cluster_size;
 }
 /******************************************************************************
 *******************************************************************************
@@ -1398,20 +1435,20 @@ static void
                        &mean_cluster_size,                   /* OUT    */
                        stats_workspace1,                     /* MOD    */
                        stats_workspace2);                  /* MOD    */
-  record.this_year.area = area;
-  record.this_year.edges = edges;
-  record.this_year.clusters = clusters;
-  record.this_year.pop = pop;
-  record.this_year.xmean = xmean;
-  record.this_year.ymean = ymean;
-  record.this_year.slope = slope;
-  record.this_year.rad = rad;
-  record.this_year.mean_cluster_size = mean_cluster_size;
-  record.this_year.diffusion = coeff_GetCurrentDiffusion ();
-  record.this_year.spread = coeff_GetCurrentSpread ();
-  record.this_year.breed = coeff_GetCurrentBreed ();
-  record.this_year.slope_resistance = coeff_GetCurrentSlopeResist ();
-  record.this_year.road_gravity = coeff_GetCurrentRoadGravity ();
+  record[thread_id].this_year.area = area;
+  record[thread_id].this_year.edges = edges;
+  record[thread_id].this_year.clusters = clusters;
+  record[thread_id].this_year.pop = pop;
+  record[thread_id].this_year.xmean = xmean;
+  record[thread_id].this_year.ymean = ymean;
+  record[thread_id].this_year.slope = slope;
+  record[thread_id].this_year.rad = rad;
+  record[thread_id].this_year.mean_cluster_size = mean_cluster_size;
+  record[thread_id].this_year.diffusion = coeff_GetCurrentDiffusion ();
+  record[thread_id].this_year.spread = coeff_GetCurrentSpread ();
+  record[thread_id].this_year.breed = coeff_GetCurrentBreed ();
+  record[thread_id].this_year.slope_resistance = coeff_GetCurrentSlopeResist ();
+  record[thread_id].this_year.road_gravity = coeff_GetCurrentRoadGravity ();
 
   slope_ptr = igrid_GridRelease (__FILE__, func, __LINE__, slope_ptr);
   stats_workspace1 = mem_GetWGridFree (__FILE__, func, __LINE__,
@@ -1664,21 +1701,21 @@ void
 static void
   stats_LogThisYearStats (FILE * fp)
 {
-  LOG_FLOAT (fp, record.this_year.area);
-  LOG_FLOAT (fp, record.this_year.edges);
-  LOG_FLOAT (fp, record.this_year.clusters);
-  LOG_FLOAT (fp, record.this_year.pop);
-  LOG_FLOAT (fp, record.this_year.xmean);
-  LOG_FLOAT (fp, record.this_year.ymean);
-  LOG_FLOAT (fp, record.this_year.rad);
-  LOG_FLOAT (fp, record.this_year.slope);
-  LOG_FLOAT (fp, record.this_year.mean_cluster_size);
-  LOG_FLOAT (fp, record.this_year.sng);
-  LOG_FLOAT (fp, record.this_year.sdg);
-  LOG_FLOAT (fp, record.this_year.sdc);
-  LOG_FLOAT (fp, record.this_year.og);
-  LOG_FLOAT (fp, record.this_year.rt);
-  LOG_FLOAT (fp, record.this_year.pop);
+  // LOG_FLOAT (fp, record.this_year.area);
+  // LOG_FLOAT (fp, record.this_year.edges);
+  // LOG_FLOAT (fp, record.this_year.clusters);
+  // LOG_FLOAT (fp, record.this_year.pop);
+  // LOG_FLOAT (fp, record.this_year.xmean);
+  // LOG_FLOAT (fp, record.this_year.ymean);
+  // LOG_FLOAT (fp, record.this_year.rad);
+  // LOG_FLOAT (fp, record.this_year.slope);
+  // LOG_FLOAT (fp, record.this_year.mean_cluster_size);
+  // LOG_FLOAT (fp, record.this_year.sng);
+  // LOG_FLOAT (fp, record.this_year.sdg);
+  // LOG_FLOAT (fp, record.this_year.sdc);
+  // LOG_FLOAT (fp, record.this_year.og);
+  // LOG_FLOAT (fp, record.this_year.rt);
+  // LOG_FLOAT (fp, record.this_year.pop);
 }
 /******************************************************************************
 *******************************************************************************
@@ -1694,10 +1731,10 @@ static void
 void
   stats_LogRecord (FILE * fp)
 {
-  LOG_INT (fp, record.run);
-  LOG_INT (fp, record.monte_carlo);
-  LOG_INT (fp, record.year);
-  stats_LogThisYearStats (fp);
+  // LOG_INT (fp, record.run);
+  // LOG_INT (fp, record.monte_carlo);
+  // LOG_INT (fp, record.year);
+  // stats_LogThisYearStats (fp);
 }
 /******************************************************************************
 *******************************************************************************
@@ -1868,59 +1905,59 @@ void
 void
   stats_Dump (char *file, int line)
 {
-  int i;
-  int yr;
+  // int i;
+  // int yr;
 
-  fprintf (stdout, "%s %u stats_Dump\n", file, line);
-  stats_LogStatValHdr (stdout);
-  fprintf (stdout, "this_year:\n");
-  stats_LogStatVal (proc_GetCurrentRun (), proc_GetCurrentYear (),
-                    0, &record.this_year, stdout);
-  fprintf (stdout, "running_total:\n");
-  for (i = 0; i < MAX_URBAN_YEARS; i++)
-  {
-    yr = igrid_GetUrbanYear (i);
-    if (i == 0)
-    {
-      yr = 0;
-    }
-    stats_LogStatVal (proc_GetCurrentRun (), yr, i,
-                      &running_total[i], stdout);
-  }
-  fprintf (stdout, "average:\n");
-  for (i = 0; i < MAX_URBAN_YEARS; i++)
-  {
-    yr = igrid_GetUrbanYear (i);
-    if (i == 0)
-    {
-      yr = 0;
-    }
-    stats_LogStatVal (proc_GetCurrentRun (), yr, i, &average[i], stdout);
-  }
-  fprintf (stdout, "std_dev:\n");
-  for (i = 0; i < MAX_URBAN_YEARS; i++)
-  {
-    yr = igrid_GetUrbanYear (i);
-    if (i == 0)
-    {
-      yr = 0;
-    }
-    stats_LogStatVal (proc_GetCurrentRun (), yr, i, &std_dev[i], stdout);
-  }
-  stats_LogStatInfoHdr (stdout);
-  fprintf (stdout, "stats_actual:\n");
-  for (i = 0; i < MAX_URBAN_YEARS; i++)
-  {
-    yr = igrid_GetUrbanYear (i);
-    if (i == 0)
-    {
-      yr = 0;
-    }
-    stats_LogStatInfo (proc_GetCurrentRun (), yr, i,
-                       &stats_actual[i], stdout);
-  }
-  fprintf (stdout, "regression:\n");
-  stats_LogStatInfo (proc_GetCurrentRun (), 0, 0, &regression, stdout);
+  // fprintf (stdout, "%s %u stats_Dump\n", file, line);
+  // stats_LogStatValHdr (stdout);
+  // fprintf (stdout, "this_year:\n");
+  // stats_LogStatVal (proc_GetCurrentRun (), proc_GetCurrentYear (),
+  //                   0, &record.this_year, stdout);
+  // fprintf (stdout, "running_total:\n");
+  // for (i = 0; i < MAX_URBAN_YEARS; i++)
+  // {
+  //   yr = igrid_GetUrbanYear (i);
+  //   if (i == 0)
+  //   {
+  //     yr = 0;
+  //   }
+  //   stats_LogStatVal (proc_GetCurrentRun (), yr, i,
+  //                     &running_total[i], stdout);
+  // }
+  // fprintf (stdout, "average:\n");
+  // for (i = 0; i < MAX_URBAN_YEARS; i++)
+  // {
+  //   yr = igrid_GetUrbanYear (i);
+  //   if (i == 0)
+  //   {
+  //     yr = 0;
+  //   }
+  //   stats_LogStatVal (proc_GetCurrentRun (), yr, i, &average[i], stdout);
+  // }
+  // fprintf (stdout, "std_dev:\n");
+  // for (i = 0; i < MAX_URBAN_YEARS; i++)
+  // {
+  //   yr = igrid_GetUrbanYear (i);
+  //   if (i == 0)
+  //   {
+  //     yr = 0;
+  //   }
+  //   stats_LogStatVal (proc_GetCurrentRun (), yr, i, &std_dev[i], stdout);
+  // }
+  // stats_LogStatInfoHdr (stdout);
+  // fprintf (stdout, "stats_actual:\n");
+  // for (i = 0; i < MAX_URBAN_YEARS; i++)
+  // {
+  //   yr = igrid_GetUrbanYear (i);
+  //   if (i == 0)
+  //   {
+  //     yr = 0;
+  //   }
+  //   stats_LogStatInfo (proc_GetCurrentRun (), yr, i,
+  //                      &stats_actual[i], stdout);
+  // }
+  // fprintf (stdout, "regression:\n");
+  // stats_LogStatInfo (proc_GetCurrentRun (), 0, 0, &regression, stdout);
 }
 /******************************************************************************
 *******************************************************************************
@@ -2169,23 +2206,24 @@ static void
   int index;
   int i;
   FILE *fp;
-  record.run = proc_GetCurrentRun ();
-  record.monte_carlo = proc_GetCurrentMonteCarlo ();
-  record.year = proc_GetCurrentYear ();
+  int thread_id = omp_get_thread_num();
+  record[thread_id].run = proc_GetCurrentRun ();
+  record[thread_id].monte_carlo = proc_GetCurrentMonteCarlo ();
+  record[thread_id].year = proc_GetCurrentYear ();
   index = 0;
   if (proc_GetProcessingType () != PREDICTING)
   {
-    index = igrid_UrbanYear2Index (record.year);
+    index = igrid_UrbanYear2Index (record[thread_id].year);
   }
 
   stats_UpdateRunningTotal (index);
 
-  if (record.monte_carlo == 0)
+  if (record[thread_id].monte_carlo == 0)
   {
     FILE_OPEN (fp, filename, "wb");
     for (i = 0; i < scen_GetMonteCarloIterations (); i++)
     {
-      num_written = fwrite (&record, sizeof (record), 1, fp);
+      num_written = fwrite (&record[thread_id], sizeof (record[thread_id]), 1, fp);
       if (num_written != 1)
       {
         printf ("%s %u ERROR\n", __FILE__, __LINE__);
@@ -2197,8 +2235,8 @@ static void
   {
     FILE_OPEN (fp, filename, "r+b");
     rewind (fp);
-    fseek_loc = fseek (fp, sizeof (record) * record.monte_carlo, SEEK_SET);
-    num_written = fwrite (&record, sizeof (record), 1, fp);
+    fseek_loc = fseek (fp, sizeof (record[thread_id]) * record[thread_id].monte_carlo, SEEK_SET);
+    num_written = fwrite (&record[thread_id], sizeof (record[thread_id]), 1, fp);
     if (num_written != 1)
     {
       printf ("%s %u ERROR\n", __FILE__, __LINE__);
@@ -2222,85 +2260,85 @@ static void
 static void
   stats_ProcessGrowLog (int run, int year)
 {
-  char func[] = "stats_ProcessGrowLog";
-  FILE *fp;
-  int index;
-  int fseek_loc;
-  int i;
-  int mc_count = 0;
-  char filename[MAX_FILENAME_LEN];
-  char command[MAX_FILENAME_LEN + 3];
+  // char func[] = "stats_ProcessGrowLog";
+  // FILE *fp;
+  // int index;
+  // int fseek_loc;
+  // int i;
+  // int mc_count = 0;
+  // char filename[MAX_FILENAME_LEN];
+  // char command[MAX_FILENAME_LEN + 3];
 
-  sprintf (filename, "%sgrow_%u_%u.log", scen_GetOutputDir (), run, year);
-  sprintf (command, "rm %s", filename);
+  // sprintf (filename, "%sgrow_%u_%u.log", scen_GetOutputDir (), run, year);
+  // sprintf (command, "rm %s", filename);
 
-  FILE_OPEN (fp, filename, "rb");
+  // FILE_OPEN (fp, filename, "rb");
 
-  if (proc_GetProcessingType () != PREDICTING)
-  {
-    while (fread (&record, sizeof (record), 1, fp))
-    {
-      if (mc_count >= scen_GetMonteCarloIterations ())
-      {
-        sprintf (msg_buf, "mc_count >= scen_GetMonteCarloIterations ()");
-        LOG_ERROR (msg_buf);
-        EXIT (1);
-      }
-      if (feof (fp) || ferror (fp))
-      {
-        sprintf (msg_buf, "feof (fp) || ferror (fp)");
-        LOG_ERROR (msg_buf);
-        EXIT (1);
-      }
-      index = igrid_UrbanYear2Index (year);
-      stats_CalStdDev (index);
-      mc_count++;
-    }
-  }
-  else
-  {
-    while (fread (&record, sizeof (record), 1, fp))
-    {
-      if (mc_count >= scen_GetMonteCarloIterations ())
-      {
-        sprintf (msg_buf, "mc_count >= scen_GetMonteCarloIterations ()");
-        LOG_ERROR (msg_buf);
-        EXIT (1);
-      }
-      if (feof (fp) || ferror (fp))
-      {
-        sprintf (msg_buf, "feof (fp) || ferror (fp)");
-        LOG_ERROR (msg_buf);
-        EXIT (1);
-      }
-      stats_UpdateRunningTotal (0);
-    }
-    stats_CalAverages (0);
-    rewind (fp);
-    mc_count = 0;
-    while (fread (&record, sizeof (record), 1, fp))
-    {
-      if (mc_count >= scen_GetMonteCarloIterations ())
-      {
-        sprintf (msg_buf, "mc_count >= scen_GetMonteCarloIterations ()");
-        LOG_ERROR (msg_buf);
-        sprintf (msg_buf, "mc_count= %u scen_GetMonteCarloIterations= %u",
-                 mc_count, scen_GetMonteCarloIterations ());
-        LOG_ERROR (msg_buf);
-        EXIT (1);
-      }
-      if (feof (fp) || ferror (fp))
-      {
-        sprintf (msg_buf, "feof (fp) || ferror (fp)");
-        LOG_ERROR (msg_buf);
-        EXIT (1);
-      }
-      stats_CalStdDev (0);
-      mc_count++;
-    }
-  }
-  fclose (fp);
-  system (command);
+  // if (proc_GetProcessingType () != PREDICTING)
+  // {
+  //   while (fread (&record, sizeof (record), 1, fp))
+  //   {
+  //     if (mc_count >= scen_GetMonteCarloIterations ())
+  //     {
+  //       sprintf (msg_buf, "mc_count >= scen_GetMonteCarloIterations ()");
+  //       LOG_ERROR (msg_buf);
+  //       EXIT (1);
+  //     }
+  //     if (feof (fp) || ferror (fp))
+  //     {
+  //       sprintf (msg_buf, "feof (fp) || ferror (fp)");
+  //       LOG_ERROR (msg_buf);
+  //       EXIT (1);
+  //     }
+  //     index = igrid_UrbanYear2Index (year);
+  //     stats_CalStdDev (index);
+  //     mc_count++;
+  //   }
+  // }
+  // else
+  // {
+  //   while (fread (&record, sizeof (record), 1, fp))
+  //   {
+  //     if (mc_count >= scen_GetMonteCarloIterations ())
+  //     {
+  //       sprintf (msg_buf, "mc_count >= scen_GetMonteCarloIterations ()");
+  //       LOG_ERROR (msg_buf);
+  //       EXIT (1);
+  //     }
+  //     if (feof (fp) || ferror (fp))
+  //     {
+  //       sprintf (msg_buf, "feof (fp) || ferror (fp)");
+  //       LOG_ERROR (msg_buf);
+  //       EXIT (1);
+  //     }
+  //     stats_UpdateRunningTotal (0);
+  //   }
+  //   stats_CalAverages (0);
+  //   rewind (fp);
+  //   mc_count = 0;
+  //   while (fread (&record, sizeof (record), 1, fp))
+  //   {
+  //     if (mc_count >= scen_GetMonteCarloIterations ())
+  //     {
+  //       sprintf (msg_buf, "mc_count >= scen_GetMonteCarloIterations ()");
+  //       LOG_ERROR (msg_buf);
+  //       sprintf (msg_buf, "mc_count= %u scen_GetMonteCarloIterations= %u",
+  //                mc_count, scen_GetMonteCarloIterations ());
+  //       LOG_ERROR (msg_buf);
+  //       EXIT (1);
+  //     }
+  //     if (feof (fp) || ferror (fp))
+  //     {
+  //       sprintf (msg_buf, "feof (fp) || ferror (fp)");
+  //       LOG_ERROR (msg_buf);
+  //       EXIT (1);
+  //     }
+  //     stats_CalStdDev (0);
+  //     mc_count++;
+  //   }
+  // }
+  // fclose (fp);
+  // system (command);
 }
 /******************************************************************************
 *******************************************************************************
