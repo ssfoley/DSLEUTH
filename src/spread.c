@@ -1303,4 +1303,5 @@ void
   scratch_gif1 = mem_GetWGridFree (__FILE__, func, __LINE__, scratch_gif1);
   scratch_gif3 = mem_GetWGridFree (__FILE__, func, __LINE__, scratch_gif3);
   FUNC_END;
+  printf("%s\n", "end spr_spread");
 }
