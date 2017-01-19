@@ -256,6 +256,7 @@ static void
               SWGHT_TYPE * swght,                            /* IN     */
               int *og)                                     /* IN/OUT */
 {
+  printf("%s\n", "spr_phase4");
   char func[] = "spr_phase4";
   int row;
   int col;
@@ -356,6 +357,7 @@ static void
               GRID_P workspace)                            /* MOD    */
 
 {
+  printf("%s\n", "spr_phase5");
   char func[] = "spr_phase5";
   int iii;
   int int_road_gravity;
