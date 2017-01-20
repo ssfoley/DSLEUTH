@@ -2200,50 +2200,50 @@ static void
 static void
   stats_Save (char *filename)
 {
-  char func[] = "stats_Save";
-  int num_written;
-  int fseek_loc;
-  int index;
-  int i;
-  FILE *fp;
-  int thread_id = omp_get_thread_num();
-  record[thread_id].run = proc_GetCurrentRun ();
-  record[thread_id].monte_carlo = proc_GetCurrentMonteCarlo ();
-  record[thread_id].year = proc_GetCurrentYear ();
-  index = 0;
-  if (proc_GetProcessingType () != PREDICTING)
-  {
-    index = igrid_UrbanYear2Index (record[thread_id].year);
-  }
+  // char func[] = "stats_Save";
+  // int num_written;
+  // int fseek_loc;
+  // int index;
+  // int i;
+  // FILE *fp;
+  // int thread_id = omp_get_thread_num();
+  // record[thread_id].run = proc_GetCurrentRun ();
+  // record[thread_id].monte_carlo = proc_GetCurrentMonteCarlo ();
+  // record[thread_id].year = proc_GetCurrentYear ();
+  // index = 0;
+  // if (proc_GetProcessingType () != PREDICTING)
+  // {
+  //   index = igrid_UrbanYear2Index (record[thread_id].year);
+  // }
 
-  stats_UpdateRunningTotal (index);
+  // stats_UpdateRunningTotal (index);
 
-  if (record[thread_id].monte_carlo == 0)
-  {
-    FILE_OPEN (fp, filename, "wb");
-    for (i = 0; i < scen_GetMonteCarloIterations (); i++)
-    {
-      num_written = fwrite (&record[thread_id], sizeof (record[thread_id]), 1, fp);
-      if (num_written != 1)
-      {
-        printf ("%s %u ERROR\n", __FILE__, __LINE__);
-      }
-    }
+  // if (record[thread_id].monte_carlo == 0)
+  // {
+  //   FILE_OPEN (fp, filename, "wb");
+  //   for (i = 0; i < scen_GetMonteCarloIterations (); i++)
+  //   {
+  //     num_written = fwrite (&record[thread_id], sizeof (record[thread_id]), 1, fp);
+  //     if (num_written != 1)
+  //     {
+  //       printf ("%s %u ERROR\n", __FILE__, __LINE__);
+  //     }
+  //   }
 
-  }
-  else
-  {
-    FILE_OPEN (fp, filename, "r+b");
-    rewind (fp);
-    fseek_loc = fseek (fp, sizeof (record[thread_id]) * record[thread_id].monte_carlo, SEEK_SET);
-    num_written = fwrite (&record[thread_id], sizeof (record[thread_id]), 1, fp);
-    if (num_written != 1)
-    {
-      printf ("%s %u ERROR\n", __FILE__, __LINE__);
-    }
+  // }
+  // else
+  // {
+  //   FILE_OPEN (fp, filename, "r+b");
+  //   rewind (fp);
+  //   fseek_loc = fseek (fp, sizeof (record[thread_id]) * record[thread_id].monte_carlo, SEEK_SET);
+  //   num_written = fwrite (&record[thread_id], sizeof (record[thread_id]), 1, fp);
+  //   if (num_written != 1)
+  //   {
+  //     printf ("%s %u ERROR\n", __FILE__, __LINE__);
+  //   }
 
-  }
-  fclose (fp);
+  // }
+  // fclose (fp);
 
 }
 /******************************************************************************
