@@ -155,7 +155,7 @@ static void
                 int *sng,                                    /* IN/OUT */
                 int *sdc)                                  /* IN/OUT */
 {
-  printf("%s\n", "spr_phase1n3");
+  //printf("%s\n", "spr_phase1n3");
   char func[] = "spr_phase1n3";
   int i;
   int j;
@@ -256,7 +256,7 @@ static void
               SWGHT_TYPE * swght,                            /* IN     */
               int *og)                                     /* IN/OUT */
 {
-  printf("%s\n", "spr_phase4");
+  // printf("%s\n", "spr_phase4");
   char func[] = "spr_phase4";
   int row;
   int col;
@@ -357,7 +357,7 @@ static void
               GRID_P workspace)                            /* MOD    */
 
 {
-  printf("%s\n", "spr_phase5");
+  // printf("%s\n", "spr_phase5");
   char func[] = "spr_phase5";
   int iii;
   int int_road_gravity;
@@ -1132,7 +1132,7 @@ void
                GRID_P z                                      /* IN/OUT */
   )                                                        /* MOD    */
 {
-  printf("%s\n", "spr_spread");
+  // printf("%s\n", "spr_spread");
   char func[] = "Spread";
   GRID_P delta;
   int i;
@@ -1303,5 +1303,5 @@ void
   scratch_gif1 = mem_GetWGridFree (__FILE__, func, __LINE__, scratch_gif1);
   scratch_gif3 = mem_GetWGridFree (__FILE__, func, __LINE__, scratch_gif3);
   FUNC_END;
-  printf("%s\n", "end spr_spread");
+  // printf("%s\n", "end spr_spread");
 }
