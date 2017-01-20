@@ -228,7 +228,7 @@ void
                scen_GetOutputDir (), proc_GetCurrentRun (),
                proc_GetCurrentMonteCarlo (), proc_GetCurrentYear ());
       sprintf (date_str, "%u", proc_GetCurrentYear ());
-      printf("%s\n", "sprintf");
+      //并行出错区
       // gdif_WriteGIF (z_ptr,
       //                color_GetColortable (GROWTH_COLORTABLE),
       //                gif_filename,
