@@ -275,7 +275,7 @@ void
   }
   timer_Stop (GRW_GROWTH);
   FUNC_END;
-  printf("%s\n", "end grw_grow");
+  //printf("%s\n", "end grw_grow");
 }
 
 
