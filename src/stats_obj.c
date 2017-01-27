@@ -2602,7 +2602,7 @@ static void
   edges = 0;
   area = 0;
 
-  #pragma omp paraller for default(shared) private(i,j,edge,loop,row,col) reduction(+:area,edges)
+  // #pragma omp paraller for default(shared) private(i,j,edge,loop,row,col) reduction(+:area,edges)
   for (i = 0; i < nrows; i++)
   {
     for (j = 0; j < ncols; j++)
@@ -2691,7 +2691,7 @@ static void
    * first, compute the means
    *
    */
-  #pragma omp paraller for default(shared) private(i,j) reduction(+:addslope,xmean,ymean,number)
+  // #pragma omp paraller for default(shared) private(i,j) reduction(+:addslope,xmean,ymean,number)
   for (i = 0; i < nrows; i++)
   {
     for (j = 0; j < ncols; j++)
