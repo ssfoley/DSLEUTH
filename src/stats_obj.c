@@ -2814,7 +2814,6 @@ static void
   for (i = 0; i < total_pixels; i++)
   {
     visited[i] = 0;
-    printf("%u\n", Z[i]);
   }
   //double pop = *stats_pop;
   //#pragma omp paraller for default(shared) private(i) reduction(+:pop)
@@ -2830,20 +2829,24 @@ static void
       clusters[i] = 0;
     }
   }
-  //*stats_pop = pop;
-  //#pragma omp paraller for
+  // *stats_pop = pop;
+  // #pragma omp paraller for
   for (j = 0; j < ncols; j++)
   {
     clusters[OFFSET (0, j)] = 0;
     clusters[OFFSET (nrows - 1, j)] = 0;
   }
-  //#pragma omp paraller for
+  // #pragma omp paraller for
   for (i = 0; i < nrows; i++)
   {
     clusters[OFFSET (i, 0)] = 0;
     clusters[OFFSET (i, ncols - 1)] = 0;
   }
-//#pragma omp paraller for default(shared) private(i,j,rrow,ccol,loop,row,col,depth,sum) reduction(+:num_clusters)
+  // #pragma omp paraller for default(shared) private(i,j,rrow,ccol,loop,row,col,depth,sum) reduction(+:num_clusters)
+  for (i = 0; i < total_pixels; ++i)
+  {
+    printf("%u ", clusters[i]);
+  }
   for (i = 1; i < nrows - 1; i++)
   {
     for (j = 1; j < ncols - 1; j++)
