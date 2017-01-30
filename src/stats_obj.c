@@ -2814,6 +2814,7 @@ static void
   for (i = 0; i < total_pixels; i++)
   {
     visited[i] = 0;
+    printf("%u\n", Z[i]);
   }
   //double pop = *stats_pop;
   //#pragma omp paraller for default(shared) private(i) reduction(+:pop)
