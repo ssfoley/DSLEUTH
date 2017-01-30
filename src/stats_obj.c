@@ -2850,6 +2850,10 @@ static void
       printf("%s %d\n", "不全为0", omp_get_thread_num());
       break;
     }
+  }
+
+  for (i = 0; i < count; ++i)
+  {
     if (visited[i] != 0)
     {
       printf("%s %d\n", "visited不全为0", omp_get_thread_num());
