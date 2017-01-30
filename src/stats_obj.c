@@ -2849,6 +2849,7 @@ static void
     {
       printf("%u ", clusters[i]);
     }
+    printf("\n\n");
   }
   
   for (i = 1; i < nrows - 1; i++)
