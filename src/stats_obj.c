@@ -2848,6 +2848,7 @@ static void
     if (clusters[i] == 1)
     {
       printf("%s %d\n", "不全为0", omp_get_thread_num());
+      break;
     }
   }
   
@@ -2897,7 +2898,7 @@ static void
   }
   else
   {
-    sprintf (msg_buf, "num_clusters=%d", num_clusters);
+    sprintf (msg_buf, "num_clusters=%d %d", num_clusters, omp_get_thread_num());
     LOG_ERROR (msg_buf);
     EXIT (1);
   }
