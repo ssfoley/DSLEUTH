@@ -57,10 +57,10 @@ static mem_track_info igrid_array[MEM_ARRAY_SIZE];
 static int pgrid_free[NUM_THREADS][MEM_ARRAY_SIZE];
 static int pgrid_free_tos[NUM_THREADS];
 static mem_track_info pgrid_array[NUM_THREADS][MEM_ARRAY_SIZE];
-static int wgrid_free[MEM_ARRAY_SIZE];
-static int wgrid_free_tos;
-static int min_wgrid_free_tos;
-static mem_track_info wgrid_array[MEM_ARRAY_SIZE];
+static int wgrid_free[NUM_THREADS][MEM_ARRAY_SIZE];
+static int wgrid_free_tos[NUM_THREADS];
+static int min_wgrid_free_tos[NUM_THREADS];
+static mem_track_info wgrid_array[NUM_THREADS][MEM_ARRAY_SIZE];
 static PIXEL *mem_check_array[MEM_ARRAY_SIZE];
 static int mem_check_count;
 static int mem_check_size;
@@ -93,8 +93,8 @@ static void mem_igrid_push (int i);
 static int mem_igrid_pop ();
 static void mem_pgrid_push (int i, int j);
 static int mem_pgrid_pop (int i);
-static void mem_wgrid_push (int i);
-static int mem_wgrid_pop ();
+static void mem_wgrid_push (int i, int j);
+static int mem_wgrid_pop (int i);
 static void mem_InvalidateGrid (GRID_P ptr);
 static void mem_CheckInvalidateGrid (GRID_P ptr);
 static void mem_InvalidateCheckArray ();
@@ -247,7 +247,9 @@ GRID_P
 {
   int index;
 
-  index = mem_wgrid_pop ();
+  int thread_id = omp_get_thread_num();
+
+  index = mem_wgrid_pop (thread_id);
   strcpy (wgrid_array[index].previous_owner, wgrid_array[index].current_owner);
   sprintf (wgrid_array[index].current_owner,
            "Module: %s Function: %s Line %u", module, who, line);
@@ -272,10 +274,11 @@ GRID_P
   int i;
   int index;
   BOOLEAN match = FALSE;
+  int thread_id = omp_get_thread_num();
 
   for (i = 0; i < wgrid_count; i++)
   {
-    if (wgrid_array[i].ptr == ptr)
+    if (wgrid_array[thread_id][i].ptr == ptr)
     {
       match = TRUE;
       index = i;
@@ -289,16 +292,16 @@ GRID_P
     LOG_ERROR (msg_buf);
     EXIT (1);
   }
-  if (wgrid_array[index].free == TRUE)
+  if (wgrid_array[thread_id][index].free == TRUE)
   {
-    sprintf (msg_buf, "wgrid_array[%u].free == TRUE", index);
+    sprintf (msg_buf, "wgrid_array[%u][%u].free == TRUE", thread_id, index);
     LOG_ERROR (msg_buf);
     EXIT (1);
   }
-  strcpy (wgrid_array[index].current_owner, "");
-  sprintf (wgrid_array[index].released_by,
+  strcpy (wgrid_array[thread_id][index].current_owner, "");
+  sprintf (wgrid_array[thread_id][index].released_by,
            "Module: %s Function: %s Line %u", module, who, line);
-  mem_wgrid_push (index);
+  mem_wgrid_push (thread_id, index);
   return NULL;
 }
 
@@ -335,8 +338,12 @@ void
   {
     pgrid_free_tos[i] = 0;
   }
+  for (i = 0; i < NUM_THREADS; ++i)
+  {
+    wgrid_free_tos[i] = 0;
+  }
   //pgrid_free_tos = 0;
-  wgrid_free_tos = 0;
+  //wgrid_free_tos = 0;
   nrows = igrid_GetNumRows ();
   ncols = igrid_GetNumCols ();
   total_pixels = nrows * ncols;
@@ -344,7 +351,7 @@ void
   pgrid_count = pgrid_GetPGridCount ();
   wgrid_count = wgrid_GetWGridCount ();
 
-  check_pixel_count = igrid_count + pgrid_count * NUM_THREADS + wgrid_count + 1;
+  check_pixel_count = igrid_count + pgrid_count * NUM_THREADS + wgrid_count * NUM_THREADS + 1;
 
   bytes_p_grid = BYTES_PER_PIXEL * total_pixels;
   bytes_p_grid_rounded2wordboundary =
@@ -361,7 +368,7 @@ void
 #else
   bytes2allocate = (size_t)igrid_count * bytes_p_grid_rounded2wordboundary +
     pgrid_count * NUM_THREADS * bytes_p_grid_rounded2wordboundary +
-    wgrid_count * bytes_p_grid_rounded2wordboundary +
+    wgrid_count * NUM_THREADS * bytes_p_grid_rounded2wordboundary +
       check_pixel_count * (size_t)BYTES_PER_PIXEL;
   igrid_size = bytes_p_grid_rounded2wordboundary / BYTES_PER_WORD;
 #endif
@@ -621,6 +628,26 @@ static void
     }
   }
 
+  for (i = 0; i < NUM_THREADS (); i++)
+  {
+    for (j = 0; j < wgrid_GetWGridCount (); ++j)
+    {
+      mem_check_array[mem_check_count++] = temp_ptr;
+      temp_ptr += mem_check_size;
+      wgrid_array[i][j].ptr = (GRID_P) temp_ptr;
+      mem_InvalidateGrid (wgrid_array[i].ptr);
+      temp_ptr += wgrid_size;
+      strcpy (wgrid_array[i][j].current_owner, "");
+      mem_wgrid_push (i, j);
+      if (fp)
+      {
+        fprintf (fp, "%d mem_check_array[%2u]\n",
+                mem_check_array[mem_check_count - 1], mem_check_count - 1);
+        fprintf (fp, "%d wgrid_array[%2u][%2u]\n", wgrid_array[i][j].ptr, i, j);
+      }
+    }
+  }
+
   // for (i = 0; i < pgrid_GetPGridCount (); i++)
   // {
   //   mem_check_array[mem_check_count++] = temp_ptr;
@@ -637,22 +664,22 @@ static void
   //   }
   // }
 
-  for (i = 0; i < wgrid_GetWGridCount (); i++)
-  {
-    mem_check_array[mem_check_count++] = temp_ptr;
-    temp_ptr += mem_check_size;
-    wgrid_array[i].ptr = (GRID_P) temp_ptr;
-    mem_InvalidateGrid (wgrid_array[i].ptr);
-    temp_ptr += wgrid_size;
-    strcpy (wgrid_array[i].current_owner, "");
-    mem_wgrid_push (i);
-    if (fp)
-    {
-      fprintf (fp, "%d mem_check_array[%2u]\n",
-               mem_check_array[mem_check_count - 1], mem_check_count - 1);
-      fprintf (fp, "%d wgrid_array[%2u]\n", wgrid_array[i].ptr, i);
-    }
-  }
+  // for (i = 0; i < wgrid_GetWGridCount (); i++)
+  // {
+  //   mem_check_array[mem_check_count++] = temp_ptr;
+  //   temp_ptr += mem_check_size;
+  //   wgrid_array[i].ptr = (GRID_P) temp_ptr;
+  //   mem_InvalidateGrid (wgrid_array[i].ptr);
+  //   temp_ptr += wgrid_size;
+  //   strcpy (wgrid_array[i].current_owner, "");
+  //   mem_wgrid_push (i);
+  //   if (fp)
+  //   {
+  //     fprintf (fp, "%d mem_check_array[%2u]\n",
+  //              mem_check_array[mem_check_count - 1], mem_check_count - 1);
+  //     fprintf (fp, "%d wgrid_array[%2u]\n", wgrid_array[i].ptr, i);
+  //   }
+  // }
   mem_check_array[mem_check_count++] = temp_ptr;
   if (fp)
   {
@@ -660,7 +687,11 @@ static void
              mem_check_array[mem_check_count - 1], mem_check_count - 1);
     fprintf (fp, "%d End of memory \n", end_ptr);
   }
-  min_wgrid_free_tos = wgrid_free_tos;
+  // min_wgrid_free_tos = wgrid_free_tos;
+  for (i = 0; i < NUM_THREADS; ++i)
+  {
+    min_wgrid_free_tos[i] = wgrid_free_tos[i];
+  }
 
 }
 
@@ -864,21 +895,21 @@ static int
 **
 */
 static void
-  mem_wgrid_push (int i)
+  mem_wgrid_push (int i, int j)
 {
   char func[] = "mem_wgrid_push";
-  if (wgrid_free_tos >= 50)
+  if (wgrid_free_tos[i] >= 50)
   {
-    sprintf (msg_buf, "wgrid_free_tos >= 50");
+    sprintf (msg_buf, "wgrid_free_tos[%d] >= 50", i);
     LOG_ERROR (msg_buf);
     EXIT (1);
   }
-  wgrid_free[wgrid_free_tos] = i;
-  wgrid_array[i].free = TRUE;
+  wgrid_free[i][wgrid_free_tos[i]] = i;
+  wgrid_array[i][j].free = TRUE;
 #ifdef MEMORY_CHECK_LEVEL3
-  mem_InvalidateGrid (wgrid_array[i].ptr);
+  mem_InvalidateGrid (wgrid_array[i][j].ptr);
 #endif
-  wgrid_free_tos++;
+  wgrid_free_tos[i]++;
 }
 
 /******************************************************************************
@@ -893,24 +924,24 @@ static void
 **
 */
 static int
-  mem_wgrid_pop ()
+  mem_wgrid_pop (int i)
 {
   char func[] = "mem_wgrid_pop";
-  wgrid_free_tos--;
-  if (wgrid_free_tos < 0)
+  wgrid_free_tos[i]--;
+  if (wgrid_free_tos[i] < 0)
   {
-    sprintf (msg_buf, "wgrid_free_tos < 0");
+    sprintf (msg_buf, "wgrid_free_tos[%d] < 0", i);
     LOG_ERROR (msg_buf);
     sprintf (msg_buf, "Increase NUM_WORKING_GRIDS in scenario file");
     LOG_ERROR (msg_buf);
     EXIT (1);
   }
-  wgrid_array[wgrid_free[wgrid_free_tos]].free = FALSE;
-  min_wgrid_free_tos = MIN (min_wgrid_free_tos, wgrid_free_tos);
+  wgrid_array[i][wgrid_free[i][wgrid_free_tos[i]]].free = FALSE;
+  min_wgrid_free_tos[i] = MIN (min_wgrid_free_tos[i], wgrid_free_tos[i]);
 #ifdef MEMORY_CHECK_LEVEL3
-  mem_CheckInvalidateGrid (wgrid_array[wgrid_free[wgrid_free_tos]].ptr);
+  mem_CheckInvalidateGrid (wgrid_array[i][wgrid_free[i][wgrid_free_tos[i]]].ptr);
 #endif
-  return wgrid_free[wgrid_free_tos];
+  return wgrid_free[i][wgrid_free_tos[i]];
 }
 
 /******************************************************************************
@@ -967,11 +998,12 @@ int
 void
   mem_LogMinFreeWGrids (FILE * fp)
 {
+  int thread_id = omp_get_thread_num();
   fprintf (fp, "Minmum number of Free working grids=%u\n",
-           min_wgrid_free_tos);
+           min_wgrid_free_tos[thread_id]);
   fprintf (fp,
    "For max efficiency of memory usage reduce NUM_WORKING_GRIDS by %u\n",
-           min_wgrid_free_tos);
+           min_wgrid_free_tos[thread_id]);
 }
 
 /******************************************************************************
