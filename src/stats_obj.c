@@ -2843,27 +2843,6 @@ static void
     clusters[OFFSET (i, ncols - 1)] = 0;
   }
   // #pragma omp paraller for default(shared) private(i,j,rrow,ccol,loop,row,col,depth,sum) reduction(+:num_clusters)
-  for (i = 0; i < total_pixels; ++i)
-  {
-    if (clusters[i] == 1)
-    {
-      printf("%s %d\n", "不全为0", omp_get_thread_num());
-      break;
-    }
-  }
-
-  for (i = 0; i < total_pixels; ++i)
-  {
-    if (visited[i] != 0)
-    {
-      printf("%s %d\n", "visited不全为0", omp_get_thread_num());
-      break;
-    }
-  }
-
-  printf("visited %u %d\n", visited, omp_get_thread_num());
-  printf("clusters %u %d\n", clusters, omp_get_thread_num());
-  
   for (i = 1; i < nrows - 1; i++)
   {
     for (j = 1; j < ncols - 1; j++)
