@@ -1029,18 +1029,18 @@ void
   fp = fp_in ? fp_in : stdout;
   if (!((fp == stdout) && (!scen_GetEchoFlag ())))
   {
-    // for (i = 0; i < igrid_GetIGridCount (); i++)
-    // {
-    //   fprintf (fp, "%d igrid_array[%u].ptr\n", igrid_array[i].ptr, i);
-    // }
+    for (i = 0; i < igrid_GetIGridCount (); i++)
+    {
+      fprintf (fp, "%d igrid_array[%u].ptr\n", igrid_array[i].ptr, i);
+    }
     // for (i = 0; i < pgrid_GetPGridCount (); i++)
     // {
     //   fprintf (fp, "pgrid_array[%u].ptr = %d\n", i, pgrid_array[i].ptr);
     // }
-    for (i = 0; i < wgrid_GetWGridCount (); i++)
-    {
-      fprintf (fp, "wgrid_array[%u].ptr = %d\n", i, wgrid_array[i].ptr);
-    }
+    // for (i = 0; i < wgrid_GetWGridCount (); i++)
+    // {
+    //   fprintf (fp, "wgrid_array[%u].ptr = %d\n", i, wgrid_array[i].ptr);
+    // }
     for (i = 0; i < mem_check_count; i++)
     {
       fprintf (fp, "mem_check_array[%u].ptr = %d\n", i, mem_check_array[i]);
