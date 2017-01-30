@@ -2795,7 +2795,7 @@ static void
   assert (Z != NULL);
   assert (scratch_gif1 != NULL);
   assert (scratch_gif2 != NULL);
-  assert (scratch_gif1 != scratch_gif2)
+  assert (scratch_gif1 != scratch_gif2);
   total_pixels = mem_GetTotalPixels ();
   assert (total_pixels > 0);
   nrows = igrid_GetNumRows ();
