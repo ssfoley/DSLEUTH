@@ -905,7 +905,7 @@ static void
     LOG_ERROR (msg_buf);
     EXIT (1);
   }
-  wgrid_free[i][wgrid_free_tos[i]] = i;
+  wgrid_free[i][wgrid_free_tos[i]] = j;
   wgrid_array[i][j].free = TRUE;
 #ifdef MEMORY_CHECK_LEVEL3
   mem_InvalidateGrid (wgrid_array[i][j].ptr);
