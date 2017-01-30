@@ -2795,6 +2795,7 @@ static void
   assert (Z != NULL);
   assert (scratch_gif1 != NULL);
   assert (scratch_gif2 != NULL);
+  assert (scratch_gif1 != scratch_gif2)
   total_pixels = mem_GetTotalPixels ();
   assert (total_pixels > 0);
   nrows = igrid_GetNumRows ();
@@ -2814,21 +2815,21 @@ static void
   {
     visited[i] = 0;
   }
-  double pop = *stats_pop;
+  //double pop = *stats_pop;
   //#pragma omp paraller for default(shared) private(i) reduction(+:pop)
   for (i = 0; i < total_pixels; i++)
   {
     if (Z[i] != 0)
     {
       clusters[i] = 1;
-      pop++;
+      (*stats_pop)++;
     }
     else
     {
       clusters[i] = 0;
     }
   }
-  *stats_pop = pop;
+  //*stats_pop = pop;
   //#pragma omp paraller for
   for (j = 0; j < ncols; j++)
   {
