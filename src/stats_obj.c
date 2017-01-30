@@ -2850,7 +2850,15 @@ static void
       printf("%s %d\n", "不全为0", omp_get_thread_num());
       break;
     }
+    if (visited[i] != 0)
+    {
+      printf("%s %d\n", "visited不全为0", omp_get_thread_num());
+      break;
+    }
   }
+
+  printf("visited %u %d\n", visited, omp_get_thread_num());
+  printf("clusters %u %d\n", clusters, omp_get_thread_num());
   
   for (i = 1; i < nrows - 1; i++)
   {
