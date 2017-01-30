@@ -2852,7 +2852,7 @@ static void
     }
   }
 
-  for (i = 0; i < count; ++i)
+  for (i = 0; i < total_pixels; ++i)
   {
     if (visited[i] != 0)
     {
