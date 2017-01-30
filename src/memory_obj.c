@@ -250,10 +250,10 @@ GRID_P
   int thread_id = omp_get_thread_num();
 
   index = mem_wgrid_pop (thread_id);
-  strcpy (wgrid_array[index].previous_owner, wgrid_array[index].current_owner);
-  sprintf (wgrid_array[index].current_owner,
+  strcpy (wgrid_array[thread_id][index].previous_owner, wgrid_array[thread_id][index].current_owner);
+  sprintf (wgrid_array[thread_id][index].current_owner,
            "Module: %s Function: %s Line %u", module, who, line);
-  return wgrid_array[index].ptr;
+  return wgrid_array[thread_id][index].ptr;
 }
 
 /******************************************************************************
@@ -472,24 +472,25 @@ void
   char func[] = "mem_CheckMemory";
   int i;
   int j;
+  int thread_id = omp_get_thread_num();
 
   fprintf (fp, "%s %u MEMORY CHECK at %s %s %u\n",
            __FILE__, __LINE__, module, function, line);
   mem_CheckCheckArray ();
   for (i = 0; i < wgrid_count; i++)
   {
-    if (wgrid_array[i].free)
+    if (wgrid_array[thread_id][i].free)
     {
 #ifdef MEMORY_CHECK_LEVEL3
       for (j = 0; j < total_pixels; j++)
       {
-        if (wgrid_array[i].ptr[j] != invalid_val)
+        if (wgrid_array[thread_id][i].ptr[j] != invalid_val)
         {
-          sprintf (msg_buf, "grid %d is not invalid", wgrid_array[i].ptr);
+          sprintf (msg_buf, "grid %d is not invalid", wgrid_array[thread_id][i].ptr);
           LOG_ERROR (msg_buf);
-          sprintf (msg_buf, "current_owner: %s", wgrid_array[i].current_owner);
+          sprintf (msg_buf, "current_owner: %s", wgrid_array[thread_id][i].current_owner);
           LOG_ERROR (msg_buf);
-          sprintf (msg_buf, "previous_owner: %s", wgrid_array[i].previous_owner);
+          sprintf (msg_buf, "previous_owner: %s", wgrid_array[thread_id][i].previous_owner);
           LOG_ERROR (msg_buf);
           EXIT (1);
         }
@@ -500,13 +501,13 @@ void
     {
       for (j = 0; j < total_pixels; j++)
       {
-        if (!((0 <= wgrid_array[i].ptr[j]) && (wgrid_array[i].ptr[j] < 256)))
+        if (!((0 <= wgrid_array[thread_id][i].ptr[j]) && (wgrid_array[thread_id][i].ptr[j] < 256)))
         {
-          sprintf (msg_buf, "grid %d is out of range", wgrid_array[i].ptr);
+          sprintf (msg_buf, "grid %d is out of range", wgrid_array[thread_id][i].ptr);
           LOG_ERROR (msg_buf);
-          sprintf (msg_buf, "current_owner: %s", wgrid_array[i].current_owner);
+          sprintf (msg_buf, "current_owner: %s", wgrid_array[thread_id][i].current_owner);
           LOG_ERROR (msg_buf);
-          sprintf (msg_buf, "previous_owner: %s", wgrid_array[i].previous_owner);
+          sprintf (msg_buf, "previous_owner: %s", wgrid_array[thread_id][i].previous_owner);
           LOG_ERROR (msg_buf);
           EXIT (1);
         }
@@ -628,14 +629,14 @@ static void
     }
   }
 
-  for (i = 0; i < NUM_THREADS (); i++)
+  for (i = 0; i < NUM_THREADS; i++)
   {
     for (j = 0; j < wgrid_GetWGridCount (); ++j)
     {
       mem_check_array[mem_check_count++] = temp_ptr;
       temp_ptr += mem_check_size;
       wgrid_array[i][j].ptr = (GRID_P) temp_ptr;
-      mem_InvalidateGrid (wgrid_array[i].ptr);
+      mem_InvalidateGrid (wgrid_array[i][j].ptr);
       temp_ptr += wgrid_size;
       strcpy (wgrid_array[i][j].current_owner, "");
       mem_wgrid_push (i, j);
@@ -959,10 +960,11 @@ void
   mem_ReinvalidateMemory ()
 {
   int i;
+  int thread_id = omp_get_thread_num();
 
   for (i = 0; i < wgrid_GetWGridCount (); i++)
   {
-    mem_InvalidateGrid (wgrid_array[i].ptr);
+    mem_InvalidateGrid (wgrid_array[thread_id][i].ptr);
   }
   mem_InvalidateCheckArray ();
 }
@@ -1022,14 +1024,15 @@ void
 {
   int i;
   FILE *fp;
+  int thread_id = omp_get_thread_num();
 
   fp = fp_in ? fp_in : stdout;
   if (!((fp == stdout) && (!scen_GetEchoFlag ())))
   {
-    for (i = 0; i < igrid_GetIGridCount (); i++)
-    {
-      fprintf (fp, "%d igrid_array[%u].ptr\n", igrid_array[i].ptr, i);
-    }
+    // for (i = 0; i < igrid_GetIGridCount (); i++)
+    // {
+    //   fprintf (fp, "%d igrid_array[%u].ptr\n", igrid_array[i].ptr, i);
+    // }
     // for (i = 0; i < pgrid_GetPGridCount (); i++)
     // {
     //   fprintf (fp, "pgrid_array[%u].ptr = %d\n", i, pgrid_array[i].ptr);
