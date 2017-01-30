@@ -245,7 +245,6 @@ void
     }
     else
     {
-      //printf("%s\n", "else");
       grw_non_landuse (z_ptr);
     }
 

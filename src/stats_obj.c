@@ -36,21 +36,22 @@ char stats_obj_c_sccs_id[] = "@(#)stats_obj.c	1.72	12/4/00";
 #define SIZE_CIR_Q 5000
 
 #define Q_STORE(R,C)                                                     \
-  // if((sidx+1==ridx)||((sidx+1==SIZE_CIR_Q)&&!ridx)){                     \
-  //   printf("Error Circular Queue Full\n");                               \
-  //   printf("Increase SIZE_CIR_Q and recompile\n");                       \
-  //   printf("sidx=%d ridx=%d SIZE_CIR_Q=%d\n",sidx,ridx,SIZE_CIR_Q);      \
-  //   EXIT(1);}                                                            \
-  cir_q[sidx].row = R;                                                   \
-  cir_q[sidx].col = C;                                                   \
-  sidx++;                                                                \
+  int temp_variable = omp_get_thread_num();                               \
+  if((sidx[temp_variable]+1==ridx[temp_variable])||((sidx[temp_variable]+1==SIZE_CIR_Q)&&!ridx[temp_variable])){                     \
+    printf("Error Circular Queue Full\n");                               \
+    printf("Increase SIZE_CIR_Q and recompile\n");                       \
+    printf("sidx=%d ridx=%d SIZE_CIR_Q=%d\n",sidx[temp_variable],ridx[temp_variable],SIZE_CIR_Q);      \
+    EXIT(1);}                                                            \
+  cir_q[sidx[temp_variable]].row = R;                                                   \
+  cir_q[sidx[temp_variable]].col = C;                                                   \
+  sidx[temp_variable]++;                                                                \
   depth++;                                                               \
-  sidx %= SIZE_CIR_Q
+  sidx[temp_variable] %= SIZE_CIR_Q
 #define Q_RETREIVE(R,C)                                                  \
-  ridx = ridx%SIZE_CIR_Q;                                                \
-  R = cir_q[ridx].row;                                                   \
-  C = cir_q[ridx].col;                                                   \
-  ridx++;                                                                \
+  ridx[temp_variable] = ridx[temp_variable]%SIZE_CIR_Q;                                                \
+  R = cir_q[ridx[temp_variable]].row;                                                   \
+  C = cir_q[ridx[temp_variable]].col;                                                   \
+  ridx[temp_variable]++;                                                                \
   depth--
 
 
@@ -122,8 +123,8 @@ static struct
 }
 urbanization_attempt[NUM_THREADS];
 
-static int sidx;
-static int ridx;
+static int sidx[NUM_THREADS];
+static int ridx[NUM_THREADS];
 
 /* link element for Cluster routine */
 typedef struct ugm_link
