@@ -2843,13 +2843,12 @@ static void
     clusters[OFFSET (i, ncols - 1)] = 0;
   }
   // #pragma omp paraller for default(shared) private(i,j,rrow,ccol,loop,row,col,depth,sum) reduction(+:num_clusters)
-  #pragma omp critical
+  for (i = 0; i < total_pixels; ++i)
   {
-    for (i = 0; i < total_pixels; ++i)
+    if (clusters[i] == 1)
     {
-      printf("%u ", clusters[i]);
+      printf("%s\n", "不全为0");
     }
-    printf("\n\n");
   }
   
   for (i = 1; i < nrows - 1; i++)
