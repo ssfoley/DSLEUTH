@@ -24,7 +24,7 @@ DEP = -MM
 #   -DNDEBUG (turns asserts off; for production code; faster execution)
 #   -DMPI (if running on an MPI machine else -UMPI)
 #
-CFLAGS=-O3 -DNDEBUG -UMPI -I$(GD_LIB)
+CFLAGS=-O3 -DNDEBUG -fopenmp -UMPI -I$(GD_LIB)
 
 #CLIBS = -L./ -L./GD/ -lgd -lm -lc -lmpi
 CLIBS = -L./ -L./GD/ -lgd -lm -lc -fopenmp
