@@ -495,6 +495,7 @@ GRID_P
            -1);
 
 #else
+  printf("%s\n", "not packed");
   ptr = igrid.landuse[index].ptr;
 #endif
   return ptr;
