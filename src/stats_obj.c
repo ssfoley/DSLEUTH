@@ -1676,6 +1676,7 @@ static void
 void
   stats_LogAverages (int index, FILE * fp)
 {
+  int thread_id = omp_get_thread_num();
   LOG_INT (fp, index);
   LOG_FLOAT (fp, average[thread_id][index].area);
   LOG_FLOAT (fp, average[thread_id][index].edges);
@@ -2190,7 +2191,7 @@ static void
 
   for (i = 1; i <= nobs; i++)
   {
-    dependent[i - 1] = [thread_id][i].mean_cluster_size;
+    dependent[i - 1] = stats_actual[thread_id][i].mean_cluster_size;
     independent[i - 1] = average[thread_id][i].mean_cluster_size;
   }
   regression[thread_id].mean_cluster_size = stats_linefit (dependent, independent, nobs);
@@ -2929,6 +2930,7 @@ void
   char func[] = "stats_LogBaseStats";
   int i;
   int count;
+  int thread_id = omp_get_thread_num();
 
   FUNC_INIT;
   count = igrid_GetUrbanCount ();
