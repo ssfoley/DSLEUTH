@@ -571,7 +571,7 @@ int
             {
               #pragma omp critical
               {
-                proc_SetRun(proc_GetCurrentRun);
+                proc_SetRun(proc_GetCurrentRun());
                 proc_IncrementCurrentRun ();
               }
 

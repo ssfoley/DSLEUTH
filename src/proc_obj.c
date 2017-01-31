@@ -531,7 +531,6 @@ int
 void proc_SetRun(int i)
 {
   int thread_id = omp_get_thread_num();
-
   run[thread_id] = i;
 }
 
