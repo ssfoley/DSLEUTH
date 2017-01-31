@@ -569,6 +569,12 @@ int
                  road_gravity <= coeff_GetStopRoadGravity ();
                  road_gravity += coeff_GetStepRoadGravity ())
             {
+              #pragma omp critical
+              {
+                proc_SetRun(proc_GetCurrentRun);
+                proc_IncrementCurrentRun ();
+              }
+
               sprintf (fname, "%s%s%u", scen_GetOutputDir (),
                        RESTART_FILE, glb_mype);
               out_write_restart_data (fname,
@@ -623,7 +629,7 @@ int
 #endif
 
 
-              proc_IncrementCurrentRun ();
+              
               if (proc_GetProcessingType () == TESTING)
               {
                 stats_ConcatenateControlFiles ();

@@ -35,6 +35,7 @@ static int stop_year;
 static BOOLEAN restart_flag;
 static BOOLEAN last_run_flag;
 static BOOLEAN last_mc_flag;
+static int run[NUM_THREADS];
 
 /******************************************************************************
 *******************************************************************************
@@ -525,4 +526,17 @@ int
   proc_IncrementCurrentYear ()
 {
   return (++current_year);
+}
+
+void proc_SetRun(int i)
+{
+  int thread_id = omp_get_thread_num();
+
+  run[thread_id] = i;
+}
+
+int proc_GetRun()
+{
+  int thread_id = omp_get_thread_num();
+  return run[thread_id];
 }

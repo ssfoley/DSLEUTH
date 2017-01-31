@@ -127,8 +127,8 @@ void
     {
       printf ("%s %u Run = %u of %u (%8.1f percent complete)\n",
               __FILE__, __LINE__,
-              proc_GetCurrentRun (), proc_GetTotalRuns (),
-              (100.0 * proc_GetCurrentRun ()) / proc_GetTotalRuns ());
+              proc_GetRun (), proc_GetTotalRuns (),
+              (100.0 * proc_GetRun ()) / proc_GetTotalRuns ());
     }
     printf ("%s %u Monte Carlo = %u of %u\n", __FILE__, __LINE__,
       proc_GetCurrentMonteCarlo () + 1, scen_GetMonteCarloIterations ());
@@ -225,7 +225,7 @@ void
     if (scen_GetViewGrowthTypesFlag ())
     {
       sprintf (gif_filename, "%sz_growth_types_%u_%u_%u.gif",
-               scen_GetOutputDir (), proc_GetCurrentRun (),
+               scen_GetOutputDir (), proc_GetRun (),
                proc_GetCurrentMonteCarlo (), proc_GetCurrentYear ());
       sprintf (date_str, "%u", proc_GetCurrentYear ());
       //并行出错区
@@ -670,7 +670,7 @@ static void
   est_remaining_sec = 0.0;
 
   sprintf (buf1, "%15u", proc_GetTotalRuns ());
-  sprintf (buf2, "%15u", proc_GetCurrentRun ());
+  sprintf (buf2, "%15u", proc_GetRun ());
   util_trim (buf1);
   wd1 = strlen (buf1);
 

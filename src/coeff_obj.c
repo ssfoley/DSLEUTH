@@ -1467,7 +1467,7 @@ void
       FILE_OPEN (fp, coeff_filename, "a");
 
       fprintf (fp, "%5u %5u %4u %8.2f %8.2f %8.2f %8.2f %8.2f\n",
-              proc_GetCurrentRun (),
+              proc_GetRun (),
               proc_GetCurrentMonteCarlo (),
               proc_GetCurrentYear (),
               current_coefficient[thread_id].diffusion,

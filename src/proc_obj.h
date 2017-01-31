@@ -26,3 +26,6 @@ void proc_IncrementNumRunsExecThisCPU ();
 BOOLEAN proc_GetRestartFlag ();
 void proc_SetRestartFlag (BOOLEAN i);
 
+void proc_SetRun(int i);
+int proc_GetRun();
+

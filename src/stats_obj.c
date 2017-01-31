@@ -520,13 +520,13 @@ void
   {
     stats_CalLeesalee ();
     sprintf (filename, "%sgrow_%u_%u.log",
-    scen_GetOutputDir (), proc_GetCurrentRun (), proc_GetCurrentYear ());
+    scen_GetOutputDir (), proc_GetRun (), proc_GetCurrentYear ());
     stats_Save (filename);
   }
   if (proc_GetProcessingType () == PREDICTING)
   {
     sprintf (filename, "%sgrow_%u_%u.log", scen_GetOutputDir (),
-             proc_GetCurrentRun (), proc_GetCurrentYear ());
+             proc_GetRun (), proc_GetCurrentYear ());
     stats_Save (filename);
   }
 }
@@ -1819,7 +1819,7 @@ void
   int thread_id = omp_get_thread_num();
 
   output_dir = scen_GetOutputDir ();
-  run = proc_GetCurrentRun ();
+  run = proc_GetRun ();
 
   if (scen_GetWriteAvgFileFlag ())
   {
@@ -1922,7 +1922,7 @@ void
   fprintf (stdout, "%s %u stats_Dump\n", file, line);
   stats_LogStatValHdr (stdout);
   fprintf (stdout, "this_year:\n");
-  stats_LogStatVal (proc_GetCurrentRun (), proc_GetCurrentYear (),
+  stats_LogStatVal (proc_GetRun (), proc_GetCurrentYear (),
                     0, &record[thread_id].this_year, stdout);
   fprintf (stdout, "running_total:\n");
   for (i = 0; i < MAX_URBAN_YEARS; i++)
@@ -1932,7 +1932,7 @@ void
     {
       yr = 0;
     }
-    stats_LogStatVal (proc_GetCurrentRun (), yr, i,
+    stats_LogStatVal (proc_GetRun (), yr, i,
                       &running_total[thread_id][i], stdout);
   }
   fprintf (stdout, "average:\n");
@@ -1943,7 +1943,7 @@ void
     {
       yr = 0;
     }
-    stats_LogStatVal (proc_GetCurrentRun (), yr, i, &average[thread_id][i], stdout);
+    stats_LogStatVal (proc_GetRun (), yr, i, &average[thread_id][i], stdout);
   }
   fprintf (stdout, "std_dev:\n");
   for (i = 0; i < MAX_URBAN_YEARS; i++)
@@ -1953,7 +1953,7 @@ void
     {
       yr = 0;
     }
-    stats_LogStatVal (proc_GetCurrentRun (), yr, i, &std_dev[thread_id][i], stdout);
+    stats_LogStatVal (proc_GetRun (), yr, i, &std_dev[thread_id][i], stdout);
   }
   stats_LogStatInfoHdr (stdout);
   fprintf (stdout, "stats_actual:\n");
@@ -1964,11 +1964,11 @@ void
     {
       yr = 0;
     }
-    stats_LogStatInfo (proc_GetCurrentRun (), yr, i,
+    stats_LogStatInfo (proc_GetRun (), yr, i,
                        &stats_actual[thread_id][i], stdout);
   }
   fprintf (stdout, "regression:\n");
-  stats_LogStatInfo (proc_GetCurrentRun (), 0, 0, &regression[thread_id], stdout);
+  stats_LogStatInfo (proc_GetRun (), 0, 0, &regression[thread_id], stdout);
 }
 /******************************************************************************
 *******************************************************************************
@@ -2008,7 +2008,7 @@ static void
   #pragma omp critical
   {
     fprintf (fp, "%5u %8.5f %7.5f %7.5f %7.5f %7.5f %7.5f %7.5f %7.5f %7.5f ",
-            proc_GetCurrentRun (),
+            proc_GetRun (),
             aggregate[thread_id].product,
             aggregate[thread_id].compare,
             regression[thread_id].pop,
@@ -2224,7 +2224,7 @@ static void
   int i;
   FILE *fp;
   int thread_id = omp_get_thread_num();
-  record[thread_id].run = proc_GetCurrentRun ();
+  record[thread_id].run = proc_GetRun ();
   record[thread_id].monte_carlo = proc_GetCurrentMonteCarlo ();
   record[thread_id].year = proc_GetCurrentYear ();
   index = 0;
