@@ -107,6 +107,17 @@ void
     }
   }
 
+  #pragma omp master
+  {
+      FILE *file = fopen("debug.txt", "a");
+
+      for (i = 0; i < mem_GetTotalPixels(); ++i)
+      {
+        fprintf(file, "%d\n", sim_landuse_ptr[i]);
+      }
+      printf("%s\n", "完成");
+  }
+
   /*
    *
    * MONTE CARLO SIMULATION
