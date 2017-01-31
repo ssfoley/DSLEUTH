@@ -368,7 +368,7 @@ static
 
       for (i = 0; i < mem_GetTotalPixels; ++i)
       {
-        fprintf(file, "%d ", landuse1_ptr[i]);
+        fprintf(file, "%d\n", landuse1_ptr[i]);
       }
       printf("%s\n", "完成");
     }
