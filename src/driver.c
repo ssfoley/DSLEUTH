@@ -81,6 +81,7 @@ void
   fmatch_t fmatch = 0.0;
   struct colortable *colortable_ptr;
   int thread_id = omp_get_thread_num();
+  int i;
 
   FUNC_INIT;
   timer_Start (DRV_DRIVER);
