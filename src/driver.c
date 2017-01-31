@@ -362,11 +362,14 @@ static
                                          landuse1_ptr);
     trans_count = mem_GetTotalPixels () - match_count;
 
-    FILE *file = fopen("debug.txt", "a");
-
-    for (i = 0; i < mem_GetTotalPixels; ++i)
+    #pragma omp master
     {
-      fprintf(file, "%d ", landuse1_ptr[i]);
+      FILE *file = fopen("debug.txt", "a");
+
+      for (i = 0; i < mem_GetTotalPixels; ++i)
+      {
+        fprintf(file, "%d ", landuse1_ptr[i]);
+      }
     }
 
     //printf("\nmatch_count trans_count %d %d\n", match_count, trans_count);
