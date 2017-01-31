@@ -362,17 +362,6 @@ static
                                          landuse1_ptr);
     trans_count = mem_GetTotalPixels () - match_count;
 
-    #pragma omp master
-    {
-      FILE *file = fopen("debug.txt", "a");
-
-      for (i = 0; i < mem_GetTotalPixels(); ++i)
-      {
-        fprintf(file, "%d\n", cum_probability_ptr[i]);
-      }
-      printf("%s\n", "完成");
-    }
-
     //printf("\nmatch_count trans_count %d %d\n", match_count, trans_count);
 
     if ((match_count == 0) && (trans_count == 0))
