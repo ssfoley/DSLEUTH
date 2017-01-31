@@ -109,7 +109,7 @@ void
 
   #pragma omp master
   {
-      FILE *file = fopen("debug.txt", "a");
+      FILE *file = fopen("debug.txt", "w");
 
       for (i = 0; i < mem_GetTotalPixels(); ++i)
       {
