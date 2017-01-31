@@ -80,6 +80,7 @@ void
   char filename[256];
   fmatch_t fmatch = 0.0;
   struct colortable *colortable_ptr;
+  int i;
 
   FUNC_INIT;
   timer_Start (DRV_DRIVER);
@@ -105,6 +106,17 @@ void
     {
       landclass_AnnualProbInit ();
     }
+  }
+
+  #pragma omp master
+  {
+    FILE *file = fopen("debug.txt", "w");
+
+    for (i = 0; i < mem_GetTotalPixels(); ++i)
+      {
+        fprintf(file, "%d\n", sim_landuse_ptr[i]);
+      }
+    printf("%s\n", "完成");
   }
 
   /*
