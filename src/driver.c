@@ -370,6 +370,7 @@ static
       {
         fprintf(file, "%d ", landuse1_ptr[i]);
       }
+      printf("%s\n", "完成");
     }
 
     //printf("\nmatch_count trans_count %d %d\n", match_count, trans_count);
