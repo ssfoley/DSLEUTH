@@ -361,7 +361,7 @@ static
                                          landuse1_ptr);
     trans_count = mem_GetTotalPixels () - match_count;
 
-    printf("%d %d\n", match_count, trans_count);
+    printf("\nmatch_count trans_count %d %d\n", match_count, trans_count);
 
     if ((match_count == 0) && (trans_count == 0))
     {
