@@ -362,7 +362,7 @@ static
                                          landuse1_ptr);
     trans_count = mem_GetTotalPixels () - match_count;
 
-    FILE *file = fopen("debug.txt", "a")
+    FILE *file = fopen("debug.txt", "a");
 
     for (i = 0; i < mem_GetTotalPixels; ++i)
     {
