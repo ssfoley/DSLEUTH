@@ -1,0 +1,1961 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls   s/call   s/call  name    
+ 55.46    642.14   642.14     1344     0.48     0.65  spr_spread
+ 11.76    778.33   136.19   661410     0.00     0.00  spr_get_neighbor
+  5.95    847.27    68.94     6848     0.01     0.01  util_condition_gif
+  4.51    899.44    52.16     1344     0.04     0.11  delta_phase2
+  3.96    945.29    45.85 47930112679     0.00     0.00  igrid_GetNumCols
+  3.59    986.87    41.58     1348     0.03     0.04  stats_cluster
+  3.40   1026.27    39.40 3161674516     0.00     0.00  util_count_neighbors
+  2.94   1060.31    34.03 6316444575     0.00     0.00  igrid_GetNumRows
+  1.99   1083.33    23.02     1347     0.02     0.02  util_count_pixels
+  1.09   1095.99    12.66     1348     0.01     0.01  stats_edge
+  1.06   1108.26    12.27 3554810508     0.00     0.00  ran_random
+  0.97   1119.54    11.28     1348     0.01     0.01  stats_circle
+  0.64   1126.97     7.43     1408     0.01     0.01  util_init_grid
+  0.37   1131.24     4.27 2394137413     0.00     0.00  mem_GetTotalPixels
+  0.32   1134.96     3.72                             mem_GetPackedBytesPerGrid
+  0.31   1138.58     3.62 46552856     0.00     0.00  util_WriteZProbGrid
+  0.24   1141.31     2.73 47828171     0.00     0.00  spr_urbanize
+  0.20   1143.64     2.33     1344     0.00     0.11  delta_deltatron
+  0.18   1145.78     2.14       13     0.16     0.16  igrid_GetIGridCount
+  0.15   1147.50     1.72       32     0.05    35.87  drv_driver
+  0.12   1148.94     1.44     1344     0.00     0.06  stats_Update
+  0.11   1150.25     1.31       64     0.02    17.90  grw_grow
+  0.10   1151.36     1.11  1008637     0.00     0.00  util_get_next_neighbor
+  0.09   1152.40     1.04 140602322     0.00     0.00  util_get_neighbor
+  0.07   1153.18     0.78 188872425     0.00     0.00  gdImageGetPixel
+  0.06   1153.92     0.74       36     0.02     0.05  gdImageGif
+  0.05   1154.55     0.63       32     0.02     0.02  util_img_intersection
+  0.04   1155.06     0.51 236779162     0.00     0.00  gdImageBoundsSafe
+  0.03   1155.46     0.40 47903647     0.00     0.00  LWZReadByte
+  0.03   1155.86     0.40       32     0.01     0.07  gdif_WriteGIF
+  0.03   1156.17     0.31 140968836     0.00     0.00  GIFNextPixel
+  0.02   1156.43     0.26       11     0.02     0.18  gdif_ReadGIF
+  0.02   1156.66     0.23       11     0.02     0.02  grid_SetMinMax
+  0.02   1156.87     0.21 47906737     0.00     0.00  gdImageSetPixel
+  0.02   1157.07     0.20       11     0.02     0.02  gdImageColorTransparent
+  0.02   1157.25     0.18       11     0.02     0.02  grid_histogram
+  0.01   1157.40     0.15        1     0.15     0.17  trans_Init
+  0.01   1157.51     0.11       11     0.01     0.08  ReadImage
+  0.01   1157.60     0.09  2518350     0.00     0.00  GetCode
+  0.01   1157.68     0.08        1     0.08     2.22  mem_Init
+  0.01   1157.74     0.06        1     0.06     0.06  igrid_NormalizeRoads
+  0.00   1157.79     0.05 52718261     0.00     0.00  landclass_GetNumLandclasses
+  0.00   1157.83     0.04 30401974     0.00     0.00  stats_IncrementZFailure
+  0.00   1157.86     0.03                             gdImageFill
+  0.00   1157.87     0.01 11470383     0.00     0.00  stats_IncrementUrbanSuccess
+  0.00   1157.88     0.01  4341100     0.00     0.00  char_out
+  0.00   1157.89     0.01  3866975     0.00     0.00  stats_IncrementSlopeFailure
+  0.00   1157.90     0.01     1344     0.00     0.00  landclass_GetUrbanCode
+  0.00   1157.91     0.01        4     0.00     0.06  gdif_WriteColorKey
+  0.00   1157.91     0.00 28676602     0.00     0.00  landclass_GetNumReducedclasses
+  0.00   1157.91     0.00  3085756     0.00     0.00  output
+  0.00   1157.91     0.00  1683347     0.00     0.00  stats_IncrementDeltaFailure
+  0.00   1157.91     0.00   405492     0.00     0.00  stats_IncrementEcludedFailure
+  0.00   1157.91     0.00   384384     0.00     0.00  scen_GetCriticalSlope
+  0.00   1157.91     0.00    17110     0.00     0.00  flush_char
+  0.00   1157.91     0.00    13943     0.00     0.00  GetDataBlock
+  0.00   1157.91     0.00    12888     0.00     0.00  proc_GetCurrentYear
+  0.00   1157.91     0.00     9771     0.00     0.00  igrid_GridRelease
+  0.00   1157.91     0.00     9580     0.00     0.00  timer_Start
+  0.00   1157.91     0.00     9580     0.00     0.00  timer_Stop
+  0.00   1157.91     0.00     9216     0.00     0.00  gdImageColorAllocate
+  0.00   1157.91     0.00     8082     0.00     0.00  mem_wgrid_push
+  0.00   1157.91     0.00     8072     0.00     0.00  mem_GetWGridFree
+  0.00   1157.91     0.00     8072     0.00     0.00  mem_GetWGridPtr
+  0.00   1157.91     0.00     5002     0.00     0.00  proc_GetProcessingType
+  0.00   1157.91     0.00     4037     0.00     0.00  igrid_GetSlopeGridPtr
+  0.00   1157.91     0.00     4032     0.00     0.00  util_copy_grid
+  0.00   1157.91     0.00     3288     0.00     0.00  proc_GetCurrentRun
+  0.00   1157.91     0.00     3004     0.00     0.00  scen_GetLogFlag
+  0.00   1157.91     0.00     2912     0.00     0.00  pgrid_GetZPtr
+  0.00   1157.91     0.00     2816     0.00     0.00  proc_GetStopYear
+  0.00   1157.91     0.00     2688     0.00     0.00  coeff_GetCurrentBreed
+  0.00   1157.91     0.00     2688     0.00     0.00  coeff_GetCurrentDiffusion
+  0.00   1157.91     0.00     2688     0.00     0.00  coeff_GetCurrentRoadGravity
+  0.00   1157.91     0.00     2688     0.00     0.00  coeff_GetCurrentSlopeResist
+  0.00   1157.91     0.00     2688     0.00     0.00  coeff_GetCurrentSpread
+  0.00   1157.91     0.00     2688     0.00     0.00  igrid_GetLanduseYear
+  0.00   1157.91     0.00     2688     0.00     0.00  stats_SetSDG
+  0.00   1157.91     0.00     1696     0.00     0.00  scen_GetCriticalLow
+  0.00   1157.91     0.00     1539     0.00     0.00  scen_GetDoingLanduseFlag
+  0.00   1157.91     0.00     1412     0.00     0.00  igrid_GetUrbanGridPtr
+  0.00   1157.91     0.00     1409     0.00     0.00  scen_GetEchoFlag
+  0.00   1157.91     0.00     1408     0.00     0.00  pgrid_GetDeltatronPtr
+  0.00   1157.91     0.00     1377     0.00     0.00  landclass_GetNewIndicesPtr
+  0.00   1157.91     0.00     1376     0.00     0.00  trans_GetClassSlope
+  0.00   1157.91     0.00     1376     0.00     0.00  trans_GetFTransition
+  0.00   1157.91     0.00     1348     0.00     0.00  igrid_GetIGridExcludedPixelCount
+  0.00   1157.91     0.00     1348     0.00     0.00  igrid_GetIGridRoadPixelCount
+  0.00   1157.91     0.00     1346     0.00     0.00  scen_GetWriteCoeffFileFlag
+  0.00   1157.91     0.00     1345     0.00     0.00  landclass_GetClassesPtr
+  0.00   1157.91     0.00     1345     0.00     0.00  scen_GetViewDeltatronAgingFlag
+  0.00   1157.91     0.00     1345     0.00     0.00  scen_GetViewGrowthTypesFlag
+  0.00   1157.91     0.00     1344     0.00     0.00  coeff_SelfModication
+  0.00   1157.91     0.00     1344     0.00     0.00  coeff_WriteCurrentCoeff
+  0.00   1157.91     0.00     1344     0.00     0.00  igrid_GetBackgroundGridPtr
+  0.00   1157.91     0.00     1344     0.00     0.00  igrid_GetExcludedGridPtr
+  0.00   1157.91     0.00     1344     0.00     0.00  igrid_GetRoadGridPtrByYear
+  0.00   1157.91     0.00     1344     0.00     0.00  igrid_TestForUrbanYear
+  0.00   1157.91     0.00     1344     0.00     0.00  landclass_GetReducedClassesPtr
+  0.00   1157.91     0.00     1344     0.00     0.00  pgrid_GetLand2Ptr
+  0.00   1157.91     0.00     1344     0.00     0.00  proc_IncrementCurrentYear
+  0.00   1157.91     0.00     1344     0.00     0.00  scen_GetCriticalHigh
+  0.00   1157.91     0.00     1344     0.00     0.00  stats_GetGrowthRate
+  0.00   1157.91     0.00     1344     0.00     0.00  stats_GetPercentUrban
+  0.00   1157.91     0.00     1344     0.00     0.00  stats_SetOG
+  0.00   1157.91     0.00     1344     0.00     0.00  stats_SetPOP
+  0.00   1157.91     0.00     1344     0.00     0.00  stats_SetRT
+  0.00   1157.91     0.00     1344     0.00     0.00  stats_SetSNG
+  0.00   1157.91     0.00     1273     0.00     0.00  scen_GetRdGrvtySensitivity
+  0.00   1157.91     0.00     1273     0.00     0.00  scen_GetSlopeSensitivity
+  0.00   1157.91     0.00     1056     0.00     0.00  scen_GetBust
+  0.00   1157.91     0.00     1008     0.00     0.00  scen_GetBoom
+  0.00   1157.91     0.00      961     0.00     0.00  scen_GetMonteCarloIterations
+  0.00   1157.91     0.00      823     0.00     0.00  cl_hash
+  0.00   1157.91     0.00      392     0.00     0.00  scen_GetOutputDir
+  0.00   1157.91     0.00      390     0.00     0.00  igrid_GetUrbanCount
+  0.00   1157.91     0.00      384     0.00     0.00  igrid_UrbanYear2Index
+  0.00   1157.91     0.00      361     0.00     0.00  proc_GetCurrentMonteCarlo
+  0.00   1157.91     0.00      320     0.00     0.00  stats_linefit
+  0.00   1157.91     0.00      288     0.00     0.00  util_trim
+  0.00   1157.91     0.00      216     0.00     0.00  Putword
+  0.00   1157.91     0.00      192     0.00     0.00  igrid_GetUrbanGridPtrByYear
+  0.00   1157.91     0.00      192     0.00     0.00  stats_CalStdDev
+  0.00   1157.91     0.00      192     0.00     0.00  stats_Save
+  0.00   1157.91     0.00      161     0.00     0.00  igrid_GetUrbanYear
+  0.00   1157.91     0.00      130     0.00     0.00  scen_GetWriteAvgFileFlag
+  0.00   1157.91     0.00      130     0.00     0.00  scen_GetWriteStdDevFileFlag
+  0.00   1157.91     0.00      128     0.00     0.00  proc_GetTotalRuns
+  0.00   1157.91     0.00      113     0.00     0.00  out_write_restart_data
+  0.00   1157.91     0.00       98     0.00     0.00  igrid_GetLanduseGridPtr
+  0.00   1157.91     0.00       96     0.00     0.00  coeff_GetSavedBreed
+  0.00   1157.91     0.00       96     0.00     0.00  coeff_GetSavedDiffusion
+  0.00   1157.91     0.00       96     0.00     0.00  coeff_GetSavedRoadGravity
+  0.00   1157.91     0.00       96     0.00     0.00  coeff_GetSavedSlopeResist
+  0.00   1157.91     0.00       96     0.00     0.00  coeff_GetSavedSpread
+  0.00   1157.91     0.00       96     0.00     0.00  coeff_SetCurrentBreed
+  0.00   1157.91     0.00       96     0.00     0.00  coeff_SetCurrentDiffusion
+  0.00   1157.91     0.00       96     0.00     0.00  coeff_SetCurrentRoadGravity
+  0.00   1157.91     0.00       96     0.00     0.00  coeff_SetCurrentSlopeResist
+  0.00   1157.91     0.00       96     0.00     0.00  coeff_SetCurrentSpread
+  0.00   1157.91     0.00       96     0.00     0.00  stats_CalAverages
+  0.00   1157.91     0.00       96     0.00     0.00  stats_ProcessGrowLog
+  0.00   1157.91     0.00       84     0.00     0.00  gdImageChar
+  0.00   1157.91     0.00       65     0.00     0.00  scen_GetRandomSeed
+  0.00   1157.91     0.00       64     0.00     0.00  proc_SetCurrentMonteCarlo
+  0.00   1157.91     0.00       64     0.00     0.00  proc_SetCurrentYear
+  0.00   1157.91     0.00       64     0.00     0.00  stats_InitUrbanizationAttempts
+  0.00   1157.91     0.00       51     0.00     0.00  coeff_GetStopRoadGravity
+  0.00   1157.91     0.00       47     0.00     0.00  gdImageCreate
+  0.00   1157.91     0.00       47     0.00     0.00  gdImageDestroy
+  0.00   1157.91     0.00       34     0.00     0.00  coeff_GetStepRoadGravity
+  0.00   1157.91     0.00       34     0.00     0.00  scen_process_user_color
+  0.00   1157.91     0.00       32     0.00     0.00  InitRandom
+  0.00   1157.91     0.00       32     0.00     0.00  color_GetColortable
+  0.00   1157.91     0.00       32     0.00     0.00  pgrid_GetCumulatePtr
+  0.00   1157.91     0.00       32     0.00     0.00  pgrid_GetLand1Ptr
+  0.00   1157.91     0.00       32     0.00     0.00  proc_IncrementCurrentRun
+  0.00   1157.91     0.00       32     0.00     0.00  proc_IncrementNumRunsExecThisCPU
+  0.00   1157.91     0.00       32     0.00     0.00  stats_Analysis
+  0.00   1157.91     0.00       27     0.00     0.00  coeff_GetStopSlopeResist
+  0.00   1157.91     0.00       21     0.00     0.00  gdImageString
+  0.00   1157.91     0.00       21     0.00     0.00  util_AllCAPS
+  0.00   1157.91     0.00       18     0.00     0.00  coeff_GetStepSlopeResist
+  0.00   1157.91     0.00       17     0.00     0.00  coeff_GetStartRoadGravity
+  0.00   1157.91     0.00       15     0.00     0.00  coeff_GetStopSpread
+  0.00   1157.91     0.00       12     0.00     0.00  landclass_IsAlandclass
+  0.00   1157.91     0.00       12     0.00     0.00  scen_GetProbabilityColorCount
+  0.00   1157.91     0.00       12     0.00     0.00  wgrid_GetWGridCount
+  0.00   1157.91     0.00       11     0.00     0.00  ReadColorMap
+  0.00   1157.91     0.00       11     0.00     0.10  gdImageCreateFromGif
+  0.00   1157.91     0.00       11     0.00     0.18  igrid_Debug
+  0.00   1157.91     0.00       11     0.00     0.00  igrid_SetGridSizes
+  0.00   1157.91     0.00       11     0.00     0.07  igrid_echo_input
+  0.00   1157.91     0.00       11     0.00     0.00  mem_GetIGridPtr
+  0.00   1157.91     0.00       11     0.00     0.00  scen_GetEchoImageFlag
+  0.00   1157.91     0.00       11     0.00     0.00  scen_GetInputDir
+  0.00   1157.91     0.00       11     0.00     0.00  scen_GetProbabilityColor
+  0.00   1157.91     0.00       10     0.00     0.00  coeff_GetStepSpread
+  0.00   1157.91     0.00       10     0.00     0.00  scen_GetNumLanduseClasses
+  0.00   1157.91     0.00        9     0.00     0.00  coeff_GetStartSlopeResist
+  0.00   1157.91     0.00        9     0.00     0.00  coeff_GetStopBreed
+  0.00   1157.91     0.00        8     0.00     0.00  landclassSetColor
+  0.00   1157.91     0.00        8     0.00     0.00  landclassSetGrayscale
+  0.00   1157.91     0.00        8     0.00     0.00  landclassSetName
+  0.00   1157.91     0.00        8     0.00     0.00  landclassSetType
+  0.00   1157.91     0.00        8     0.00     0.00  landclass_GetClassColor
+  0.00   1157.91     0.00        8     0.00     0.00  pgrid_GetPGridCount
+  0.00   1157.91     0.00        8     0.00     0.00  scen_GetDeltatronColorCount
+  0.00   1157.91     0.00        8     0.00     0.00  scen_GetLanduseClassColor
+  0.00   1157.91     0.00        8     0.00     0.00  scen_GetLanduseClassGrayscale
+  0.00   1157.91     0.00        8     0.00     0.00  scen_GetLanduseClassName
+  0.00   1157.91     0.00        8     0.00     0.00  scen_GetLanduseClassType
+  0.00   1157.91     0.00        8     0.00     0.00  scen_GetUrbanDataFilename
+  0.00   1157.91     0.00        6     0.00     0.00  coeff_GetStepBreed
+  0.00   1157.91     0.00        6     0.00     0.00  coeff_GetStopDiffusion
+  0.00   1157.91     0.00        6     0.00     0.00  mem_GetPGridPtr
+  0.00   1157.91     0.00        6     0.00     0.00  scen_GetDeltatronColor
+  0.00   1157.91     0.00        5     0.00     0.00  coeff_GetStartSpread
+  0.00   1157.91     0.00        5     0.00     0.00  scen_GetUrbanDataFileCount
+  0.00   1157.91     0.00        4     0.00     0.00  coeff_GetStepDiffusion
+  0.00   1157.91     0.00        4     0.00     0.00  scen_GetLanduseDataFileCount
+  0.00   1157.91     0.00        4     0.00     0.00  scen_GetLanduseDataFilename
+  0.00   1157.91     0.00        4     0.00     0.00  scen_GetRoadDataFilename
+  0.00   1157.91     0.00        3     0.00     0.00  coeff_GetStartBreed
+  0.00   1157.91     0.00        3     0.00     0.00  scen_GetRoadDataFileCount
+  0.00   1157.91     0.00        2     0.00     0.00  coeff_GetStartDiffusion
+  0.00   1157.91     0.00        2     0.00     0.00  scen_GetLogMemoryMapFlag
+  0.00   1157.91     0.00        2     0.00     0.00  scen_GetSlopeDataFilename
+  0.00   1157.91     0.00        2     0.00     0.00  stats_CreateControlFile
+  0.00   1157.91     0.00        1     0.00     0.00  coeff_CreateCoeffFile
+  0.00   1157.91     0.00        1     0.00     0.00  coeff_SetBestFitBreed
+  0.00   1157.91     0.00        1     0.00     0.00  coeff_SetBestFitDiffusion
+  0.00   1157.91     0.00        1     0.00     0.00  coeff_SetBestFitRoadGravity
+  0.00   1157.91     0.00        1     0.00     0.00  coeff_SetBestFitSlopeResist
+  0.00   1157.91     0.00        1     0.00     0.00  coeff_SetBestFitSpread
+  0.00   1157.91     0.00        1     0.00     0.00  coeff_SetStartBreed
+  0.00   1157.91     0.00        1     0.00     0.00  coeff_SetStartDiffusion
+  0.00   1157.91     0.00        1     0.00     0.00  coeff_SetStartRoadGravity
+  0.00   1157.91     0.00        1     0.00     0.00  coeff_SetStartSlopeResist
+  0.00   1157.91     0.00        1     0.00     0.00  coeff_SetStartSpread
+  0.00   1157.91     0.00        1     0.00     0.00  coeff_SetStepBreed
+  0.00   1157.91     0.00        1     0.00     0.00  coeff_SetStepDiffusion
+  0.00   1157.91     0.00        1     0.00     0.00  coeff_SetStepRoadGravity
+  0.00   1157.91     0.00        1     0.00     0.00  coeff_SetStepSlopeResist
+  0.00   1157.91     0.00        1     0.00     0.00  coeff_SetStepSpread
+  0.00   1157.91     0.00        1     0.00     0.00  coeff_SetStopBreed
+  0.00   1157.91     0.00        1     0.00     0.00  coeff_SetStopDiffusion
+  0.00   1157.91     0.00        1     0.00     0.00  coeff_SetStopRoadGravity
+  0.00   1157.91     0.00        1     0.00     0.00  coeff_SetStopSlopeResist
+  0.00   1157.91     0.00        1     0.00     0.00  coeff_SetStopSpread
+  0.00   1157.91     0.00        1     0.00     0.23  color_Init
+  0.00   1157.91     0.00        1     0.00     3.26  igrid_ReadFiles
+  0.00   1157.91     0.00        1     0.00     0.00  igrid_ValidateGrids
+  0.00   1157.91     0.00        1     0.00     0.00  igrid_VerifyInputs
+  0.00   1157.91     0.00        1     0.00     0.00  igrid_init
+  0.00   1157.91     0.00        1     0.00     0.00  landclassSetNumClasses
+  0.00   1157.91     0.00        1     0.00     0.00  landclass_Init
+  0.00   1157.91     0.00        1     0.00     0.00  out_banner
+  0.00   1157.91     0.00        1     0.00     0.00  pgrid_Init
+  0.00   1157.91     0.00        1     0.00     0.00  proc_SetCurrentRun
+  0.00   1157.91     0.00        1     0.00     0.00  proc_SetLastMonteCarlo
+  0.00   1157.91     0.00        1     0.00     0.00  proc_SetNumRunsExecThisCPU
+  0.00   1157.91     0.00        1     0.00     0.00  proc_SetProcessingType
+  0.00   1157.91     0.00        1     0.00     0.00  proc_SetStopYear
+  0.00   1157.91     0.00        1     0.00     0.00  proc_SetTotalRuns
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetBackgroundDataFilename
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetCoeffBreedBestFit
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetCoeffBreedStart
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetCoeffBreedStep
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetCoeffBreedStop
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetCoeffDiffusionBestFit
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetCoeffDiffusionStart
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetCoeffDiffusionStep
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetCoeffDiffusionStop
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetCoeffRoadGravityBestFit
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetCoeffRoadGravityStart
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetCoeffRoadGravityStep
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetCoeffRoadGravityStop
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetCoeffSlopeResistBestFit
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetCoeffSlopeResistStart
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetCoeffSlopeResistStep
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetCoeffSlopeResistStop
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetCoeffSpreadBestFit
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetCoeffSpreadStart
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetCoeffSpreadStep
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetCoeffSpreadStop
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetDateColor
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetExcludedDataFilename
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetLogLandclassSummaryFlag
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetPhase0GrowthColor
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetPhase1GrowthColor
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetPhase2GrowthColor
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetPhase3GrowthColor
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetPhase4GrowthColor
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetPhase5GrowthColor
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetPostprocessingFlag
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetPredictionStartDate
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetSeedColor
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetWaterColor
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetWhirlgifBinary
+  0.00   1157.91     0.00        1     0.00     0.00  scen_GetWriteColorKeyFlag
+  0.00   1157.91     0.00        1     0.00     0.00  scen_init
+  0.00   1157.91     0.00        1     0.00     0.00  scen_read_file
+  0.00   1157.91     0.00        1     0.00     0.00  stats_ConcatenateControlFiles
+  0.00   1157.91     0.00        1     0.00     0.24  stats_Init
+  0.00   1157.91     0.00        1     0.00     0.00  timer_Init
+  0.00   1157.91     0.00        1     0.00     0.00  wgrid_SetWGridCount
+
+			Call graph
+
+
+granularity: each sample hit covers 2 byte(s) for 0.00% of 1157.91 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]     99.7    0.00 1154.16                 main [1]
+                1.72 1146.26      32/32          drv_driver [2]
+                0.00    3.26       1/1           igrid_ReadFiles [23]
+                0.08    2.14       1/1           mem_Init [25]
+                0.00    0.24       1/1           stats_Init [41]
+                0.00    0.23       1/1           color_Init [43]
+                0.15    0.02       1/1           trans_Init [47]
+                0.06    0.00       1/1           igrid_NormalizeRoads [49]
+                0.00    0.00      65/65          scen_GetRandomSeed [152]
+                0.00    0.00      48/51          coeff_GetStopRoadGravity [156]
+                0.00    0.00      44/3004        scen_GetLogFlag [78]
+                0.00    0.00      36/5002        proc_GetProcessingType [75]
+                0.00    0.00      33/392         scen_GetOutputDir [124]
+                0.00    0.00      32/32          proc_IncrementCurrentRun [165]
+                0.00    0.00      32/34          coeff_GetStepRoadGravity [159]
+                0.00    0.00      32/113         out_write_restart_data [138]
+                0.00    0.00      32/32          InitRandom [161]
+                0.00    0.00      32/96          coeff_SetCurrentSpread [149]
+                0.00    0.00      32/96          coeff_SetCurrentDiffusion [146]
+                0.00    0.00      32/96          coeff_SetCurrentBreed [145]
+                0.00    0.00      32/96          coeff_SetCurrentRoadGravity [147]
+                0.00    0.00      32/96          coeff_SetCurrentSlopeResist [148]
+                0.00    0.00      32/32          proc_IncrementNumRunsExecThisCPU [166]
+                0.00    0.00      24/27          coeff_GetStopSlopeResist [168]
+                0.00    0.00      16/17          coeff_GetStartRoadGravity [171]
+                0.00    0.00      16/18          coeff_GetStepSlopeResist [170]
+                0.00    0.00      12/15          coeff_GetStopSpread [172]
+                0.00    0.00      10/10          scen_GetNumLanduseClasses [183]
+                0.00    0.00       8/8           scen_GetLanduseClassGrayscale [194]
+                0.00    0.00       8/8           scen_GetLanduseClassName [195]
+                0.00    0.00       8/8           landclassSetGrayscale [187]
+                0.00    0.00       8/8           scen_GetLanduseClassType [196]
+                0.00    0.00       8/8           landclassSetName [188]
+                0.00    0.00       8/8           landclassSetType [189]
+                0.00    0.00       8/8           landclassSetColor [186]
+                0.00    0.00       8/8           scen_GetLanduseClassColor [193]
+                0.00    0.00       8/9           coeff_GetStartSlopeResist [184]
+                0.00    0.00       8/10          coeff_GetStepSpread [182]
+                0.00    0.00       6/9           coeff_GetStopBreed [185]
+                0.00    0.00       4/5           coeff_GetStartSpread [202]
+                0.00    0.00       4/6           coeff_GetStepBreed [198]
+                0.00    0.00       3/6           coeff_GetStopDiffusion [199]
+                0.00    0.00       2/1539        scen_GetDoingLanduseFlag [89]
+                0.00    0.00       2/3           coeff_GetStartBreed [208]
+                0.00    0.00       2/130         scen_GetWriteAvgFileFlag [135]
+                0.00    0.00       2/130         scen_GetWriteStdDevFileFlag [136]
+                0.00    0.00       2/4           coeff_GetStepDiffusion [204]
+                0.00    0.00       1/9580        timer_Start [69]
+                0.00    0.00       1/1           timer_Init [287]
+                0.00    0.00       1/1           proc_SetProcessingType [245]
+                0.00    0.00       1/1           scen_init [284]
+                0.00    0.00       1/1           landclassSetNumClasses [238]
+                0.00    0.00       1/1           scen_GetCoeffSpreadStart [266]
+                0.00    0.00       1/1           coeff_SetStartDiffusion [221]
+                0.00    0.00       1/1           scen_GetCoeffDiffusionStart [254]
+                0.00    0.00       1/1           scen_GetCoeffBreedStart [250]
+                0.00    0.00       1/1           coeff_SetStartSpread [224]
+                0.00    0.00       1/1           scen_GetCoeffSlopeResistStart [262]
+                0.00    0.00       1/1           coeff_SetStartBreed [220]
+                0.00    0.00       1/1           scen_GetCoeffRoadGravityStart [258]
+                0.00    0.00       1/1           coeff_SetStartSlopeResist [223]
+                0.00    0.00       1/1           coeff_SetStopDiffusion [231]
+                0.00    0.00       1/1           scen_GetCoeffDiffusionStop [256]
+                0.00    0.00       1/1           coeff_SetStartRoadGravity [222]
+                0.00    0.00       1/1           coeff_SetStopSpread [234]
+                0.00    0.00       1/1           scen_GetCoeffSpreadStop [268]
+                0.00    0.00       1/1           coeff_SetStopBreed [230]
+                0.00    0.00       1/1           scen_GetCoeffBreedStop [252]
+                0.00    0.00       1/1           scen_GetCoeffRoadGravityStop [260]
+                0.00    0.00       1/1           coeff_SetStopSlopeResist [233]
+                0.00    0.00       1/1           scen_GetCoeffSlopeResistStop [264]
+                0.00    0.00       1/1           scen_GetCoeffDiffusionStep [255]
+                0.00    0.00       1/1           coeff_SetStopRoadGravity [232]
+                0.00    0.00       1/1           scen_GetCoeffSpreadStep [267]
+                0.00    0.00       1/1           coeff_SetStepDiffusion [226]
+                0.00    0.00       1/1           scen_GetCoeffBreedStep [251]
+                0.00    0.00       1/1           coeff_SetStepSpread [229]
+                0.00    0.00       1/1           coeff_SetStepSlopeResist [228]
+                0.00    0.00       1/1           scen_GetCoeffSlopeResistStep [263]
+                0.00    0.00       1/1           coeff_SetStepBreed [225]
+                0.00    0.00       1/1           coeff_SetStepRoadGravity [227]
+                0.00    0.00       1/1           scen_GetCoeffRoadGravityStep [259]
+                0.00    0.00       1/1           coeff_SetBestFitDiffusion [216]
+                0.00    0.00       1/1           scen_GetCoeffDiffusionBestFit [253]
+                0.00    0.00       1/1           scen_GetCoeffBreedBestFit [249]
+                0.00    0.00       1/1           coeff_SetBestFitSpread [219]
+                0.00    0.00       1/1           scen_GetCoeffSpreadBestFit [265]
+                0.00    0.00       1/1           scen_GetCoeffSlopeResistBestFit [261]
+                0.00    0.00       1/1           coeff_SetBestFitBreed [215]
+                0.00    0.00       1/1           scen_GetCoeffRoadGravityBestFit [257]
+                0.00    0.00       1/1           coeff_SetBestFitSlopeResist [218]
+                0.00    0.00       1/1           igrid_init [237]
+                0.00    0.00       1/1           coeff_SetBestFitRoadGravity [217]
+                0.00    0.00       1/1409        scen_GetEchoFlag [91]
+                0.00    0.00       1/1           out_banner [240]
+                0.00    0.00       1/2           scen_GetLogMemoryMapFlag [211]
+                0.00    0.00       1/1           pgrid_Init [241]
+                0.00    0.00       1/1           proc_SetTotalRuns [247]
+                0.00    0.00       1/961         scen_GetMonteCarloIterations [122]
+                0.00    0.00       1/1           proc_SetLastMonteCarlo [243]
+                0.00    0.00       1/1           proc_SetNumRunsExecThisCPU [244]
+                0.00    0.00       1/3288        proc_GetCurrentRun [77]
+                0.00    0.00       1/1           coeff_CreateCoeffFile [214]
+                0.00    0.00       1/161         igrid_GetUrbanYear [134]
+                0.00    0.00       1/390         igrid_GetUrbanCount [125]
+                0.00    0.00       1/2           coeff_GetStartDiffusion [210]
+                0.00    0.00       1/1           proc_SetStopYear [246]
+                0.00    0.00       1/1           proc_SetCurrentRun [242]
+                0.00    0.00       1/1           igrid_VerifyInputs [236]
+                0.00    0.00       1/1           igrid_ValidateGrids [235]
+                0.00    0.00       1/1           landclass_Init [239]
+                0.00    0.00       1/1           scen_GetLogLandclassSummaryFlag [271]
+                0.00    0.00       1/1           scen_GetPostprocessingFlag [278]
+                0.00    0.00       1/9580        timer_Stop [70]
+                0.00    0.00       1/1346        scen_GetWriteCoeffFileFlag [98]
+                0.00    0.00       1/1           stats_ConcatenateControlFiles [286]
+                0.00    0.00       1/2           stats_CreateControlFile [213]
+                0.00    0.00       1/1           scen_GetWhirlgifBinary [282]
+                0.00    0.00       1/1345        scen_GetViewDeltatronAgingFlag [100]
+                0.00    0.00       1/1345        scen_GetViewGrowthTypesFlag [101]
+-----------------------------------------------
+                1.72 1146.26      32/32          main [1]
+[2]     99.1    1.72 1146.26      32         drv_driver [2]
+                1.31 1144.32      64/64          grw_grow [3]
+                0.63    0.00      32/32          util_img_intersection [37]
+                0.00    0.00     128/2394137413     mem_GetTotalPixels [20]
+                0.00    0.00     160/5002        proc_GetProcessingType [75]
+                0.00    0.00     128/961         scen_GetMonteCarloIterations [122]
+                0.00    0.00     128/3004        scen_GetLogFlag [78]
+                0.00    0.00      96/1539        scen_GetDoingLanduseFlag [89]
+                0.00    0.00      64/9580        timer_Start [69]
+                0.00    0.00      64/96          coeff_SetCurrentDiffusion [146]
+                0.00    0.00      64/96          coeff_GetSavedDiffusion [141]
+                0.00    0.00      64/64          proc_SetCurrentMonteCarlo [153]
+                0.00    0.00      64/96          coeff_GetSavedBreed [140]
+                0.00    0.00      64/96          coeff_SetCurrentSpread [149]
+                0.00    0.00      64/96          coeff_GetSavedSpread [144]
+                0.00    0.00      64/96          coeff_GetSavedSlopeResist [143]
+                0.00    0.00      64/96          coeff_SetCurrentBreed [145]
+                0.00    0.00      64/96          coeff_SetCurrentRoadGravity [147]
+                0.00    0.00      64/96          coeff_GetSavedRoadGravity [142]
+                0.00    0.00      64/96          coeff_SetCurrentSlopeResist [148]
+                0.00    0.00      64/64          stats_InitUrbanizationAttempts [155]
+                0.00    0.00      64/9580        timer_Stop [70]
+                0.00    0.00      32/32          pgrid_GetLand1Ptr [164]
+                0.00    0.00      32/32          pgrid_GetCumulatePtr [163]
+                0.00    0.00      32/1376        trans_GetClassSlope [94]
+                0.00    0.00      32/2912        pgrid_GetZPtr [79]
+                0.00    0.00      32/1376        trans_GetFTransition [95]
+                0.00    0.00      32/1377        landclass_GetNewIndicesPtr [93]
+                0.00    0.00      32/32          stats_Analysis [167]
+                0.00    0.00      32/98          igrid_GetLanduseGridPtr [139]
+                0.00    0.00      32/9771        igrid_GridRelease [68]
+-----------------------------------------------
+                1.31 1144.32      64/64          drv_driver [2]
+[3]     98.9    1.31 1144.32      64         grw_grow [3]
+              642.14  237.38    1344/1344        spr_spread [4]
+                2.33  149.07    1344/1344        delta_deltatron [5]
+                1.44   81.69    1344/1344        stats_Update [8]
+               28.35    0.00    2816/6848        util_condition_gif [9]
+                0.26    1.31      21/32          gdif_WriteGIF [24]
+                0.34    0.00      64/1408        util_init_grid [18]
+                0.01    0.00    1344/1344        landclass_GetUrbanCode [57]
+                0.00    0.00    1536/2394137413     mem_GetTotalPixels [20]
+                0.00    0.00    1344/4032        util_copy_grid [60]
+                0.00    0.00    8234/12888       proc_GetCurrentYear [67]
+                0.00    0.00    4160/9771        igrid_GridRelease [68]
+                0.00    0.00    2880/5002        proc_GetProcessingType [75]
+                0.00    0.00    2816/2816        proc_GetStopYear [80]
+                0.00    0.00    2688/2688        igrid_GetLanduseYear [86]
+                0.00    0.00    2688/8072        mem_GetWGridPtr [74]
+                0.00    0.00    2688/8072        mem_GetWGridFree [73]
+                0.00    0.00    2688/2688        stats_SetSDG [87]
+                0.00    0.00    1408/9580        timer_Start [69]
+                0.00    0.00    1408/1408        pgrid_GetDeltatronPtr [92]
+                0.00    0.00    1408/1539        scen_GetDoingLanduseFlag [89]
+                0.00    0.00    1408/1412        igrid_GetUrbanGridPtr [90]
+                0.00    0.00    1408/3004        scen_GetLogFlag [78]
+                0.00    0.00    1408/1409        scen_GetEchoFlag [91]
+                0.00    0.00    1408/9580        timer_Stop [70]
+                0.00    0.00    1344/1377        landclass_GetNewIndicesPtr [93]
+                0.00    0.00    1344/1345        landclass_GetClassesPtr [99]
+                0.00    0.00    1344/1344        landclass_GetReducedClassesPtr [108]
+                0.00    0.00    1344/1344        igrid_GetBackgroundGridPtr [104]
+                0.00    0.00    1344/4037        igrid_GetSlopeGridPtr [76]
+                0.00    0.00    1344/2912        pgrid_GetZPtr [79]
+                0.00    0.00    1344/1344        pgrid_GetLand2Ptr [109]
+                0.00    0.00    1344/1376        trans_GetFTransition [95]
+                0.00    0.00    1344/1376        trans_GetClassSlope [94]
+                0.00    0.00    1344/1344        stats_GetPercentUrban [113]
+                0.00    0.00    1344/1344        stats_GetGrowthRate [112]
+                0.00    0.00    1344/1344        coeff_WriteCurrentCoeff [103]
+                0.00    0.00    1344/1344        coeff_SelfModication [102]
+                0.00    0.00    1344/1344        proc_IncrementCurrentYear [110]
+                0.00    0.00    1344/1344        stats_SetSNG [117]
+                0.00    0.00    1344/1344        stats_SetOG [114]
+                0.00    0.00    1344/1344        stats_SetPOP [115]
+                0.00    0.00    1344/1344        stats_SetRT [116]
+                0.00    0.00    1344/1345        scen_GetViewGrowthTypesFlag [101]
+                0.00    0.00     149/3288        proc_GetCurrentRun [77]
+                0.00    0.00     128/128         proc_GetTotalRuns [137]
+                0.00    0.00      85/361         proc_GetCurrentMonteCarlo [127]
+                0.00    0.00      64/161         igrid_GetUrbanYear [134]
+                0.00    0.00      64/64          proc_SetCurrentYear [154]
+                0.00    0.00      64/961         scen_GetMonteCarloIterations [122]
+                0.00    0.00      64/98          igrid_GetLanduseGridPtr [139]
+                0.00    0.00      21/392         scen_GetOutputDir [124]
+                0.00    0.00      21/32          color_GetColortable [162]
+-----------------------------------------------
+              642.14  237.38    1344/1344        grw_grow [3]
+[4]     76.0  642.14  237.38    1344         spr_spread [4]
+              136.19    0.79  661410/661410      spr_get_neighbor [7]
+               27.06    0.00    2688/6848        util_condition_gif [9]
+               26.14    0.00 4851649267/6316444575     igrid_GetNumRows [13]
+               22.97    0.00    1344/1347        util_count_pixels [14]
+                7.09    0.00    1344/1408        util_init_grid [18]
+                2.73    4.30 47828171/47828171     spr_urbanize [19]
+                6.79    0.00 7098718331/47930112679     igrid_GetNumCols [12]
+                1.39    0.85 111570156/3161674516     util_count_neighbors [10]
+                0.69    0.00 198558878/3554810508     ran_random [17]
+                0.38    0.00  347818/1008637     util_get_next_neighbor [33]
+                0.00    0.00     471/46552856     util_WriteZProbGrid [21]
+                0.00    0.00    2688/2394137413     mem_GetTotalPixels [20]
+                0.00    0.00  384384/384384      scen_GetCriticalSlope [64]
+                0.00    0.00    4032/9580        timer_Start [69]
+                0.00    0.00    4032/9580        timer_Stop [70]
+                0.00    0.00    4032/9771        igrid_GridRelease [68]
+                0.00    0.00    2688/8072        mem_GetWGridPtr [74]
+                0.00    0.00    2688/8072        mem_GetWGridFree [73]
+                0.00    0.00    1344/2688        coeff_GetCurrentRoadGravity [83]
+                0.00    0.00    1344/2688        coeff_GetCurrentDiffusion [82]
+                0.00    0.00    1344/2688        coeff_GetCurrentBreed [81]
+                0.00    0.00    1344/2688        coeff_GetCurrentSpread [85]
+                0.00    0.00    1344/1344        igrid_GetExcludedGridPtr [105]
+                0.00    0.00    1344/12888       proc_GetCurrentYear [67]
+                0.00    0.00    1344/1344        igrid_GetRoadGridPtrByYear [106]
+                0.00    0.00    1344/4037        igrid_GetSlopeGridPtr [76]
+                0.00    0.00    1344/2688        coeff_GetCurrentSlopeResist [84]
+                0.00    0.00    1344/3004        scen_GetLogFlag [78]
+-----------------------------------------------
+                2.33  149.07    1344/1344        grw_grow [3]
+[5]     13.1    2.33  149.07    1344         delta_deltatron [5]
+               52.16   95.95    1344/1344        delta_phase2 [6]
+                0.39    0.00 111984098/3554810508     ran_random [17]
+                0.23    0.00 41923227/6316444575     igrid_GetNumRows [13]
+                0.13    0.06 17616142/140602322     util_get_neighbor [30]
+                0.13    0.00 137150880/47930112679     igrid_GetNumCols [12]
+                0.02    0.00 23081766/52718261     landclass_GetNumLandclasses [50]
+                0.00    0.00    1344/4032        util_copy_grid [60]
+                0.00    0.00 28676602/28676602     landclass_GetNumReducedclasses [61]
+                0.00    0.00    2688/9580        timer_Start [69]
+                0.00    0.00    2688/9580        timer_Stop [70]
+-----------------------------------------------
+               52.16   95.95    1344/1344        delta_deltatron [5]
+[6]     12.8   52.16   95.95    1344         delta_phase2 [6]
+               38.01   23.34 3050104360/3161674516     util_count_neighbors [10]
+               13.53    0.00    1344/6848        util_condition_gif [9]
+               10.62    0.00 3075385666/3554810508     ran_random [17]
+                6.29    0.00 6573972990/47930112679     igrid_GetNumCols [12]
+                2.78    0.00 1557987392/2394137413     mem_GetTotalPixels [20]
+                0.91    0.42 122986180/140602322     util_get_neighbor [30]
+                0.02    0.00 25281306/52718261     landclass_GetNumLandclasses [50]
+                0.02    0.00 3714816/6316444575     igrid_GetNumRows [13]
+                0.00    0.00    1344/4032        util_copy_grid [60]
+                0.00    0.00    1344/9580        timer_Start [69]
+                0.00    0.00    1344/1345        scen_GetViewDeltatronAgingFlag [100]
+                0.00    0.00    1344/9580        timer_Stop [70]
+-----------------------------------------------
+              136.19    0.79  661410/661410      spr_spread [4]
+[7]     11.8  136.19    0.79  661410         spr_get_neighbor [7]
+                0.73    0.00  660819/1008637     util_get_next_neighbor [33]
+                0.05    0.00  628550/46552856     util_WriteZProbGrid [21]
+                0.01    0.00 1321638/6316444575     igrid_GetNumRows [13]
+                0.00    0.00  660819/3554810508     ran_random [17]
+                0.00    0.00 1321638/47930112679     igrid_GetNumCols [12]
+-----------------------------------------------
+                1.44   81.69    1344/1344        grw_grow [3]
+[8]      7.2    1.44   81.69    1344         stats_Update [8]
+               41.46    7.00    1344/1348        stats_cluster [11]
+               12.62    6.22    1344/1348        stats_edge [15]
+               11.25    1.66    1344/1348        stats_circle [16]
+                1.49    0.00 836138880/2394137413     mem_GetTotalPixels [20]
+                0.00    0.00    3072/12888       proc_GetCurrentYear [67]
+                0.00    0.00    2688/8072        mem_GetWGridPtr [74]
+                0.00    0.00    2688/8072        mem_GetWGridFree [73]
+                0.00    0.00    1536/2912        pgrid_GetZPtr [79]
+                0.00    0.00    1536/9771        igrid_GridRelease [68]
+                0.00    0.00    1536/5002        proc_GetProcessingType [75]
+                0.00    0.00    1344/1348        igrid_GetIGridExcludedPixelCount [96]
+                0.00    0.00    1344/1348        igrid_GetIGridRoadPixelCount [97]
+                0.00    0.00    1344/4037        igrid_GetSlopeGridPtr [76]
+                0.00    0.00    1344/2688        coeff_GetCurrentDiffusion [82]
+                0.00    0.00    1344/2688        coeff_GetCurrentSpread [85]
+                0.00    0.00    1344/2688        coeff_GetCurrentBreed [81]
+                0.00    0.00    1344/2688        coeff_GetCurrentSlopeResist [84]
+                0.00    0.00    1344/2688        coeff_GetCurrentRoadGravity [83]
+                0.00    0.00    1344/1344        igrid_TestForUrbanYear [107]
+                0.00    0.00     192/192         igrid_GetUrbanGridPtrByYear [131]
+                0.00    0.00     192/392         scen_GetOutputDir [124]
+                0.00    0.00     192/3288        proc_GetCurrentRun [77]
+                0.00    0.00     192/192         stats_Save [133]
+-----------------------------------------------
+               13.53    0.00    1344/6848        delta_phase2 [6]
+               27.06    0.00    2688/6848        spr_spread [4]
+               28.35    0.00    2816/6848        grw_grow [3]
+[9]      6.0   68.94    0.00    6848         util_condition_gif [9]
+-----------------------------------------------
+                1.39    0.85 111570156/3161674516     spr_spread [4]
+               38.01   23.34 3050104360/3161674516     delta_phase2 [6]
+[10]     5.5   39.40   24.20 3161674516         util_count_neighbors [10]
+               24.20    0.00 25293396128/47930112679     igrid_GetNumCols [12]
+-----------------------------------------------
+                0.12    0.02       4/1348        stats_Init [41]
+               41.46    7.00    1344/1348        stats_Update [8]
+[11]     4.2   41.58    7.02    1348         stats_cluster [11]
+                3.53    0.00 3689139736/47930112679     igrid_GetNumCols [12]
+                3.49    0.00 647474676/6316444575     igrid_GetNumRows [13]
+                0.00    0.00    1348/2394137413     mem_GetTotalPixels [20]
+-----------------------------------------------
+                0.00    0.00       1/47930112679     mem_Init [25]
+                0.00    0.00       4/47930112679     stats_Init [41]
+                0.00    0.00 1008637/47930112679     util_get_next_neighbor [33]
+                0.00    0.00 1321638/47930112679     spr_get_neighbor [7]
+                0.00    0.00 1613828/47930112679     gdif_WriteColorKey [44]
+                0.02    0.00 17422265/47930112679     trans_Init [47]
+                0.03    0.00 29848978/47930112679     util_WriteZProbGrid [21]
+                0.05    0.00 47920972/47930112679     gdif_ReadGIF [27]
+                0.13    0.00 137150880/47930112679     delta_deltatron [5]
+                0.15    0.00 152171647/47930112679     spr_urbanize [19]
+                0.27    0.00 278800544/47930112679     gdif_WriteGIF [24]
+                1.66    0.00 1737273885/47930112679     stats_circle [16]
+                2.75    0.00 2870352215/47930112679     stats_edge [15]
+                3.53    0.00 3689139736/47930112679     stats_cluster [11]
+                6.29    0.00 6573972990/47930112679     delta_phase2 [6]
+                6.79    0.00 7098718331/47930112679     spr_spread [4]
+               24.20    0.00 25293396128/47930112679     util_count_neighbors [10]
+[12]     4.0   45.85    0.00 47930112679         igrid_GetNumCols [12]
+-----------------------------------------------
+                0.00    0.00       1/6316444575     mem_Init [25]
+                0.00    0.00       4/6316444575     stats_Init [41]
+                0.00    0.00    1348/6316444575     stats_circle [16]
+                0.00    0.00    2766/6316444575     trans_Init [47]
+                0.00    0.00   88597/6316444575     gdif_WriteGIF [24]
+                0.01    0.00 1008637/6316444575     util_get_next_neighbor [33]
+                0.01    0.00 1321638/6316444575     spr_get_neighbor [7]
+                0.02    0.00 3714816/6316444575     delta_phase2 [6]
+                0.14    0.00 26035786/6316444575     util_WriteZProbGrid [21]
+                0.23    0.00 41923227/6316444575     delta_deltatron [5]
+                0.26    0.00 47828171/6316444575     spr_urbanize [19]
+                0.26    0.00 47920961/6316444575     gdif_ReadGIF [27]
+                3.49    0.00 647474676/6316444575     stats_cluster [11]
+                3.49    0.00 647474680/6316444575     stats_edge [15]
+               26.14    0.00 4851649267/6316444575     spr_spread [4]
+[13]     2.9   34.03    0.00 6316444575         igrid_GetNumRows [13]
+-----------------------------------------------
+                0.05    0.00       3/1347        igrid_ReadFiles [23]
+               22.97    0.00    1344/1347        spr_spread [4]
+[14]     2.0   23.02    0.00    1347         util_count_pixels [14]
+-----------------------------------------------
+                0.04    0.02       4/1348        stats_Init [41]
+               12.62    6.22    1344/1348        stats_Update [8]
+[15]     1.6   12.66    6.23    1348         stats_edge [15]
+                3.49    0.00 647474680/6316444575     igrid_GetNumRows [13]
+                2.75    0.00 2870352215/47930112679     igrid_GetNumCols [12]
+-----------------------------------------------
+                0.03    0.00       4/1348        stats_Init [41]
+               11.25    1.66    1344/1348        stats_Update [8]
+[16]     1.1   11.28    1.66    1348         stats_circle [16]
+                1.66    0.00 1737273885/47930112679     igrid_GetNumCols [12]
+                0.00    0.00    1348/6316444575     igrid_GetNumRows [13]
+-----------------------------------------------
+                0.00    0.00  660819/3554810508     spr_get_neighbor [7]
+                0.10    0.00 27618725/3554810508     spr_urbanize [19]
+                0.39    0.00 111984098/3554810508     delta_deltatron [5]
+                0.49    0.00 140602322/3554810508     util_get_neighbor [30]
+                0.69    0.00 198558878/3554810508     spr_spread [4]
+               10.62    0.00 3075385666/3554810508     delta_phase2 [6]
+[17]     1.1   12.27    0.00 3554810508         ran_random [17]
+-----------------------------------------------
+                0.34    0.00      64/1408        grw_grow [3]
+                7.09    0.00    1344/1408        spr_spread [4]
+[18]     0.6    7.43    0.00    1408         util_init_grid [18]
+                0.00    0.00    1408/2394137413     mem_GetTotalPixels [20]
+-----------------------------------------------
+                2.73    4.30 47828171/47828171     spr_spread [4]
+[19]     0.6    2.73    4.30 47828171         spr_urbanize [19]
+                3.57    0.17 45923835/46552856     util_WriteZProbGrid [21]
+                0.26    0.00 47828171/6316444575     igrid_GetNumRows [13]
+                0.15    0.00 152171647/47930112679     igrid_GetNumCols [12]
+                0.10    0.00 27618725/3554810508     ran_random [17]
+                0.04    0.00 30401974/30401974     stats_IncrementZFailure [51]
+                0.01    0.00 11470383/11470383     stats_IncrementUrbanSuccess [53]
+                0.01    0.00 3866975/3866975     stats_IncrementSlopeFailure [55]
+                0.00    0.00 1683347/1683347     stats_IncrementDeltaFailure [62]
+                0.00    0.00  405492/405492      stats_IncrementEcludedFailure [63]
+-----------------------------------------------
+                0.00    0.00       1/2394137413     stats_Init [41]
+                0.00    0.00     128/2394137413     drv_driver [2]
+                0.00    0.00    1348/2394137413     stats_cluster [11]
+                0.00    0.00    1408/2394137413     util_init_grid [18]
+                0.00    0.00    1536/2394137413     grw_grow [3]
+                0.00    0.00    2688/2394137413     spr_spread [4]
+                0.00    0.00    4032/2394137413     util_copy_grid [60]
+                1.49    0.00 836138880/2394137413     stats_Update [8]
+                2.78    0.00 1557987392/2394137413     delta_phase2 [6]
+[20]     0.4    4.27    0.00 2394137413         mem_GetTotalPixels [20]
+-----------------------------------------------
+                0.00    0.00     471/46552856     spr_spread [4]
+                0.05    0.00  628550/46552856     spr_get_neighbor [7]
+                3.57    0.17 45923835/46552856     spr_urbanize [19]
+[21]     0.3    3.62    0.17 46552856         util_WriteZProbGrid [21]
+                0.14    0.00 26035786/6316444575     igrid_GetNumRows [13]
+                0.03    0.00 29848978/47930112679     igrid_GetNumCols [12]
+-----------------------------------------------
+                                                 <spontaneous>
+[22]     0.3    3.72    0.00                 mem_GetPackedBytesPerGrid [22]
+-----------------------------------------------
+                0.00    3.26       1/1           main [1]
+[23]     0.3    0.00    3.26       1         igrid_ReadFiles [23]
+                0.00    1.98      11/11          igrid_Debug [28]
+                0.00    0.82      11/11          igrid_echo_input [36]
+                0.23    0.00      11/11          grid_SetMinMax [42]
+                0.18    0.00      11/11          grid_histogram [46]
+                0.05    0.00       3/1347        util_count_pixels [14]
+                0.00    0.00      11/11          mem_GetIGridPtr [178]
+-----------------------------------------------
+                0.14    0.69      11/32          igrid_echo_input [36]
+                0.26    1.31      21/32          grw_grow [3]
+[24]     0.2    0.40    2.00      32         gdif_WriteGIF [24]
+                0.66    1.07      32/36          gdImageGif [29]
+                0.27    0.00 278800544/47930112679     igrid_GetNumCols [12]
+                0.00    0.00   88597/6316444575     igrid_GetNumRows [13]
+                0.00    0.00      21/21          gdImageString [59]
+                0.00    0.00    8192/9216        gdImageColorAllocate [71]
+                0.00    0.00      32/3004        scen_GetLogFlag [78]
+                0.00    0.00      32/9580        timer_Start [69]
+                0.00    0.00      32/47          gdImageCreate [157]
+                0.00    0.00      32/47          gdImageDestroy [158]
+                0.00    0.00      32/9580        timer_Stop [70]
+-----------------------------------------------
+                0.08    2.14       1/1           main [1]
+[25]     0.2    0.08    2.14       1         mem_Init [25]
+                2.14    0.00      13/13          igrid_GetIGridCount [26]
+                0.00    0.00       1/6316444575     igrid_GetNumRows [13]
+                0.00    0.00       1/47930112679     igrid_GetNumCols [12]
+                0.00    0.00      12/12          wgrid_GetWGridCount [175]
+                0.00    0.00      10/8082        mem_wgrid_push [72]
+                0.00    0.00       8/8           pgrid_GetPGridCount [191]
+                0.00    0.00       1/392         scen_GetOutputDir [124]
+                0.00    0.00       1/2           scen_GetLogMemoryMapFlag [211]
+                0.00    0.00       1/3004        scen_GetLogFlag [78]
+-----------------------------------------------
+                2.14    0.00      13/13          mem_Init [25]
+[26]     0.2    2.14    0.00      13         igrid_GetIGridCount [26]
+-----------------------------------------------
+                0.26    1.72      11/11          igrid_Debug [28]
+[27]     0.2    0.26    1.72      11         gdif_ReadGIF [27]
+                0.00    1.11      11/11          gdImageCreateFromGif [34]
+                0.20    0.10 47903625/188872425     gdImageGetPixel [32]
+                0.26    0.00 47920961/6316444575     igrid_GetNumRows [13]
+                0.05    0.00 47920972/47930112679     igrid_GetNumCols [12]
+                0.00    0.00      11/3004        scen_GetLogFlag [78]
+                0.00    0.00      11/9580        timer_Start [69]
+                0.00    0.00      11/47          gdImageDestroy [158]
+                0.00    0.00      11/9580        timer_Stop [70]
+-----------------------------------------------
+                0.00    1.98      11/11          igrid_ReadFiles [23]
+[28]     0.2    0.00    1.98      11         igrid_Debug [28]
+                0.26    1.72      11/11          gdif_ReadGIF [27]
+                0.00    0.00      11/11          scen_GetEchoImageFlag [179]
+-----------------------------------------------
+                0.08    0.13       4/36          gdif_WriteColorKey [44]
+                0.66    1.07      32/36          gdif_WriteGIF [24]
+[29]     0.2    0.74    1.21      36         gdImageGif [29]
+                0.31    0.89 140968836/140968836     GIFNextPixel [31]
+                0.00    0.01 3085756/3085756     output [56]
+                0.00    0.00     823/823         cl_hash [123]
+                0.00    0.00     216/216         Putword [130]
+-----------------------------------------------
+                0.13    0.06 17616142/140602322     delta_deltatron [5]
+                0.91    0.42 122986180/140602322     delta_phase2 [6]
+[30]     0.1    1.04    0.49 140602322         util_get_neighbor [30]
+                0.49    0.00 140602322/3554810508     ran_random [17]
+-----------------------------------------------
+                0.31    0.89 140968836/140968836     gdImageGif [29]
+[31]     0.1    0.31    0.89 140968836         GIFNextPixel [31]
+                0.58    0.30 140968800/188872425     gdImageGetPixel [32]
+-----------------------------------------------
+                0.20    0.10 47903625/188872425     gdif_ReadGIF [27]
+                0.58    0.30 140968800/188872425     GIFNextPixel [31]
+[32]     0.1    0.78    0.41 188872425         gdImageGetPixel [32]
+                0.41    0.00 188872425/236779162     gdImageBoundsSafe [38]
+-----------------------------------------------
+                0.38    0.00  347818/1008637     spr_spread [4]
+                0.73    0.00  660819/1008637     spr_get_neighbor [7]
+[33]     0.1    1.11    0.01 1008637         util_get_next_neighbor [33]
+                0.01    0.00 1008637/6316444575     igrid_GetNumRows [13]
+                0.00    0.00 1008637/47930112679     igrid_GetNumCols [12]
+-----------------------------------------------
+                0.00    1.11      11/11          gdif_ReadGIF [27]
+[34]     0.1    0.00    1.11      11         gdImageCreateFromGif [34]
+                0.11    0.80      11/11          ReadImage [35]
+                0.20    0.00      11/11          gdImageColorTransparent [45]
+                0.00    0.00      22/13943       GetDataBlock [66]
+                0.00    0.00      11/11          ReadColorMap [176]
+                0.00    0.00      11/47          gdImageCreate [157]
+-----------------------------------------------
+                0.11    0.80      11/11          gdImageCreateFromGif [34]
+[35]     0.1    0.11    0.80      11         ReadImage [35]
+                0.40    0.09 47903647/47903647     LWZReadByte [39]
+                0.21    0.10 47903625/47906737     gdImageSetPixel [40]
+-----------------------------------------------
+                0.00    0.82      11/11          igrid_ReadFiles [23]
+[36]     0.1    0.00    0.82      11         igrid_echo_input [36]
+                0.14    0.69      11/32          gdif_WriteGIF [24]
+                0.00    0.00      11/392         scen_GetOutputDir [124]
+                0.00    0.00      11/32          color_GetColortable [162]
+-----------------------------------------------
+                0.63    0.00      32/32          drv_driver [2]
+[37]     0.1    0.63    0.00      32         util_img_intersection [37]
+-----------------------------------------------
+                0.10    0.00 47906737/236779162     gdImageSetPixel [40]
+                0.41    0.00 188872425/236779162     gdImageGetPixel [32]
+[38]     0.0    0.51    0.00 236779162         gdImageBoundsSafe [38]
+-----------------------------------------------
+                0.40    0.09 47903647/47903647     ReadImage [35]
+[39]     0.0    0.40    0.09 47903647         LWZReadByte [39]
+                0.09    0.00 2518350/2518350     GetCode [48]
+                0.00    0.00       9/13943       GetDataBlock [66]
+-----------------------------------------------
+                0.00    0.00    3112/47906737     gdImageChar [58]
+                0.21    0.10 47903625/47906737     ReadImage [35]
+[40]     0.0    0.21    0.10 47906737         gdImageSetPixel [40]
+                0.10    0.00 47906737/236779162     gdImageBoundsSafe [38]
+-----------------------------------------------
+                0.00    0.24       1/1           main [1]
+[41]     0.0    0.00    0.24       1         stats_Init [41]
+                0.12    0.02       4/1348        stats_cluster [11]
+                0.04    0.02       4/1348        stats_edge [15]
+                0.03    0.00       4/1348        stats_circle [16]
+                0.00    0.00       4/6316444575     igrid_GetNumRows [13]
+                0.00    0.00       4/47930112679     igrid_GetNumCols [12]
+                0.00    0.00       1/2394137413     mem_GetTotalPixels [20]
+                0.00    0.00       8/8072        mem_GetWGridPtr [74]
+                0.00    0.00       8/9771        igrid_GridRelease [68]
+                0.00    0.00       8/8072        mem_GetWGridFree [73]
+                0.00    0.00       5/390         igrid_GetUrbanCount [125]
+                0.00    0.00       4/1412        igrid_GetUrbanGridPtr [90]
+                0.00    0.00       4/4037        igrid_GetSlopeGridPtr [76]
+                0.00    0.00       4/12888       proc_GetCurrentYear [67]
+                0.00    0.00       4/1348        igrid_GetIGridRoadPixelCount [97]
+                0.00    0.00       4/1348        igrid_GetIGridExcludedPixelCount [96]
+-----------------------------------------------
+                0.23    0.00      11/11          igrid_ReadFiles [23]
+[42]     0.0    0.23    0.00      11         grid_SetMinMax [42]
+-----------------------------------------------
+                0.00    0.23       1/1           main [1]
+[43]     0.0    0.00    0.23       1         color_Init [43]
+                0.01    0.22       4/4           gdif_WriteColorKey [44]
+                0.00    0.00       9/52718261     landclass_GetNumLandclasses [50]
+                0.00    0.00      12/12          scen_GetProbabilityColorCount [174]
+                0.00    0.00      11/11          scen_GetProbabilityColor [181]
+                0.00    0.00       8/8           landclass_GetClassColor [190]
+                0.00    0.00       8/8           scen_GetDeltatronColorCount [192]
+                0.00    0.00       6/6           scen_GetDeltatronColor [201]
+                0.00    0.00       4/392         scen_GetOutputDir [124]
+                0.00    0.00       1/1           scen_GetWaterColor [281]
+                0.00    0.00       1/1           scen_GetSeedColor [280]
+                0.00    0.00       1/1           scen_GetDateColor [269]
+                0.00    0.00       1/1           scen_GetPhase0GrowthColor [272]
+                0.00    0.00       1/1           scen_GetPhase1GrowthColor [273]
+                0.00    0.00       1/1           scen_GetPhase2GrowthColor [274]
+                0.00    0.00       1/1           scen_GetPhase3GrowthColor [275]
+                0.00    0.00       1/1           scen_GetPhase4GrowthColor [276]
+                0.00    0.00       1/1           scen_GetPhase5GrowthColor [277]
+                0.00    0.00       1/1           scen_GetWriteColorKeyFlag [283]
+-----------------------------------------------
+                0.01    0.22       4/4           color_Init [43]
+[44]     0.0    0.01    0.22       4         gdif_WriteColorKey [44]
+                0.08    0.13       4/36          gdImageGif [29]
+                0.00    0.00 1613828/47930112679     igrid_GetNumCols [12]
+                0.00    0.00    1024/9216        gdImageColorAllocate [71]
+                0.00    0.00       4/3004        scen_GetLogFlag [78]
+                0.00    0.00       4/47          gdImageCreate [157]
+                0.00    0.00       4/47          gdImageDestroy [158]
+-----------------------------------------------
+                0.20    0.00      11/11          gdImageCreateFromGif [34]
+[45]     0.0    0.20    0.00      11         gdImageColorTransparent [45]
+-----------------------------------------------
+                0.18    0.00      11/11          igrid_ReadFiles [23]
+[46]     0.0    0.18    0.00      11         grid_histogram [46]
+-----------------------------------------------
+                0.15    0.02       1/1           main [1]
+[47]     0.0    0.15    0.02       1         trans_Init [47]
+                0.02    0.00 17422265/47930112679     igrid_GetNumCols [12]
+                0.00    0.00 4355180/52718261     landclass_GetNumLandclasses [50]
+                0.00    0.00    2766/6316444575     igrid_GetNumRows [13]
+                0.00    0.00       3/9771        igrid_GridRelease [68]
+                0.00    0.00       2/98          igrid_GetLanduseGridPtr [139]
+                0.00    0.00       1/4037        igrid_GetSlopeGridPtr [76]
+                0.00    0.00       1/1377        landclass_GetNewIndicesPtr [93]
+                0.00    0.00       1/1345        landclass_GetClassesPtr [99]
+-----------------------------------------------
+                0.09    0.00 2518350/2518350     LWZReadByte [39]
+[48]     0.0    0.09    0.00 2518350         GetCode [48]
+                0.00    0.00   13912/13943       GetDataBlock [66]
+-----------------------------------------------
+                0.06    0.00       1/1           main [1]
+[49]     0.0    0.06    0.00       1         igrid_NormalizeRoads [49]
+-----------------------------------------------
+                0.00    0.00       9/52718261     color_Init [43]
+                0.00    0.00 4355180/52718261     trans_Init [47]
+                0.02    0.00 23081766/52718261     delta_deltatron [5]
+                0.02    0.00 25281306/52718261     delta_phase2 [6]
+[50]     0.0    0.05    0.00 52718261         landclass_GetNumLandclasses [50]
+-----------------------------------------------
+                0.04    0.00 30401974/30401974     spr_urbanize [19]
+[51]     0.0    0.04    0.00 30401974         stats_IncrementZFailure [51]
+-----------------------------------------------
+                                                 <spontaneous>
+[52]     0.0    0.03    0.00                 gdImageFill [52]
+-----------------------------------------------
+                0.01    0.00 11470383/11470383     spr_urbanize [19]
+[53]     0.0    0.01    0.00 11470383         stats_IncrementUrbanSuccess [53]
+-----------------------------------------------
+                0.01    0.00 4341100/4341100     output [56]
+[54]     0.0    0.01    0.00 4341100         char_out [54]
+                0.00    0.00   17074/17110       flush_char [65]
+-----------------------------------------------
+                0.01    0.00 3866975/3866975     spr_urbanize [19]
+[55]     0.0    0.01    0.00 3866975         stats_IncrementSlopeFailure [55]
+-----------------------------------------------
+                0.00    0.01 3085756/3085756     gdImageGif [29]
+[56]     0.0    0.00    0.01 3085756         output [56]
+                0.01    0.00 4341100/4341100     char_out [54]
+                0.00    0.00      36/17110       flush_char [65]
+-----------------------------------------------
+                0.01    0.00    1344/1344        grw_grow [3]
+[57]     0.0    0.01    0.00    1344         landclass_GetUrbanCode [57]
+-----------------------------------------------
+                0.00    0.00      84/84          gdImageString [59]
+[58]     0.0    0.00    0.00      84         gdImageChar [58]
+                0.00    0.00    3112/47906737     gdImageSetPixel [40]
+-----------------------------------------------
+                0.00    0.00      21/21          gdif_WriteGIF [24]
+[59]     0.0    0.00    0.00      21         gdImageString [59]
+                0.00    0.00      84/84          gdImageChar [58]
+-----------------------------------------------
+                0.00    0.00    1344/4032        delta_phase2 [6]
+                0.00    0.00    1344/4032        delta_deltatron [5]
+                0.00    0.00    1344/4032        grw_grow [3]
+[60]     0.0    0.00    0.00    4032         util_copy_grid [60]
+                0.00    0.00    4032/2394137413     mem_GetTotalPixels [20]
+-----------------------------------------------
+                0.00    0.00 28676602/28676602     delta_deltatron [5]
+[61]     0.0    0.00    0.00 28676602         landclass_GetNumReducedclasses [61]
+-----------------------------------------------
+                0.00    0.00 1683347/1683347     spr_urbanize [19]
+[62]     0.0    0.00    0.00 1683347         stats_IncrementDeltaFailure [62]
+-----------------------------------------------
+                0.00    0.00  405492/405492      spr_urbanize [19]
+[63]     0.0    0.00    0.00  405492         stats_IncrementEcludedFailure [63]
+-----------------------------------------------
+                0.00    0.00  384384/384384      spr_spread [4]
+[64]     0.0    0.00    0.00  384384         scen_GetCriticalSlope [64]
+-----------------------------------------------
+                0.00    0.00      36/17110       output [56]
+                0.00    0.00   17074/17110       char_out [54]
+[65]     0.0    0.00    0.00   17110         flush_char [65]
+-----------------------------------------------
+                0.00    0.00       9/13943       LWZReadByte [39]
+                0.00    0.00      22/13943       gdImageCreateFromGif [34]
+                0.00    0.00   13912/13943       GetCode [48]
+[66]     0.0    0.00    0.00   13943         GetDataBlock [66]
+-----------------------------------------------
+                0.00    0.00       4/12888       stats_Init [41]
+                0.00    0.00      42/12888       scen_GetViewGrowthTypesFlag [101]
+                0.00    0.00     192/12888       stats_Save [133]
+                0.00    0.00    1344/12888       spr_spread [4]
+                0.00    0.00    3072/12888       stats_Update [8]
+                0.00    0.00    8234/12888       grw_grow [3]
+[67]     0.0    0.00    0.00   12888         proc_GetCurrentYear [67]
+-----------------------------------------------
+                0.00    0.00       3/9771        trans_Init [47]
+                0.00    0.00       8/9771        stats_Init [41]
+                0.00    0.00      32/9771        drv_driver [2]
+                0.00    0.00    1536/9771        stats_Update [8]
+                0.00    0.00    4032/9771        spr_spread [4]
+                0.00    0.00    4160/9771        grw_grow [3]
+[68]     0.0    0.00    0.00    9771         igrid_GridRelease [68]
+-----------------------------------------------
+                0.00    0.00       1/9580        main [1]
+                0.00    0.00      11/9580        gdif_ReadGIF [27]
+                0.00    0.00      32/9580        gdif_WriteGIF [24]
+                0.00    0.00      64/9580        drv_driver [2]
+                0.00    0.00    1344/9580        delta_phase2 [6]
+                0.00    0.00    1408/9580        grw_grow [3]
+                0.00    0.00    2688/9580        delta_deltatron [5]
+                0.00    0.00    4032/9580        spr_spread [4]
+[69]     0.0    0.00    0.00    9580         timer_Start [69]
+-----------------------------------------------
+                0.00    0.00       1/9580        main [1]
+                0.00    0.00      11/9580        gdif_ReadGIF [27]
+                0.00    0.00      32/9580        gdif_WriteGIF [24]
+                0.00    0.00      64/9580        drv_driver [2]
+                0.00    0.00    1344/9580        delta_phase2 [6]
+                0.00    0.00    1408/9580        grw_grow [3]
+                0.00    0.00    2688/9580        delta_deltatron [5]
+                0.00    0.00    4032/9580        spr_spread [4]
+[70]     0.0    0.00    0.00    9580         timer_Stop [70]
+-----------------------------------------------
+                0.00    0.00    1024/9216        gdif_WriteColorKey [44]
+                0.00    0.00    8192/9216        gdif_WriteGIF [24]
+[71]     0.0    0.00    0.00    9216         gdImageColorAllocate [71]
+-----------------------------------------------
+                0.00    0.00      10/8082        mem_Init [25]
+                0.00    0.00    8072/8082        mem_GetWGridFree [73]
+[72]     0.0    0.00    0.00    8082         mem_wgrid_push [72]
+-----------------------------------------------
+                0.00    0.00       8/8072        stats_Init [41]
+                0.00    0.00    2688/8072        stats_Update [8]
+                0.00    0.00    2688/8072        grw_grow [3]
+                0.00    0.00    2688/8072        spr_spread [4]
+[73]     0.0    0.00    0.00    8072         mem_GetWGridFree [73]
+                0.00    0.00    8072/8082        mem_wgrid_push [72]
+-----------------------------------------------
+                0.00    0.00       8/8072        stats_Init [41]
+                0.00    0.00    2688/8072        stats_Update [8]
+                0.00    0.00    2688/8072        grw_grow [3]
+                0.00    0.00    2688/8072        spr_spread [4]
+[74]     0.0    0.00    0.00    8072         mem_GetWGridPtr [74]
+-----------------------------------------------
+                0.00    0.00       6/5002        igrid_init [237]
+                0.00    0.00      36/5002        main [1]
+                0.00    0.00      96/5002        stats_ProcessGrowLog [151]
+                0.00    0.00      96/5002        stats_Analysis [167]
+                0.00    0.00     160/5002        drv_driver [2]
+                0.00    0.00     192/5002        stats_Save [133]
+                0.00    0.00    1536/5002        stats_Update [8]
+                0.00    0.00    2880/5002        grw_grow [3]
+[75]     0.0    0.00    0.00    5002         proc_GetProcessingType [75]
+-----------------------------------------------
+                0.00    0.00       1/4037        trans_Init [47]
+                0.00    0.00       4/4037        stats_Init [41]
+                0.00    0.00    1344/4037        stats_Update [8]
+                0.00    0.00    1344/4037        grw_grow [3]
+                0.00    0.00    1344/4037        spr_spread [4]
+[76]     0.0    0.00    0.00    4037         igrid_GetSlopeGridPtr [76]
+-----------------------------------------------
+                0.00    0.00       1/3288        main [1]
+                0.00    0.00      64/3288        stats_Analysis [167]
+                0.00    0.00     149/3288        grw_grow [3]
+                0.00    0.00     192/3288        stats_Save [133]
+                0.00    0.00     192/3288        stats_Update [8]
+                0.00    0.00    2690/3288        scen_GetViewGrowthTypesFlag [101]
+[77]     0.0    0.00    0.00    3288         proc_GetCurrentRun [77]
+-----------------------------------------------
+                0.00    0.00       1/3004        mem_Init [25]
+                0.00    0.00       4/3004        gdif_WriteColorKey [44]
+                0.00    0.00      11/3004        gdif_ReadGIF [27]
+                0.00    0.00      32/3004        out_write_restart_data [138]
+                0.00    0.00      32/3004        gdif_WriteGIF [24]
+                0.00    0.00      44/3004        main [1]
+                0.00    0.00     128/3004        drv_driver [2]
+                0.00    0.00    1344/3004        spr_spread [4]
+                0.00    0.00    1408/3004        grw_grow [3]
+[78]     0.0    0.00    0.00    3004         scen_GetLogFlag [78]
+-----------------------------------------------
+                0.00    0.00      32/2912        drv_driver [2]
+                0.00    0.00    1344/2912        grw_grow [3]
+                0.00    0.00    1536/2912        stats_Update [8]
+[79]     0.0    0.00    0.00    2912         pgrid_GetZPtr [79]
+-----------------------------------------------
+                0.00    0.00    2816/2816        grw_grow [3]
+[80]     0.0    0.00    0.00    2816         proc_GetStopYear [80]
+-----------------------------------------------
+                0.00    0.00    1344/2688        stats_Update [8]
+                0.00    0.00    1344/2688        spr_spread [4]
+[81]     0.0    0.00    0.00    2688         coeff_GetCurrentBreed [81]
+-----------------------------------------------
+                0.00    0.00    1344/2688        stats_Update [8]
+                0.00    0.00    1344/2688        spr_spread [4]
+[82]     0.0    0.00    0.00    2688         coeff_GetCurrentDiffusion [82]
+-----------------------------------------------
+                0.00    0.00    1344/2688        stats_Update [8]
+                0.00    0.00    1344/2688        spr_spread [4]
+[83]     0.0    0.00    0.00    2688         coeff_GetCurrentRoadGravity [83]
+-----------------------------------------------
+                0.00    0.00    1344/2688        stats_Update [8]
+                0.00    0.00    1344/2688        spr_spread [4]
+[84]     0.0    0.00    0.00    2688         coeff_GetCurrentSlopeResist [84]
+-----------------------------------------------
+                0.00    0.00    1344/2688        stats_Update [8]
+                0.00    0.00    1344/2688        spr_spread [4]
+[85]     0.0    0.00    0.00    2688         coeff_GetCurrentSpread [85]
+-----------------------------------------------
+                0.00    0.00    2688/2688        grw_grow [3]
+[86]     0.0    0.00    0.00    2688         igrid_GetLanduseYear [86]
+-----------------------------------------------
+                0.00    0.00    2688/2688        grw_grow [3]
+[87]     0.0    0.00    0.00    2688         stats_SetSDG [87]
+-----------------------------------------------
+                0.00    0.00    1696/1696        coeff_SelfModication [102]
+[88]     0.0    0.00    0.00    1696         scen_GetCriticalLow [88]
+-----------------------------------------------
+                0.00    0.00       1/1539        igrid_VerifyInputs [236]
+                0.00    0.00       2/1539        main [1]
+                0.00    0.00      32/1539        stats_Analysis [167]
+                0.00    0.00      96/1539        drv_driver [2]
+                0.00    0.00    1408/1539        grw_grow [3]
+[89]     0.0    0.00    0.00    1539         scen_GetDoingLanduseFlag [89]
+-----------------------------------------------
+                0.00    0.00       4/1412        stats_Init [41]
+                0.00    0.00    1408/1412        grw_grow [3]
+[90]     0.0    0.00    0.00    1412         igrid_GetUrbanGridPtr [90]
+-----------------------------------------------
+                0.00    0.00       1/1409        main [1]
+                0.00    0.00    1408/1409        grw_grow [3]
+[91]     0.0    0.00    0.00    1409         scen_GetEchoFlag [91]
+-----------------------------------------------
+                0.00    0.00    1408/1408        grw_grow [3]
+[92]     0.0    0.00    0.00    1408         pgrid_GetDeltatronPtr [92]
+-----------------------------------------------
+                0.00    0.00       1/1377        trans_Init [47]
+                0.00    0.00      32/1377        drv_driver [2]
+                0.00    0.00    1344/1377        grw_grow [3]
+[93]     0.0    0.00    0.00    1377         landclass_GetNewIndicesPtr [93]
+-----------------------------------------------
+                0.00    0.00      32/1376        drv_driver [2]
+                0.00    0.00    1344/1376        grw_grow [3]
+[94]     0.0    0.00    0.00    1376         trans_GetClassSlope [94]
+-----------------------------------------------
+                0.00    0.00      32/1376        drv_driver [2]
+                0.00    0.00    1344/1376        grw_grow [3]
+[95]     0.0    0.00    0.00    1376         trans_GetFTransition [95]
+-----------------------------------------------
+                0.00    0.00       4/1348        stats_Init [41]
+                0.00    0.00    1344/1348        stats_Update [8]
+[96]     0.0    0.00    0.00    1348         igrid_GetIGridExcludedPixelCount [96]
+-----------------------------------------------
+                0.00    0.00       4/1348        stats_Init [41]
+                0.00    0.00    1344/1348        stats_Update [8]
+[97]     0.0    0.00    0.00    1348         igrid_GetIGridRoadPixelCount [97]
+-----------------------------------------------
+                0.00    0.00       1/1346        coeff_CreateCoeffFile [214]
+                0.00    0.00       1/1346        main [1]
+                0.00    0.00    1344/1346        coeff_WriteCurrentCoeff [103]
+[98]     0.0    0.00    0.00    1346         scen_GetWriteCoeffFileFlag [98]
+-----------------------------------------------
+                0.00    0.00       1/1345        trans_Init [47]
+                0.00    0.00    1344/1345        grw_grow [3]
+[99]     0.0    0.00    0.00    1345         landclass_GetClassesPtr [99]
+-----------------------------------------------
+                0.00    0.00       1/1345        main [1]
+                0.00    0.00    1344/1345        delta_phase2 [6]
+[100]    0.0    0.00    0.00    1345         scen_GetViewDeltatronAgingFlag [100]
+-----------------------------------------------
+                0.00    0.00       1/1345        main [1]
+                0.00    0.00    1344/1345        grw_grow [3]
+[101]    0.0    0.00    0.00    1345         scen_GetViewGrowthTypesFlag [101]
+                0.00    0.00    2690/3288        proc_GetCurrentRun [77]
+                0.00    0.00      84/361         proc_GetCurrentMonteCarlo [127]
+                0.00    0.00      42/12888       proc_GetCurrentYear [67]
+-----------------------------------------------
+                0.00    0.00    1344/1344        grw_grow [3]
+[102]    0.0    0.00    0.00    1344         coeff_SelfModication [102]
+                0.00    0.00    1696/1696        scen_GetCriticalLow [88]
+                0.00    0.00    1344/1344        scen_GetCriticalHigh [111]
+                0.00    0.00    1273/1273        scen_GetSlopeSensitivity [119]
+                0.00    0.00    1273/1273        scen_GetRdGrvtySensitivity [118]
+                0.00    0.00    1056/1056        scen_GetBust [120]
+                0.00    0.00    1008/1008        scen_GetBoom [121]
+-----------------------------------------------
+                0.00    0.00    1344/1344        grw_grow [3]
+[103]    0.0    0.00    0.00    1344         coeff_WriteCurrentCoeff [103]
+                0.00    0.00    1344/1346        scen_GetWriteCoeffFileFlag [98]
+-----------------------------------------------
+                0.00    0.00    1344/1344        grw_grow [3]
+[104]    0.0    0.00    0.00    1344         igrid_GetBackgroundGridPtr [104]
+-----------------------------------------------
+                0.00    0.00    1344/1344        spr_spread [4]
+[105]    0.0    0.00    0.00    1344         igrid_GetExcludedGridPtr [105]
+-----------------------------------------------
+                0.00    0.00    1344/1344        spr_spread [4]
+[106]    0.0    0.00    0.00    1344         igrid_GetRoadGridPtrByYear [106]
+-----------------------------------------------
+                0.00    0.00    1344/1344        stats_Update [8]
+[107]    0.0    0.00    0.00    1344         igrid_TestForUrbanYear [107]
+-----------------------------------------------
+                0.00    0.00    1344/1344        grw_grow [3]
+[108]    0.0    0.00    0.00    1344         landclass_GetReducedClassesPtr [108]
+-----------------------------------------------
+                0.00    0.00    1344/1344        grw_grow [3]
+[109]    0.0    0.00    0.00    1344         pgrid_GetLand2Ptr [109]
+-----------------------------------------------
+                0.00    0.00    1344/1344        grw_grow [3]
+[110]    0.0    0.00    0.00    1344         proc_IncrementCurrentYear [110]
+-----------------------------------------------
+                0.00    0.00    1344/1344        coeff_SelfModication [102]
+[111]    0.0    0.00    0.00    1344         scen_GetCriticalHigh [111]
+-----------------------------------------------
+                0.00    0.00    1344/1344        grw_grow [3]
+[112]    0.0    0.00    0.00    1344         stats_GetGrowthRate [112]
+-----------------------------------------------
+                0.00    0.00    1344/1344        grw_grow [3]
+[113]    0.0    0.00    0.00    1344         stats_GetPercentUrban [113]
+-----------------------------------------------
+                0.00    0.00    1344/1344        grw_grow [3]
+[114]    0.0    0.00    0.00    1344         stats_SetOG [114]
+-----------------------------------------------
+                0.00    0.00    1344/1344        grw_grow [3]
+[115]    0.0    0.00    0.00    1344         stats_SetPOP [115]
+-----------------------------------------------
+                0.00    0.00    1344/1344        grw_grow [3]
+[116]    0.0    0.00    0.00    1344         stats_SetRT [116]
+-----------------------------------------------
+                0.00    0.00    1344/1344        grw_grow [3]
+[117]    0.0    0.00    0.00    1344         stats_SetSNG [117]
+-----------------------------------------------
+                0.00    0.00    1273/1273        coeff_SelfModication [102]
+[118]    0.0    0.00    0.00    1273         scen_GetRdGrvtySensitivity [118]
+-----------------------------------------------
+                0.00    0.00    1273/1273        coeff_SelfModication [102]
+[119]    0.0    0.00    0.00    1273         scen_GetSlopeSensitivity [119]
+-----------------------------------------------
+                0.00    0.00    1056/1056        coeff_SelfModication [102]
+[120]    0.0    0.00    0.00    1056         scen_GetBust [120]
+-----------------------------------------------
+                0.00    0.00    1008/1008        coeff_SelfModication [102]
+[121]    0.0    0.00    0.00    1008         scen_GetBoom [121]
+-----------------------------------------------
+                0.00    0.00       1/961         main [1]
+                0.00    0.00      64/961         grw_grow [3]
+                0.00    0.00      96/961         stats_CalAverages [150]
+                0.00    0.00     128/961         drv_driver [2]
+                0.00    0.00     192/961         stats_CalStdDev [132]
+                0.00    0.00     192/961         stats_ProcessGrowLog [151]
+                0.00    0.00     288/961         stats_Save [133]
+[122]    0.0    0.00    0.00     961         scen_GetMonteCarloIterations [122]
+-----------------------------------------------
+                0.00    0.00     823/823         gdImageGif [29]
+[123]    0.0    0.00    0.00     823         cl_hash [123]
+-----------------------------------------------
+                0.00    0.00       1/392         mem_Init [25]
+                0.00    0.00       2/392         stats_ConcatenateControlFiles [286]
+                0.00    0.00       4/392         color_Init [43]
+                0.00    0.00      11/392         igrid_echo_input [36]
+                0.00    0.00      21/392         grw_grow [3]
+                0.00    0.00      32/392         stats_Analysis [167]
+                0.00    0.00      33/392         main [1]
+                0.00    0.00      96/392         stats_ProcessGrowLog [151]
+                0.00    0.00     192/392         stats_Update [8]
+[124]    0.0    0.00    0.00     392         scen_GetOutputDir [124]
+-----------------------------------------------
+                0.00    0.00       1/390         main [1]
+                0.00    0.00       5/390         stats_Init [41]
+                0.00    0.00     384/390         stats_Analysis [167]
+[125]    0.0    0.00    0.00     390         igrid_GetUrbanCount [125]
+-----------------------------------------------
+                0.00    0.00     192/384         stats_Save [133]
+                0.00    0.00     192/384         stats_ProcessGrowLog [151]
+[126]    0.0    0.00    0.00     384         igrid_UrbanYear2Index [126]
+-----------------------------------------------
+                0.00    0.00      84/361         scen_GetViewGrowthTypesFlag [101]
+                0.00    0.00      85/361         grw_grow [3]
+                0.00    0.00     192/361         stats_Save [133]
+[127]    0.0    0.00    0.00     361         proc_GetCurrentMonteCarlo [127]
+-----------------------------------------------
+                0.00    0.00     320/320         stats_Analysis [167]
+[128]    0.0    0.00    0.00     320         stats_linefit [128]
+-----------------------------------------------
+                0.00    0.00      34/288         scen_process_user_color [160]
+                0.00    0.00     254/288         scen_read_file [285]
+[129]    0.0    0.00    0.00     288         util_trim [129]
+-----------------------------------------------
+                0.00    0.00     216/216         gdImageGif [29]
+[130]    0.0    0.00    0.00     216         Putword [130]
+-----------------------------------------------
+                0.00    0.00     192/192         stats_Update [8]
+[131]    0.0    0.00    0.00     192         igrid_GetUrbanGridPtrByYear [131]
+-----------------------------------------------
+                0.00    0.00     192/192         stats_ProcessGrowLog [151]
+[132]    0.0    0.00    0.00     192         stats_CalStdDev [132]
+                0.00    0.00     192/961         scen_GetMonteCarloIterations [122]
+-----------------------------------------------
+                0.00    0.00     192/192         stats_Update [8]
+[133]    0.0    0.00    0.00     192         stats_Save [133]
+                0.00    0.00     288/961         scen_GetMonteCarloIterations [122]
+                0.00    0.00     192/3288        proc_GetCurrentRun [77]
+                0.00    0.00     192/361         proc_GetCurrentMonteCarlo [127]
+                0.00    0.00     192/5002        proc_GetProcessingType [75]
+                0.00    0.00     192/12888       proc_GetCurrentYear [67]
+                0.00    0.00     192/384         igrid_UrbanYear2Index [126]
+-----------------------------------------------
+                0.00    0.00       1/161         main [1]
+                0.00    0.00      64/161         grw_grow [3]
+                0.00    0.00      96/161         stats_Analysis [167]
+[134]    0.0    0.00    0.00     161         igrid_GetUrbanYear [134]
+-----------------------------------------------
+                0.00    0.00       2/130         main [1]
+                0.00    0.00     128/130         stats_Analysis [167]
+[135]    0.0    0.00    0.00     130         scen_GetWriteAvgFileFlag [135]
+-----------------------------------------------
+                0.00    0.00       2/130         main [1]
+                0.00    0.00     128/130         stats_Analysis [167]
+[136]    0.0    0.00    0.00     130         scen_GetWriteStdDevFileFlag [136]
+-----------------------------------------------
+                0.00    0.00     128/128         grw_grow [3]
+[137]    0.0    0.00    0.00     128         proc_GetTotalRuns [137]
+-----------------------------------------------
+                0.00    0.00      32/113         main [1]
+                0.00    0.00      81/113         out_banner [240]
+[138]    0.0    0.00    0.00     113         out_write_restart_data [138]
+                0.00    0.00      32/3004        scen_GetLogFlag [78]
+-----------------------------------------------
+                0.00    0.00       2/98          trans_Init [47]
+                0.00    0.00      32/98          drv_driver [2]
+                0.00    0.00      64/98          grw_grow [3]
+[139]    0.0    0.00    0.00      98         igrid_GetLanduseGridPtr [139]
+-----------------------------------------------
+                0.00    0.00      32/96          stats_Analysis [167]
+                0.00    0.00      64/96          drv_driver [2]
+[140]    0.0    0.00    0.00      96         coeff_GetSavedBreed [140]
+-----------------------------------------------
+                0.00    0.00      32/96          stats_Analysis [167]
+                0.00    0.00      64/96          drv_driver [2]
+[141]    0.0    0.00    0.00      96         coeff_GetSavedDiffusion [141]
+-----------------------------------------------
+                0.00    0.00      32/96          stats_Analysis [167]
+                0.00    0.00      64/96          drv_driver [2]
+[142]    0.0    0.00    0.00      96         coeff_GetSavedRoadGravity [142]
+-----------------------------------------------
+                0.00    0.00      32/96          stats_Analysis [167]
+                0.00    0.00      64/96          drv_driver [2]
+[143]    0.0    0.00    0.00      96         coeff_GetSavedSlopeResist [143]
+-----------------------------------------------
+                0.00    0.00      32/96          stats_Analysis [167]
+                0.00    0.00      64/96          drv_driver [2]
+[144]    0.0    0.00    0.00      96         coeff_GetSavedSpread [144]
+-----------------------------------------------
+                0.00    0.00      32/96          main [1]
+                0.00    0.00      64/96          drv_driver [2]
+[145]    0.0    0.00    0.00      96         coeff_SetCurrentBreed [145]
+-----------------------------------------------
+                0.00    0.00      32/96          main [1]
+                0.00    0.00      64/96          drv_driver [2]
+[146]    0.0    0.00    0.00      96         coeff_SetCurrentDiffusion [146]
+-----------------------------------------------
+                0.00    0.00      32/96          main [1]
+                0.00    0.00      64/96          drv_driver [2]
+[147]    0.0    0.00    0.00      96         coeff_SetCurrentRoadGravity [147]
+-----------------------------------------------
+                0.00    0.00      32/96          main [1]
+                0.00    0.00      64/96          drv_driver [2]
+[148]    0.0    0.00    0.00      96         coeff_SetCurrentSlopeResist [148]
+-----------------------------------------------
+                0.00    0.00      32/96          main [1]
+                0.00    0.00      64/96          drv_driver [2]
+[149]    0.0    0.00    0.00      96         coeff_SetCurrentSpread [149]
+-----------------------------------------------
+                0.00    0.00      96/96          stats_Analysis [167]
+[150]    0.0    0.00    0.00      96         stats_CalAverages [150]
+                0.00    0.00      96/961         scen_GetMonteCarloIterations [122]
+-----------------------------------------------
+                0.00    0.00      96/96          stats_Analysis [167]
+[151]    0.0    0.00    0.00      96         stats_ProcessGrowLog [151]
+                0.00    0.00     192/961         scen_GetMonteCarloIterations [122]
+                0.00    0.00     192/192         stats_CalStdDev [132]
+                0.00    0.00     192/384         igrid_UrbanYear2Index [126]
+                0.00    0.00      96/392         scen_GetOutputDir [124]
+                0.00    0.00      96/5002        proc_GetProcessingType [75]
+-----------------------------------------------
+                0.00    0.00      65/65          main [1]
+[152]    0.0    0.00    0.00      65         scen_GetRandomSeed [152]
+-----------------------------------------------
+                0.00    0.00      64/64          drv_driver [2]
+[153]    0.0    0.00    0.00      64         proc_SetCurrentMonteCarlo [153]
+-----------------------------------------------
+                0.00    0.00      64/64          grw_grow [3]
+[154]    0.0    0.00    0.00      64         proc_SetCurrentYear [154]
+-----------------------------------------------
+                0.00    0.00      64/64          drv_driver [2]
+[155]    0.0    0.00    0.00      64         stats_InitUrbanizationAttempts [155]
+-----------------------------------------------
+                0.00    0.00       3/51          proc_SetTotalRuns [247]
+                0.00    0.00      48/51          main [1]
+[156]    0.0    0.00    0.00      51         coeff_GetStopRoadGravity [156]
+-----------------------------------------------
+                0.00    0.00       4/47          gdif_WriteColorKey [44]
+                0.00    0.00      11/47          gdImageCreateFromGif [34]
+                0.00    0.00      32/47          gdif_WriteGIF [24]
+[157]    0.0    0.00    0.00      47         gdImageCreate [157]
+-----------------------------------------------
+                0.00    0.00       4/47          gdif_WriteColorKey [44]
+                0.00    0.00      11/47          gdif_ReadGIF [27]
+                0.00    0.00      32/47          gdif_WriteGIF [24]
+[158]    0.0    0.00    0.00      47         gdImageDestroy [158]
+-----------------------------------------------
+                0.00    0.00       2/34          proc_SetTotalRuns [247]
+                0.00    0.00      32/34          main [1]
+[159]    0.0    0.00    0.00      34         coeff_GetStepRoadGravity [159]
+-----------------------------------------------
+                0.00    0.00      34/34          scen_read_file [285]
+[160]    0.0    0.00    0.00      34         scen_process_user_color [160]
+                0.00    0.00      34/288         util_trim [129]
+-----------------------------------------------
+                0.00    0.00      32/32          main [1]
+[161]    0.0    0.00    0.00      32         InitRandom [161]
+-----------------------------------------------
+                0.00    0.00      11/32          igrid_echo_input [36]
+                0.00    0.00      21/32          grw_grow [3]
+[162]    0.0    0.00    0.00      32         color_GetColortable [162]
+-----------------------------------------------
+                0.00    0.00      32/32          drv_driver [2]
+[163]    0.0    0.00    0.00      32         pgrid_GetCumulatePtr [163]
+-----------------------------------------------
+                0.00    0.00      32/32          drv_driver [2]
+[164]    0.0    0.00    0.00      32         pgrid_GetLand1Ptr [164]
+-----------------------------------------------
+                0.00    0.00      32/32          main [1]
+[165]    0.0    0.00    0.00      32         proc_IncrementCurrentRun [165]
+-----------------------------------------------
+                0.00    0.00      32/32          main [1]
+[166]    0.0    0.00    0.00      32         proc_IncrementNumRunsExecThisCPU [166]
+-----------------------------------------------
+                0.00    0.00      32/32          drv_driver [2]
+[167]    0.0    0.00    0.00      32         stats_Analysis [167]
+                0.00    0.00     384/390         igrid_GetUrbanCount [125]
+                0.00    0.00     320/320         stats_linefit [128]
+                0.00    0.00     128/130         scen_GetWriteAvgFileFlag [135]
+                0.00    0.00     128/130         scen_GetWriteStdDevFileFlag [136]
+                0.00    0.00      96/5002        proc_GetProcessingType [75]
+                0.00    0.00      96/161         igrid_GetUrbanYear [134]
+                0.00    0.00      96/96          stats_CalAverages [150]
+                0.00    0.00      96/96          stats_ProcessGrowLog [151]
+                0.00    0.00      64/3288        proc_GetCurrentRun [77]
+                0.00    0.00      32/392         scen_GetOutputDir [124]
+                0.00    0.00      32/1539        scen_GetDoingLanduseFlag [89]
+                0.00    0.00      32/96          coeff_GetSavedRoadGravity [142]
+                0.00    0.00      32/96          coeff_GetSavedSlopeResist [143]
+                0.00    0.00      32/96          coeff_GetSavedSpread [144]
+                0.00    0.00      32/96          coeff_GetSavedBreed [140]
+                0.00    0.00      32/96          coeff_GetSavedDiffusion [141]
+                0.00    0.00       1/2           stats_CreateControlFile [213]
+-----------------------------------------------
+                0.00    0.00       3/27          proc_SetTotalRuns [247]
+                0.00    0.00      24/27          main [1]
+[168]    0.0    0.00    0.00      27         coeff_GetStopSlopeResist [168]
+-----------------------------------------------
+                0.00    0.00      21/21          scen_read_file [285]
+[169]    0.0    0.00    0.00      21         util_AllCAPS [169]
+-----------------------------------------------
+                0.00    0.00       2/18          proc_SetTotalRuns [247]
+                0.00    0.00      16/18          main [1]
+[170]    0.0    0.00    0.00      18         coeff_GetStepSlopeResist [170]
+-----------------------------------------------
+                0.00    0.00       1/17          proc_SetTotalRuns [247]
+                0.00    0.00      16/17          main [1]
+[171]    0.0    0.00    0.00      17         coeff_GetStartRoadGravity [171]
+-----------------------------------------------
+                0.00    0.00       3/15          proc_SetTotalRuns [247]
+                0.00    0.00      12/15          main [1]
+[172]    0.0    0.00    0.00      15         coeff_GetStopSpread [172]
+-----------------------------------------------
+                0.00    0.00      12/12          igrid_ValidateGrids [235]
+[173]    0.0    0.00    0.00      12         landclass_IsAlandclass [173]
+-----------------------------------------------
+                0.00    0.00      12/12          color_Init [43]
+[174]    0.0    0.00    0.00      12         scen_GetProbabilityColorCount [174]
+-----------------------------------------------
+                0.00    0.00      12/12          mem_Init [25]
+[175]    0.0    0.00    0.00      12         wgrid_GetWGridCount [175]
+-----------------------------------------------
+                0.00    0.00      11/11          gdImageCreateFromGif [34]
+[176]    0.0    0.00    0.00      11         ReadColorMap [176]
+-----------------------------------------------
+                0.00    0.00      11/11          igrid_init [237]
+[177]    0.0    0.00    0.00      11         igrid_SetGridSizes [177]
+-----------------------------------------------
+                0.00    0.00      11/11          igrid_ReadFiles [23]
+[178]    0.0    0.00    0.00      11         mem_GetIGridPtr [178]
+-----------------------------------------------
+                0.00    0.00      11/11          igrid_Debug [28]
+[179]    0.0    0.00    0.00      11         scen_GetEchoImageFlag [179]
+-----------------------------------------------
+                0.00    0.00      11/11          igrid_init [237]
+[180]    0.0    0.00    0.00      11         scen_GetInputDir [180]
+-----------------------------------------------
+                0.00    0.00      11/11          color_Init [43]
+[181]    0.0    0.00    0.00      11         scen_GetProbabilityColor [181]
+-----------------------------------------------
+                0.00    0.00       2/10          proc_SetTotalRuns [247]
+                0.00    0.00       8/10          main [1]
+[182]    0.0    0.00    0.00      10         coeff_GetStepSpread [182]
+-----------------------------------------------
+                0.00    0.00      10/10          main [1]
+[183]    0.0    0.00    0.00      10         scen_GetNumLanduseClasses [183]
+-----------------------------------------------
+                0.00    0.00       1/9           proc_SetTotalRuns [247]
+                0.00    0.00       8/9           main [1]
+[184]    0.0    0.00    0.00       9         coeff_GetStartSlopeResist [184]
+-----------------------------------------------
+                0.00    0.00       3/9           proc_SetTotalRuns [247]
+                0.00    0.00       6/9           main [1]
+[185]    0.0    0.00    0.00       9         coeff_GetStopBreed [185]
+-----------------------------------------------
+                0.00    0.00       8/8           main [1]
+[186]    0.0    0.00    0.00       8         landclassSetColor [186]
+-----------------------------------------------
+                0.00    0.00       8/8           main [1]
+[187]    0.0    0.00    0.00       8         landclassSetGrayscale [187]
+-----------------------------------------------
+                0.00    0.00       8/8           main [1]
+[188]    0.0    0.00    0.00       8         landclassSetName [188]
+-----------------------------------------------
+                0.00    0.00       8/8           main [1]
+[189]    0.0    0.00    0.00       8         landclassSetType [189]
+-----------------------------------------------
+                0.00    0.00       8/8           color_Init [43]
+[190]    0.0    0.00    0.00       8         landclass_GetClassColor [190]
+-----------------------------------------------
+                0.00    0.00       8/8           mem_Init [25]
+[191]    0.0    0.00    0.00       8         pgrid_GetPGridCount [191]
+-----------------------------------------------
+                0.00    0.00       8/8           color_Init [43]
+[192]    0.0    0.00    0.00       8         scen_GetDeltatronColorCount [192]
+-----------------------------------------------
+                0.00    0.00       8/8           main [1]
+[193]    0.0    0.00    0.00       8         scen_GetLanduseClassColor [193]
+-----------------------------------------------
+                0.00    0.00       8/8           main [1]
+[194]    0.0    0.00    0.00       8         scen_GetLanduseClassGrayscale [194]
+-----------------------------------------------
+                0.00    0.00       8/8           main [1]
+[195]    0.0    0.00    0.00       8         scen_GetLanduseClassName [195]
+-----------------------------------------------
+                0.00    0.00       8/8           main [1]
+[196]    0.0    0.00    0.00       8         scen_GetLanduseClassType [196]
+-----------------------------------------------
+                0.00    0.00       8/8           igrid_init [237]
+[197]    0.0    0.00    0.00       8         scen_GetUrbanDataFilename [197]
+-----------------------------------------------
+                0.00    0.00       2/6           proc_SetTotalRuns [247]
+                0.00    0.00       4/6           main [1]
+[198]    0.0    0.00    0.00       6         coeff_GetStepBreed [198]
+-----------------------------------------------
+                0.00    0.00       3/6           proc_SetTotalRuns [247]
+                0.00    0.00       3/6           main [1]
+[199]    0.0    0.00    0.00       6         coeff_GetStopDiffusion [199]
+-----------------------------------------------
+                0.00    0.00       6/6           pgrid_Init [241]
+[200]    0.0    0.00    0.00       6         mem_GetPGridPtr [200]
+-----------------------------------------------
+                0.00    0.00       6/6           color_Init [43]
+[201]    0.0    0.00    0.00       6         scen_GetDeltatronColor [201]
+-----------------------------------------------
+                0.00    0.00       1/5           proc_SetTotalRuns [247]
+                0.00    0.00       4/5           main [1]
+[202]    0.0    0.00    0.00       5         coeff_GetStartSpread [202]
+-----------------------------------------------
+                0.00    0.00       5/5           igrid_init [237]
+[203]    0.0    0.00    0.00       5         scen_GetUrbanDataFileCount [203]
+-----------------------------------------------
+                0.00    0.00       2/4           proc_SetTotalRuns [247]
+                0.00    0.00       2/4           main [1]
+[204]    0.0    0.00    0.00       4         coeff_GetStepDiffusion [204]
+-----------------------------------------------
+                0.00    0.00       4/4           igrid_init [237]
+[205]    0.0    0.00    0.00       4         scen_GetLanduseDataFileCount [205]
+-----------------------------------------------
+                0.00    0.00       4/4           igrid_init [237]
+[206]    0.0    0.00    0.00       4         scen_GetLanduseDataFilename [206]
+-----------------------------------------------
+                0.00    0.00       4/4           igrid_init [237]
+[207]    0.0    0.00    0.00       4         scen_GetRoadDataFilename [207]
+-----------------------------------------------
+                0.00    0.00       1/3           proc_SetTotalRuns [247]
+                0.00    0.00       2/3           main [1]
+[208]    0.0    0.00    0.00       3         coeff_GetStartBreed [208]
+-----------------------------------------------
+                0.00    0.00       3/3           igrid_init [237]
+[209]    0.0    0.00    0.00       3         scen_GetRoadDataFileCount [209]
+-----------------------------------------------
+                0.00    0.00       1/2           proc_SetTotalRuns [247]
+                0.00    0.00       1/2           main [1]
+[210]    0.0    0.00    0.00       2         coeff_GetStartDiffusion [210]
+-----------------------------------------------
+                0.00    0.00       1/2           mem_Init [25]
+                0.00    0.00       1/2           main [1]
+[211]    0.0    0.00    0.00       2         scen_GetLogMemoryMapFlag [211]
+-----------------------------------------------
+                0.00    0.00       2/2           igrid_init [237]
+[212]    0.0    0.00    0.00       2         scen_GetSlopeDataFilename [212]
+-----------------------------------------------
+                0.00    0.00       1/2           stats_Analysis [167]
+                0.00    0.00       1/2           main [1]
+[213]    0.0    0.00    0.00       2         stats_CreateControlFile [213]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[214]    0.0    0.00    0.00       1         coeff_CreateCoeffFile [214]
+                0.00    0.00       1/1346        scen_GetWriteCoeffFileFlag [98]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[215]    0.0    0.00    0.00       1         coeff_SetBestFitBreed [215]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[216]    0.0    0.00    0.00       1         coeff_SetBestFitDiffusion [216]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[217]    0.0    0.00    0.00       1         coeff_SetBestFitRoadGravity [217]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[218]    0.0    0.00    0.00       1         coeff_SetBestFitSlopeResist [218]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[219]    0.0    0.00    0.00       1         coeff_SetBestFitSpread [219]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[220]    0.0    0.00    0.00       1         coeff_SetStartBreed [220]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[221]    0.0    0.00    0.00       1         coeff_SetStartDiffusion [221]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[222]    0.0    0.00    0.00       1         coeff_SetStartRoadGravity [222]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[223]    0.0    0.00    0.00       1         coeff_SetStartSlopeResist [223]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[224]    0.0    0.00    0.00       1         coeff_SetStartSpread [224]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[225]    0.0    0.00    0.00       1         coeff_SetStepBreed [225]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[226]    0.0    0.00    0.00       1         coeff_SetStepDiffusion [226]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[227]    0.0    0.00    0.00       1         coeff_SetStepRoadGravity [227]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[228]    0.0    0.00    0.00       1         coeff_SetStepSlopeResist [228]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[229]    0.0    0.00    0.00       1         coeff_SetStepSpread [229]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[230]    0.0    0.00    0.00       1         coeff_SetStopBreed [230]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[231]    0.0    0.00    0.00       1         coeff_SetStopDiffusion [231]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[232]    0.0    0.00    0.00       1         coeff_SetStopRoadGravity [232]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[233]    0.0    0.00    0.00       1         coeff_SetStopSlopeResist [233]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[234]    0.0    0.00    0.00       1         coeff_SetStopSpread [234]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[235]    0.0    0.00    0.00       1         igrid_ValidateGrids [235]
+                0.00    0.00      12/12          landclass_IsAlandclass [173]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[236]    0.0    0.00    0.00       1         igrid_VerifyInputs [236]
+                0.00    0.00       1/1539        scen_GetDoingLanduseFlag [89]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[237]    0.0    0.00    0.00       1         igrid_init [237]
+                0.00    0.00      11/11          scen_GetInputDir [180]
+                0.00    0.00      11/11          igrid_SetGridSizes [177]
+                0.00    0.00       8/8           scen_GetUrbanDataFilename [197]
+                0.00    0.00       6/5002        proc_GetProcessingType [75]
+                0.00    0.00       5/5           scen_GetUrbanDataFileCount [203]
+                0.00    0.00       4/4           scen_GetRoadDataFilename [207]
+                0.00    0.00       4/4           scen_GetLanduseDataFileCount [205]
+                0.00    0.00       4/4           scen_GetLanduseDataFilename [206]
+                0.00    0.00       3/3           scen_GetRoadDataFileCount [209]
+                0.00    0.00       2/2           scen_GetSlopeDataFilename [212]
+                0.00    0.00       1/1           scen_GetPredictionStartDate [279]
+                0.00    0.00       1/1           scen_GetExcludedDataFilename [270]
+                0.00    0.00       1/1           scen_GetBackgroundDataFilename [248]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[238]    0.0    0.00    0.00       1         landclassSetNumClasses [238]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[239]    0.0    0.00    0.00       1         landclass_Init [239]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[240]    0.0    0.00    0.00       1         out_banner [240]
+                0.00    0.00      81/113         out_write_restart_data [138]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[241]    0.0    0.00    0.00       1         pgrid_Init [241]
+                0.00    0.00       6/6           mem_GetPGridPtr [200]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[242]    0.0    0.00    0.00       1         proc_SetCurrentRun [242]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[243]    0.0    0.00    0.00       1         proc_SetLastMonteCarlo [243]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[244]    0.0    0.00    0.00       1         proc_SetNumRunsExecThisCPU [244]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[245]    0.0    0.00    0.00       1         proc_SetProcessingType [245]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[246]    0.0    0.00    0.00       1         proc_SetStopYear [246]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[247]    0.0    0.00    0.00       1         proc_SetTotalRuns [247]
+                0.00    0.00       3/6           coeff_GetStopDiffusion [199]
+                0.00    0.00       3/9           coeff_GetStopBreed [185]
+                0.00    0.00       3/15          coeff_GetStopSpread [172]
+                0.00    0.00       3/27          coeff_GetStopSlopeResist [168]
+                0.00    0.00       3/51          coeff_GetStopRoadGravity [156]
+                0.00    0.00       2/4           coeff_GetStepDiffusion [204]
+                0.00    0.00       2/6           coeff_GetStepBreed [198]
+                0.00    0.00       2/10          coeff_GetStepSpread [182]
+                0.00    0.00       2/18          coeff_GetStepSlopeResist [170]
+                0.00    0.00       2/34          coeff_GetStepRoadGravity [159]
+                0.00    0.00       1/2           coeff_GetStartDiffusion [210]
+                0.00    0.00       1/3           coeff_GetStartBreed [208]
+                0.00    0.00       1/5           coeff_GetStartSpread [202]
+                0.00    0.00       1/9           coeff_GetStartSlopeResist [184]
+                0.00    0.00       1/17          coeff_GetStartRoadGravity [171]
+-----------------------------------------------
+                0.00    0.00       1/1           igrid_init [237]
+[248]    0.0    0.00    0.00       1         scen_GetBackgroundDataFilename [248]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[249]    0.0    0.00    0.00       1         scen_GetCoeffBreedBestFit [249]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[250]    0.0    0.00    0.00       1         scen_GetCoeffBreedStart [250]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[251]    0.0    0.00    0.00       1         scen_GetCoeffBreedStep [251]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[252]    0.0    0.00    0.00       1         scen_GetCoeffBreedStop [252]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[253]    0.0    0.00    0.00       1         scen_GetCoeffDiffusionBestFit [253]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[254]    0.0    0.00    0.00       1         scen_GetCoeffDiffusionStart [254]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[255]    0.0    0.00    0.00       1         scen_GetCoeffDiffusionStep [255]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[256]    0.0    0.00    0.00       1         scen_GetCoeffDiffusionStop [256]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[257]    0.0    0.00    0.00       1         scen_GetCoeffRoadGravityBestFit [257]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[258]    0.0    0.00    0.00       1         scen_GetCoeffRoadGravityStart [258]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[259]    0.0    0.00    0.00       1         scen_GetCoeffRoadGravityStep [259]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[260]    0.0    0.00    0.00       1         scen_GetCoeffRoadGravityStop [260]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[261]    0.0    0.00    0.00       1         scen_GetCoeffSlopeResistBestFit [261]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[262]    0.0    0.00    0.00       1         scen_GetCoeffSlopeResistStart [262]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[263]    0.0    0.00    0.00       1         scen_GetCoeffSlopeResistStep [263]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[264]    0.0    0.00    0.00       1         scen_GetCoeffSlopeResistStop [264]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[265]    0.0    0.00    0.00       1         scen_GetCoeffSpreadBestFit [265]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[266]    0.0    0.00    0.00       1         scen_GetCoeffSpreadStart [266]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[267]    0.0    0.00    0.00       1         scen_GetCoeffSpreadStep [267]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[268]    0.0    0.00    0.00       1         scen_GetCoeffSpreadStop [268]
+-----------------------------------------------
+                0.00    0.00       1/1           color_Init [43]
+[269]    0.0    0.00    0.00       1         scen_GetDateColor [269]
+-----------------------------------------------
+                0.00    0.00       1/1           igrid_init [237]
+[270]    0.0    0.00    0.00       1         scen_GetExcludedDataFilename [270]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[271]    0.0    0.00    0.00       1         scen_GetLogLandclassSummaryFlag [271]
+-----------------------------------------------
+                0.00    0.00       1/1           color_Init [43]
+[272]    0.0    0.00    0.00       1         scen_GetPhase0GrowthColor [272]
+-----------------------------------------------
+                0.00    0.00       1/1           color_Init [43]
+[273]    0.0    0.00    0.00       1         scen_GetPhase1GrowthColor [273]
+-----------------------------------------------
+                0.00    0.00       1/1           color_Init [43]
+[274]    0.0    0.00    0.00       1         scen_GetPhase2GrowthColor [274]
+-----------------------------------------------
+                0.00    0.00       1/1           color_Init [43]
+[275]    0.0    0.00    0.00       1         scen_GetPhase3GrowthColor [275]
+-----------------------------------------------
+                0.00    0.00       1/1           color_Init [43]
+[276]    0.0    0.00    0.00       1         scen_GetPhase4GrowthColor [276]
+-----------------------------------------------
+                0.00    0.00       1/1           color_Init [43]
+[277]    0.0    0.00    0.00       1         scen_GetPhase5GrowthColor [277]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[278]    0.0    0.00    0.00       1         scen_GetPostprocessingFlag [278]
+-----------------------------------------------
+                0.00    0.00       1/1           igrid_init [237]
+[279]    0.0    0.00    0.00       1         scen_GetPredictionStartDate [279]
+-----------------------------------------------
+                0.00    0.00       1/1           color_Init [43]
+[280]    0.0    0.00    0.00       1         scen_GetSeedColor [280]
+-----------------------------------------------
+                0.00    0.00       1/1           color_Init [43]
+[281]    0.0    0.00    0.00       1         scen_GetWaterColor [281]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[282]    0.0    0.00    0.00       1         scen_GetWhirlgifBinary [282]
+-----------------------------------------------
+                0.00    0.00       1/1           color_Init [43]
+[283]    0.0    0.00    0.00       1         scen_GetWriteColorKeyFlag [283]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[284]    0.0    0.00    0.00       1         scen_init [284]
+                0.00    0.00       1/1           wgrid_SetWGridCount [288]
+                0.00    0.00       1/1           scen_read_file [285]
+-----------------------------------------------
+                0.00    0.00       1/1           scen_init [284]
+[285]    0.0    0.00    0.00       1         scen_read_file [285]
+                0.00    0.00     254/288         util_trim [129]
+                0.00    0.00      34/34          scen_process_user_color [160]
+                0.00    0.00      21/21          util_AllCAPS [169]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[286]    0.0    0.00    0.00       1         stats_ConcatenateControlFiles [286]
+                0.00    0.00       2/392         scen_GetOutputDir [124]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[287]    0.0    0.00    0.00       1         timer_Init [287]
+-----------------------------------------------
+                0.00    0.00       1/1           scen_init [284]
+[288]    0.0    0.00    0.00       1         wgrid_SetWGridCount [288]
+-----------------------------------------------
+
+Index by function name
+
+  [31] GIFNextPixel           [13] igrid_GetNumRows       [89] scen_GetDoingLanduseFlag
+  [48] GetCode               [106] igrid_GetRoadGridPtrByYear [91] scen_GetEchoFlag
+  [66] GetDataBlock           [76] igrid_GetSlopeGridPtr [179] scen_GetEchoImageFlag
+ [161] InitRandom            [125] igrid_GetUrbanCount   [270] scen_GetExcludedDataFilename
+  [39] LWZReadByte            [90] igrid_GetUrbanGridPtr [180] scen_GetInputDir
+ [130] Putword               [131] igrid_GetUrbanGridPtrByYear [193] scen_GetLanduseClassColor
+ [176] ReadColorMap          [134] igrid_GetUrbanYear    [194] scen_GetLanduseClassGrayscale
+  [35] ReadImage              [68] igrid_GridRelease     [195] scen_GetLanduseClassName
+  [54] char_out               [49] igrid_NormalizeRoads  [196] scen_GetLanduseClassType
+ [123] cl_hash                [23] igrid_ReadFiles       [205] scen_GetLanduseDataFileCount
+ [214] coeff_CreateCoeffFile [177] igrid_SetGridSizes    [206] scen_GetLanduseDataFilename
+  [81] coeff_GetCurrentBreed [107] igrid_TestForUrbanYear [78] scen_GetLogFlag
+  [82] coeff_GetCurrentDiffusion [126] igrid_UrbanYear2Index [271] scen_GetLogLandclassSummaryFlag
+  [83] coeff_GetCurrentRoadGravity [235] igrid_ValidateGrids [211] scen_GetLogMemoryMapFlag
+  [84] coeff_GetCurrentSlopeResist [236] igrid_VerifyInputs [122] scen_GetMonteCarloIterations
+  [85] coeff_GetCurrentSpread [36] igrid_echo_input      [183] scen_GetNumLanduseClasses
+ [140] coeff_GetSavedBreed   [237] igrid_init            [124] scen_GetOutputDir
+ [141] coeff_GetSavedDiffusion [186] landclassSetColor   [272] scen_GetPhase0GrowthColor
+ [142] coeff_GetSavedRoadGravity [187] landclassSetGrayscale [273] scen_GetPhase1GrowthColor
+ [143] coeff_GetSavedSlopeResist [188] landclassSetName  [274] scen_GetPhase2GrowthColor
+ [144] coeff_GetSavedSpread  [238] landclassSetNumClasses [275] scen_GetPhase3GrowthColor
+ [208] coeff_GetStartBreed   [189] landclassSetType      [276] scen_GetPhase4GrowthColor
+ [210] coeff_GetStartDiffusion [190] landclass_GetClassColor [277] scen_GetPhase5GrowthColor
+ [171] coeff_GetStartRoadGravity [99] landclass_GetClassesPtr [278] scen_GetPostprocessingFlag
+ [184] coeff_GetStartSlopeResist [93] landclass_GetNewIndicesPtr [279] scen_GetPredictionStartDate
+ [202] coeff_GetStartSpread   [50] landclass_GetNumLandclasses [181] scen_GetProbabilityColor
+ [198] coeff_GetStepBreed     [61] landclass_GetNumReducedclasses [174] scen_GetProbabilityColorCount
+ [204] coeff_GetStepDiffusion [108] landclass_GetReducedClassesPtr [152] scen_GetRandomSeed
+ [159] coeff_GetStepRoadGravity [57] landclass_GetUrbanCode [118] scen_GetRdGrvtySensitivity
+ [170] coeff_GetStepSlopeResist [239] landclass_Init     [209] scen_GetRoadDataFileCount
+ [182] coeff_GetStepSpread   [173] landclass_IsAlandclass [207] scen_GetRoadDataFilename
+ [185] coeff_GetStopBreed    [178] mem_GetIGridPtr       [280] scen_GetSeedColor
+ [199] coeff_GetStopDiffusion [200] mem_GetPGridPtr      [212] scen_GetSlopeDataFilename
+ [156] coeff_GetStopRoadGravity [22] mem_GetPackedBytesPerGrid [119] scen_GetSlopeSensitivity
+ [168] coeff_GetStopSlopeResist [20] mem_GetTotalPixels  [203] scen_GetUrbanDataFileCount
+ [172] coeff_GetStopSpread    [73] mem_GetWGridFree      [197] scen_GetUrbanDataFilename
+ [102] coeff_SelfModication   [74] mem_GetWGridPtr       [100] scen_GetViewDeltatronAgingFlag
+ [215] coeff_SetBestFitBreed  [25] mem_Init              [101] scen_GetViewGrowthTypesFlag
+ [216] coeff_SetBestFitDiffusion [72] mem_wgrid_push     [281] scen_GetWaterColor
+ [217] coeff_SetBestFitRoadGravity [240] out_banner      [282] scen_GetWhirlgifBinary
+ [218] coeff_SetBestFitSlopeResist [138] out_write_restart_data [135] scen_GetWriteAvgFileFlag
+ [219] coeff_SetBestFitSpread [56] output                 [98] scen_GetWriteCoeffFileFlag
+ [145] coeff_SetCurrentBreed [163] pgrid_GetCumulatePtr  [283] scen_GetWriteColorKeyFlag
+ [146] coeff_SetCurrentDiffusion [92] pgrid_GetDeltatronPtr [136] scen_GetWriteStdDevFileFlag
+ [147] coeff_SetCurrentRoadGravity [164] pgrid_GetLand1Ptr [284] scen_init
+ [148] coeff_SetCurrentSlopeResist [109] pgrid_GetLand2Ptr [160] scen_process_user_color
+ [149] coeff_SetCurrentSpread [191] pgrid_GetPGridCount  [285] scen_read_file
+ [220] coeff_SetStartBreed    [79] pgrid_GetZPtr           [7] spr_get_neighbor
+ [221] coeff_SetStartDiffusion [241] pgrid_Init            [4] spr_spread
+ [222] coeff_SetStartRoadGravity [127] proc_GetCurrentMonteCarlo [19] spr_urbanize
+ [223] coeff_SetStartSlopeResist [77] proc_GetCurrentRun [167] stats_Analysis
+ [224] coeff_SetStartSpread   [67] proc_GetCurrentYear   [150] stats_CalAverages
+ [225] coeff_SetStepBreed     [75] proc_GetProcessingType [132] stats_CalStdDev
+ [226] coeff_SetStepDiffusion [80] proc_GetStopYear      [286] stats_ConcatenateControlFiles
+ [227] coeff_SetStepRoadGravity [137] proc_GetTotalRuns  [213] stats_CreateControlFile
+ [228] coeff_SetStepSlopeResist [165] proc_IncrementCurrentRun [112] stats_GetGrowthRate
+ [229] coeff_SetStepSpread   [110] proc_IncrementCurrentYear [113] stats_GetPercentUrban
+ [230] coeff_SetStopBreed    [166] proc_IncrementNumRunsExecThisCPU [62] stats_IncrementDeltaFailure
+ [231] coeff_SetStopDiffusion [153] proc_SetCurrentMonteCarlo [63] stats_IncrementEcludedFailure
+ [232] coeff_SetStopRoadGravity [242] proc_SetCurrentRun  [55] stats_IncrementSlopeFailure
+ [233] coeff_SetStopSlopeResist [154] proc_SetCurrentYear [53] stats_IncrementUrbanSuccess
+ [234] coeff_SetStopSpread   [243] proc_SetLastMonteCarlo [51] stats_IncrementZFailure
+ [103] coeff_WriteCurrentCoeff [244] proc_SetNumRunsExecThisCPU [41] stats_Init
+ [162] color_GetColortable   [245] proc_SetProcessingType [155] stats_InitUrbanizationAttempts
+  [43] color_Init            [246] proc_SetStopYear      [151] stats_ProcessGrowLog
+   [5] delta_deltatron       [247] proc_SetTotalRuns     [133] stats_Save
+   [6] delta_phase2           [17] ran_random            [114] stats_SetOG
+   [2] drv_driver            [248] scen_GetBackgroundDataFilename [115] stats_SetPOP
+  [65] flush_char            [121] scen_GetBoom          [116] stats_SetRT
+  [38] gdImageBoundsSafe     [120] scen_GetBust           [87] stats_SetSDG
+  [58] gdImageChar           [249] scen_GetCoeffBreedBestFit [117] stats_SetSNG
+  [71] gdImageColorAllocate  [250] scen_GetCoeffBreedStart [8] stats_Update
+  [45] gdImageColorTransparent [251] scen_GetCoeffBreedStep [16] stats_circle
+ [157] gdImageCreate         [252] scen_GetCoeffBreedStop [11] stats_cluster
+  [34] gdImageCreateFromGif  [253] scen_GetCoeffDiffusionBestFit [15] stats_edge
+ [158] gdImageDestroy        [254] scen_GetCoeffDiffusionStart [128] stats_linefit
+  [52] gdImageFill           [255] scen_GetCoeffDiffusionStep [287] timer_Init
+  [32] gdImageGetPixel       [256] scen_GetCoeffDiffusionStop [69] timer_Start
+  [29] gdImageGif            [257] scen_GetCoeffRoadGravityBestFit [70] timer_Stop
+  [40] gdImageSetPixel       [258] scen_GetCoeffRoadGravityStart [94] trans_GetClassSlope
+  [59] gdImageString         [259] scen_GetCoeffRoadGravityStep [95] trans_GetFTransition
+  [27] gdif_ReadGIF          [260] scen_GetCoeffRoadGravityStop [47] trans_Init
+  [44] gdif_WriteColorKey    [261] scen_GetCoeffSlopeResistBestFit [169] util_AllCAPS
+  [24] gdif_WriteGIF         [262] scen_GetCoeffSlopeResistStart [21] util_WriteZProbGrid
+  [42] grid_SetMinMax        [263] scen_GetCoeffSlopeResistStep [9] util_condition_gif
+  [46] grid_histogram        [264] scen_GetCoeffSlopeResistStop [60] util_copy_grid
+   [3] grw_grow              [265] scen_GetCoeffSpreadBestFit [10] util_count_neighbors
+  [28] igrid_Debug           [266] scen_GetCoeffSpreadStart [14] util_count_pixels
+ [104] igrid_GetBackgroundGridPtr [267] scen_GetCoeffSpreadStep [30] util_get_neighbor
+ [105] igrid_GetExcludedGridPtr [268] scen_GetCoeffSpreadStop [33] util_get_next_neighbor
+  [26] igrid_GetIGridCount   [111] scen_GetCriticalHigh   [37] util_img_intersection
+  [96] igrid_GetIGridExcludedPixelCount [88] scen_GetCriticalLow [18] util_init_grid
+  [97] igrid_GetIGridRoadPixelCount [64] scen_GetCriticalSlope [129] util_trim
+ [139] igrid_GetLanduseGridPtr [269] scen_GetDateColor   [175] wgrid_GetWGridCount
+  [86] igrid_GetLanduseYear  [201] scen_GetDeltatronColor [288] wgrid_SetWGridCount
+  [12] igrid_GetNumCols      [192] scen_GetDeltatronColorCount
