@@ -366,7 +366,7 @@ static
     {
       FILE *file = fopen("debug.txt", "a");
 
-      for (i = 0; i < mem_GetTotalPixels; ++i)
+      for (i = 0; i < mem_GetTotalPixels(); ++i)
       {
         fprintf(file, "%d\n", landuse1_ptr[i]);
       }
