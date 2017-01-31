@@ -387,6 +387,7 @@ static
   double *class_slope;
   double *ftransition;
   int thread_id = omp_get_thread_num();
+  int i;
 
 
   FUNC_INIT;
