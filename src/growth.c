@@ -439,6 +439,17 @@ static
                         land1_ptr,
                         urban_code);
 
+    #pragma omp master
+    {
+      FILE *file = fopen("debug.txt", "w");
+
+      for (i = 0; i < mem_GetTotalPixels(); ++i)
+      {
+        fprintf(file, "%d\n", land1_ptr[i]);
+      }
+      printf("%s\n", "完成");
+    }
+
     delta_deltatron (new_indices,                            /* IN     */
                      landuse_classes,                        /* IN     */
                      class_indices,                          /* IN     */
