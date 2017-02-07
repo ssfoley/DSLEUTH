@@ -376,7 +376,7 @@ static
   GRID_P land2_ptr;
   double *class_slope;
   double *ftransition;
-
+  int i;
 
   FUNC_INIT;
   ticktock = proc_GetCurrentYear ();
@@ -426,6 +426,14 @@ static
                         0,
                         land1_ptr,
                         urban_code);
+
+    FILE *file = fopen("debug.txt", "w");
+
+    for (i = 0; i < mem_GetTotalPixels(); ++i)
+      {
+        fprintf(file, "%d\n", land1_ptr[i]);
+      }
+    printf("%s\n", "完成");
 
     delta_deltatron (new_indices,                            /* IN     */
                      landuse_classes,                        /* IN     */
