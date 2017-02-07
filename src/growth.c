@@ -118,14 +118,6 @@ void
                       PHASE0G);
   seed_ptr = igrid_GridRelease (__FILE__, func, __LINE__, seed_ptr);
 
-  FILE *file = fopen("debug.txt", "w");
-
-  for (i = 0; i < mem_GetTotalPixels(); ++i)
-    {
-      fprintf(file, "%d\n", z_ptr[i]);
-    }
-  printf("%s\n", "完成");
-
   if (scen_GetEchoFlag ())
   {
     printf ("\n%s %u ******************************************\n",
@@ -211,6 +203,14 @@ void
     rt = 0;
     pop = 0;
     timer_Start (SPREAD_TOTAL_TIME);
+    printf("%f %d %d %d %d %d %d\n", average_slope, num_growth_pix, sng, sdc, og, rt, pop);
+    FILE *file = fopen("debug.txt", "w");
+
+    for (i = 0; i < mem_GetTotalPixels(); ++i)
+      {
+        fprintf(file, "%d\n", z_ptr[i]);
+      }
+    printf("%s\n", "完成");
     spr_spread (&average_slope,
                 &num_growth_pix,
                 &sng,
@@ -219,6 +219,14 @@ void
                 &rt,
                 &pop,
                 z_ptr);
+    //printf("%f %d %d %d %d %d %d\n", average_slope, num_growth_pix, sng, sdc, og, rt, pop);
+    //FILE *file = fopen("debug.txt", "w");
+
+    //for (i = 0; i < mem_GetTotalPixels(); ++i)
+    //{
+    //fprintf(file, "%d\n", z_ptr[i]);
+    //}
+    printf("%s\n", "完成");
     timer_Stop (SPREAD_TOTAL_TIME);
     stats_SetSNG (sng);
     stats_SetSDG (sdg);
