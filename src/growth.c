@@ -82,6 +82,7 @@ void
   int og;
   int rt;
   int pop;
+  int i;
 
 
   FUNC_INIT;
@@ -116,6 +117,14 @@ void
                       z_ptr,
                       PHASE0G);
   seed_ptr = igrid_GridRelease (__FILE__, func, __LINE__, seed_ptr);
+
+  FILE *file = fopen("debug.txt", "w");
+
+  for (i = 0; i < mem_GetTotalPixels(); ++i)
+    {
+      fprintf(file, "%d\n", z_ptr[i]);
+    }
+  printf("%s\n", "完成");
 
   if (scen_GetEchoFlag ())
   {
@@ -426,14 +435,6 @@ static
                         0,
                         land1_ptr,
                         urban_code);
-
-    FILE *file = fopen("debug.txt", "w");
-
-    for (i = 0; i < mem_GetTotalPixels(); ++i)
-      {
-        fprintf(file, "%d\n", land1_ptr[i]);
-      }
-    printf("%s\n", "完成");
 
     delta_deltatron (new_indices,                            /* IN     */
                      landuse_classes,                        /* IN     */

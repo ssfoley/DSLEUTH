@@ -108,17 +108,6 @@ void
     }
   }
 
-  #pragma omp master
-  {
-    FILE *file = fopen("debug.txt", "w");
-
-    for (i = 0; i < mem_GetTotalPixels(); ++i)
-      {
-        fprintf(file, "%d\n", sim_landuse_ptr[i]);
-      }
-    printf("%s\n", "完成");
-  }
-
   /*
    *
    * MONTE CARLO SIMULATION
@@ -378,14 +367,6 @@ static
                                          cum_probability_ptr,
                                          landuse1_ptr);
     trans_count = mem_GetTotalPixels () - match_count;
-
-    FILE *file = fopen("debug.txt", "a");
-    int i;
-    for (i = 0; i < mem_GetTotalPixels(); ++i)
-      {
-        fprintf(file, "%d\n", cum_probability_ptr[i]);
-      }
-    printf("%s\n", "完成");
 
     //printf("\nmatch_count trans_count %d %d\n", match_count, trans_count);
 
