@@ -1211,6 +1211,7 @@ void
     FILE *file = fopen("debug.txt", "w");
     for (i = 0; i < SLOPE_WEIGHT_ARRAY_SZ; ++i)
     {
+      printf("%f\n", swght[i]);
       fprintf(file, "%f\n", swght[i]);
     }
     printf("%s\n", "完成");
