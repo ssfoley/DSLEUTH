@@ -205,17 +205,17 @@ void
     rt = 0;
     pop = 0;
     timer_Start (SPREAD_TOTAL_TIME);
-     #pragma omp master
-  {
-    printf("%f %d %d %d %d %d %d\n", average_slope, num_growth_pix, sng, sdc, og, rt, pop);
-      FILE *file = fopen("debug.txt", "w");
+  //    #pragma omp master
+  // {
+  //   printf("%f %d %d %d %d %d %d\n", average_slope, num_growth_pix, sng, sdc, og, rt, pop);
+  //     FILE *file = fopen("debug.txt", "w");
 
-      for (i = 0; i < mem_GetTotalPixels(); ++i)
-      {
-        fprintf(file, "%d\n", z_ptr[i]);
-      }
-      printf("%s\n", "完成");
-  }
+  //     for (i = 0; i < mem_GetTotalPixels(); ++i)
+  //     {
+  //       fprintf(file, "%d\n", z_ptr[i]);
+  //     }
+  //     printf("%s\n", "完成");
+  // }
     spr_spread (&average_slope,
                 &num_growth_pix,
                 &sng,

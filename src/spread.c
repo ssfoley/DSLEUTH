@@ -1222,6 +1222,17 @@ void
                 swght,                                       /* IN     */
                 sng,                                         /* IN/OUT */
                 sdc);                                      /* IN/OUT */
+     #pragma omp master
+  {
+    printf("\n%d %d\n", sng, sdc);
+      FILE *file = fopen("debug.txt", "w");
+
+      for (i = 0; i < mem_GetTotalPixels(); ++i)
+      {
+        fprintf(file, "%d\n", delta[i]);
+      }
+      printf("%s\n", "完成");
+  }
   timer_Stop (SPR_PHASE1N3);
 
   /*
