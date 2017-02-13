@@ -1305,6 +1305,14 @@ void
    */
   spr_get_slp_weights (SLOPE_WEIGHT_ARRAY_SZ,                /* IN     */
                        swght);                             /* OUT    */
+ 
+  FILE *file = fopen("debug.txt", "w");
+  printf("%s\n", "开始");
+  for (i = 0; i < SLOPE_WEIGHT_ARRAY_SZ; ++i)
+    {
+      fprintf(file, "%f\n", swght[i]);
+    }
+  printf("%s\n", "完成");
 
   /*
    *
@@ -1323,14 +1331,14 @@ void
                 swght,                                       /* IN     */
                 sng,                                         /* IN/OUT */
                 sdc);                                      /* IN/OUT */
-  printf("\n%d %d\n", sng, sdc);
-  FILE *file = fopen("debug.txt", "w");
+  //  printf("\n%d %d\n", sng, sdc);
+  //FILE *file = fopen("debug.txt", "w");
 
-  for (i = 0; i < mem_GetTotalPixels(); ++i)
-    {
-      fprintf(file, "%d\n", delta[i]);
-    }
-  printf("%s\n", "完成");
+  //for (i = 0; i < mem_GetTotalPixels(); ++i)
+  //{
+  //  fprintf(file, "%d\n", delta[i]);
+  //}
+  //printf("%s\n", "完成");
   timer_Stop (SPR_PHASE1N3);
 
   /*
