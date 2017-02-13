@@ -1205,6 +1205,17 @@ void
   spr_get_slp_weights (SLOPE_WEIGHT_ARRAY_SZ,                /* IN     */
                        swght);                             /* OUT    */
 
+  #pragma omp master
+  {
+    printf("%s\n", "开始");
+    FILE *file = fopen("debug.txt", "w");
+    for (i = 0; i < SLOPE_WEIGHT_ARRAY_SZ; ++i)
+    {
+      fprintf(file, "%f\n", swght[i]);
+    }
+    printf("%s\n", "完成");
+  }
+
   /*
    *
    * PHASE 1N3 - SPONTANEOUS NEIGHBORHOOD GROWTH AND SPREADING
@@ -1222,17 +1233,17 @@ void
                 swght,                                       /* IN     */
                 sng,                                         /* IN/OUT */
                 sdc);                                      /* IN/OUT */
-     #pragma omp master
-  {
-    printf("\n%d %d\n", sng, sdc);
-      FILE *file = fopen("debug.txt", "w");
+  //    #pragma omp master
+  // {
+  //   printf("\n%d %d\n", sng, sdc);
+  //     FILE *file = fopen("debug.txt", "w");
 
-      for (i = 0; i < mem_GetTotalPixels(); ++i)
-      {
-        fprintf(file, "%d\n", delta[i]);
-      }
-      printf("%s\n", "完成");
-  }
+  //     for (i = 0; i < mem_GetTotalPixels(); ++i)
+  //     {
+  //       fprintf(file, "%d\n", delta[i]);
+  //     }
+  //     printf("%s\n", "完成");
+  // }
   timer_Stop (SPR_PHASE1N3);
 
   /*
