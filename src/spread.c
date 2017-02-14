@@ -156,8 +156,18 @@ static void
                 int *sng,                                    /* IN/OUT */
                 int *sdc)                                  /* IN/OUT */
 {
-  char func[] = "spr_phase1n3";
+  //printf("\n%f %f\n", diffusion_coefficient, breed_coefficient);
   int i;
+  printf("%s\n", "开始");
+  FILE *file = fopen("debug.txt", "w");
+  for (i = 0; i < mem_GetTotalPixels(); ++i)
+    {
+      //printf("%f\n", z[i]);
+      fprintf(file, "%d\n", z[i]);
+    }
+  printf("%s\n", "结束");
+  char func[] = "spr_phase1n3";
+  //int i;
   int j;
   int i_out;
   int j_out;
@@ -1306,13 +1316,14 @@ void
   spr_get_slp_weights (SLOPE_WEIGHT_ARRAY_SZ,                /* IN     */
                        swght);                             /* OUT    */
  
-  FILE *file = fopen("debug.txt", "w");
-  printf("%s\n", "开始");
-  for (i = 0; i < SLOPE_WEIGHT_ARRAY_SZ; ++i)
-    {
-      fprintf(file, "%f\n", swght[i]);
-    }
-  printf("%s\n", "完成");
+  //  FILE *file = fopen("debug.txt", "w");
+  //printf("%s\n", "开始");
+  //for (i = 0; i < SLOPE_WEIGHT_ARRAY_SZ; ++i)
+  //{
+  //  printf("%f\n", swght[i]);
+  //  fprintf(file, "%f\n", swght[i]);
+  //}
+  //printf("%s\n", "完成");
 
   /*
    *
