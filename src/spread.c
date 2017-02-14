@@ -163,7 +163,7 @@ static void
   for (i = 0; i < mem_GetTotalPixels(); ++i)
     {
       //printf("%f\n", z[i]);
-      fprintf(file, "%d\n", delta[i]);
+      fprintf(file, "%d\n", slp[i]);
     }
   printf("%s\n", "结束");
   char func[] = "spr_phase1n3";
