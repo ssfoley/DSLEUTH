@@ -155,13 +155,22 @@ static void
                 int *sng,                                    /* IN/OUT */
                 int *sdc)                                  /* IN/OUT */
 {
+  int i;
   //printf("%s\n", "spr_phase1n3");
   #pragma omp master
   {
-    printf("\n%f %f\n", diffusion_coefficient, breed_coefficient);
+    //printf("\n%f %f\n", diffusion_coefficient, breed_coefficient);
+    printf("%s\n", "开始");
+    FILE *file = fopen("debug.txt", "w");
+    for (i = 0; i < mem_GetTotalPixels(); ++i)
+    {
+      //printf("%f\n", z[i]);
+      fprintf(file, "%d\n", z[i]);
+    }
+    printf("%s\n", "结束");
   }
   char func[] = "spr_phase1n3";
-  int i;
+  //int i;
   int j;
   int i_out;
   int j_out;
@@ -1212,12 +1221,12 @@ void
   // #pragma omp master
   // {
   //   printf("%s\n", "开始");
-  //   FILE *file = fopen("debug.txt", "w");
-  //   for (i = 0; i < SLOPE_WEIGHT_ARRAY_SZ; ++i)
-  //   {
-  //     printf("%f\n", swght[i]);
-  //     fprintf(file, "%f\n", swght[i]);
-  //   }
+    // FILE *file = fopen("debug.txt", "w");
+    // for (i = 0; i < SLOPE_WEIGHT_ARRAY_SZ; ++i)
+    // {
+    //   printf("%f\n", swght[i]);
+    //   fprintf(file, "%f\n", swght[i]);
+    // }
   //   printf("%s\n", "完成");
   // }
 
