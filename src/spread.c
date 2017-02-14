@@ -156,6 +156,10 @@ static void
                 int *sdc)                                  /* IN/OUT */
 {
   //printf("%s\n", "spr_phase1n3");
+  #pragma omp master
+  {
+    printf("\n%f %f\n", diffusion_coefficient, breed_coefficient);
+  }
   char func[] = "spr_phase1n3";
   int i;
   int j;
@@ -1205,17 +1209,17 @@ void
   spr_get_slp_weights (SLOPE_WEIGHT_ARRAY_SZ,                /* IN     */
                        swght);                             /* OUT    */
 
-  #pragma omp master
-  {
-    printf("%s\n", "开始");
-    FILE *file = fopen("debug.txt", "w");
-    for (i = 0; i < SLOPE_WEIGHT_ARRAY_SZ; ++i)
-    {
-      printf("%f\n", swght[i]);
-      fprintf(file, "%f\n", swght[i]);
-    }
-    printf("%s\n", "完成");
-  }
+  // #pragma omp master
+  // {
+  //   printf("%s\n", "开始");
+  //   FILE *file = fopen("debug.txt", "w");
+  //   for (i = 0; i < SLOPE_WEIGHT_ARRAY_SZ; ++i)
+  //   {
+  //     printf("%f\n", swght[i]);
+  //     fprintf(file, "%f\n", swght[i]);
+  //   }
+  //   printf("%s\n", "完成");
+  // }
 
   /*
    *
