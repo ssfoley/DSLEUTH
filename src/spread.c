@@ -165,7 +165,7 @@ static void
     for (i = 0; i < mem_GetTotalPixels(); ++i)
     {
       //printf("%f\n", z[i]);
-      fprintf(file, "%d\n", z[i]);
+      fprintf(file, "%d\n", delta[i]);
     }
     printf("%s\n", "结束");
   }
