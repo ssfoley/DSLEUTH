@@ -214,16 +214,16 @@ static void
                         PHASE1G,                               /* IN     */
                         sng))                              /* IN/OUT */
       {
-        #pragma omp master
-        {
-          printf("\n%d\n", *sng);
-          FILE *file = fopen("debug.txt", "w");
-          for (id = 0; id < mem_GetTotalPixels(); ++id)
-          {
-            fprintf(file, "%d\n", delta[id]);
-          }
-          printf("%s\n", "结束");
-        }
+        // #pragma omp master
+        // {
+        //   printf("\n%d\n", *sng);
+        //   FILE *file = fopen("debug.txt", "w");
+        //   for (id = 0; id < mem_GetTotalPixels(); ++id)
+        //   {
+        //     fprintf(file, "%d\n", delta[id]);
+        //   }
+        //   printf("%s\n", "结束");
+        // }
         if (RANDOM_INT (101) < (int) breed_coefficient)
         {
           count = 0;
