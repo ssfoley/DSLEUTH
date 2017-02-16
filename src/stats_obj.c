@@ -546,10 +546,33 @@ void
 {
   static BOOLEAN first_call = TRUE;
 
-  stats_ClearStatsValArrays ();
+  //stats_ClearStatsValArrays ();
+  int i, j;
+
+  for (i = 0; i < NUM_THREADS; ++i)
+  {
+    for (j = 0; j < MAX_URBAN_YEARS; ++j)
+    {
+      memset ((void *) (&running_total[i][j]), 0, sizeof (stats_val_t));
+      memset ((void *) (&average[i][j]), 0, sizeof (stats_val_t));
+      memset ((void *) (&std_dev[i][j]), 0, sizeof (stats_val_t));
+    }
+    memset ((void *) (&regression[i]), 0, sizeof (stats_info));
+  }
+
+  // for (i = 0; i < MAX_URBAN_YEARS; i++)
+  // {
+  //   memset ((void *) (&running_total[thread_id][i]), 0, sizeof (stats_val_t));
+  //   memset ((void *) (&average[thread_id][i]), 0, sizeof (stats_val_t));
+  //   memset ((void *) (&std_dev[thread_id][i]), 0, sizeof (stats_val_t));
+  // }
+  // memset ((void *) (&regression[thread_id]), 0, sizeof (stats_info));
   if (first_call)
   {
-    stats_ComputeBaseStats ();
+    #pragma omp parallel num_threads(NUM_THREADS)
+    {
+      stats_ComputeBaseStats ();
+    }
     first_call = FALSE;
   }
 }
