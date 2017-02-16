@@ -224,17 +224,17 @@ void
                 &rt,
                 &pop,
                 z_ptr);
-  #pragma omp master
-  {
-    printf("%f %d %d %d %d %d %d\n", average_slope, num_growth_pix, sng, sdc, og, rt, pop);
+  // #pragma omp master
+  // {
+  //   printf("%f %d %d %d %d %d %d\n", average_slope, num_growth_pix, sng, sdc, og, rt, pop);
   //     FILE *file = fopen("debug.txt", "w");
 
   //     for (i = 0; i < mem_GetTotalPixels(); ++i)
   //     {
   //       fprintf(file, "%d\n", z_ptr[i]);
   //     }
-    printf("%s\n", "完成");
-  }
+  //   printf("%s\n", "完成");
+  // }
 
     timer_Stop (SPREAD_TOTAL_TIME);
     stats_SetSNG (sng);
