@@ -158,16 +158,17 @@ static void
 {
   //printf("\n%f %f\n", diffusion_coefficient, breed_coefficient);
   int i;
-  printf("%s\n", "开始");
-  FILE *file = fopen("debug.txt", "w");
-  for (i = 0; i < mem_GetTotalPixels(); ++i)
-    {
-      //printf("%f\n", z[i]);
-      fprintf(file, "%d\n", excld[i]);
-    }
-  printf("%s\n", "结束");
+  //printf("%s\n", "开始");
+  //FILE *file = fopen("debug.txt", "w");
+  //for (i = 0; i < mem_GetTotalPixels(); ++i)
+  //{
+  //  //printf("%f\n", z[i]);
+  //  fprintf(file, "%d\n", excld[i]);
+  //}
+  //printf("%s\n", "结束");
   char func[] = "spr_phase1n3";
   //int i;
+  int id;
   int j;
   int i_out;
   int j_out;
@@ -210,6 +211,13 @@ static void
                         PHASE1G,                               /* IN     */
                         sng))                              /* IN/OUT */
       {
+	//	printf("\n%d\n", *sng);
+	//FILE *file = fopen("debug.txt", "w");
+	//for (id = 0; id < mem_GetTotalPixels(); ++id)
+	//{
+	//  fprintf(file, "%d\n", delta[id]);
+	//}
+	//printf("%s\n", "结束");
         if (RANDOM_INT (101) < (int) breed_coefficient)
         {
           count = 0;
@@ -1342,14 +1350,14 @@ void
                 swght,                                       /* IN     */
                 sng,                                         /* IN/OUT */
                 sdc);                                      /* IN/OUT */
-  //  printf("\n%d %d\n", sng, sdc);
-  //FILE *file = fopen("debug.txt", "w");
+  printf("\n%d %d\n", *sng, *sdc);
+  FILE *file = fopen("debug.txt", "w");
 
-  //for (i = 0; i < mem_GetTotalPixels(); ++i)
-  //{
-  //  fprintf(file, "%d\n", delta[i]);
-  //}
-  //printf("%s\n", "完成");
+  for (i = 0; i < mem_GetTotalPixels(); ++i)
+  {
+    fprintf(file, "%d\n", delta[i]);
+  }
+  printf("%s\n", "完成");
   timer_Stop (SPR_PHASE1N3);
 
   /*

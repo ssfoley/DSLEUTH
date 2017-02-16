@@ -600,6 +600,7 @@ void
   char func[] = "util_get_next_neighbor";
 
   static int last_index;
+  //printf("\n%d\n", last_index);
   int i_adj;
   int j_adj;
   int row[8] = {-1, 0, 1, 1, 1, 0, -1, -1};
