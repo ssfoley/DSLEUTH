@@ -157,19 +157,20 @@ static void
 {
   int i;
   //printf("%s\n", "spr_phase1n3");
-  #pragma omp master
-  {
-    //printf("\n%f %f\n", diffusion_coefficient, breed_coefficient);
-    printf("%s\n", "开始");
-    FILE *file = fopen("debug.txt", "w");
-    for (i = 0; i < mem_GetTotalPixels(); ++i)
-    {
-      //printf("%f\n", z[i]);
-      fprintf(file, "%d\n", excld[i]);
-    }
-    printf("%s\n", "结束");
-  }
+  // #pragma omp master
+  // {
+  //   //printf("\n%f %f\n", diffusion_coefficient, breed_coefficient);
+  //   printf("%s\n", "开始");
+    // FILE *file = fopen("debug.txt", "w");
+    // for (i = 0; i < mem_GetTotalPixels(); ++i)
+    // {
+    //   //printf("%f\n", z[i]);
+    //   fprintf(file, "%d\n", excld[i]);
+    // }
+    // printf("%s\n", "结束");
+  // }
   char func[] = "spr_phase1n3";
+  int id;
   //int i;
   int j;
   int i_out;
@@ -213,6 +214,16 @@ static void
                         PHASE1G,                               /* IN     */
                         sng))                              /* IN/OUT */
       {
+        #pragma omp master
+        {
+          printf("\n%d\n", *sng);
+          FILE *file = fopen("debug.txt", "w");
+          for (id = 0; id < mem_GetTotalPixels(); ++id)
+          {
+            fprintf(file, "%d\n", delta[id]);
+          }
+          printf("%s\n", "结束");
+        }
         if (RANDOM_INT (101) < (int) breed_coefficient)
         {
           count = 0;
