@@ -5,6 +5,7 @@
 #include <ctype.h>
 #include <math.h>
 #include <errno.h>
+#include <omp.h>
 #include "coeff_obj.h"
 #include "scenario_obj.h"
 #include "igrid_obj.h"
@@ -18,6 +19,9 @@
 #include "proc_obj.h"
 #include "color_obj.h"
 #include "gdif_obj.h"
+
+static int last_index;
+#pragma omp threadprivate(last_index)
 
 /*****************************************************************************\
 *******************************************************************************
@@ -599,11 +603,10 @@ void
 {
   char func[] = "util_get_next_neighbor";
 
-  static int last_index;
-  #pragma omp master
-  {
-    printf("\n%d\n", last_index);
-  }
+  // #pragma omp master
+  // {
+  //   printf("\n%d\n", last_index);
+  // }
   int i_adj;
   int j_adj;
   int row[8] = {-1, 0, 1, 1, 1, 0, -1, -1};
