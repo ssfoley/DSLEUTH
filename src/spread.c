@@ -1260,7 +1260,7 @@ void
                 sdc);                                      /* IN/OUT */
   #pragma omp master
   {
-    printf("\n%d %d\n", sng, sdc);
+    printf("\n%d %d\n", *sng, *sdc);
     FILE *file = fopen("debug.txt", "w");
 
     for (i = 0; i < mem_GetTotalPixels(); ++i)
