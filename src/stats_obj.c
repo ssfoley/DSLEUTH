@@ -565,13 +565,6 @@ void
     memset ((void *) (&regression[i]), 0, sizeof (stats_info));
   }
 
-  // for (i = 0; i < MAX_URBAN_YEARS; i++)
-  // {
-  //   memset ((void *) (&running_total[thread_id][i]), 0, sizeof (stats_val_t));
-  //   memset ((void *) (&average[thread_id][i]), 0, sizeof (stats_val_t));
-  //   memset ((void *) (&std_dev[thread_id][i]), 0, sizeof (stats_val_t));
-  // }
-  // memset ((void *) (&regression[thread_id]), 0, sizeof (stats_info));
   if (first_call)
   {
     #pragma omp parallel num_threads(NUM_THREADS)
@@ -1446,6 +1439,8 @@ static void
   int thread_id = omp_get_thread_num();
   int i;
 
+  printf("\n%s %d\n", "id", thread_id);
+
   total_pixels = mem_GetTotalPixels ();
   assert (total_pixels > 0);
   z_ptr = pgrid_GetZPtr (thread_id);
@@ -1468,19 +1463,19 @@ static void
                        &mean_cluster_size,                   /* OUT    */
                        stats_workspace1,                     /* MOD    */
                        stats_workspace2);                  /* MOD    */
-  // #pragma omp master
-  // {
-  //   // printf("\n%d\n", z_ptr);
-  //   printf("\n%s %f %f %f %f %f %f %f %f %d %s\n", "开始", area, edges, clusters, pop, xmean, ymean, slope, rad, mean_cluster_size, omp_get_thread_num(), "结束");
+  #pragma omp master
+  {
+    // printf("\n%d\n", z_ptr);
+    printf("\n%s %f %f %f %f %f %f %f %f %d %s\n", "开始", area, edges, clusters, pop, xmean, ymean, slope, rad, mean_cluster_size, omp_get_thread_num(), "结束");
 
-  //   FILE *file = fopen("debug.txt", "w");
-  //   fprintf(file, "%d\n", proc_GetCurrentYear());
-  //   for (i = 0; i < mem_GetTotalPixels(); ++i)
-  //   {
-  //     fprintf(file, "%d\n", z_ptr[i]);
-  //   }
-  //   printf("%s\n", "完成");
-  // }
+    // FILE *file = fopen("debug.txt", "w");
+    // fprintf(file, "%d\n", proc_GetCurrentYear());
+    // for (i = 0; i < mem_GetTotalPixels(); ++i)
+    // {
+    //   fprintf(file, "%d\n", z_ptr[i]);
+    // }
+    // printf("%s\n", "完成");
+  }
   record[thread_id].this_year.area = area;
   record[thread_id].this_year.edges = edges;
   record[thread_id].this_year.clusters = clusters;
