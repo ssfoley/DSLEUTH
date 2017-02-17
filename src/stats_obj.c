@@ -513,6 +513,10 @@ void
 
   stats_ComputeThisYearStats ();
   stats_SetNumGrowthPixels (num_growth_pix);
+  #pragma omp master
+  {
+    printf("%d\n", num_growth_pix);
+  }
   stats_CalGrowthRate ();
   stats_CalPercentUrban (total_pixels, road_pixel_count, excluded_pixel_count);
 
@@ -891,8 +895,6 @@ double
   stats_GetPercentUrban ()
 {
   int i = omp_get_thread_num();
-  printf("\n%s %d %d\n", "percent_urban", record[i].this_year.percent_urban, i);
-  printf("\n%s %d\n", "总线程数", NUM_THREADS);
   return record[i].this_year.percent_urban;
 }
 /******************************************************************************
@@ -930,7 +932,6 @@ double
   stats_GetGrowthRate ()
 {
   int i = omp_get_thread_num();
-  printf("\n%s %f %d\n", "growth_rate", record[i].this_year.percent_urban, i);
   return record[i].this_year.growth_rate;
 }
 /******************************************************************************
