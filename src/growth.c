@@ -295,6 +295,8 @@ void
      */
     coeff_SelfModication (stats_GetGrowthRate (), stats_GetPercentUrban ());
 
+    printf("%s\n", );
+
 
     coeff_WriteCurrentCoeff ();
   }
