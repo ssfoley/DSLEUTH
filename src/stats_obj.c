@@ -913,7 +913,10 @@ static void
 {
   record[thread_id].this_year.growth_rate =
     record[thread_id].this_year.num_growth_pix / record[thread_id].this_year.pop * 100.0;
-  printf("\n%s %d %f %d\n", "set growth_rate", record[thread_id].this_year.num_growth_pix, record[thread_id].this_year.pop, thread_id);
+  #pragma omp critical
+  {
+    printf("\n%s %d %f %d\n", "set growth_rate", record[thread_id].this_year.num_growth_pix, record[thread_id].this_year.pop, thread_id);
+  }
 }
 /******************************************************************************
 *******************************************************************************
