@@ -1464,6 +1464,10 @@ static void
                        &mean_cluster_size,                   /* OUT    */
                        stats_workspace1,                     /* MOD    */
                        stats_workspace2);                  /* MOD    */
+  #pragma omp critical
+  {
+    printf("\n%s %f %f %f %f %f %f %f %f %s\n", "开始", area, edges, clusters, pop, xmean, ymean, slope, rad, mean_cluster_size, "结束");
+  }
   record[thread_id].this_year.area = area;
   record[thread_id].this_year.edges = edges;
   record[thread_id].this_year.clusters = clusters;
@@ -2506,12 +2510,10 @@ static void
                          stats_workspace1,                   /* MOD    */
                          stats_workspace2);                /* MOD    */
 
-    #pragma omp critical
-    {
-      printf("\n%s\n%4.5f %4.5f %4.5f %4.5f %4.5f %4.5f %4.5f %4.5f %4.5f\n%s\n", "开始", stats_actual[thread_id][i].area, stats_actual[thread_id][i].edges, stats_actual[thread_id][i].clusters, 
-        stats_actual[thread_id][i].pop, stats_actual[thread_id][i].xmean, stats_actual[thread_id][i].ymean, stats_actual[thread_id][i].average_slope, 
-        stats_actual[thread_id][i].rad, stats_actual[thread_id][i].mean_cluster_size, "结束");
-    }
+    // #pragma omp critical
+    // {
+    //   printf("\n%s\n%4.5f %4.5f %4.5f %4.5f %4.5f %4.5f %4.5f %4.5f %4.5f\n%s\n", "开始", stats_actual[thread_id][i].area, stats_actual[thread_id][i].edges, stats_actual[thread_id][i].clusters, stats_actual[thread_id][i].pop, stats_actual[thread_id][i].xmean, stats_actual[thread_id][i].ymean, stats_actual[thread_id][i].average_slope, stats_actual[thread_id][i].rad, stats_actual[thread_id][i].mean_cluster_size, "结束");
+    // }
 
     road_pixel_count = igrid_GetIGridRoadPixelCount (proc_GetCurrentYear ());
     excluded_pixel_count = igrid_GetIGridExcludedPixelCount ();
