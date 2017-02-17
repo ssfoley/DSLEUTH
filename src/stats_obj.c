@@ -1463,7 +1463,7 @@ static void
                        &mean_cluster_size,                   /* OUT    */
                        stats_workspace1,                     /* MOD    */
                        stats_workspace2);                  /* MOD    */
-  #pragma omp master
+  #pragma omp critical
   {
     // printf("\n%d\n", z_ptr);
     printf("\n%s %f %f %f %f %f %f %f %f %d %s\n", "开始", area, edges, clusters, pop, xmean, ymean, slope, rad, mean_cluster_size, omp_get_thread_num(), "结束");
