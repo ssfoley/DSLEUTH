@@ -913,6 +913,7 @@ static void
   int i = omp_get_thread_num();
   record[i].this_year.growth_rate =
     record[i].this_year.num_growth_pix / record[i].this_year.pop * 100.0;
+  printf("\n%s %d %d\n", "set growth_rate", record[i].this_year.growth_rate, i);
 }
 /******************************************************************************
 *******************************************************************************
