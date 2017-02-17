@@ -1466,7 +1466,7 @@ static void
                        stats_workspace2);                  /* MOD    */
   #pragma omp critical
   {
-    printf("\n%s %f %f %f %f %f %f %f %f %s\n", "开始", area, edges, clusters, pop, xmean, ymean, slope, rad, mean_cluster_size, "结束");
+    printf("\n%s %f %f %f %f %f %f %f %f %d %s\n", "开始", area, edges, clusters, pop, xmean, ymean, slope, rad, mean_cluster_size, omp_get_thread_num(), "结束");
   }
   record[thread_id].this_year.area = area;
   record[thread_id].this_year.edges = edges;
