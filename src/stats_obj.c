@@ -513,6 +513,10 @@ void
   excluded_pixel_count = igrid_GetIGridExcludedPixelCount ();
 
   stats_ComputeThisYearStats ();
+  #pragma omp critical
+  {
+    printf("\n%s %d\n", "id", thread_id);
+  }
   stats_SetNumGrowthPixels (num_growth_pix, thread_id);
   stats_CalGrowthRate (thread_id);
   stats_CalPercentUrban (total_pixels, road_pixel_count, excluded_pixel_count, thread_id);
