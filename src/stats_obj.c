@@ -1375,6 +1375,7 @@ static void
   double slope;
   double rad;
   double mean_cluster_size;
+  int i;
 
   total_pixels = mem_GetTotalPixels ();
   assert (total_pixels > 0);
@@ -1398,6 +1399,14 @@ static void
                        &mean_cluster_size,                   /* OUT    */
                        stats_workspace1,                     /* MOD    */
                        stats_workspace2);                  /* MOD    */
+  printf("\n%s %f %f %f %f %f %f %f %f %s\n", "开始", area, edges, clusters, pop, xmean, ymean, slope, rad, mean_cluster_size, "结束");
+  FILE *file = fopen("debug.txt", "w");
+  fprintf(file, "%d\n", proc_GetCurrentYear());
+  for (i = 0; i < mem_GetTotalPixels(); ++i)
+    {
+      fprintf(file, "%d\n", z_ptr[i]);
+    }
+  printf("%s\n", "完成");
   record.this_year.area = area;
   record.this_year.edges = edges;
   record.this_year.clusters = clusters;
@@ -2425,6 +2434,9 @@ static void
                          &stats_actual[i].mean_cluster_size,   /* OUT    */
                          stats_workspace1,                   /* MOD    */
                          stats_workspace2);                /* MOD    */
+
+    //printf("\n%s\n%4.5f %4.5f %4.5f %4.5f %4.5f %4.5f %4.5f %4.5f %4.5f\n%s\n", "开始", stats_actual[i].area, stats_actual[i].edges, stats_actual[i].clusters, stats_actual[i].pop, stats_actual[i].xmean, stats_actual[i].ymean, stats_actual[i].average_slope, stats_actual[i].rad, stats_actual[i].mean_cluster_size, "结束");
+
 
     road_pixel_count = igrid_GetIGridRoadPixelCount (proc_GetCurrentYear ());
     excluded_pixel_count = igrid_GetIGridExcludedPixelCount ();

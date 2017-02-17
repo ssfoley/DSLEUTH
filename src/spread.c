@@ -1350,7 +1350,7 @@ void
                 swght,                                       /* IN     */
                 sng,                                         /* IN/OUT */
                 sdc);                                      /* IN/OUT */
-  printf("\n%d %d\n", *sng, *sdc);
+  //printf("\n%d %d\n", *sng, *sdc);
   //FILE *file = fopen("debug.txt", "w");
 
   //for (i = 0; i < mem_GetTotalPixels(); ++i)
@@ -1373,14 +1373,14 @@ void
               slp,                                           /* IN     */
               swght,                                         /* IN     */
               og);                                         /* IN/OUT */
-  printf("\n%d\n", *og);
-  FILE *file = fopen("debug.txt", "w");
+  //printf("\n%d\n", *og);
+  //FILE *file = fopen("debug.txt", "w");
 
-  for (i = 0; i < mem_GetTotalPixels(); ++i)
-    {
-      fprintf(file, "%d\n", delta[i]);
-    }
-  printf("%s\n", "完成");
+  //for (i = 0; i < mem_GetTotalPixels(); ++i)
+  //{
+  //  fprintf(file, "%d\n", delta[i]);
+  //}
+  //printf("%s\n", "完成");
   timer_Stop (SPR_PHASE4);
 
   /*
