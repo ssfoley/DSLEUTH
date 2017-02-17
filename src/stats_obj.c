@@ -891,7 +891,7 @@ double
   stats_GetPercentUrban ()
 {
   int i = omp_get_thread_num();
-  printf("\n%d %d\n", record[i].this_year.percent_urban, i);
+  printf("\n%s %d %d\n", "percent_urban", record[i].this_year.percent_urban, i);
   return record[i].this_year.percent_urban;
 }
 /******************************************************************************
@@ -928,7 +928,7 @@ double
   stats_GetGrowthRate ()
 {
   int i = omp_get_thread_num();
-  printf("\n%d %d\n", record[i].this_year.percent_urban, i);
+  printf("\n%s %d %d\n", "growth_rate", record[i].this_year.percent_urban, i);
   return record[i].this_year.growth_rate;
 }
 /******************************************************************************
