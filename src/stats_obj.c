@@ -513,9 +513,9 @@ void
 
   stats_ComputeThisYearStats ();
   stats_SetNumGrowthPixels (num_growth_pix);
-  #pragma omp master
+  #pragma omp critical
   {
-    printf("%d\n", num_growth_pix);
+    printf("\n%s %d\n", "id", omp_get_thread_num());
   }
   stats_CalGrowthRate ();
   stats_CalPercentUrban (total_pixels, road_pixel_count, excluded_pixel_count);
