@@ -892,6 +892,7 @@ double
 {
   int i = omp_get_thread_num();
   printf("\n%s %d %d\n", "percent_urban", record[i].this_year.percent_urban, i);
+  printf("\n%s %d\n", "总线程数", NUM_THREADS);
   return record[i].this_year.percent_urban;
 }
 /******************************************************************************
