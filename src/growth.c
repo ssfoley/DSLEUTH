@@ -295,9 +295,6 @@ void
      */
     coeff_SelfModication (stats_GetGrowthRate (), stats_GetPercentUrban ());
 
-    printf("%s\n", );
-
-
     coeff_WriteCurrentCoeff ();
   }
   timer_Stop (GRW_GROWTH);
