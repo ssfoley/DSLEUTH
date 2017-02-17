@@ -98,7 +98,7 @@ static struct
   int run;
   int monte_carlo;
   int year;
-  stats_val_t this_year;
+  static stats_val_t this_year;
 }
 record[NUM_THREADS];
 
