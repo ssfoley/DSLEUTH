@@ -136,7 +136,7 @@ void
                 ftransition                                  /* IN     */
     );
 
-  printf("%s\n", "end delta_phase1");
+  //printf("%s\n", "end delta_phase1");
 
   delta_phase2 (urban_land,                                  /* IN     */
                 phase1_land,                                 /* IN     */
@@ -449,6 +449,8 @@ static
   assert (landuse_classes != NULL);
   assert (new_indices != NULL);
   assert (ftransition != NULL);
+
+  printf("%s\n", "delta_phase2 assert");
 
   /*
    *
