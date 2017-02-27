@@ -1374,9 +1374,9 @@ static void
 
   if (glb_mype == 0)
   {
-    // FILE_OPEN (fp, grid_ptr->filename, "rb");
-    // fgets ((char *) buffer, BYTES2READ, fp);
-    // fclose (fp);
+    FILE_OPEN (fp, grid_ptr->filename, "rb");
+    fgets ((char *) buffer, BYTES2READ, fp);
+    fclose (fp);
   }
 #ifdef MPI
   MPI_Bcast (buffer, BYTES2READ, MPI_BYTE, 0, MPI_COMM_WORLD);
@@ -1384,12 +1384,12 @@ static void
 
 
   strncpy (id_str, (char *) buffer, strlen (GIF_ID));
-  // if (strncmp (GIF_ID, id_str, strlen (GIF_ID)) != 0)
-  // {
-  //   printf ("\n\n%s %d file: %s is not a %s format\n",
-  //           __FILE__, __LINE__, grid_ptr->filename, GIF_ID);
-  //   EXIT (1);
-  // }
+  if (strncmp (GIF_ID, id_str, strlen (GIF_ID)) != 0)
+  {
+    printf ("\n\n%s %d file: %s is not a %s format\n",
+            __FILE__, __LINE__, grid_ptr->filename, GIF_ID);
+    EXIT (1);
+  }
   ncols = CONVERT2UINT (buffer[GIF_COL_OFFSET], buffer[GIF_COL_OFFSET + 1]);
   nrows = CONVERT2UINT (buffer[GIF_ROW_OFFSET], buffer[GIF_ROW_OFFSET + 1]);
   total_pixels = nrows * ncols;
