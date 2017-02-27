@@ -1374,9 +1374,9 @@ static void
 
   if (glb_mype == 0)
   {
-    FILE_OPEN (fp, grid_ptr->filename, "rb");
-    fgets ((char *) buffer, BYTES2READ, fp);
-    fclose (fp);
+    // FILE_OPEN (fp, grid_ptr->filename, "rb");
+    // fgets ((char *) buffer, BYTES2READ, fp);
+    // fclose (fp);
   }
 #ifdef MPI
   MPI_Bcast (buffer, BYTES2READ, MPI_BYTE, 0, MPI_COMM_WORLD);
