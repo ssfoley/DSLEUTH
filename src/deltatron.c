@@ -474,7 +474,7 @@ static
     for (j = 1; j < igrid_GetNumCols () - 1; j++)
     {
       index = new_indices[phase1_land[OFFSET (i, j)]];
-      printf("%s\n", "end index");
+      //printf("%s\n", "end index");
       if ((landuse_classes[index].trans == TRUE) &&
           (deltatron[OFFSET (i, j)] == 0))
       {
@@ -495,6 +495,7 @@ static
           {
             util_get_neighbor (i, j, &i_nghbr, &j_nghbr);
             index = new_indices[phase1_land[OFFSET (i_nghbr, j_nghbr)]];
+            printf("%s\n", "end index");
             if ((deltatron[OFFSET (i_nghbr, j_nghbr)] == 2) &&
                 (landuse_classes[index].trans == TRUE))
             {
