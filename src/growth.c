@@ -264,7 +264,7 @@ void
 
     if (scen_GetDoingLanduseFlag ())
     {
-      //printf("%s\n", "if");
+      printf("%s\n", "if");
       grw_landuse (land1_ptr, num_growth_pix);
     }
     else
