@@ -513,10 +513,10 @@ void
   excluded_pixel_count = igrid_GetIGridExcludedPixelCount ();
 
   stats_ComputeThisYearStats ();
-  #pragma omp critical
-  {
-    printf("\n%s %d\n", "id", thread_id);
-  }
+  // #pragma omp critical
+  // {
+  //   printf("\n%s %d\n", "id", thread_id);
+  // }
 
   stats_SetNumGrowthPixels (num_growth_pix, thread_id);
   stats_CalGrowthRate (thread_id);
@@ -907,7 +907,7 @@ static void
 {
   record[thread_id].this_year.growth_rate =
     record[thread_id].this_year.num_growth_pix / record[thread_id].this_year.pop * 100.0;
-  printf("\n%s %d %f %d\n", "set growth_rate", record[thread_id].this_year.num_growth_pix, record[thread_id].this_year.pop, thread_id);
+  //printf("\n%s %d %f %d\n", "set growth_rate", record[thread_id].this_year.num_growth_pix, record[thread_id].this_year.pop, thread_id);
 }
 /******************************************************************************
 *******************************************************************************

@@ -233,7 +233,7 @@ static
     }
     while (landuse_classes[index].trans == FALSE);
 
-    printf("%s\n", "end while LOOP");
+    //printf("%s\n", "end while LOOP");
 
     /*
      *
