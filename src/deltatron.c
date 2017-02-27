@@ -122,7 +122,7 @@ void
   phase1_land = workspace1;
   phase2_land = land_out;
 
-  printf("%s\n", "assert");
+  //printf("%s\n", "assert");
 
   delta_phase1 (drive,                                       /* IN     */
                 urban_land,                                  /* IN     */
@@ -147,7 +147,7 @@ void
                 ftransition                                  /* IN     */
     );
 
-  printf("%s\n", "end delta_phase2");
+  //printf("%s\n", "end delta_phase2");
 
   timer_Stop (DELTA_DELTATRON);
   FUNC_END;
@@ -202,12 +202,16 @@ static
   assert (class_slope != NULL);
   assert (ftransition != NULL);
 
+  printf("%s\n", "assert");
+
   /*
    *
    * COPY INPUT LAND GRID INTO OUTPUT LAND GRID
    *
    */
   util_copy_grid (urban_land, phase1_land);
+
+  printf("%s\n", "end util_copy_grid");
 
   /*
    *
