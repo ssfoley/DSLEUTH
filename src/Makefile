@@ -24,10 +24,10 @@ DEP = -MM
 #   -DNDEBUG (turns asserts off; for production code; faster execution)
 #   -DMPI (if running on an MPI machine else -UMPI)
 #
-CFLAGS=-O3 -DNDEBUG -fopenmp -UMPI -I$(GD_LIB)
+CFLAGS=-DNDEBUG -fopenmp -UMPI -I$(GD_LIB)
 
 #CLIBS = -L./ -L./GD/ -lgd -lm -lc -lmpi
-CLIBS = -L./ -L./GD/ -lgd -lm -lc -fopenmp
+CLIBS = -L./ -L./GD/ -lgd -lm -lc -fopenmp 
 
 SRCS_W_HDRS   = stats_obj.c timer_obj.c proc_obj.c transition_obj.c coeff_obj.c landclass_obj.c deltatron.c growth.c output.c utilities.c spread.c random.c scenario_obj.c igrid_obj.c gdif_obj.c pgrid_obj.c memory_obj.c wgrid_obj.c grid_obj.c color_obj.c driver.c input.c
 

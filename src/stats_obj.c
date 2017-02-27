@@ -145,8 +145,8 @@ static struct ugm_link cir_q[NUM_THREADS][SIZE_CIR_Q];
 \*****************************************************************************/
 static void stats_Save (char *filename);
 static void stats_LogThisYearStats (FILE * fp);
-static void stats_CalGrowthRate (int *thread_id);
-static void stats_CalPercentUrban (int total_pixels, int road_pixels, int excld_pixels, int *thread_id);
+static void stats_CalGrowthRate (int thread_id);
+static void stats_CalPercentUrban (int total_pixels, int road_pixels, int excld_pixels, int thread_id);
 static void stats_CalAverages (int index);
 static void stats_WriteControlStats (char *filename);
 static void stats_WriteStatsValLine (char *filename, int run,
@@ -158,7 +158,7 @@ static void stats_LogStatVal (int run, int year, int index,
                               stats_val_t * stats_ptr, FILE * fp);
 static void stats_LogStatValHdr (FILE * fp);
 static void stats_ComputeThisYearStats ();
-static void stats_SetNumGrowthPixels (int val, int *thread_id);
+static void stats_SetNumGrowthPixels (int val, int thread_id);
 static void stats_CalLeesalee ();
 static void stats_ProcessGrowLog (int run, int year);
 static void stats_DoAggregate (double fmatch);
@@ -513,13 +513,14 @@ void
   excluded_pixel_count = igrid_GetIGridExcludedPixelCount ();
 
   stats_ComputeThisYearStats ();
-  // #pragma omp critical
-  // {
-  //   printf("\n%s %d\n", "id", thread_id);
-  // }
-  stats_SetNumGrowthPixels (num_growth_pix, &thread_id);
-  stats_CalGrowthRate (&thread_id);
-  stats_CalPercentUrban (total_pixels, road_pixel_count, excluded_pixel_count, &thread_id);
+  #pragma omp critical
+  {
+    printf("\n%s %d\n", "id", thread_id);
+  }
+
+  stats_SetNumGrowthPixels (num_growth_pix, thread_id);
+  stats_CalGrowthRate (thread_id);
+  stats_CalPercentUrban (total_pixels, road_pixel_count, excluded_pixel_count, thread_id);
 
   if (igrid_TestForUrbanYear (proc_GetCurrentYear ()))
   {
@@ -565,13 +566,6 @@ void
     memset ((void *) (&regression[i]), 0, sizeof (stats_info));
   }
 
-  // for (i = 0; i < MAX_URBAN_YEARS; i++)
-  // {
-  //   memset ((void *) (&running_total[thread_id][i]), 0, sizeof (stats_val_t));
-  //   memset ((void *) (&average[thread_id][i]), 0, sizeof (stats_val_t));
-  //   memset ((void *) (&std_dev[thread_id][i]), 0, sizeof (stats_val_t));
-  // }
-  // memset ((void *) (&regression[thread_id]), 0, sizeof (stats_info));
   if (first_call)
   {
     #pragma omp parallel num_threads(NUM_THREADS)
@@ -822,9 +816,9 @@ static void
 **
 */
 static void
-  stats_SetNumGrowthPixels (int val, int *thread_id)
+  stats_SetNumGrowthPixels (int val, int thread_id)
 {
-  record[*thread_id].this_year.num_growth_pix = val;
+  record[thread_id].this_year.num_growth_pix = val;
 }
 /******************************************************************************
 *******************************************************************************
@@ -873,10 +867,10 @@ void
 **
 */
 static void
-  stats_CalPercentUrban (int total_pixels, int road_pixels, int excld_pixels, int *thread_id)
+  stats_CalPercentUrban (int total_pixels, int road_pixels, int excld_pixels, int thread_id)
 {
-  record[*thread_id].this_year.percent_urban =
-    (double) (100.0 * (record[*thread_id].this_year.pop + road_pixels) /
+  record[thread_id].this_year.percent_urban =
+    (double) (100.0 * (record[thread_id].this_year.pop + road_pixels) /
               (total_pixels - road_pixels - excld_pixels));
 }
 /******************************************************************************
@@ -909,11 +903,11 @@ double
 */
 
 static void
-  stats_CalGrowthRate (int *thread_id)
+  stats_CalGrowthRate (int thread_id)
 {
-  record[*thread_id].this_year.growth_rate =
-    record[*thread_id].this_year.num_growth_pix / record[*thread_id].this_year.pop * 100.0;
-  //printf("\n%s %d %f %d\n", "set growth_rate", record[*thread_id].this_year.num_growth_pix, record[*thread_id].this_year.pop, *thread_id);
+  record[thread_id].this_year.growth_rate =
+    record[thread_id].this_year.num_growth_pix / record[thread_id].this_year.pop * 100.0;
+  printf("\n%s %d %f %d\n", "set growth_rate", record[thread_id].this_year.num_growth_pix, record[thread_id].this_year.pop, thread_id);
 }
 /******************************************************************************
 *******************************************************************************
@@ -1446,6 +1440,8 @@ static void
   int thread_id = omp_get_thread_num();
   int i;
 
+  printf("\n%s %d\n", "id", thread_id);
+
   total_pixels = mem_GetTotalPixels ();
   assert (total_pixels > 0);
   z_ptr = pgrid_GetZPtr (thread_id);
@@ -1468,19 +1464,18 @@ static void
                        &mean_cluster_size,                   /* OUT    */
                        stats_workspace1,                     /* MOD    */
                        stats_workspace2);                  /* MOD    */
-  // #pragma omp master
-  // {
-  //   // printf("\n%d\n", z_ptr);
-  //   printf("\n%s %f %f %f %f %f %f %f %f %d %s\n", "开始", area, edges, clusters, pop, xmean, ymean, slope, rad, mean_cluster_size, omp_get_thread_num(), "结束");
-
-  //   FILE *file = fopen("debug.txt", "w");
-  //   fprintf(file, "%d\n", proc_GetCurrentYear());
-  //   for (i = 0; i < mem_GetTotalPixels(); ++i)
-  //   {
-  //     fprintf(file, "%d\n", z_ptr[i]);
-  //   }
-  //   printf("%s\n", "完成");
-  // }
+  #pragma omp critical
+  {
+    // printf("\n%d\n", z_ptr);
+    printf("\n%s %f %f %f %f %f %f %f %f %d %s\n", "开始", area, edges, clusters, pop, xmean, ymean, slope, rad, mean_cluster_size, omp_get_thread_num(), "结束");
+    // FILE *file = fopen("debug.txt", "w");
+    // fprintf(file, "%d\n", proc_GetCurrentYear());
+    // for (i = 0; i < mem_GetTotalPixels(); ++i)
+    // {
+    //   fprintf(file, "%d\n", z_ptr[i]);
+    // }
+    // printf("%s\n", "完成");
+  }
   record[thread_id].this_year.area = area;
   record[thread_id].this_year.edges = edges;
   record[thread_id].this_year.clusters = clusters;
