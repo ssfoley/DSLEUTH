@@ -244,7 +244,7 @@ void
     stats_SetRT (rt);
     stats_SetPOP (pop);
 
-    printf("%s\n", "end stats_set");
+    //printf("%s\n", "end stats_set");
 
     if (scen_GetViewGrowthTypesFlag ())
     {
@@ -260,7 +260,7 @@ void
                      255);
     }
 
-    //printf("%s\n", "end loop");
+    printf("%s\n", "end loop");
 
     if (scen_GetDoingLanduseFlag ())
     {
