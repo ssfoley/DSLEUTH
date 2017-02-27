@@ -467,6 +467,8 @@ static
                         land1_ptr,
                         urban_code);
 
+    printf("%s\n", "end util_condition_gif");
+
     delta_deltatron (new_indices,                            /* IN     */
                      landuse_classes,                        /* IN     */
                      class_indices,                          /* IN     */
@@ -478,6 +480,8 @@ static
                      num_growth_pix,                         /* IN     */
                      class_slope,                            /* IN     */
                      ftransition);                         /* IN     */
+
+    printf("%s\n", "end delta_deltatron");
 
     /*
      *
