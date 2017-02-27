@@ -510,6 +510,7 @@ static
                */
               break;
             }
+            printf("%s\n", "end 1 if");
             /* end of if( deltatron[OFFSET(i_nghbr,j_nghbr)] == 2) && */
           }
           /* end of for(k=0;k<max_num_tries;k++) */
