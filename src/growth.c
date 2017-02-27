@@ -260,7 +260,7 @@ void
                      255);
     }
 
-    //printf("%s\n", "end loop");
+    printf("%s\n", "end loop");
 
     if (scen_GetDoingLanduseFlag ())
     {
