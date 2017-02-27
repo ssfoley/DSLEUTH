@@ -40,7 +40,7 @@ OBJS = ${SRCS:.c=.o}
 DEPS = ${SRCS:.c=.d}
 
 grow : $(OBJS)
-	$(CC) -I$(GD_LIB) $(OBJS) -o grow $(CLIBS)
+	$(CC) -I$(GD_LIB) $(OBJS) -g -o0 grow $(CLIBS)
 
 depend : $(SRCS) $(HDRS)
 	$(CC) $(DEP) -I$(GD_LIB) $(SRCS) > Makefile.inc
