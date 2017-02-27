@@ -260,7 +260,7 @@ void
                      255);
     }
 
-    printf("%s\n", "end loop");
+    //printf("%s\n", "end loop");
 
     if (scen_GetDoingLanduseFlag ())
     {
@@ -271,6 +271,8 @@ void
     {
       grw_non_landuse (z_ptr);
     }
+
+    printf("%s\n", "end land use");
 
     seed_ptr = igrid_GetUrbanGridPtr (__FILE__, func, __LINE__, 0);
     util_condition_gif (total_pixels,
