@@ -448,12 +448,12 @@ static
   assert (class_slope != NULL);
   assert (ftransition != NULL);
 
-  printf("%s\n", "assert");
+  //printf("%s\n", "assert");
 
   /* influence land use */
   if (ticktock >= landuse0_year)
   {
-    printf("%s\n", "if");
+    //printf("%s\n", "if");
 
     /*
      *
@@ -467,7 +467,7 @@ static
                         land1_ptr,
                         urban_code);
 
-    printf("%s\n", "end util_condition_gif");
+    //printf("%s\n", "end util_condition_gif");
 
     delta_deltatron (new_indices,                            /* IN     */
                      landuse_classes,                        /* IN     */
@@ -481,7 +481,7 @@ static
                      class_slope,                            /* IN     */
                      ftransition);                         /* IN     */
 
-    printf("%s\n", "end delta_deltatron");
+    //printf("%s\n", "end delta_deltatron");
 
     /*
      *

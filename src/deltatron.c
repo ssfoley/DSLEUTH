@@ -122,6 +122,8 @@ void
   phase1_land = workspace1;
   phase2_land = land_out;
 
+  printf("%s\n", "assert");
+
   delta_phase1 (drive,                                       /* IN     */
                 urban_land,                                  /* IN     */
                 phase1_land,                                 /* OUT    */
@@ -134,6 +136,8 @@ void
                 ftransition                                  /* IN     */
     );
 
+  printf("%s\n", "end delta_phase1");
+
   delta_phase2 (urban_land,                                  /* IN     */
                 phase1_land,                                 /* IN     */
                 deltatron,                                   /* IN/OUT */
@@ -142,6 +146,8 @@ void
                 new_indices,                                 /* IN     */
                 ftransition                                  /* IN     */
     );
+
+  printf("%s\n", "end delta_phase2");
 
   timer_Stop (DELTA_DELTATRON);
   FUNC_END;
