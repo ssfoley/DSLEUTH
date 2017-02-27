@@ -202,7 +202,7 @@ static
   assert (class_slope != NULL);
   assert (ftransition != NULL);
 
-  printf("%s\n", "assert");
+  //printf("%s\n", "assert");
 
   /*
    *
@@ -211,7 +211,7 @@ static
    */
   util_copy_grid (urban_land, phase1_land);
 
-  printf("%s\n", "end util_copy_grid");
+  //printf("%s\n", "end util_copy_grid");
 
   /*
    *
@@ -232,6 +232,9 @@ static
       index = new_indices[urban_land[OFFSET (i_center, j_center)]];
     }
     while (landuse_classes[index].trans == FALSE);
+
+    printf("%s\n", "end while LOOP");
+
     /*
      *
      * RANDOMLY CHOOSE NEW LANDUSE NUMBER
