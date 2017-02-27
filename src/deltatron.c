@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
+#include <omp.h>
 #include "igrid_obj.h"
 #include "landclass_obj.h"
 #include "globals.h"
