@@ -462,6 +462,8 @@ static
    */
   util_copy_grid (phase1_land, phase2_land);
 
+  printf("%s\n", "end util_copy_grid");
+
   /*
    *
    * FOR EACH INTERIOR POINT
