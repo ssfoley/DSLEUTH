@@ -448,6 +448,8 @@ static
   assert (class_slope != NULL);
   assert (ftransition != NULL);
 
+  printf("%s\n", "assert");
+
   /* influence land use */
   if (ticktock >= landuse0_year)
   {
