@@ -3,6 +3,7 @@
 #include <string.h>
 #include <math.h>
 #include <errno.h>
+#include <omp.h>
 #include "igrid_obj.h"
 #include "landclass_obj.h"
 #include "globals.h"

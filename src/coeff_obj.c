@@ -10,6 +10,7 @@ The coeff_obj.c module encapsulates the parameter data structures
 #include <stdlib.h>
 #include <errno.h>
 #include <string.h>
+#include <omp.h>
 #include "coeff_obj.h"
 #include "ugm_macros.h"
 #include "ugm_defines.h"

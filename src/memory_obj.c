@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
+#include <omp.h>
 #include "globals.h"
 #include "igrid_obj.h"
 #include "pgrid_obj.h"
