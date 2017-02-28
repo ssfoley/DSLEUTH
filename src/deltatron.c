@@ -474,10 +474,11 @@ static
     for (j = 1; j < igrid_GetNumCols () - 1; j++)
     {
       index = new_indices[phase1_land[OFFSET (i, j)]];
-      printf("%s %d\n", "index:", index);
+      //printf("%s %d\n", "index:", index);
       if ((landuse_classes[index].trans == TRUE) &&
           (deltatron[OFFSET (i, j)] == 0))
       {
+        printf("%s\n", "enter if");
         /*
          *
          * I,J IS A TRANSITIONAL PIXEL WHICH HAS NOT TRANSITIONED
