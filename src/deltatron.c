@@ -474,7 +474,7 @@ static
     for (j = 1; j < igrid_GetNumCols () - 1; j++)
     {
       index = new_indices[phase1_land[OFFSET (i, j)]];
-      printf("%d\n", index);
+      printf("%s %d\n", "index:", index);
       if ((landuse_classes[index].trans == TRUE) &&
           (deltatron[OFFSET (i, j)] == 0))
       {
