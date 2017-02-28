@@ -492,7 +492,7 @@ static
         //printf("%s\n", "end deltatron_neighbors");
 
         random_int = 1 + RANDOM_INT (2);
-        
+
         if (deltatron_neighbors >= random_int)
         {
           printf("%s\n", "enter");

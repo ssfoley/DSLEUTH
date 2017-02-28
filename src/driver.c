@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <omp.h>
 #include "igrid_obj.h"
 #include "pgrid_obj.h"
 #include "landclass_obj.h"
