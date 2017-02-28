@@ -501,6 +501,7 @@ static
             if ((deltatron[OFFSET (i_nghbr, j_nghbr)] == 2) &&
                 (landuse_classes[index].trans == TRUE))
             {
+              printf("%s\n", "enter");
               if (RANDOM_FLOAT < TRANS_PROBABILITY2 (i, j, i_nghbr, j_nghbr))
               {
                 phase2_land[OFFSET (i, j)] =
@@ -517,11 +518,11 @@ static
             /* end of if( deltatron[OFFSET(i_nghbr,j_nghbr)] == 2) && */
           }
 
-          printf("%s\n", "end for");
+          //printf("%s\n", "end for");
           /* end of for(k=0;k<max_num_tries;k++) */
         }
 
-        printf("%s\n", "end if");
+        //printf("%s\n", "end if");
         /* end of if (deltatron_neighbors >= random_int) */
       }
       /* end of if(( landuse_classes[index].trans == TRUE ) && */
