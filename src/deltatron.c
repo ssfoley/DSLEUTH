@@ -462,7 +462,7 @@ static
    */
   util_copy_grid (phase1_land, phase2_land);
 
-  printf("%s\n", "end util_copy_grid");
+  //printf("%s\n", "end util_copy_grid");
 
   /*
    *
@@ -474,7 +474,7 @@ static
     for (j = 1; j < igrid_GetNumCols () - 1; j++)
     {
       index = new_indices[phase1_land[OFFSET (i, j)]];
-      //printf("%s\n", "end index");
+      printf("%d\n", index);
       if ((landuse_classes[index].trans == TRUE) &&
           (deltatron[OFFSET (i, j)] == 0))
       {
@@ -501,7 +501,7 @@ static
             if ((deltatron[OFFSET (i_nghbr, j_nghbr)] == 2) &&
                 (landuse_classes[index].trans == TRUE))
             {
-              printf("%s\n", "enter");
+              //printf("%s\n", "enter");
               if (RANDOM_FLOAT < TRANS_PROBABILITY2 (i, j, i_nghbr, j_nghbr))
               {
                 phase2_land[OFFSET (i, j)] =
