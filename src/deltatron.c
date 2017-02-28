@@ -494,6 +494,7 @@ static
         random_int = 1 + RANDOM_INT (2);
         if (deltatron_neighbors >= random_int)
         {
+          printf("%s\n", "enter");
           for (k = 0; k < max_num_tries; k++)
           {
             util_get_neighbor (i, j, &i_nghbr, &j_nghbr);
