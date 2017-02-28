@@ -1464,18 +1464,18 @@ static void
                        &mean_cluster_size,                   /* OUT    */
                        stats_workspace1,                     /* MOD    */
                        stats_workspace2);                  /* MOD    */
-  #pragma omp critical
-  {
-    // printf("\n%d\n", z_ptr);
-    printf("\n%s %f %f %f %f %f %f %f %f %d %s\n", "开始", area, edges, clusters, pop, xmean, ymean, slope, rad, mean_cluster_size, omp_get_thread_num(), "结束");
-    // FILE *file = fopen("debug.txt", "w");
-    // fprintf(file, "%d\n", proc_GetCurrentYear());
-    // for (i = 0; i < mem_GetTotalPixels(); ++i)
-    // {
-    //   fprintf(file, "%d\n", z_ptr[i]);
-    // }
-    // printf("%s\n", "完成");
-  }
+  // #pragma omp critical
+  // {
+  //   // printf("\n%d\n", z_ptr);
+  //   printf("\n%s %f %f %f %f %f %f %f %f %d %s\n", "开始", area, edges, clusters, pop, xmean, ymean, slope, rad, mean_cluster_size, omp_get_thread_num(), "结束");
+  //   // FILE *file = fopen("debug.txt", "w");
+  //   // fprintf(file, "%d\n", proc_GetCurrentYear());
+  //   // for (i = 0; i < mem_GetTotalPixels(); ++i)
+  //   // {
+  //   //   fprintf(file, "%d\n", z_ptr[i]);
+  //   // }
+  //   // printf("%s\n", "完成");
+  // }
   record[thread_id].this_year.area = area;
   record[thread_id].this_year.edges = edges;
   record[thread_id].this_year.clusters = clusters;
