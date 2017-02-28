@@ -488,7 +488,7 @@ static
          */
         deltatron_neighbors = util_count_neighbors (deltatron, i, j, EQ, 2);
 
-        printf("%s\n", "end deltatron_neighbors");
+        //printf("%s\n", "end deltatron_neighbors");
 
         random_int = 1 + RANDOM_INT (2);
         if (deltatron_neighbors >= random_int)
@@ -516,6 +516,8 @@ static
             }
             /* end of if( deltatron[OFFSET(i_nghbr,j_nghbr)] == 2) && */
           }
+
+          printf("%s\n", "end if");
           /* end of for(k=0;k<max_num_tries;k++) */
         }
         /* end of if (deltatron_neighbors >= random_int) */
