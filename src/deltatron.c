@@ -137,7 +137,7 @@ void
                 ftransition                                  /* IN     */
     );
 
-  printf("%s\n", "end delta_phase1");
+  //printf("%s\n", "end delta_phase1");
 
   #pragma omp barrier
 
@@ -453,7 +453,7 @@ static
   assert (new_indices != NULL);
   assert (ftransition != NULL);
 
-  printf("%s\n", "delta_phase2 assert");
+  //printf("%s\n", "delta_phase2 assert");
 
   /*
    *
@@ -478,7 +478,7 @@ static
       if ((landuse_classes[index].trans == TRUE) &&
           (deltatron[OFFSET (i, j)] == 0))
       {
-        printf("%s\n", "enter if");
+        //printf("%s\n", "enter if");
         /*
          *
          * I,J IS A TRANSITIONAL PIXEL WHICH HAS NOT TRANSITIONED
@@ -498,7 +498,7 @@ static
           {
             util_get_neighbor (i, j, &i_nghbr, &j_nghbr);
             index = new_indices[phase1_land[OFFSET (i_nghbr, j_nghbr)]];
-            //printf("%s\n", "end index");
+            printf("%s %d\n", "index:", index);
             if ((deltatron[OFFSET (i_nghbr, j_nghbr)] == 2) &&
                 (landuse_classes[index].trans == TRUE))
             {
