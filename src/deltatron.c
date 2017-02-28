@@ -487,7 +487,14 @@ static
          * YEAR (IE. DELTATRON == 2)
          *
          */
-        deltatron_neighbors = util_count_neighbors (deltatron, i, j, EQ, 2);
+        #pragma omp critical
+        {
+          printf("%s\n", "start");
+          deltatron_neighbors = util_count_neighbors (deltatron, i, j, EQ, 2);
+          printf("%s\n", "deltatron_neighbors");
+        }
+
+        
 
         //printf("%s\n", "end deltatron_neighbors");
 
@@ -495,12 +502,12 @@ static
 
         if (deltatron_neighbors >= random_int)
         {
-          printf("%s\n", "enter");
+          //printf("%s\n", "enter");
           for (k = 0; k < max_num_tries; k++)
           {
             util_get_neighbor (i, j, &i_nghbr, &j_nghbr);
             index = new_indices[phase1_land[OFFSET (i_nghbr, j_nghbr)]];
-            printf("%s %d\n", "index:", index);
+            //printf("%s %d\n", "index:", index);
             if ((deltatron[OFFSET (i_nghbr, j_nghbr)] == 2) &&
                 (landuse_classes[index].trans == TRUE))
             {
