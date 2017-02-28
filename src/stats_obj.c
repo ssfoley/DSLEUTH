@@ -1440,7 +1440,7 @@ static void
   int thread_id = omp_get_thread_num();
   int i;
 
-  printf("\n%s %d\n", "id", thread_id);
+  //printf("\n%s %d\n", "id", thread_id);
 
   total_pixels = mem_GetTotalPixels ();
   assert (total_pixels > 0);

@@ -608,7 +608,7 @@ static
   // }
   /* end of for (i = 1; i < igrid_GetNumRows() - 1; i++) */
 
-  printf("%s\n", "end LOOP");
+  //printf("%s\n", "end LOOP");
 
   if (scen_GetViewDeltatronAgingFlag ())
   {
