@@ -517,9 +517,11 @@ static
             /* end of if( deltatron[OFFSET(i_nghbr,j_nghbr)] == 2) && */
           }
 
-          printf("%s\n", "end if");
+          printf("%s\n", "end for");
           /* end of for(k=0;k<max_num_tries;k++) */
         }
+
+        printf("%s\n", "end if");
         /* end of if (deltatron_neighbors >= random_int) */
       }
       /* end of if(( landuse_classes[index].trans == TRUE ) && */
