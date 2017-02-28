@@ -488,6 +488,8 @@ static
          */
         deltatron_neighbors = util_count_neighbors (deltatron, i, j, EQ, 2);
 
+        printf("%s\n", "end deltatron_neighbors");
+
         random_int = 1 + RANDOM_INT (2);
         if (deltatron_neighbors >= random_int)
         {
@@ -495,7 +497,7 @@ static
           {
             util_get_neighbor (i, j, &i_nghbr, &j_nghbr);
             index = new_indices[phase1_land[OFFSET (i_nghbr, j_nghbr)]];
-            printf("%s\n", "end index");
+            //printf("%s\n", "end index");
             if ((deltatron[OFFSET (i_nghbr, j_nghbr)] == 2) &&
                 (landuse_classes[index].trans == TRUE))
             {
