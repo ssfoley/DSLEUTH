@@ -476,7 +476,7 @@ static
       for (j = 1; j < igrid_GetNumCols () - 1; j++)
       {
         index = new_indices[phase1_land[OFFSET (i, j)]];
-        printf("%s %d\n", "index:", index);
+        //printf("%s %d\n", "index:", index);
         if ((landuse_classes[index].trans == TRUE) &&
             (deltatron[OFFSET (i, j)] == 0))
         {
@@ -489,9 +489,9 @@ static
           * YEAR (IE. DELTATRON == 2)
           *
           */
-           printf("%s\n", "start");
+           //printf("%s\n", "start");
          deltatron_neighbors = util_count_neighbors (deltatron, i, j, EQ, 2);
-           printf("%s\n", "deltatron_neighbors");
+           //printf("%s\n", "deltatron_neighbors");
 
         
 
@@ -501,7 +501,7 @@ static
 
         if (deltatron_neighbors >= random_int)
           {
-          printf("%s\n", "enter");
+          //printf("%s\n", "enter");
           for (k = 0; k < max_num_tries; k++)
           {
             util_get_neighbor (i, j, &i_nghbr, &j_nghbr);
