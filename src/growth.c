@@ -470,17 +470,17 @@ static
 
     //printf("%s\n", "end util_condition_gif");
 
-    // delta_deltatron (new_indices,                            /* IN     */
-    //                  landuse_classes,                        /* IN     */
-    //                  class_indices,                          /* IN     */
-    //                  deltatron_workspace1,                   /* MOD    */
-    //                  deltatron_ptr,                          /* IN/OUT */
-    //                  land1_ptr,                              /* IN     */
-    //                  land2_ptr,                              /* OUT    */
-    //                  slp_ptr,                                /* IN     */
-    //                  num_growth_pix,                         /* IN     */
-    //                  class_slope,                            /* IN     */
-    //                  ftransition);                         /* IN     */
+    delta_deltatron (new_indices,                            /* IN     */
+                     landuse_classes,                        /* IN     */
+                     class_indices,                          /* IN     */
+                     deltatron_workspace1,                   /* MOD    */
+                     deltatron_ptr,                          /* IN/OUT */
+                     land1_ptr,                              /* IN     */
+                     land2_ptr,                              /* OUT    */
+                     slp_ptr,                                /* IN     */
+                     num_growth_pix,                         /* IN     */
+                     class_slope,                            /* IN     */
+                     ftransition);                         /* IN     */
 
     //printf("%s\n", "end delta_deltatron");
 

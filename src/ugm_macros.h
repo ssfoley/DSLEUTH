@@ -16,7 +16,7 @@
   #define EXIT(code) exit(code)
 #endif
 
-#define NUM_THREADS 2
+#define NUM_THREADS 1
 
 #define TRANS_OFFSET(i,j) (i)*landclass_GetNumLandclasses() + (j)
 
