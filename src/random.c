@@ -35,16 +35,15 @@ char random_c_sccs_id[] = "@(#)random.c	1.230	12/4/00";
 double
   ran_random (RANDOM_SEED_TYPE * ran_idum)
 {
+  char func[] = "ran_random";
+  int j;
+  int k;
+  static RANDOM_SEED_TYPE iv[32];
+  static RANDOM_SEED_TYPE iy;
+  double temp;
+  double random_num;
   #pragma omp critical
   {
-    char func[] = "ran_random";
-    int j;
-    int k;
-    static RANDOM_SEED_TYPE iv[32];
-    static RANDOM_SEED_TYPE iy;
-    double temp;
-    double random_num;
-
     FUNC_INIT;
     if ((*ran_idum) <= 0 || !iy)
     {
@@ -89,8 +88,8 @@ double
       random_num = temp;
     }
     FUNC_END;
-    return random_num;
   }
+  return random_num;
 }
 /* (C) Copr. 1986-92 Numerical Recipes Software '%12'%. */
 
