@@ -139,7 +139,7 @@ void
 
   //printf("%s\n", "end delta_phase1");
 
-  #pragma omp barrier
+  //#pragma omp barrier
 
   delta_phase2 (urban_land,                                  /* IN     */
                 phase1_land,                                 /* IN     */
