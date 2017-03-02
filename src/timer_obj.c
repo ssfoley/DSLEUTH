@@ -226,26 +226,26 @@ void
 void
   timer_LogIt (FILE * fp)
 {
-//   char buf[15];
-//   int i;
-//   fprintf (fp, "\n\n****************************LOG OF TIMINGS ");
-//   fprintf (fp, "***********************************\n");
-//   fprintf (fp, "        Routine #Calls    Avg Time    Total Time\n");
-//   fprintf (fp, "                         (millisec)   (millisec)\n");
-//   for (i = 0; i < actual_num_timers; i++)
-//   {
-//     fprintf (fp, "%15s %5u     %8.2f      %10.2f = %s\n",
-//              array[i].name,
-//              array[i].num_calls,
-//              array[i].average_time,
-//              array[i].total_time,
-//         timer_Format (buf, (unsigned int) (array[i].total_time / 1000)));
-//   }
-//   fprintf (fp, "Number of CPUS = %u\n", glb_npes);
-// }
-// char *
-//   timer_Format (char *buf, unsigned int sec)
-// {
+  // char buf[15];
+  // int i;
+  // fprintf (fp, "\n\n****************************LOG OF TIMINGS ");
+  // fprintf (fp, "***********************************\n");
+  // fprintf (fp, "        Routine #Calls    Avg Time    Total Time\n");
+  // fprintf (fp, "                         (millisec)   (millisec)\n");
+  // for (i = 0; i < actual_num_timers; i++)
+  // {
+  //   fprintf (fp, "%15s %5u     %8.2f      %10.2f = %s\n",
+  //            array[i].name,
+  //            array[i].num_calls,
+  //            array[i].average_time,
+  //            array[i].total_time,
+  //       timer_Format (buf, (unsigned int) (array[i].total_time / 1000)));
+  // }
+  // fprintf (fp, "Number of CPUS = %u\n", glb_npes);
+}
+char *
+  timer_Format (char *buf, unsigned int sec)
+{
 //   unsigned int days;
 //   unsigned int hrs;
 //   unsigned int min;
