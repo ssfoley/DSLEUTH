@@ -11,6 +11,7 @@ This object encapsulates the colortable structures.
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
+#include <omp.h>
 #include "scenario_obj.h"
 #include "color_obj.h"
 #include "landclass_obj.h"

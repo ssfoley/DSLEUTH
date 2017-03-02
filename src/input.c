@@ -6,6 +6,7 @@
 #include <math.h>
 #include <assert.h>
 #include <errno.h>
+#include <omp.h>
 #include "coeff_obj.h"
 #include "igrid_obj.h"
 #include "landclass_obj.h"

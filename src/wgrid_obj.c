@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <omp.h>
 #include "memory_obj.h"
 #include "ugm_macros.h"
 

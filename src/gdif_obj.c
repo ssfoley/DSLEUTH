@@ -12,6 +12,7 @@ module.
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
+#include <omp.h>
 #include "gd.h"
 #include "gdfonts.h"
 #include "gdfontg.h"

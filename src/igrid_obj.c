@@ -13,6 +13,7 @@ This object encapsulates the management of the input data grids.
 #include <string.h>
 #include <stdio.h>
 #include <errno.h>
+#include <omp.h>
 #ifdef MPI
 #include "mpi.h"
 #endif

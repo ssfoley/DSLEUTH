@@ -10,6 +10,7 @@ This object encapsulates the basic gird structures.
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <omp.h>
 #include "ugm_defines.h"
 #include "ugm_macros.h"
 #include "grid_obj.h"

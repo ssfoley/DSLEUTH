@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <omp.h>
 #include "ugm_defines.h"
 #include "ugm_macros.h"
 #include "transition_obj.h"

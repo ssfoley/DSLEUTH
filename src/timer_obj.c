@@ -4,6 +4,7 @@
 #include <string.h>
 #include <errno.h>
 #include <ctype.h>
+#include <omp.h>
 #include "timer_obj.h"
 #include "scenario_obj.h"
 #include "ugm_defines.h"

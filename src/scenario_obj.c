@@ -16,6 +16,7 @@ code access to its data values through its member functions.
 #include <assert.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <omp.h>
 #ifdef MPI
 #include "mpi.h"
 #endif
