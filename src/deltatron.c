@@ -469,143 +469,143 @@ static
    * FOR EACH INTERIOR POINT
    *
    */
-   #pragma omp critical
-   {
-    for (i = 1; i < igrid_GetNumRows () - 1; i++)
-    {
-      for (j = 1; j < igrid_GetNumCols () - 1; j++)
-      {
-        index = new_indices[phase1_land[OFFSET (i, j)]];
-        //printf("%s %d\n", "index:", index);
-        if ((landuse_classes[index].trans == TRUE) &&
-            (deltatron[OFFSET (i, j)] == 0))
-        {
-         //printf("%s\n", "enter if");
-         /*
-          *
-          * I,J IS A TRANSITIONAL PIXEL WHICH HAS NOT TRANSITIONED
-          * WITHIN THE LAST MIN_YEARS_BETWEEN_TRANSTIONS YEARS; COUNT
-          * ITS NEIGHBORS WHICH HAVE TRANSITIONED IN THE PREVIOUS
-          * YEAR (IE. DELTATRON == 2)
-          *
-          */
-           //printf("%s\n", "start");
-         deltatron_neighbors = util_count_neighbors (deltatron, i, j, EQ, 2);
-           //printf("%s\n", "deltatron_neighbors");
+   // #pragma omp critical
+   // {
+   //  for (i = 1; i < igrid_GetNumRows () - 1; i++)
+   //  {
+   //    for (j = 1; j < igrid_GetNumCols () - 1; j++)
+   //    {
+   //      index = new_indices[phase1_land[OFFSET (i, j)]];
+   //      //printf("%s %d\n", "index:", index);
+   //      if ((landuse_classes[index].trans == TRUE) &&
+   //          (deltatron[OFFSET (i, j)] == 0))
+   //      {
+   //       //printf("%s\n", "enter if");
+   //       /*
+   //        *
+   //        * I,J IS A TRANSITIONAL PIXEL WHICH HAS NOT TRANSITIONED
+   //        * WITHIN THE LAST MIN_YEARS_BETWEEN_TRANSTIONS YEARS; COUNT
+   //        * ITS NEIGHBORS WHICH HAVE TRANSITIONED IN THE PREVIOUS
+   //        * YEAR (IE. DELTATRON == 2)
+   //        *
+   //        */
+   //         //printf("%s\n", "start");
+   //       deltatron_neighbors = util_count_neighbors (deltatron, i, j, EQ, 2);
+   //         //printf("%s\n", "deltatron_neighbors");
 
         
 
-         //printf("%s\n", "end deltatron_neighbors");
+   //       //printf("%s\n", "end deltatron_neighbors");
 
-         random_int = 1 + RANDOM_INT (2);
+   //       random_int = 1 + RANDOM_INT (2);
+
+   //      if (deltatron_neighbors >= random_int)
+   //        {
+   //        //printf("%s\n", "enter");
+   //        for (k = 0; k < max_num_tries; k++)
+   //        {
+   //          util_get_neighbor (i, j, &i_nghbr, &j_nghbr);
+   //          index = new_indices[phase1_land[OFFSET (i_nghbr, j_nghbr)]];
+   //          //printf("%s %d\n", "index:", index);
+   //            if ((deltatron[OFFSET (i_nghbr, j_nghbr)] == 2) &&
+   //                (landuse_classes[index].trans == TRUE))
+   //            {
+   //              //printf("%s\n", "enter");
+   //              if (RANDOM_FLOAT < TRANS_PROBABILITY2 (i, j, i_nghbr, j_nghbr))
+   //              {
+   //                phase2_land[OFFSET (i, j)] =
+   //                  urban_land[OFFSET (i_nghbr, j_nghbr)];
+   //                deltatron[OFFSET (i, j)] = 1;
+   //              }
+   //              /*
+   //               *
+   //               * BREAK OUT OF FOR LOOP
+   //               *
+   //               */
+   //              break;
+   //            }
+   //          /* end of if( deltatron[OFFSET(i_nghbr,j_nghbr)] == 2) && */
+   //          }
+
+   //        //printf("%s\n", "end for");
+   //        /* end of for(k=0;k<max_num_tries;k++) */
+   //        }
+
+   //      //printf("%s\n", "end if");
+   //      /* end of if (deltatron_neighbors >= random_int) */
+   //      }
+   //    /* end of if(( landuse_classes[index].trans == TRUE ) && */
+   //    }
+   //  /* end of for (j = 1; j < igrid_GetNumCols() - 1; j++) */
+   //  }
+   // }
+  for (i = 1; i < igrid_GetNumRows () - 1; i++)
+  {
+    for (j = 1; j < igrid_GetNumCols () - 1; j++)
+    {
+      index = new_indices[phase1_land[OFFSET (i, j)]];
+      //printf("%s %d\n", "index:", index);
+      if ((landuse_classes[index].trans == TRUE) &&
+          (deltatron[OFFSET (i, j)] == 0))
+      {
+        //printf("%s\n", "enter if");
+        /*
+         *
+         * I,J IS A TRANSITIONAL PIXEL WHICH HAS NOT TRANSITIONED
+         * WITHIN THE LAST MIN_YEARS_BETWEEN_TRANSTIONS YEARS; COUNT
+         * ITS NEIGHBORS WHICH HAVE TRANSITIONED IN THE PREVIOUS
+         * YEAR (IE. DELTATRON == 2)
+         *
+         */
+        //  printf("%s\n", "start");
+        deltatron_neighbors = util_count_neighbors (deltatron, i, j, EQ, 2);
+        //  printf("%s\n", "deltatron_neighbors");
+
+        
+
+        //printf("%s\n", "end deltatron_neighbors");
+
+        random_int = 1 + RANDOM_INT (2);
 
         if (deltatron_neighbors >= random_int)
-          {
-          //printf("%s\n", "enter");
+        {
+          printf("%s\n", "enter");
           for (k = 0; k < max_num_tries; k++)
           {
             util_get_neighbor (i, j, &i_nghbr, &j_nghbr);
             index = new_indices[phase1_land[OFFSET (i_nghbr, j_nghbr)]];
             //printf("%s %d\n", "index:", index);
-              if ((deltatron[OFFSET (i_nghbr, j_nghbr)] == 2) &&
-                  (landuse_classes[index].trans == TRUE))
+            if ((deltatron[OFFSET (i_nghbr, j_nghbr)] == 2) &&
+                (landuse_classes[index].trans == TRUE))
+            {
+              //printf("%s\n", "enter");
+              if (RANDOM_FLOAT < TRANS_PROBABILITY2 (i, j, i_nghbr, j_nghbr))
               {
-                //printf("%s\n", "enter");
-                if (RANDOM_FLOAT < TRANS_PROBABILITY2 (i, j, i_nghbr, j_nghbr))
-                {
-                  phase2_land[OFFSET (i, j)] =
-                    urban_land[OFFSET (i_nghbr, j_nghbr)];
-                  deltatron[OFFSET (i, j)] = 1;
-                }
-                /*
-                 *
-                 * BREAK OUT OF FOR LOOP
-                 *
-                 */
-                break;
+                phase2_land[OFFSET (i, j)] =
+                  urban_land[OFFSET (i_nghbr, j_nghbr)];
+                deltatron[OFFSET (i, j)] = 1;
               }
-            /* end of if( deltatron[OFFSET(i_nghbr,j_nghbr)] == 2) && */
+              /*
+               *
+               * BREAK OUT OF FOR LOOP
+               *
+               */
+              break;
             }
+            /* end of if( deltatron[OFFSET(i_nghbr,j_nghbr)] == 2) && */
+          }
 
           //printf("%s\n", "end for");
           /* end of for(k=0;k<max_num_tries;k++) */
-          }
+        }
 
         //printf("%s\n", "end if");
         /* end of if (deltatron_neighbors >= random_int) */
-        }
-      /* end of if(( landuse_classes[index].trans == TRUE ) && */
       }
-    /* end of for (j = 1; j < igrid_GetNumCols() - 1; j++) */
+      /* end of if(( landuse_classes[index].trans == TRUE ) && */
     }
-   }
-  // for (i = 1; i < igrid_GetNumRows () - 1; i++)
-  // {
-  //   for (j = 1; j < igrid_GetNumCols () - 1; j++)
-  //   {
-  //     index = new_indices[phase1_land[OFFSET (i, j)]];
-  //     //printf("%s %d\n", "index:", index);
-  //     if ((landuse_classes[index].trans == TRUE) &&
-  //         (deltatron[OFFSET (i, j)] == 0))
-  //     {
-  //       //printf("%s\n", "enter if");
-  //       /*
-  //        *
-  //        * I,J IS A TRANSITIONAL PIXEL WHICH HAS NOT TRANSITIONED
-  //        * WITHIN THE LAST MIN_YEARS_BETWEEN_TRANSTIONS YEARS; COUNT
-  //        * ITS NEIGHBORS WHICH HAVE TRANSITIONED IN THE PREVIOUS
-  //        * YEAR (IE. DELTATRON == 2)
-  //        *
-  //        */
-  //       //  printf("%s\n", "start");
-  //       deltatron_neighbors = util_count_neighbors (deltatron, i, j, EQ, 2);
-  //       //  printf("%s\n", "deltatron_neighbors");
-
-        
-
-  //       //printf("%s\n", "end deltatron_neighbors");
-
-  //       random_int = 1 + RANDOM_INT (2);
-
-  //       if (deltatron_neighbors >= random_int)
-  //       {
-  //         printf("%s\n", "enter");
-  //         for (k = 0; k < max_num_tries; k++)
-  //         {
-  //           util_get_neighbor (i, j, &i_nghbr, &j_nghbr);
-  //           index = new_indices[phase1_land[OFFSET (i_nghbr, j_nghbr)]];
-  //           //printf("%s %d\n", "index:", index);
-  //           if ((deltatron[OFFSET (i_nghbr, j_nghbr)] == 2) &&
-  //               (landuse_classes[index].trans == TRUE))
-  //           {
-  //             //printf("%s\n", "enter");
-  //             if (RANDOM_FLOAT < TRANS_PROBABILITY2 (i, j, i_nghbr, j_nghbr))
-  //             {
-  //               phase2_land[OFFSET (i, j)] =
-  //                 urban_land[OFFSET (i_nghbr, j_nghbr)];
-  //               deltatron[OFFSET (i, j)] = 1;
-  //             }
-  //             /*
-  //              *
-  //              * BREAK OUT OF FOR LOOP
-  //              *
-  //              */
-  //             break;
-  //           }
-  //           /* end of if( deltatron[OFFSET(i_nghbr,j_nghbr)] == 2) && */
-  //         }
-
-  //         //printf("%s\n", "end for");
-  //         /* end of for(k=0;k<max_num_tries;k++) */
-  //       }
-
-  //       //printf("%s\n", "end if");
-  //       /* end of if (deltatron_neighbors >= random_int) */
-  //     }
-  //     /* end of if(( landuse_classes[index].trans == TRUE ) && */
-  //   }
-  //   /* end of for (j = 1; j < igrid_GetNumCols() - 1; j++) */
-  // }
+    /* end of for (j = 1; j < igrid_GetNumCols() - 1; j++) */
+  }
   /* end of for (i = 1; i < igrid_GetNumRows() - 1; i++) */
 
   //printf("%s\n", "end LOOP");
