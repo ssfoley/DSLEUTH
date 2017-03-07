@@ -564,6 +564,7 @@ int
                slope_resistance <= coeff_GetStopSlopeResist ();
                slope_resistance += coeff_GetStepSlopeResist ())
           {
+            InitRandom (scen_GetRandomSeed ());
             #pragma omp parallel for default(shared) num_threads(NUM_THREADS)
             for (road_gravity = coeff_GetStartRoadGravity ();
                  road_gravity <= coeff_GetStopRoadGravity ();
@@ -585,8 +586,6 @@ int
                                       road_gravity,
                                       scen_GetRandomSeed (),
                                       restart_run);
-
-              InitRandom (scen_GetRandomSeed ());
 
               restart_run++;
 
