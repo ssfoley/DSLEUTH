@@ -46,6 +46,8 @@ double
   double temp;
   double random_num;
   
+  #pragma omp critical
+  {
     FUNC_INIT;
     if ((*ran_idum) <= 0 || !iy[thread_id])
     {
@@ -90,6 +92,7 @@ double
       random_num = temp;
     }
     FUNC_END;
+  }
   return random_num;
 }
 /* (C) Copr. 1986-92 Numerical Recipes Software '%12'%. */
