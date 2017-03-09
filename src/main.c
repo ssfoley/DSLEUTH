@@ -81,7 +81,6 @@ char main_c_sccs_id[] = "@(#)main.c	1.629	12/4/00";
 int
   main (int argc, char *argv[])
 {
-  printf("\n%s\n", "Reach parallel region");
   char func[] = "main";
   char fname[MAX_FILENAME_LEN];
   char command[5 * MAX_FILENAME_LEN];
@@ -166,7 +165,9 @@ int
     proc_SetProcessingType (CALIBRATING);
     strcpy (processing_str, "CALIBRATING");
   }
+  printf("\n%s\n", "Reach parallel region");
   scen_init (argv[2]);
+  printf("\n%s\n", "Reach parallel region");
 
   /*
    *
