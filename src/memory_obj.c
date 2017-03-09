@@ -410,7 +410,6 @@ void
 
   mem_allocate ();
   mem_partition (memlog_fp);
-  printf("\n%s\n", "Reach parallel region");
   mem_InvalidateCheckArray ();
   mem_CloseLog ();
 }
@@ -611,6 +610,8 @@ static void
       fprintf (fp, "%d igrid_array[%2u]\n", igrid_array[i].ptr, i);
     }
   }
+
+  printf("\n%s\n", "Reach parallel region");
 
   for (i = 0; i < NUM_THREADS; ++i)
   {
