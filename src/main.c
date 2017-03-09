@@ -576,6 +576,8 @@ int
                 proc_IncrementCurrentRun ();
               }
 
+              printf("%s\n", "Reach parallel region");
+
               sprintf (fname, "%s%s%u", scen_GetOutputDir (),
                        RESTART_FILE, glb_mype);
               out_write_restart_data (fname,
