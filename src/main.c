@@ -165,9 +165,8 @@ int
     proc_SetProcessingType (CALIBRATING);
     strcpy (processing_str, "CALIBRATING");
   }
-  printf("\n%s\n", "Reach parallel region");
+  
   scen_init (argv[2]);
-  printf("\n%s\n", "Reach parallel region");
 
   /*
    *
@@ -197,6 +196,8 @@ int
     landclassSetType (i, scen_GetLanduseClassType (i));
     landclassSetColor (i, scen_GetLanduseClassColor (i));
   }
+
+  printf("\n%s\n", "Reach parallel region");
 
   /*
    *
