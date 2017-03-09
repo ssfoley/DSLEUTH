@@ -251,6 +251,8 @@ int
   coeff_SetBestFitSlopeResist (scen_GetCoeffSlopeResistBestFit ());
   coeff_SetBestFitRoadGravity (scen_GetCoeffRoadGravityBestFit ());
 
+  printf("\n%s\n", "Reach parallel region");
+
   /*
    *
    * INITIALIZE IGRID
@@ -546,9 +548,6 @@ int
      *
      */
     proc_SetStopYear (igrid_GetUrbanYear (igrid_GetUrbanCount () - 1));
-
-    printf("%s\n", "Reach parallel region");
-
 
     for (diffusion_coeff = coeff_GetStartDiffusion ();
          diffusion_coeff <= coeff_GetStopDiffusion ();
