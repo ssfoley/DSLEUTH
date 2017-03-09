@@ -630,8 +630,6 @@ static void
     }
   }
 
-  printf("\n%s\n", "Reach parallel region");
-
   for (i = 0; i < NUM_THREADS; i++)
   {
     for (j = 0; j < wgrid_GetWGridCount (); ++j)
@@ -651,6 +649,8 @@ static void
       }
     }
   }
+
+  printf("\n%s\n", "Reach parallel region");
 
   // for (i = 0; i < pgrid_GetPGridCount (); i++)
   // {
