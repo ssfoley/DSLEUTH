@@ -547,6 +547,8 @@ int
      */
     proc_SetStopYear (igrid_GetUrbanYear (igrid_GetUrbanCount () - 1));
 
+    printf("%s\n", "Reach parallel region");
+
 
     for (diffusion_coeff = coeff_GetStartDiffusion ();
          diffusion_coeff <= coeff_GetStopDiffusion ();
@@ -575,8 +577,6 @@ int
                 proc_SetRun(proc_GetCurrentRun());
                 proc_IncrementCurrentRun ();
               }
-
-              printf("%s\n", "Reach parallel region");
 
               sprintf (fname, "%s%s%u", scen_GetOutputDir (),
                        RESTART_FILE, glb_mype);
