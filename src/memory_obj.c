@@ -409,8 +409,8 @@ void
   }
 
   mem_allocate ();
-  printf("\n%s\n", "Reach parallel region");
   mem_partition (memlog_fp);
+  printf("\n%s\n", "Reach parallel region");
   mem_InvalidateCheckArray ();
   mem_CloseLog ();
 }
