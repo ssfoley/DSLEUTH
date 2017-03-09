@@ -197,8 +197,6 @@ int
     landclassSetColor (i, scen_GetLanduseClassColor (i));
   }
 
-  printf("\n%s\n", "Reach parallel region");
-
   /*
    *
    * SET UP COEFFICIENTS
@@ -253,6 +251,8 @@ int
   coeff_SetBestFitBreed (scen_GetCoeffBreedBestFit ());
   coeff_SetBestFitSlopeResist (scen_GetCoeffSlopeResistBestFit ());
   coeff_SetBestFitRoadGravity (scen_GetCoeffRoadGravityBestFit ());
+
+  printf("\n%s\n", "Reach parallel region");
 
   /*
    *
