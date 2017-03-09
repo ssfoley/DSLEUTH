@@ -174,6 +174,8 @@ int
    */
   random_seed = scen_GetRandomSeed ();
 
+  printf("\n%s\n", "Reach parallel region");
+
 /*
  * void landclassSetGrayscale (int index, int val);
  * void landclassSetColor (int index, int val);
@@ -250,8 +252,6 @@ int
   coeff_SetBestFitBreed (scen_GetCoeffBreedBestFit ());
   coeff_SetBestFitSlopeResist (scen_GetCoeffSlopeResistBestFit ());
   coeff_SetBestFitRoadGravity (scen_GetCoeffRoadGravityBestFit ());
-
-  printf("\n%s\n", "Reach parallel region");
 
   /*
    *
