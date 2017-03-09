@@ -318,9 +318,7 @@ int
 #ifdef MPI
   MPI_Barrier (MPI_COMM_WORLD);
 #endif
-  printf("\n%s\n", "Reach parallel region");
   mem_Init ();
-  printf("\n%s\n", "Reach parallel region");
   if (scen_GetLogFlag ())
   {
     scen_Append2Log ();
