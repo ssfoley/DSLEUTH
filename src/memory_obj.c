@@ -408,9 +408,8 @@ void
     fprintf (memlog_fp, "bytes2allocate = %u\n", bytes2allocate);
   }
 
-  printf("\n%s\n", "Reach parallel region");
-
   mem_allocate ();
+  printf("\n%s\n", "Reach parallel region");
   mem_partition (memlog_fp);
   mem_InvalidateCheckArray ();
   mem_CloseLog ();
