@@ -630,7 +630,7 @@ static void
     }
   }
 
-  for (i = 0; i < NUM_THREADS; i++)
+  for (i = 0; i < NUM_THREADS; ++i)
   {
     for (j = 0; j < wgrid_GetWGridCount (); ++j)
     {
@@ -901,6 +901,7 @@ static int
 static void
   mem_wgrid_push (int i, int j)
 {
+  printf("%s\n", "push grid");
   char func[] = "mem_wgrid_push";
   if (wgrid_free_tos[i] >= 50)
   {
