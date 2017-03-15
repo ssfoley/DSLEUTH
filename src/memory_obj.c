@@ -915,6 +915,7 @@ static void
   mem_InvalidateGrid (wgrid_array[i][j].ptr);
 #endif
   wgrid_free_tos[i]++;
+  printf("%s\n", "end push grid");
 }
 
 /******************************************************************************
