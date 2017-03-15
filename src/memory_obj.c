@@ -367,11 +367,11 @@ void
       check_pixel_count * (size_t)BYTES_PER_PIXEL;
   igrid_size = bytes_p_packed_grid_rounded2wordboundary / BYTES_PER_WORD;
 #else
-  printf("%s\n", "else");
   bytes2allocate = (size_t)igrid_count * bytes_p_grid_rounded2wordboundary +
     pgrid_count * NUM_THREADS * bytes_p_grid_rounded2wordboundary +
     wgrid_count * NUM_THREADS * bytes_p_grid_rounded2wordboundary +
       check_pixel_count * (size_t)BYTES_PER_PIXEL;
+  printf("%d\n", bytes2allocate);
   igrid_size = bytes_p_grid_rounded2wordboundary / BYTES_PER_WORD;
 #endif
   mem_check_size = 1;
