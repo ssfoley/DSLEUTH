@@ -643,6 +643,7 @@ static void
       mem_InvalidateGrid (wgrid_array[i][j].ptr);
       //printf("%d %d\n", i, j);
       temp_ptr += wgrid_size;
+      printf("%u\n", wgrid_size);
       strcpy (wgrid_array[i][j].current_owner, "");
       mem_wgrid_push (i, j);
       if (fp)
