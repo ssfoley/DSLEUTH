@@ -371,7 +371,7 @@ void
     pgrid_count * NUM_THREADS * bytes_p_grid_rounded2wordboundary +
     wgrid_count * NUM_THREADS * bytes_p_grid_rounded2wordboundary +
       check_pixel_count * (size_t)BYTES_PER_PIXEL;
-  printf("%u\n", bytes2allocate);
+  //printf("%u\n", bytes2allocate);
   igrid_size = bytes_p_grid_rounded2wordboundary / BYTES_PER_WORD;
 #endif
   mem_check_size = 1;
@@ -588,6 +588,7 @@ static void
   PIXEL *temp_ptr = (PIXEL *) mem_ptr;
   PIXEL *end_ptr;
 
+  printf("%s %u\n", "start address : ", mem_ptr);
 
   if (fp)
   {
@@ -638,8 +639,9 @@ static void
       mem_check_array[mem_check_count++] = temp_ptr;
       temp_ptr += mem_check_size;
       wgrid_array[i][j].ptr = (GRID_P) temp_ptr;
+      printf("%s %u\n", "wgrid address : ", temp_ptr);
       mem_InvalidateGrid (wgrid_array[i][j].ptr);
-      printf("%d %d\n", i, j);
+      //printf("%d %d\n", i, j);
       temp_ptr += wgrid_size;
       strcpy (wgrid_array[i][j].current_owner, "");
       mem_wgrid_push (i, j);
