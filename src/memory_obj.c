@@ -639,6 +639,7 @@ static void
       wgrid_array[i][j].ptr = (GRID_P) temp_ptr;
       mem_InvalidateGrid (wgrid_array[i][j].ptr);
       temp_ptr += wgrid_size;
+      printf("%d %d\n", i, j);
       strcpy (wgrid_array[i][j].current_owner, "");
       mem_wgrid_push (i, j);
       if (fp)
@@ -650,7 +651,7 @@ static void
     }
   }
 
-  printf("\n%s\n", "Reach parallel region");
+  //printf("\n%s\n", "Reach parallel region");
 
   // for (i = 0; i < pgrid_GetPGridCount (); i++)
   // {
@@ -901,7 +902,7 @@ static int
 static void
   mem_wgrid_push (int i, int j)
 {
-  printf("%s\n", "push grid");
+  //printf("%s\n", "push grid");
   char func[] = "mem_wgrid_push";
   if (wgrid_free_tos[i] >= 50)
   {
@@ -915,7 +916,7 @@ static void
   mem_InvalidateGrid (wgrid_array[i][j].ptr);
 #endif
   wgrid_free_tos[i]++;
-  printf("%s\n", "end push grid");
+  //printf("%s\n", "end push grid");
 }
 
 /******************************************************************************
