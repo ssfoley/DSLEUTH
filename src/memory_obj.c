@@ -636,8 +636,8 @@ static void
     {
       mem_check_array[mem_check_count++] = temp_ptr;
       temp_ptr += mem_check_size;
-      printf("%d %d\n", i, j);
       wgrid_array[i][j].ptr = (GRID_P) temp_ptr;
+      printf("%d %d\n", i, j);
       mem_InvalidateGrid (wgrid_array[i][j].ptr);
       temp_ptr += wgrid_size;
       strcpy (wgrid_array[i][j].current_owner, "");
