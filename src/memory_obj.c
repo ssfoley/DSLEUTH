@@ -592,7 +592,7 @@ static void
   PIXEL *temp_ptr = (PIXEL *) mem_ptr;
   PIXEL *end_ptr;
 
-  printf("%s %u\n", "start address : ", mem_ptr);
+  //printf("%s %u\n", "start address : ", mem_ptr);
 
   if (fp)
   {
@@ -642,13 +642,13 @@ static void
     {
       mem_check_array[mem_check_count++] = temp_ptr;
       temp_ptr += size;
-      //printf("%d\n", mem_check_size);
+      printf("%d\n", mem_check_size);
       wgrid_array[i][j].ptr = (GRID_P) temp_ptr;
-      //printf("%s %u\n", "wgrid address : ", temp_ptr);
+      printf("%s %u\n", "wgrid address : ", temp_ptr);
       mem_InvalidateGrid (wgrid_array[i][j].ptr);
       //printf("%d %d\n", i, j);
       temp_ptr += w_size;
-      //printf("%d\n", wgrid_size);
+      printf("%d\n", wgrid_size);
       strcpy (wgrid_array[i][j].current_owner, "");
       mem_wgrid_push (i, j);
       if (fp)
