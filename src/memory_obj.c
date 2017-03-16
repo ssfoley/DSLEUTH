@@ -694,6 +694,9 @@ static void
   //     fprintf (fp, "%d wgrid_array[%2u]\n", wgrid_array[i].ptr, i);
   //   }
   // }
+
+  printf("%s\n", "end loop");
+
   mem_check_array[mem_check_count++] = temp_ptr;
   if (fp)
   {
