@@ -695,7 +695,7 @@ static void
   //   }
   // }
 
-  printf("%s\n", "end loop");
+  //printf("%s\n", "end loop");
 
   mem_check_array[mem_check_count++] = temp_ptr;
   if (fp)
@@ -704,12 +704,14 @@ static void
              mem_check_array[mem_check_count - 1], mem_check_count - 1);
     fprintf (fp, "%d End of memory \n", end_ptr);
   }
+
+  printf("%s\n", "end loop");
   // min_wgrid_free_tos = wgrid_free_tos;
   for (i = 0; i < NUM_THREADS; ++i)
   {
     min_wgrid_free_tos[i] = wgrid_free_tos[i];
   }
-
+  printf("%s\n", "end loop");
 }
 
 /******************************************************************************
