@@ -585,6 +585,10 @@ static void
   mem_partition (FILE * fp)
 {
   int i, j;
+  int size = mem_check_size;
+  int w_size = wgrid_size;
+  int p_size = pgrid_size;
+  int i_size = igrid_size;
   PIXEL *temp_ptr = (PIXEL *) mem_ptr;
   PIXEL *end_ptr;
 
@@ -600,9 +604,9 @@ static void
   for (i = 0; i < igrid_GetIGridCount (); i++)
   {
     mem_check_array[mem_check_count++] = temp_ptr;
-    temp_ptr += mem_check_size;
+    temp_ptr += size;
     igrid_array[i].ptr = (GRID_P) temp_ptr;
-    temp_ptr += igrid_size;
+    temp_ptr += i_size;
     strcpy (igrid_array[i].current_owner, "");
     mem_igrid_push (i);
     if (fp)
@@ -618,9 +622,9 @@ static void
     for (j = 0; j < pgrid_GetPGridCount (); ++j)
     {
       mem_check_array[mem_check_count++] = temp_ptr;
-      temp_ptr += mem_check_size;
+      temp_ptr += size;
       pgrid_array[i][j].ptr = (GRID_P) temp_ptr;
-      temp_ptr += pgrid_size;
+      temp_ptr += p_size;
       strcpy (pgrid_array[i][j].current_owner, "");
       mem_pgrid_push (i, j);
       if (fp)
@@ -637,14 +641,14 @@ static void
     for (j = 0; j < wgrid_GetWGridCount (); ++j)
     {
       mem_check_array[mem_check_count++] = temp_ptr;
-      temp_ptr += mem_check_size;
-      printf("%d\n", mem_check_size);
+      temp_ptr += size;
+      //printf("%d\n", mem_check_size);
       wgrid_array[i][j].ptr = (GRID_P) temp_ptr;
-      printf("%s %u\n", "wgrid address : ", temp_ptr);
+      //printf("%s %u\n", "wgrid address : ", temp_ptr);
       mem_InvalidateGrid (wgrid_array[i][j].ptr);
       //printf("%d %d\n", i, j);
-      temp_ptr += wgrid_size;
-      printf("%d\n", wgrid_size);
+      temp_ptr += w_size;
+      //printf("%d\n", wgrid_size);
       strcpy (wgrid_array[i][j].current_owner, "");
       mem_wgrid_push (i, j);
       if (fp)
