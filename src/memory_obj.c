@@ -20,6 +20,7 @@
 *******************************************************************************
 \*****************************************************************************/
 #define MEM_ARRAY_SIZE 50
+#define MEM_CHECK_ARRAY_SIZE 1024
 #define INVALID_VAL 0xAAAAAAAA
 
 /*****************************************************************************\
@@ -62,7 +63,7 @@ static int wgrid_free[NUM_THREADS][MEM_ARRAY_SIZE];
 static int wgrid_free_tos[NUM_THREADS];
 static int min_wgrid_free_tos[NUM_THREADS];
 static mem_track_info wgrid_array[NUM_THREADS][MEM_ARRAY_SIZE];
-static PIXEL *mem_check_array[MEM_ARRAY_SIZE];
+static PIXEL *mem_check_array[MEM_CHECK_ARRAY_SIZE];
 static int mem_check_count;
 static int mem_check_size;
 static int igrid_size;
