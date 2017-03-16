@@ -646,7 +646,7 @@ static void
       wgrid_array[i][j].ptr = (GRID_P) temp_ptr;
       printf("%s %u\n", "wgrid address : ", temp_ptr);
       mem_InvalidateGrid (wgrid_array[i][j].ptr);
-      //printf("%d %d\n", i, j);
+      printf("%d %d\n", i, j);
       temp_ptr += w_size;
       printf("%d\n", w_size);
       strcpy (wgrid_array[i][j].current_owner, "");
