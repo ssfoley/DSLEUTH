@@ -856,6 +856,7 @@ static void
 double
   stats_GetPercentUrban ()
 {
+  //printf("\n%s %d\n", "percent_urban", record.this_year.percent_urban);
   return record.this_year.percent_urban;
 }
 /******************************************************************************
@@ -875,6 +876,7 @@ static void
 {
   record.this_year.growth_rate =
     record.this_year.num_growth_pix / record.this_year.pop * 100.0;
+  //printf("\n%s %f %f", "set growth_rate", record.this_year.num_growth_pix, record.this_year.pop);
 }
 /******************************************************************************
 *******************************************************************************
@@ -890,6 +892,7 @@ static void
 double
   stats_GetGrowthRate ()
 {
+  //printf("\n%s %f\n", "growth_rate", record.this_year.growth_rate);
   return record.this_year.growth_rate;
 }
 /******************************************************************************
@@ -1399,14 +1402,14 @@ static void
                        &mean_cluster_size,                   /* OUT    */
                        stats_workspace1,                     /* MOD    */
                        stats_workspace2);                  /* MOD    */
-  printf("\n%s %f %f %f %f %f %f %f %f %s\n", "开始", area, edges, clusters, pop, xmean, ymean, slope, rad, mean_cluster_size, "结束");
-  FILE *file = fopen("debug.txt", "w");
-  fprintf(file, "%d\n", proc_GetCurrentYear());
-  for (i = 0; i < mem_GetTotalPixels(); ++i)
-    {
-      fprintf(file, "%d\n", z_ptr[i]);
-    }
-  printf("%s\n", "完成");
+  //printf("\n%s %f %f %f %f %f %f %f %f %s\n", "开始", area, edges, clusters, pop, xmean, ymean, slope, rad, mean_cluster_size, "结束");
+  //FILE *file = fopen("debug.txt", "w");
+  //fprintf(file, "%d\n", proc_GetCurrentYear());
+  //for (i = 0; i < mem_GetTotalPixels(); ++i)
+  //{
+  //  fprintf(file, "%d\n", z_ptr[i]);
+  //}
+  //printf("%s\n", "完成");
   record.this_year.area = area;
   record.this_year.edges = edges;
   record.this_year.clusters = clusters;
