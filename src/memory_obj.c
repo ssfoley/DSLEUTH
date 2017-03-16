@@ -535,13 +535,13 @@ void
 static void
   mem_InvalidateCheckArray ()
 {
-  printf("%s\n", "start check");
+  //printf("%s\n", "start check");
   int i;
   for (i = 0; i < mem_check_count; i++)
   {
     *(mem_check_array[i]) = invalid_val;
   }
-  printf("%s\n", "end check");
+  //printf("%s\n", "end check");
 }
 
 /******************************************************************************
