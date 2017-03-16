@@ -319,6 +319,7 @@ int
   MPI_Barrier (MPI_COMM_WORLD);
 #endif
   mem_Init ();
+  printf("%s\n", "end mem init");
   if (scen_GetLogFlag ())
   {
     scen_Append2Log ();
