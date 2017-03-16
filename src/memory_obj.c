@@ -412,6 +412,7 @@ void
   mem_allocate ();
   mem_partition (memlog_fp);
   mem_InvalidateCheckArray ();
+  printf("%s\n", "end check");
   mem_CloseLog ();
 }
 
@@ -705,13 +706,13 @@ static void
     fprintf (fp, "%d End of memory \n", end_ptr);
   }
 
-  printf("%s\n", "end loop");
+  //printf("%s\n", "end loop");
   // min_wgrid_free_tos = wgrid_free_tos;
   for (i = 0; i < NUM_THREADS; ++i)
   {
     min_wgrid_free_tos[i] = wgrid_free_tos[i];
   }
-  printf("%s\n", "end loop");
+  //printf("%s\n", "end loop");
 }
 
 /******************************************************************************
