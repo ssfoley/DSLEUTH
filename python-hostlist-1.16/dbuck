@@ -1,0 +1,327 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# data aggregation tool - hostlist collected histograms on numerical data
+
+__version__ = "1.16"
+
+# Copyright (C) 2010 Peter Kjellström <cap@nsc.liu.se>
+#               
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
+
+import sys
+import optparse
+import commands
+import math
+from pprint import pprint
+from hostlist import collect_hostlist
+
+def gettermwidth():
+    try:
+        cols = int(commands.getoutput("/bin/stty -F /dev/tty size").split()[1])
+    except:
+        cols = 80
+    return cols
+
+## Statistical functions
+
+def mean(list):
+    return sum(list)/float(len(list))
+
+def median(list):
+    tmp = list[:]
+    tmp.sort()
+    if (len(tmp) % 2) == 0:
+        return (tmp[(len(tmp)/2)-1] + tmp[(len(tmp)/2)]) / 2
+    else:
+        return tmp[int(len(tmp)/2)]
+
+def stdev(list):
+    m = mean(list)
+    return math.sqrt(mean( [ (m - x)**2 for x in list ] ))
+
+# clean and refine indata: list of STRING -> list of [ "hostname", float vaule ]
+def refine_data(rawlist):
+    if opts.debug:
+        print "Debug: read in %i lines of data" % len(rawlist)
+
+    # Transform additional separators -> " "
+    for char in opts.field_separators:
+        if opts.debug:
+            print "Debug: adding additional field separator: \"%s\"" % char
+        for i in range(len(rawlist)):
+            tmp = rawlist[i].replace(char, " ")
+            rawlist[i] = tmp
+
+    if not opts.key:
+        if len(rawlist) < 3:
+            print "Error: not enough data for auto-detect, please use -k"
+            sys.exit(1)
+
+        # list to hold candidates for KEY
+        key = []
+        # Lets have a look at the last three lines
+        for lnum in range(len(rawlist)-3,len(rawlist)):
+            sline = rawlist[lnum].strip().split()
+            if len(sline) < 2:
+                key.append(0)
+                continue
+            # The first column that can be converted to a float will be our candidate
+            for i in [ x + 1 for x in range(len(sline[1:])) ]:
+                tmp = None
+                try:
+                    tmp = float(sline[i])
+                except ValueError:
+                    pass
+                if tmp != None:
+                    if opts.debug:
+                        print "Debug: auto-detect row=%i found data at column %i" % (lnum, i)
+                    key.append(i)
+                    break
+        if opts.debug:
+            print "Debug: key list after auto-detect: %s" % str(key)
+
+        # If more than half of the investigated lines have the same candidate...
+        for candidate in key:
+            if key.count(candidate) == len(key):
+                opts.key = candidate
+                if opts.verbose:
+                    print "Info: auto-detect unanimously selected key: %i" % candidate
+                break
+            if key.count(candidate) > (len(key) / 2):
+                opts.key = candidate
+                if opts.verbose:
+                    print "Info: auto-detect selected key: %i by majority choice" % candidate
+                break
+        
+        # No winner found (or winner was 'bad line')
+        if not opts.key or (opts.key == 0):
+            print "Error: Unable to auto-detect KEY from data"
+            sys.exit(1)
+
+    nreject = 0
+    cleandata = []
+    for line in rawlist:
+        sline = line.strip().split()
+        tmp = None
+        try:
+            tmp = float(sline[opts.key])
+        except (ValueError, IndexError):
+            pass
+        if tmp != None:
+            cleandata.append([ sline[0].strip(":"), tmp ])
+        else:
+            nreject += 1
+            if opts.verbose:
+                print "Info: rejected line: \"%s\"" % line.strip()
+
+    return (cleandata, nreject)
+
+def addoverflowbuckets(blist, rmin, vmax):
+    blist.insert(0, {'ub': rmin, 'special': 'underflow'})
+    blist.append({'ub': vmax, 'special':'overflow'})
+    return
+
+# New bucket creation function
+def create_buckets_new(valuelist, num, vmin, vmax):
+    if opts.debug:
+        print "Debug: range is %f to %f split into %i buckets" % (vmin, vmax, num)
+    blist = []
+    ub = vmin
+    for b in range(num):
+        ub += (vmax-vmin) / num
+        blist.append({'ub': ub})
+    blist[-1]['ub'] = vmax
+    return blist
+
+
+##
+### Main program
+##        
+
+optp = optparse.OptionParser(usage="usage: %prog [options] < DATA")
+optp.add_option("-r", "--range",
+                action="store", type="string", metavar="LOW-HI",
+                help="explicitly specify a value range")
+optp.add_option("-o", "--show-overflow",
+                action="store_true", default=False,
+                help="include two extra buckets (over- and under-flow)")
+optp.add_option("-k", "--key",
+                action="store", type="int", default=None,
+                help="use data at position KEY (default: auto)")
+optp.add_option("-n", "--nbuckets",
+                action="store", type="int", default=5,
+                help="number of buckets to use (default: %default)")
+optp.add_option("-s", "--statistics",
+                action="store_true", default=False,
+                help="include a statistical summary")
+optp.add_option("-S", "--chop-long-lines",
+                action="store_true", default=False,
+                help="chop too long lines / enforce one output line per bucket")
+optp.add_option("-t", "--field-separators",
+                action="store", type="string", default="",
+                help="_additional_ field separators (default: \"\")")
+optp.add_option("-v", "--verbose",
+                action="store_true", default=False)
+optp.add_option("--debug",
+                action="store_true", default=False)
+(opts, args) = optp.parse_args(sys.argv[1:])
+
+if opts.debug:
+    opts.verbose = True
+
+if args != []:
+    optp.print_help()
+    sys.exit(1)
+
+if opts.nbuckets < 1:
+    print "Error: number of buckets must be a positive integer"
+    sys.exit(1)
+
+if (opts.show_overflow and not opts.range):
+    print "Warning: --show-overflow only has meaning with --range"
+
+if opts.range:
+    try:
+        (rmin, rmax) = map(float, opts.range.split("-"))
+    except ValueError:
+        print "Error: invalid range specified"
+        sys.exit(1)
+
+termwidth = gettermwidth()
+if opts.debug:
+    print "Debug: termwidth: %i" % termwidth
+
+try:
+    rawdata = sys.stdin.readlines()
+except KeyboardInterrupt:
+    if opts.verbose:
+        print "Info: Caught keyboard interrupt, exiting..."
+    sys.exit(1)
+
+# do list of str -> list of [ hostname, value ] and discard bad lines
+if (len(rawdata) == 0):
+    print "Error: No data found"
+    sys.exit(1)
+(data, nbadlines) = refine_data(rawdata)
+if (len(data) == 0):
+    print "Error: No data found"
+    sys.exit(1)
+
+# sort it
+data.sort(lambda a, b: cmp(a[1], b[1]))
+# put the values in a simple list
+valuelist = map(lambda(x): x[1], data)
+
+if opts.range:
+    vmin = min(valuelist)
+    vmax = max(valuelist)
+else:
+    rmin = vmin = min(valuelist)
+    rmax = vmax = max(valuelist)
+
+if opts.range:
+    nunder = len([ 1 for x in valuelist if x < rmin ])
+    nover = len([ 1 for x in valuelist if x > rmax ])
+if opts.debug:
+    print "Debug: cleaned up data: %s" % str(data)
+
+# Create the bucket list
+newbuckets = create_buckets_new(valuelist, opts.nbuckets, rmin, rmax)
+if opts.range:
+    addoverflowbuckets(newbuckets, rmin, vmax)
+
+for nbucket in xrange(len(newbuckets)):
+    newbuckets[nbucket]['nodelist'] = []
+
+if opts.debug:
+    print "Debug: bucketlist created:"
+    for nbucket in xrange(len(newbuckets)):
+        print "Debug:  bucket[%i] %f" % (nbucket, newbuckets[nbucket]['ub'])
+
+# Dump out some statistics
+if opts.statistics:
+    print "Statistical summary"
+    print "-" * (termwidth - 1)
+    print " %-26s: %i" % ("Number of values", len(valuelist))
+    print " %-26s: %i" % ("Number of rejected lines", nbadlines)
+    if opts.range:
+        print " %-26s: %i" % ("Number of overflow values", nover)
+        print " %-26s: %i" % ("Number of underflow values", nunder)
+    print " %-26s: %f" % ("Min value", valuelist[0])
+    print " %-26s: %f" % ("Max value", valuelist[-1])
+    print " %-26s: %f" % ("Mean", mean(valuelist))
+    print " %-26s: %f" % ("Median", median(valuelist))
+    print " %-26s: %f" % ("Standard deviation", stdev(valuelist))
+    print " %-26s: %f" % ("Sum", sum(valuelist))
+    print
+
+
+#pprint(["final newbuckets", newbuckets])
+
+# Populate the buckets with data
+currentbucket = 0
+for (node, value) in data:
+    while ((newbuckets[currentbucket]['ub'] < value) or
+           (value == rmin and currentbucket == 0 and 'special' in newbuckets[0])):
+        currentbucket += 1
+        if opts.debug:
+            print "Debug: bumping bucket number..."
+    if opts.debug:
+        print "Debug: %i: adding %s %.2f" % (currentbucket, node, value)
+    newbuckets[currentbucket]['nodelist'].append(node)
+
+# Compute number of characters needed for printing values and number of nodes
+ncharvalue = len(str("%.2f" % valuelist[-1]))
+ncharnodecnt = max(len(str(max( [ len(bucket['nodelist']) for bucket in newbuckets ] ))), 3)
+
+if opts.debug:
+    print "Debug: value pad: %i" % ncharvalue
+    print "Debug: node count pad: %i" % ncharnodecnt
+
+# Print out a header if --verbose
+if opts.verbose:
+    print "%sLOW-%sHI: %sCNT  HOSTLIST" % (" " * (ncharvalue - 3),
+                                           " " * (ncharvalue - 2),
+                                           " " * (ncharnodecnt - 3))
+    print "-" * termwidth
+
+# Main output print
+lower = valuelist[0]
+for bucket in newbuckets:
+    # figure out the padding for each column
+    pad1 = (ncharvalue - len(str("%.2f" % lower))) * " "
+    pad2 = (ncharvalue - len(str("%.2f" % bucket['ub']))) * " "
+    pad3 = (ncharnodecnt - len(str(len(bucket['nodelist'])))) * " "
+
+    nodeliststr = collect_hostlist(bucket['nodelist'])
+    if opts.chop_long_lines and len(nodeliststr) > (termwidth - (ncharvalue * 2 + ncharnodecnt + 5)):
+        nodeliststr = nodeliststr[:(termwidth - (ncharvalue * 2 + ncharnodecnt + 5 + 3))] + "..."
+
+    if 'special' in bucket:
+        if opts.show_overflow:
+            specpad = " " * max(len("%s%.2f-%s%.2f" %
+                                    (pad1, lower ,pad2, bucket['ub'])) - 9,
+                                0)
+            print "%-9s%s: %s%i  %s" % (bucket['special'], specpad,
+                                        pad3, len(bucket['nodelist']),
+                                        nodeliststr)
+    else:
+        print "%s%.2f-%s%.2f: %s%i  %s" % (pad1, lower,
+                                           pad2, bucket['ub'],
+                                           pad3, len(bucket['nodelist']),
+                                           nodeliststr)
+    lower = bucket['ub']

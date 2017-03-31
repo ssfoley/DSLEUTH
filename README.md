@@ -31,5 +31,5 @@ You will want to replace <mode> with the correct mode of the code you want to us
 
 * *test* - a mode where the images to be used are analyzed for anamolies that would cause the code to break.
 * *calibrate* - a mode where a parameter sweep over possible prediction parameters is performed to narrow down what the parameters for the final prediction phase should be.
-* *prediction* - a mode where future images are predicted based on previous data and parameters.
+* *predict* - a mode where future images are predicted based on previous data and parameters.
 
