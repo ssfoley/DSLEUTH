@@ -1,0 +1,91 @@
+June 28, 2005
+
+This version of SLEUTH has some minor code modifications that allow the model to run in Linux. Running the original code in Linux produces corrupt GIF files.
+
+These changes were compiled from the SLEUTH discussion board and the list-serv. In particular, these two posts:
+
+http://bbs.geog.ucsb.edu/ubb/Forum17/HTML/000085.html
+http://bbs.geog.ucsb.edu/ubb/Forum17/HTML/000110.html
+
+Thanks to Jen Small (University of Maryland), Jeffrey Edgington (University of Denver), and Claire Jantz (The Woods Hole Research Center) for these posts.
+
+The following six changes were made, and note number 5, which refers to user settings in the Scenario file. The note at the end refers to additional changes for Cygwin users.
+
+(1) in the file 'color_obj.c' change lines 246, 247 and 248:
+
+old lines were
+
+color_table_landuse_ptr->color[i].red = (color_val & RED_MASK) >> 16;
+color_table_landuse_ptr->color[i].green = (color_val & GREEN_MASK) >> 8;
+color_table_landuse_ptr->color[i].blue = color_val & BLUE_MASK;
+
+new lines are
+
+color_table_landuse_ptr->color[index].red = (color_val & RED_MASK) >> 16;
+color_table_landuse_ptr->color[index].green = (color_val & GREEN_MASK) >> 8;
+color_table_landuse_ptr->color[index].blue = color_val & BLUE_MASK;
+
+This fixed a bug in the color_obj.c code. An index was wrong and it was
+overwriting the probability color table.
+
+(2) in 'ugm_defines.h'
+
+changed line 53 '#define BYTES_PER_WORD(WORD_BIT/8)'
+to '#define BYTES_PER_WORD sizeof(PIXEL)'
+
+This change ensured that the size of a long integer is correctly defined.
+
+(3) in 'main.c'
+
+replace 'WORD_BIT' in line 292 with 'BYTES_PER_WORD*8'
+
+This change removed the reference to WORD_BIT and prints the size of
+a long integer (in bits) to the log file. This line can also be deleted
+without consequences as it's only purpose is to print to the log file.
+
+
+(4) in 'memory_obj.c'
+
+removed line 376 'fprintf (memlog_fp, "WORD_BIT = %u\n", WORD_BIT);'
+
+replaced '(WORD_BIT / 8)' in line 577 with 'BYTES_PER_WORD'
+
+
+Removal of line 376 was needed since WORD_BIT may not be defined; this line
+was printing to the log file and is not necessary.
+
+The second change ensured that the proper amount of memory is allocated
+given the size of a long integer in your architecture.
+
+
+(5) In the Scenario file
+
+Change WRITE_MEMORY_MAP to yes.
+
+SLEUTH attempts to close that memory log file whether you requested
+to write it or not. Some systems, particularly Linux, have issues with
+closing files that do not exist.
+
+(6) In growth.c
+
+Changed lines 73 and 360 'char date_str[4];' to 'char date_str[5];'
+
+The string variable date_str was too short. It is assigned to hold a 4 character year but that does not leave room for the \0 terminator character at the end. The \0 was being written into the gif_filename variable under Cygwin which truncated the filename and prevented the output file from being opened correctly.
+
+**NOTE: YOU MAY NEED TO MAKE ADDITIONAL CHANGES TO RUN SLEUTH IN CYGWIN (www.cygwin.com):
+
+You may need to add the current directory to your initial path settings so that you can execute grow, and you need to make sure that Cygwin can find the cygwin1.dll file.
+
+Find the cygwin.bat file; it should be in the directory where Cygwin was installed. Also, find the file 'cygwin1.dll' (should be in c:\cygwin\bin on the default installation).
+
+1) Add these two lines to the cygwin.bat file:
+
+PATH = ${PATH};.
+LD_LIBRARY_PATH = c:\cygwin\bin
+
+2) Replace c:\cygwin\bin with the directory that cygwin1.dll is in if not c:\cygwin\bin. Save cygwin.bat and close it.
+
+You have to quit Cygwin and restart it for the new changes to take effect.
+
+
+
