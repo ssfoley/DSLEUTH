@@ -658,10 +658,10 @@ int
               }
 #else
               drv_driver ();
-              #pragma omp critical
-              {
+              //#pragma omp critical
+              //{
                 proc_IncrementNumRunsExecThisCPU ();
-              }
+		//}
               if (scen_GetLogFlag ())
               {
                 if (scen_GetLogTimingsFlag () > 1)
@@ -672,10 +672,10 @@ int
                 }
               }
 #endif
-              #pragma omp critical
-              {
+              //#pragma omp critical
+              //{
                 proc_IncrementCurrentRun ();
-              }
+		//}
               if (proc_GetProcessingType () == TESTING)
               {
                 stats_ConcatenateControlFiles ();
