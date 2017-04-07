@@ -1,3 +1,4 @@
+#include "ugm_macros.h"
 #ifndef RANDOM_H
 #define RANDOM_H
 
@@ -5,7 +6,7 @@
   /* stuff visable only to the random module */
 char random_h_sccs_id[] = "@(#)random.h	1.230	12/4/00";
 
-  RANDOM_SEED_TYPE   ran_seed;
+  RANDOM_SEED_TYPE   ran_seed[NUM_THREADS];
   int    glb_random_count;
 
 #else
@@ -18,7 +19,7 @@ char random_h_sccs_id[] = "@(#)random.h	1.230	12/4/00";
 
 
 #if 1
-#define RANNUM ran_random(&ran_seed)
+#define RANNUM ran_random(&ran_seed[omp_get_thread_num()])
 #else
 #endif
 
