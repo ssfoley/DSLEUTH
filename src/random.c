@@ -38,6 +38,7 @@ static RANDOM_SEED_TYPE iy[NUM_THREADS];
 double
   ran_random (RANDOM_SEED_TYPE * ran_idum)
 {
+  return 0.5;
   int thread_id = omp_get_thread_num();
   char func[] = "ran_random";
   int j;
