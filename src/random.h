@@ -1,4 +1,3 @@
-#include "ugm_macros.h"
 #ifndef RANDOM_H
 #define RANDOM_H
 
@@ -11,7 +10,7 @@ char random_h_sccs_id[] = "@(#)random.h	1.230	12/4/00";
 
 #else
 
-  extern RANDOM_SEED_TYPE   ran_seed;
+  extern RANDOM_SEED_TYPE   ran_seed[NUM_THREADS];
   extern int    glb_random_count;
 
 #endif
