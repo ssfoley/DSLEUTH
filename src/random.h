@@ -19,7 +19,7 @@ char random_h_sccs_id[] = "@(#)random.h	1.230	12/4/00";
 
 
 #if 1
-#define RANNUM ran_random(&ran_seed[omp_get_thread_num()])
+#define RANNUM ran_random(&(ran_seed[omp_get_thread_num()]))
 #else
 #endif
 
