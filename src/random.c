@@ -113,7 +113,7 @@ void
 {
   char func[] = "InitRandom";
   FUNC_INIT;
-  ran_seed = -labs (seed);
+  ran_seed[omp_get_thread_num()] = -labs (seed);
   RANNUM;
   FUNC_END;
 }
