@@ -6,13 +6,11 @@
 char random_h_sccs_id[] = "@(#)random.h	1.230	12/4/00";
 
   RANDOM_SEED_TYPE   ran_seed;
-  #pragma omp threadprivate(ran_seed)
   int    glb_random_count;
 
 #else
 
   extern RANDOM_SEED_TYPE   ran_seed;
-  #pragma omp threadprivate(ran_seed)
   extern int    glb_random_count;
 
 #endif
