@@ -33,6 +33,7 @@ distributed version on flux demo200
 | distributed  |   |   |
 
 distributed version on grrc demo200
+
 |    number of nodes   | 1  |  5 |  10 |  15 |
 |--------------        |----|----| ----| ----|
 | distributed          |    |    |     |     |
@@ -44,6 +45,7 @@ distributed version on flux wb100
 | distributed             |      |     |
 
 distributed version on grrc wb100
+
 |   number of ndoes    |  1 |  5  |  10 | 15 |
 |--------------        |----|---- | ----|----|
 | distributed          |    |     |     |    |
@@ -51,21 +53,25 @@ distributed version on grrc wb100
 ***
 
 parallel version on flux demo200
+
 |  threads     | 1 | 4 | 8  |
 |--------------|----|----| ----|
 | parallel     |   |   |    |
 
 parallel version on flux wb100
+
 |  threads     | 1 | 4 | 8  |
 |--------------|----|----| ----|
 | parallel     |   |   |    |
 
 parallel version on grrc demo200
+
 |  threads     | 1 | 4 | 8  |
 |--------------|----|----| ----|
 | parallel     |   |   |    |
 
 parallel version on grrc wb100
+
 |  threads     | 1 | 4 | 8  |
 |--------------|----|----| ----|
 | parallel     |   |   |    |
