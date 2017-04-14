@@ -75,3 +75,33 @@ parallel version on grrc wb100
 |  threads     | 1 | 4 | 8  |
 |--------------|----|----| ----|
 | parallel     |   |   |    |
+
+***
+
+combination version on flux demo200
+4 threads, 3 nodes
+
+|            |           |
+| ---------- | --------- |
+|combination |           |
+
+combination version on flux wb100
+4 threads,3 nodes
+
+|            |           |
+| ---------- | --------- |
+|combination |           |
+
+combination version on grrc demo200
+4 threads, 15 nodes
+
+|            |           |
+| ---------- | --------- |
+|combination |           |
+
+combination version on grrc wb200
+4 threads, 15 nodes
+
+|            |           |
+| ---------- | --------- |
+|combination |           |
