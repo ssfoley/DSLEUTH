@@ -18,7 +18,7 @@ for (diffusion_coeff = coeff_GetStartDiffusion ();
                 slope_resistance <= coeff_GetStopSlopeResist ();
                 slope_resistance += coeff_GetStepSlopeResist ())
             {
-                #pragma omp parallel for default(shared) num_threads(4)
+                #pragma omp parallel for default(shared) num_threads(8)
                 for (road_gravity = coeff_GetStartRoadGravity ();
                 road_gravity <= coeff_GetStopRoadGravity ();
                 road_gravity += coeff_GetStepRoadGravity ())
@@ -32,11 +32,7 @@ for (diffusion_coeff = coeff_GetStartDiffusion ();
 #scenario file
 wb100_calibrate 
 The start value is 0
-The step value is 100
+The step value is 25
 The stop value is 100
-Except the last one
-The start value of last one is 0
-The step value of last one is 25
-The stop value of last one is 100
 #timing result
-
+91h

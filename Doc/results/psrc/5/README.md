@@ -18,7 +18,7 @@ for (diffusion_coeff = coeff_GetStartDiffusion ();
                 slope_resistance <= coeff_GetStopSlopeResist ();
                 slope_resistance += coeff_GetStepSlopeResist ())
             {
-                #pragma omp parallel for default(shared) num_threads(NUM_THREADS)
+                #pragma omp parallel for default(shared) num_threads(4)
                 for (road_gravity = coeff_GetStartRoadGravity ();
                 road_gravity <= coeff_GetStopRoadGravity ();
                 road_gravity += coeff_GetStepRoadGravity ())
@@ -35,4 +35,4 @@ The start value is 0
 The step value is 25
 The stop value is 100
 #timing result
-
+90h
