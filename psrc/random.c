@@ -7,7 +7,6 @@
 #include "landclass_obj.h"
 #include "globals.h"
 #include "random.h"
-#include "ugm_macros.h"
 
 /*****************************************************************************\
 *******************************************************************************
@@ -46,8 +45,8 @@ double
   double temp;
   double random_num;
   
-  #pragma omp critical
-  {
+  // #pragma omp critical
+  // {
     FUNC_INIT;
     if ((*ran_idum) <= 0 || !iy[thread_id])
     {
@@ -92,7 +91,7 @@ double
       random_num = temp;
     }
     FUNC_END;
-  }
+  // }
   return random_num;
 }
 /* (C) Copr. 1986-92 Numerical Recipes Software '%12'%. */
@@ -114,7 +113,7 @@ void
 {
   char func[] = "InitRandom";
   FUNC_INIT;
-  ran_seed = -labs (seed);
+  ran_seed[omp_get_thread_num()] = -labs (seed);
   RANNUM;
   FUNC_END;
 }
