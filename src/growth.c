@@ -144,9 +144,12 @@ void
   {
     if (scen_GetLogProcessingStatusFlag () > 0)
     {
-      scen_Append2Log ();
-      grw_completion_status (scen_GetLogFP ());
-      scen_CloseLog ();
+      #pragma omp critical
+      {
+        scen_Append2Log ();
+        grw_completion_status (scen_GetLogFP ());
+        scen_CloseLog ();
+      }
     }
   }
   while (proc_GetCurrentYear () < proc_GetStopYear ())
@@ -178,19 +181,22 @@ void
     {
       if (scen_GetLogProcessingStatusFlag () > 1)
       {
-        scen_Append2Log ();
-        fprintf (scen_GetLogFP (), " %u", proc_GetCurrentYear ());
-        if (((proc_GetCurrentYear () + 1) % 10) == 0)
+        #pragma omp critical
         {
-          fprintf (scen_GetLogFP (), "\n");
-          fflush (scen_GetLogFP ());
+          scen_Append2Log ();
+          fprintf (scen_GetLogFP (), " %u", proc_GetCurrentYear ());
+          if (((proc_GetCurrentYear () + 1) % 10) == 0)
+          {
+            fprintf (scen_GetLogFP (), "\n");
+            fflush (scen_GetLogFP ());
+          }
+          if (proc_GetCurrentYear () == proc_GetStopYear ())
+          {
+            fprintf (scen_GetLogFP (), "\n");
+            fflush (scen_GetLogFP ());
+          }
+          scen_CloseLog ();
         }
-        if (proc_GetCurrentYear () == proc_GetStopYear ())
-        {
-          fprintf (scen_GetLogFP (), "\n");
-          fflush (scen_GetLogFP ());
-        }
-        scen_CloseLog ();
       }
     }
 

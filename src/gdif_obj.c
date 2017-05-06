@@ -73,14 +73,17 @@ void
   {
     if (scen_GetLogWritesFlag ())
     {
-      scen_Append2Log ();
-      fprintf (scen_GetLogFP (), "\n%s %s %d \nwriting GIF %s\n",
+      #pragma omp critical
+      {
+        scen_Append2Log ();
+        fprintf (scen_GetLogFP (), "\n%s %s %d \nwriting GIF %s\n",
                __FILE__, func, __LINE__, fname);
-      fprintf (scen_GetLogFP (), "colortable name=%s\n",
+        fprintf (scen_GetLogFP (), "colortable name=%s\n",
                colortable->name);
-      fprintf (scen_GetLogFP (), "colortable pointer=%d rows=%u cols=%u \n",
+        fprintf (scen_GetLogFP (), "colortable pointer=%d rows=%u cols=%u \n",
                colortable, colortable->size, igrid_GetNumCols ());
-      scen_CloseLog ();
+        scen_CloseLog ();
+      }
     }
   }
   /*
@@ -183,19 +186,22 @@ void
   {
     if (scen_GetLogWritesFlag ())
     {
-      scen_Append2Log ();
-      fprintf (scen_GetLogFP (), "\n%s %s %d \nwriting GIF %s\n",
+      #pragma omp critical
+      {
+        scen_Append2Log ();
+        fprintf (scen_GetLogFP (), "\n%s %s %d \nwriting GIF %s\n",
                __FILE__, func, __LINE__, fname);
-      fprintf (scen_GetLogFP (), "colortable name=%s date=%s\n",
+        fprintf (scen_GetLogFP (), "colortable name=%s date=%s\n",
                colortable->name, date);
-      fprintf (scen_GetLogFP (), "colortable pointer=%d rows=%u cols=%u \n",
+        fprintf (scen_GetLogFP (), "colortable pointer=%d rows=%u cols=%u \n",
                colortable, igrid_GetNumRows (), igrid_GetNumCols ());
-      fprintf (scen_GetLogFP (), "image pointer = %d \n",
+        fprintf (scen_GetLogFP (), "image pointer = %d \n",
                gif);
-      fprintf (scen_GetLogFP (), "date color index = %u \n",
+        fprintf (scen_GetLogFP (), "date color index = %u \n",
                date_color_index);
-      fprintf (scen_GetLogFP (), "\n");
-      scen_CloseLog ();
+        fprintf (scen_GetLogFP (), "\n");
+        scen_CloseLog ();
+      }
     }
   }
   /*
@@ -311,13 +317,16 @@ void
   {
     if (scen_GetLogWritesFlag ())
     {
-      scen_Append2Log ();
-      fprintf (scen_GetLogFP (), "\n%s %s %d \nreading GIF %s\n",
+      #pragma omp critical
+      {
+        scen_Append2Log ();
+        fprintf (scen_GetLogFP (), "\n%s %s %d \nreading GIF %s\n",
                __FILE__, func, __LINE__, fname);
-      fprintf (scen_GetLogFP (), "rows=%u cols=%u storage pointer = %d\n",
+        fprintf (scen_GetLogFP (), "rows=%u cols=%u storage pointer = %d\n",
                igrid_GetNumRows (), igrid_GetNumCols (), gif_ptr);
-      fprintf (scen_GetLogFP (), "\n");
-      scen_CloseLog ();
+        fprintf (scen_GetLogFP (), "\n");
+        scen_CloseLog ();
+      }
     }
   }
 

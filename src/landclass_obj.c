@@ -452,13 +452,16 @@ void
   }
   if (scen_GetLogFlag ())
   {
-    scen_Append2Log ();
     if (scen_GetLogWritesFlag ())
     {
-      fprintf (scen_GetLogFP (), "%s %u %u zeroes written to %s\n",
+      #pragma omp critical
+      {
+        scen_Append2Log ();
+        fprintf (scen_GetLogFP (), "%s %u %u zeroes written to %s\n",
                __FILE__, __LINE__, num_pixels, annual_prob_filename);
+        scen_CloseLog ();
+      }
     }
-    scen_CloseLog ();
   }
   fclose (fp);
 
@@ -497,13 +500,16 @@ void
   total_pixels = mem_GetTotalPixels ();
   if (scen_GetLogFlag ())
   {
-    scen_Append2Log ();
     if (scen_GetLogWritesFlag ())
     {
-      fprintf (scen_GetLogFP (), "%s %u updating file %s\n",
+      #pragma omp critical
+      {
+        scen_Append2Log ();
+        fprintf (scen_GetLogFP (), "%s %u updating file %s\n",
                __FILE__, __LINE__, annual_prob_filename);
+        scen_CloseLog ();
+      }
     }
-    scen_CloseLog ();
   }
 
   FILE_OPEN (fp, annual_prob_filename, "r+b");
@@ -598,13 +604,18 @@ void
 
   if (scen_GetLogFlag ())
   {
-    scen_Append2Log ();
+    
     if (scen_GetLogReadsFlag ())
     {
-      fprintf (scen_GetLogFP (), "%s %u Reading file: %s\n",
+      #pragma omp critical
+      {
+        scen_Append2Log ();
+        fprintf (scen_GetLogFP (), "%s %u Reading file: %s\n",
                __FILE__, __LINE__, annual_prob_filename);
+        scen_CloseLog ();
+      }
     }
-    scen_CloseLog ();
+    
   }
 
   FILE_OPEN (fp, annual_prob_filename, "rb");

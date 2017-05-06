@@ -51,11 +51,15 @@ void
   {
     if (scen_GetLogWritesFlag ())
     {
-      scen_Append2Log ();
-      fprintf (scen_GetLogFP (),
+      #pragma omp critical
+      {
+        scen_Append2Log ();
+        fprintf (scen_GetLogFP (),
                "%s %u writing restart data to file: %s\n",
                __FILE__, __LINE__, filename);
-      scen_CloseLog ();
+        scen_CloseLog ();
+      }
+      
     }
   }
 
@@ -99,10 +103,14 @@ void
   {
     if (scen_GetLogWritesFlag ())
     {
-      scen_Append2Log ();
-      fprintf (scen_GetLogFP (), "%s %u writing to file: %s\n",
+      #pragma omp critical
+      {
+        scen_Append2Log ();
+        fprintf (scen_GetLogFP (), "%s %u writing to file: %s\n",
                __FILE__, __LINE__, filename);
-      scen_CloseLog ();
+        scen_CloseLog ();
+      }
+      
     }
   }
 

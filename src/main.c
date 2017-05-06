@@ -625,9 +625,12 @@ int
               {
                 if (scen_GetLogTimingsFlag () > 1)
                 {
-                  scen_Append2Log ();
-                  timer_LogIt (scen_GetLogFP ());
-                  scen_CloseLog ();
+                  #pragma omp critical
+                  {
+                    scen_Append2Log ();
+                    timer_LogIt (scen_GetLogFP ());
+                    scen_CloseLog ();
+                  }
                 }
               }
 #endif
@@ -747,13 +750,13 @@ int
 
   if (scen_GetLogFlag ())
   {
-    scen_Append2Log ();
-    if (scen_GetLogTimingsFlag () > 0)
-    {
-      timer_LogIt (scen_GetLogFP ());
-    }
-    mem_LogMinFreeWGrids (scen_GetLogFP ());
-    scen_CloseLog ();
+    // scen_Append2Log ();
+    // if (scen_GetLogTimingsFlag () > 0)
+    // {
+    //   timer_LogIt (scen_GetLogFP ());
+    // }
+    // mem_LogMinFreeWGrids (scen_GetLogFP ());
+    // scen_CloseLog ();
   }
   return (0);
 }

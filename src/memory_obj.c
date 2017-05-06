@@ -793,10 +793,13 @@ static void
   }
   if (scen_GetLogFlag ())
   {
-    scen_Append2Log ();
-    fprintf (scen_GetLogFP (), "%s %u Allocated %u bytes of memory\n",
+    #pragma omp critical
+    {
+      scen_Append2Log ();
+      fprintf (scen_GetLogFP (), "%s %u Allocated %u bytes of memory\n",
              __FILE__, __LINE__, bytes2allocate);
-    scen_CloseLog ();
+      scen_CloseLog ();
+    }
   }
   // TODO: Figure out what memset is SEGV'ing when > 2GB
   //memset (mem_ptr, 0, bytes2allocate);

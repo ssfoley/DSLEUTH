@@ -598,9 +598,12 @@ static void
   {
     if (scen_GetLogSlopeWeightsFlag ())
     {
-      scen_Append2Log ();
-      spr_LogSlopeWeights (scen_GetLogFP (), array_size, lut);
-      scen_CloseLog ();
+      #pragma omp critical
+      {
+        scen_Append2Log ();
+        spr_LogSlopeWeights (scen_GetLogFP (), array_size, lut);
+        scen_CloseLog ();
+      }
     }
   }
   FUNC_END;

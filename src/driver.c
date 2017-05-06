@@ -265,9 +265,12 @@ static
     {
       if (scen_GetLogCoeffFlag ())
       {
-        scen_Append2Log ();
-        coeff_LogCurrent (scen_GetLogFP ());
-        scen_CloseLog ();
+        #pragma omp critical
+        {
+          scen_Append2Log ();
+          coeff_LogCurrent (scen_GetLogFP ());
+          scen_CloseLog ();
+        }
       }
     }
 
@@ -282,9 +285,12 @@ static
     {
       if (scen_GetLogUrbanizationAttemptsFlag ())
       {
-        scen_Append2Log ();
-        stats_LogUrbanizationAttempts (scen_GetLogFP ());
-        scen_CloseLog ();
+        #pragma omp critical
+        {
+          scen_Append2Log ();
+          stats_LogUrbanizationAttempts (scen_GetLogFP ());
+          scen_CloseLog ();
+        }
       }
     }
 
