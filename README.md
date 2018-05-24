@@ -5,15 +5,15 @@ http://www.ncgia.ucsb.edu/projects/gig/index.html
 
 To run the framework to distribute your code, run with a batchscript on a SLURM cluster, or in localhost mode to rely on the operating system to manage the separate processes.  To set the mode and the number of nodes, write the run_settings file with the following:
 
-localhost <num nodes>
+`localhost num-nodes`
 
 or
 
-SLURM <num nodes>
+`SLURM num-nodes`
 
 Then to run do:
 
-python Framework/main.py src/grow <mode> <scenario file>
+`python Framework/main.py src/grow mode scenario-file`
 
 
 # ****** OLD below here!!!! ******
