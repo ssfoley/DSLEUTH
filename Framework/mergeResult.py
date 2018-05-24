@@ -1,9 +1,10 @@
 class MergeResult:
     def merge(self, filePath, numOfFiles, finalPath):
         numOfRun = 0
+        print os.pwd()
         with open(finalPath, 'w') as dest:
             for i in range(1, numOfFiles + 1):
-                fileName = filePath + '/' + str(i) + '/' + 'control_stats.log'
+                fileName = filePath + str(i) + '/' + 'control_stats.log'
                 with open(fileName) as source:
                     firstLine = next(source)
                     secondLine = next(source)

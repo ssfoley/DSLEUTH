@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH -N 2             # Ensure that all cores are on one machine
+#SBATCH -N 3             # Ensure that all cores are on one machine
 #SBATCH -t 6-00:00       # Runtime in D-HH:MM
 #SBATCH -o hostname_DSLEUTH_wb100.out  # File to which STDOUT and STDERR will be written
 #SBATCH --open-mode=append # Append to the output file if it exists
