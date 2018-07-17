@@ -5,9 +5,14 @@ import subprocess
 import scenario
 import os
 
-NO_SPLIT = 0
+NONE_SPLIT = 0
 PART_SPLIT = 1
 FULL_SPLIT = 2
+
+NOTV = 0 # not viable - <1
+BEST = 1 # best case - no remainder AND 1 < n < 10
+NEXT = 2 # next candidates - 1 < n < 10
+NOTI = 3 # not ideal - >10
 
 class ScenarioUtil:
     num_files = -1
@@ -18,10 +23,14 @@ class ScenarioUtil:
         # read the scenario file
         scen_file = open(scen_file_name, "r")
         scen_lines = scen_file.readlines()
-        original = scenario.Scenario()
+        self.original = scenario.Scenario()
         self.lines_to_data(scen_lines, original)
-        original.print_me()
+        self.original.print_me()
+        self.pieces = pieces
 
+        # short-hand for self.original
+        orig = self.original
+        
         # calculate the number of values in each parameter
         combos = self.calc_combos(original)
 
@@ -31,90 +40,385 @@ class ScenarioUtil:
         print "pieces: {} -- numper {} -- combos {}".format(pieces, numper, combos)
         print "diffNum {} -- breedNum {} -- spreadNum {} -- slopeNum {} -- roadNum {}".format(original.diffNum, original.breedNum, original.spreadNum, original.slopeNum, original.roadNum)
 
-        for x in range(1,pieces ):
-            new_scen = scenario.Scenario()
-            val_end = val_start + numper - 1
 
-            print "prepping scenario from {} to {}".format(val_start, val_end)
-
-            di_start = val_start / (original.breedNum * original.spreadNum * original.slopeNum * original.roadNum ) % original.diffNum
-            br_start = val_start / (original.spreadNum * original.slopeNum * original.roadNum) % original.breedNum
-            sp_start = val_start / (original.slopeNum * original.roadNum) % original.spreadNum
-            sl_start = val_start / (original.roadNum) % original.slopeNum
-            rd_start = val_start % original.roadNum
-
-            di_end = val_end / (original.breedNum * original.spreadNum * original.slopeNum * original.roadNum ) % original.diffNum
-            br_end = val_end / (original.spreadNum * original.slopeNum * original.roadNum) % original.breedNum
-            sp_end = val_end / (original.slopeNum * original.roadNum) % original.spreadNum
-            sl_end = val_end / (original.roadNum) % original.slopeNum
-            rd_end = val_end % original.roadNum
-       
-            print "diff {} - {} --- breed {} - {} --- spread {} - {} --- slope {} - {} --- road {} - {}".format(di_start, di_end, br_start, br_end, sp_start, sp_end, sl_start, sl_end, rd_start, rd_end)
-     
-            new_scen.diffStart = original.diffStart + di_start * original.diffStep
-            new_scen.breedStart = original.breedStart + br_start * original.breedStep
-            new_scen.spreadStart = original.spreadStart + sp_start * original.spreadStep
-            new_scen.slopeStart = original.slopeStart + sl_start * original.slopeStep
-            new_scen.roadStart = original.roadStart + rd_start * original.roadStep
-
-            new_scen.diffStep = original.diffStep
-            new_scen.breedStep = original.breedStep
-            new_scen.spreadStep = original.spreadStep
-            new_scen.slopeStep = original.slopeStep
-            new_scen.roadStep = original.roadStep
-
-            new_scen.diffStop = original.diffStart + di_end * original.diffStep
-            new_scen.breedStop = original.breedStart + br_end * original.breedStep
-            new_scen.spreadStop = original.spreadStart + sp_end * original.spreadStep
-            new_scen.slopeStop = original.slopeStart + sl_end * original.slopeStep
-            new_scen.roadStop = original.roadStart + rd_end * original.roadStep
-
-            print "\n -- new scenario --"
-            new_scen.print_me()
-            print " -------------------- "
-
-            gen_scens.append(new_scen)
-            val_start = val_end + 1
-
-        # last one is just val to end
-        new_scen = scenario.Scenario()
-        val_end = combos - 1
-        di_start = val_start / (original.breedNum * original.spreadNum * original.slopeNum * original.roadNum ) % original.diffNum
-        br_start = val_start / (original.spreadNum * original.slopeNum * original.roadNum) % original.breedNum
-        sp_start = val_start / (original.slopeNum * original.roadNum) % original.spreadNum
-        sl_start = val_start / (original.roadNum) % original.slopeNum
-        rd_start = val_start % original.roadNum
+        poss_config = self.gen_poss_config()
+        selected_config = self.pick_best_config(poss_config)
         
-        di_end = val_end / (original.breedNum * original.spreadNum * original.slopeNum * original.roadNum ) % original.diffNum
-        br_end = val_end / (original.spreadNum * original.slopeNum * original.roadNum) % original.breedNum
-        sp_end = val_end / (original.slopeNum * original.roadNum) % original.spreadNum
-        sl_end = val_end / (original.roadNum) % original.slopeNum
-        rd_end = val_end % original.roadNum
         
-        new_scen.diffStep = original.diffStep
-        new_scen.breedStep = original.breedStep
-        new_scen.spreadStep = original.spreadStep
-        new_scen.slopeStep = original.slopeStep
-        new_scen.roadStep = original.roadStep
-
-        new_scen.diffStart = original.diffStart + di_start * original.diffStep
-        new_scen.breedStart = original.breedStart + br_start * original.breedStep
-        new_scen.spreadStart = original.spreadStart + sp_start * original.spreadStep
-        new_scen.slopeStart = original.slopeStart + sl_start * original.slopeStep
-        new_scen.roadStart = original.roadStart + rd_start * original.roadStep
-        
-        new_scen.diffStop = original.diffStart + di_end * original.diffStep
-        new_scen.breedStop = original.breedStart + br_end * original.breedStep
-        new_scen.spreadStop = original.spreadStart + sp_end * original.spreadStep
-        new_scen.slopeStop = original.slopeStart + sl_end * original.slopeStep
-        new_scen.roadStop = original.roadStart + rd_end * original.roadStep
-        
-        print "\n -- new scenario (last one) --"
-        new_scen.print_me()
-        print " -------------------- "
-
-        gen_scens.append(new_scen)
         # generate the files
+        self.scen_file_list = self.gen_files(selected_config, scen_file_name, dest_path)
+
+
+
+
+
+    def gen_files(self, sel_cfg, scen_base, dest):
+        """
+        prep for generating files
+          - cd to the correct directory for the files
+          - setup the names of the files?
+        generate the appropriate scenario objects
+        call the appropriate function to generate these files
+        returns the list of files
+        """
+
+        # cd to the appropriate direcory
+
+        # generate the scenario objects
+        scenarios = gen_scen_objs(self, sel_cfg)
+
+        # generate the files
+        # ...
+
+
+
+
+
+
+    def gen_scen_objs(self, sel_cfg):
+        """
+        figure out and generate the scenario objects
+        """
+
+        # 1 0 0 0 0
+        if sel_cfg[0] == 1 and sel_cfg[1] == 0 and sel_cfg[2] == 0 and sel_cfg[3] == 0 and sel_cfg[4] == 0:
+            return gen_dist_diff(self)
+        # 1 1 0 0 0
+        elif sel_cfg[0] == 1 and sel_cfg[1] == 1 and sel_cfg[2] == 0 and sel_cfg[3] == 0 and sel_cfg[4] == 0:
+            return gen_dist_diff_breed(self)
+        # 1 1 1 0 0
+        elif sel_cfg[0] == 1 and sel_cfg[1] == 1 and sel_cfg[2] == 1 and sel_cfg[3] == 0 and sel_cfg[4] == 0:
+            return gen_dist_diff_breed_spread(self)
+        # 1 1 0 1 0
+        elif sel_cfg[0] == 1 and sel_cfg[1] == 1 and sel_cfg[2] == 0 and sel_cfg[3] == 1 and sel_cfg[4] == 0:
+            return gen_dist_diff_breed_slope(self)
+        # 1 1 0 0 1
+        elif sel_cfg[0] == 1 and sel_cfg[1] == 1 and sel_cfg[2] == 0 and sel_cfg[3] == 0 and sel_cfg[4] == 1:
+            return gen_dist_diff_breed_road(self)
+        # 1 0 1 0 0
+        elif sel_cfg[0] == 1 and sel_cfg[1] == 0 and sel_cfg[2] == 1 and sel_cfg[3] == 0 and sel_cfg[4] == 0:
+            return gen_dist_diff_spread(self)
+        # 1 0 1 1 0
+        elif sel_cfg[0] == 1 and sel_cfg[1] == 0 and sel_cfg[2] == 1 and sel_cfg[3] == 1 and sel_cfg[4] == 0:
+            return gen_dist_diff_spread_slope(self)
+        # 1 0 1 0 1
+        elif sel_cfg[0] == 1 and sel_cfg[1] == 0 and sel_cfg[2] == 1 and sel_cfg[3] == 0 and sel_cfg[4] == 1:
+            return gen_dist_diff_spread_road(self)
+        # 1 0 0 1 0
+        elif sel_cfg[0] == 1 and sel_cfg[1] == 0 and sel_cfg[2] == 0 and sel_cfg[3] == 1 and sel_cfg[4] == 0:
+            return gen_dist_diff_slope(self)
+        # 1 0 0 1 1
+        elif sel_cfg[0] == 1 and sel_cfg[1] == 0 and sel_cfg[2] == 0 and sel_cfg[3] == 1 and sel_cfg[4] == 1:
+            return gen_dist_diff_slope_road(self)
+        # 1 0 0 0 1
+        elif sel_cfg[0] == 1 and sel_cfg[1] == 0 and sel_cfg[2] == 0 and sel_cfg[3] == 0 and sel_cfg[4] == 1:
+            return gen_dist_diff_road(self)
+        # 0 1 0 0 0
+        elif sel_cfg[0] == 0 and sel_cfg[1] == 1 and sel_cfg[2] == 0 and sel_cfg[3] == 0 and sel_cfg[4] == 0:
+            return gen_dist_breed(self) 
+        # 0 1 1 0 0
+        elif sel_cfg[0] == 0 and sel_cfg[1] == 1 and sel_cfg[2] == 1 and sel_cfg[3] == 0 and sel_cfg[4] == 0:
+            return gen_dist_breed_spread(self) 
+        # 0 1 1 1 0
+        elif sel_cfg[0] == 0 and sel_cfg[1] == 1 and sel_cfg[2] == 1 and sel_cfg[3] == 1 and sel_cfg[4] == 0:
+            return gen_dist_breed_spread_slope(self) 
+        # 0 1 1 0 1
+        elif sel_cfg[0] == 0 and sel_cfg[1] == 1 and sel_cfg[2] == 1 and sel_cfg[3] == 0 and sel_cfg[4] == 1:
+            return gen_dist_breed_spread_road(self) 
+        # 0 1 0 1 0
+        elif sel_cfg[0] == 0 and sel_cfg[1] == 1 and sel_cfg[2] == 0 and sel_cfg[3] == 1 and sel_cfg[4] == 0:
+            return gen_dist_breed_slope(self) 
+        # 0 1 0 1 1
+        elif sel_cfg[0] == 0 and sel_cfg[1] == 1 and sel_cfg[2] == 0 and sel_cfg[3] == 1 and sel_cfg[4] == 1:
+            return gen_dist_breed_slope_road(self) 
+        # 0 1 0 0 1
+        elif sel_cfg[0] == 0 and sel_cfg[1] == 1 and sel_cfg[2] == 0 and sel_cfg[3] == 0 and sel_cfg[4] == 1:
+            return gen_dist_breed_road(self) 
+        # 0 0 1 0 0
+        elif sel_cfg[0] == 0 and sel_cfg[1] == 0 and sel_cfg[2] == 1 and sel_cfg[3] == 0 and sel_cfg[4] == 0:
+            return gen_dist_spread(self) 
+        # 0 0 1 1 0
+        elif sel_cfg[0] == 0 and sel_cfg[1] == 0 and sel_cfg[2] == 1 and sel_cfg[3] == 1 and sel_cfg[4] == 0:
+            return gen_dist_spread_slope(self) 
+        # 0 0 1 1 1
+        elif sel_cfg[0] == 0 and sel_cfg[1] == 0 and sel_cfg[2] == 1 and sel_cfg[3] == 1 and sel_cfg[4] == 1:
+            return gen_dist_spread_slope_road(self) 
+        # 0 0 1 0 1
+        elif sel_cfg[0] == 0 and sel_cfg[1] == 0 and sel_cfg[2] == 1 and sel_cfg[3] == 0 and sel_cfg[4] == 1:
+            return gen_dist_spread_road(self) 
+        # 0 0 0 1 0
+        elif sel_cfg[0] == 0 and sel_cfg[1] == 0 and sel_cfg[2] == 0 and sel_cfg[3] == 1 and sel_cfg[4] == 0:
+            return gen_dist_slope(self) 
+        # 0 0 0 1 1
+        elif sel_cfg[0] == 0 and sel_cfg[1] == 0 and sel_cfg[2] == 0 and sel_cfg[3] == 1 and sel_cfg[4] == 1:
+            return gen_dist_slope_road(self) 
+        # 0 0 0 0 1
+        elif sel_cfg[0] == 0 and sel_cfg[1] == 0 and sel_cfg[2] == 0 and sel_cfg[3] == 0 and sel_cfg[4] == 1:
+            return gen_dist_road(self) 
+        # oops!
+        else:
+            print "OOPS!!!!"
+            print sel_cfg
+            return []
+
+
+
+    def gen_dist_diff(self):
+        """
+        generate and return scenario based on original distributing by:
+          DIFFUSION
+        """
+        scens = []
+        orig = self.original
+        for di in range(orig.diffStart, orig.diffStep, orig.diffStop):
+            this_scen = scenario.Scenario()
+            this_scen.copy(orig)
+            this_scen.diffStart = di
+            this_scen.diffStop = di
+            # everything else is the same
+            scens.append(this_scen)
+
+        return scens
+
+
+    def gen_dist_diff_breed(self):
+        """
+        generate and return scenario based on original distributing by:
+          DIFFUSION
+          BREED
+        """
+        scens = []
+        orig = self.original
+        for di in range(orig.diffStart, orig.diffStep, orig.diffStop):
+            for br in range(orig.breedStart, orig.breedStep, orig.breedStop):
+                this_scen = scenario.Scenario()
+                this_scen.copy(orig)
+                this_scen.diffStart = di
+                this_scen.diffStop = di
+                this_scen.breedStart = br
+                this_scen.breedStop = br
+                # everything else is the same
+                scens.append(this_scen)
+
+        return scens
+
+    def gen_dist_diff_breed_spread(self):
+        """
+        generate and return scenario based on original distributing by:
+          DIFFUSION
+          BREED
+          Spread
+        """
+        scens = []
+        orig = self.original
+        for di in range(orig.diffStart, orig.diffStep, orig.diffStop):
+            for br in range(orig.breedStart, orig.breedStep, orig.breedStop):
+                for sp in range(orig.spreadStart, orig.spreadStep, orig.spreadStop):
+                    this_scen = scenario.Scenario()
+                    this_scen.copy(orig)
+                    this_scen.diffStart = di
+                    this_scen.diffStop = di
+                    this_scen.breedStart = br
+                    this_scen.breedStop = br
+                    this_scen.spreadStart = sp
+                    this_scen.spreadStop = sp
+                    # everything else is the same
+                    scens.append(this_scen)
+
+        return scens
+
+
+
+
+
+
+
+
+
+
+
+
+    def gen_poss_config(self): 
+        orig = self.original
+        pieces = self.pieces
+
+        poss_config = []
+        # generate possible ways to break it up - poss_config = {0 or 1 (no split or split) diff, breed, spread, slope, road; pieces; score; case)
+
+        # one split
+        perms = orig.diffNum
+        score = orig.diffNum / float(pieces)
+        case = self.calc_case(perms, pieces)
+        poss_config.append((1, 0, 0, 0, 0, perms, score, case))
+
+        perms = orig.breedNum
+        score = orig.breedNum / float(pieces)
+        case = self.calc_case(perms, pieces)
+        poss_config.append((0, 1, 0, 0, 0, perms, score, case))
+        perms = orig.spreadNum
+        score = orig.spreadNum / float(pieces)
+        case = self.calc_case(perms, pieces)
+        poss_config.append((0, 0, 1, 0, 0, perms, score, case))
+        perms = orig.slopeNum
+        score = orig.slopeNum / float(pieces)
+        case = self.calc_case(perms, pieces)
+        poss_config.append((0, 0, 0, 1, 0, perms, score, case))
+        perms = orig.roadNum
+        score = orig.roadNum / float(pieces)
+        case = self.calc_case(perms, pieces)
+        poss_config.append((0, 0, 0, 0, 1, perms, score, case))
+
+        # two splits
+        perms = orig.diffNum * orig.breedNum
+        score = orig.diffNum * orig.breedNum / float(pieces)
+        case = self.calc_case(perms, pieces)
+        poss_config.append((1, 1, 0, 0, 0, perms, score, case))
+        perms = orig.diffNum * orig.spreadNum
+        score = orig.diffNum * orig.spreadNum / float(pieces)
+        case = self.calc_case(perms, pieces)
+        poss_config.append((1, 0, 1, 0, 0, perms, score, case))
+        perms = orig.diffNum * orig.slopeNum
+        score = orig.diffNum * orig.slopeNum / float(pieces)
+        case = self.calc_case(perms, pieces)
+        poss_config.append((1, 0, 0, 1, 0, perms, score, case))
+        perms = orig.diffNum * orig.roadNum
+        score = orig.diffNum * orig.roadNum / float(pieces)
+        case = self.calc_case(perms, pieces)
+        poss_config.append((1, 0, 0, 0, 1, perms, score, case))
+        perms = orig.breedNum * orig.spreadNum
+        score = orig.breedNum * orig.spreadNum / float(pieces)
+        case = self.calc_case(perms, pieces)
+        poss_config.append((0, 1, 1, 0, 0, perms, score, case))
+        perms = orig.breedNum * orig.slopeNum
+        score = orig.breedNum * orig.slopeNum / float(pieces)
+        case = self.calc_case(perms, pieces)
+        poss_config.append((0, 1, 0, 1, 0, perms, score, case))
+
+        perms = orig.breedNum * orig.roadNum
+        score = orig.breedNum * orig.roadNum / float(pieces)
+        case = self.calc_case(perms, pieces)
+        poss_config.append((0, 1, 0, 0, 1, perms, score, case))
+        perms = orig.spreadNum * orig.slopeNum
+        score = orig.spreadNum * orig.slopeNum / float(pieces)
+        case = self.calc_case(perms, pieces)
+        poss_config.append((0, 0, 1, 1, 0, perms, score, case))
+        perms = orig.spreadNum * orig.roadNum
+        score = orig.spreadNum * orig.roadNum / float(pieces) 
+        case = self.calc_case(perms, pieces)
+        poss_config.append((0, 0, 1, 0, 1, perms, score, case))
+        perms = orig.slopeNum * orig.roadNum
+        score = orig.slopeNum * orig.roadNum / float(pieces)
+        case = self.calc_case(perms, pieces)
+        poss_config.append((0, 0, 0, 1, 1, perms, score, case))
+
+        # three splits
+        perms = orig.diffNum * orig.breedNum * orig.spreadNum
+        score = orig.diffNum * orig.breedNum * orig.spreadNum / float(pieces)
+        case = self.calc_case(perms, pieces)
+        poss_config.append((1, 1, 1, 0, 0, perms, score, case))
+        perms = orig.diffNum * orig.breedNum * orig.slopeNum
+        score = orig.diffNum * orig.breedNum * orig.slopeNum / float(pieces)
+        case = self.calc_case(perms, pieces)
+        poss_config.append((1, 1, 0, 1, 0, perms, score, case))
+        perms = orig.diffNum * orig.breedNum * orig.roadNum
+        score = orig.diffNum * orig.breedNum * orig.roadNum / float(pieces)
+        case = self.calc_case(perms, pieces)
+        poss_config.append((1, 1, 0, 0, 1, perms, score, case))
+        perms = orig.diffNum * orig.spreadNum * orig.slopeNum
+        score = orig.diffNum * orig.spreadNum * orig.slopeNum / float(pieces)
+        case = self.calc_case(perms, pieces)
+        poss_config.append((1, 0, 1, 1, 0, perms, score, case))
+        perms = orig.diffNum * orig.spreadNum * orig.roadNum
+        score = orig.diffNum * orig.spreadNum * orig.roadNum / float(pieces)
+        case = self.calc_case(perms, pieces)
+        poss_config.append((1, 0, 1, 0, 1, perms, score, case))
+        perms = orig.diffNum * orig.slopeNum * orig.roadNum
+        score = orig.diffNum * orig.slopeNum * orig.roadNum / float(pieces)
+        case = self.calc_case(perms, pieces)
+        poss_config.append((1, 0, 0, 1, 1, perms, score, case))
+        perms = orig.breedNum * orig.spreadNum * orig.slopeNum
+        score = orig.breedNum * orig.spreadNum * orig.slopeNum / float(pieces)
+        case = self.calc_case(perms, pieces)
+        poss_config.append((0, 1, 1, 1, 0, perms, score, case))
+        perms = orig.breedNum * orig.spreadNum * orig.roadNum
+        score = orig.breedNum * orig.spreadNum * orig.roadNum / float(pieces)
+        case = self.calc_case(perms, pieces)
+        poss_config.append((0, 1, 1, 0, 1, perms, score, case))
+        perms = orig.breedNum * orig.slopeNum * orig.roadNum
+        score = orig.breedNum * orig.slopeNum * orig.roadNum / float(pieces)
+        case = self.calc_case(perms, pieces)
+        poss_config.append((0, 1, 0, 1, 1, perms, score, case))
+        perms = orig.spreadNum * orig.slopeNum * orig.roadNum
+        score = orig.spreadNum * orig.slopeNum * orig.roadNum / float(pieces)
+        case = self.calc_case(perms, pieces)
+        poss_config.append((0, 0, 1, 1, 1, perms, score, case))
+
+        # four slits - probably not reasonable...
+        #poss_config.append((1, 1, 1, 1, 0, orig.diffNum * orig.breedNum * orig.spreadNum * orig.slopeNum))
+        #poss_config.append((1, 0, 1, 1, 1, orig.diffNum * orig.spreadNum * orig.slopeNum * orig.roadNum))
+        #poss_config.append((1, 1, 0, 1, 1, orig.diffNum * orig.breedNum * orig.slopeNum * orig.roadNum))
+        #poss_config.append((1, 1, 1, 0, 1, orig.diffNum * orig.breedNum * orig.spreadNum * orig.roadNum))
+        #poss_config.append((0, 1, 1, 1, 1, orig.breedNum * orig.spreadNum * orig.slopeNum * orig.roadNum))
+
+        return poss_config
+    
+
+
+
+
+
+
+    def pick_best_config(self, poss_config):
+        # find best candidate in each category
+        best0 = poss_config[0]
+        best1 = poss_config[0]
+        best2 = poss_config[0]
+        best3 = poss_config[0]
+
+        exists = (False, False, False, False)
+
+        for poss in poss_config:
+            print poss
+            exists[poss[7]] = True
+            if poss[7] == 0:
+                if poss[5] > best0[5]: # faster to do int comparison as opposed to float comparisons
+                    best0 = poss
+            elif poss[7] == 1:
+                if poss[6] < best1[6]:
+                    best1 = poss
+            elif poss[7] == 2:
+                if poss[6] - int(poss[6]) > best2[6] - int(best2[6]):
+                    best2 = poss
+            else: # poss[7] == 3
+                if poss[6] < best3[6]:
+                    best3 = poss
+
+        selected_config = None
+        if exists[0]:
+            selected_config = best0
+        elif exists[1]:
+            selected_config = best1
+        elif exists[2]:
+            selected_config = best2
+        elif exists[3]:
+            selected_config = best3
+
+        return selected_config
+
+            
+
+    def calc_case(self, perms, pieces):
+        score = perms / float(pieces)
+        if score <= 1:
+            return NOTV
+        elif score >= 10:
+            return NOTI
+        elif perms % pieces == 0:
+            return BEST
+        else:
+            return NEXT
+        
+
 
 
     def calc_combos(self, obj):
