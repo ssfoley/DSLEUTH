@@ -54,7 +54,7 @@ class Main:
                 cur_pid = p.pid
 	 	if p.poll() is not None:
                         # done
-                        if DEBUG:
+                        if self.DEBUG:
                                 print "DSLEUTH: pid just finished ", str(cur_pid)
                                 print "DSELUTH: ", self.nodelist.values().index(cur_pid)
                                 print "DSLEUTH: node just freed ", self.nodelist.keys()[self.nodelist.values().index(cur_pid)]
@@ -63,7 +63,7 @@ class Main:
                         # return true
                         return True
                 else:
-                        if DEBUG:
+                        if self.DEBUG:
                                 print "DSLEUTH: not done! ", str(cur_pid)
                         return False
 
@@ -120,12 +120,12 @@ class Main:
                         return
 
 
-		fileNum = scena.get_num_files()
+		fileNum = scena.get_num_files() + 1
 		print "DSLEUTH: ", time.strftime("%H:%M:%S")
 
                 # populate the queue with the scenario file names
 		for x in range(1,fileNum):
-			self.queue.put(str(x))
+			self.queue.put(x)
 		processes = []
 		
                 # launch jobs as long as there is work and free nodes
@@ -136,10 +136,11 @@ class Main:
                                 node = self.get_free_node()
                                 print "DSLEUTH: attempting to launch on node: ", node
                                 if self.sched is "SLURM":
-                                        p = subprocess.Popen(["srun", "-N", "1", "--nodelist=" + node, args[1], args[2], args[3] + "_steps/" + num])
+                                        p = subprocess.Popen(["srun", "-N", "1", "--nodelist=" + node, args[1], args[2], args[3] + "_steps/" + str(num)])
                                 else:
-                                        p = subprocess.Popen([args[1], args[2], args[3] + "_steps/" + num])
-                                if DEBUG:
+                                        print "DSLEUTH: executing: {} {} {}+_steps/+{}".format(args[1], args[2], args[3], num)
+                                        p = subprocess.Popen([args[1], args[2], args[3] + "_steps/" + str(num)])
+                                if self.DEBUG:
                                         print "DSLEUTH: ", p.pid
                                 self.nodelist[node] = p.pid
                                 processes.append(p)
@@ -157,7 +158,7 @@ class Main:
 		print "DSLEUTH: ", time.strftime("%H:%M:%S")
 		
                 outputDir = scena.get_output_dir()
-		self.merge(outputDir, fileNum - 1, outputDir + "/control.stats.log")
+		self.merge(outputDir, fileNum - 1, outputDir + "control.stats.log")
 
 if __name__ == '__main__':
 	m = Main()

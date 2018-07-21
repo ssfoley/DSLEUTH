@@ -21,24 +21,23 @@ class ScenarioUtil:
 
     def __init__(self, scen_file_name, dest_path, pieces):
         # read the scenario file
-        scen_file = open(scen_file_name, "r")
-        scen_lines = scen_file.readlines()
         self.original = scenario.Scenario()
-        self.lines_to_data(scen_lines, original)
+        self.original.read_file(scen_file_name)
         self.original.print_me()
         self.pieces = pieces
+        self.output_dir = self.original.outputDir
 
         # short-hand for self.original
         orig = self.original
         
         # calculate the number of values in each parameter
-        combos = self.calc_combos(original)
+        combos = self.calc_combos(orig)
 
         gen_scens = []
         val_start = 0
         numper = combos / pieces
         print "pieces: {} -- numper {} -- combos {}".format(pieces, numper, combos)
-        print "diffNum {} -- breedNum {} -- spreadNum {} -- slopeNum {} -- roadNum {}".format(original.diffNum, original.breedNum, original.spreadNum, original.slopeNum, original.roadNum)
+        print "diffNum {} -- breedNum {} -- spreadNum {} -- slopeNum {} -- roadNum {}".format(orig.diffNum, orig.breedNum, orig.spreadNum, orig.slopeNum, orig.roadNum)
 
 
         poss_config = self.gen_poss_config()
@@ -62,14 +61,31 @@ class ScenarioUtil:
         returns the list of files
         """
 
-        # cd to the appropriate direcory
+        file_list = []
+
+        # cd to the appropriate directory
+
+        try:
+            os.makedirs(dest)
+        except OSError:
+            print "WARNING: file path exists for scenario files, old files may be overwritten"
+
+        try:
+            os.makedirs(self.original.outputDir)
+        except OSError:
+            print "WARNING: file path exists for output files, old files may be overwritten"
 
         # generate the scenario objects
-        scenarios = gen_scen_objs(self, sel_cfg)
-
-        # generate the files
-        # ...
-
+        scenarios = self.gen_scen_objs(sel_cfg)
+        i = 1
+        for scen in scenarios:
+            scen.print_me()
+            print " ------ "
+            scen.write_file(scen_base, dest + str(i), str(i))
+            file_list.append(str(i))
+            i += 1
+                            
+        return file_list
 
 
 
@@ -82,79 +98,79 @@ class ScenarioUtil:
 
         # 1 0 0 0 0
         if sel_cfg[0] == 1 and sel_cfg[1] == 0 and sel_cfg[2] == 0 and sel_cfg[3] == 0 and sel_cfg[4] == 0:
-            return gen_dist_diff(self)
+            return self.gen_dist_diff()
         # 1 1 0 0 0
         elif sel_cfg[0] == 1 and sel_cfg[1] == 1 and sel_cfg[2] == 0 and sel_cfg[3] == 0 and sel_cfg[4] == 0:
-            return gen_dist_diff_breed(self)
+            return self.gen_dist_diff_breed()
         # 1 1 1 0 0
         elif sel_cfg[0] == 1 and sel_cfg[1] == 1 and sel_cfg[2] == 1 and sel_cfg[3] == 0 and sel_cfg[4] == 0:
-            return gen_dist_diff_breed_spread(self)
+            return self.gen_dist_diff_breed_spread()
         # 1 1 0 1 0
         elif sel_cfg[0] == 1 and sel_cfg[1] == 1 and sel_cfg[2] == 0 and sel_cfg[3] == 1 and sel_cfg[4] == 0:
-            return gen_dist_diff_breed_slope(self)
+            return self.gen_dist_diff_breed_slope()
         # 1 1 0 0 1
         elif sel_cfg[0] == 1 and sel_cfg[1] == 1 and sel_cfg[2] == 0 and sel_cfg[3] == 0 and sel_cfg[4] == 1:
-            return gen_dist_diff_breed_road(self)
+            return self.gen_dist_diff_breed_road()
         # 1 0 1 0 0
         elif sel_cfg[0] == 1 and sel_cfg[1] == 0 and sel_cfg[2] == 1 and sel_cfg[3] == 0 and sel_cfg[4] == 0:
-            return gen_dist_diff_spread(self)
+            return self.gen_dist_diff_spread()
         # 1 0 1 1 0
         elif sel_cfg[0] == 1 and sel_cfg[1] == 0 and sel_cfg[2] == 1 and sel_cfg[3] == 1 and sel_cfg[4] == 0:
-            return gen_dist_diff_spread_slope(self)
+            return self.gen_dist_diff_spread_slope()
         # 1 0 1 0 1
         elif sel_cfg[0] == 1 and sel_cfg[1] == 0 and sel_cfg[2] == 1 and sel_cfg[3] == 0 and sel_cfg[4] == 1:
-            return gen_dist_diff_spread_road(self)
+            return self.gen_dist_diff_spread_road()
         # 1 0 0 1 0
         elif sel_cfg[0] == 1 and sel_cfg[1] == 0 and sel_cfg[2] == 0 and sel_cfg[3] == 1 and sel_cfg[4] == 0:
-            return gen_dist_diff_slope(self)
+            return self.gen_dist_diff_slope()
         # 1 0 0 1 1
         elif sel_cfg[0] == 1 and sel_cfg[1] == 0 and sel_cfg[2] == 0 and sel_cfg[3] == 1 and sel_cfg[4] == 1:
-            return gen_dist_diff_slope_road(self)
+            return self.gen_dist_diff_slope_road()
         # 1 0 0 0 1
         elif sel_cfg[0] == 1 and sel_cfg[1] == 0 and sel_cfg[2] == 0 and sel_cfg[3] == 0 and sel_cfg[4] == 1:
-            return gen_dist_diff_road(self)
+            return self.gen_dist_diff_road()
         # 0 1 0 0 0
         elif sel_cfg[0] == 0 and sel_cfg[1] == 1 and sel_cfg[2] == 0 and sel_cfg[3] == 0 and sel_cfg[4] == 0:
-            return gen_dist_breed(self) 
+            return self.gen_dist_breed() 
         # 0 1 1 0 0
         elif sel_cfg[0] == 0 and sel_cfg[1] == 1 and sel_cfg[2] == 1 and sel_cfg[3] == 0 and sel_cfg[4] == 0:
-            return gen_dist_breed_spread(self) 
+            return self.gen_dist_breed_spread() 
         # 0 1 1 1 0
         elif sel_cfg[0] == 0 and sel_cfg[1] == 1 and sel_cfg[2] == 1 and sel_cfg[3] == 1 and sel_cfg[4] == 0:
-            return gen_dist_breed_spread_slope(self) 
+            return self.gen_dist_breed_spread_slope() 
         # 0 1 1 0 1
         elif sel_cfg[0] == 0 and sel_cfg[1] == 1 and sel_cfg[2] == 1 and sel_cfg[3] == 0 and sel_cfg[4] == 1:
-            return gen_dist_breed_spread_road(self) 
+            return self.gen_dist_breed_spread_road() 
         # 0 1 0 1 0
         elif sel_cfg[0] == 0 and sel_cfg[1] == 1 and sel_cfg[2] == 0 and sel_cfg[3] == 1 and sel_cfg[4] == 0:
-            return gen_dist_breed_slope(self) 
+            return self.gen_dist_breed_slope() 
         # 0 1 0 1 1
         elif sel_cfg[0] == 0 and sel_cfg[1] == 1 and sel_cfg[2] == 0 and sel_cfg[3] == 1 and sel_cfg[4] == 1:
-            return gen_dist_breed_slope_road(self) 
+            return self.gen_dist_breed_slope_road() 
         # 0 1 0 0 1
         elif sel_cfg[0] == 0 and sel_cfg[1] == 1 and sel_cfg[2] == 0 and sel_cfg[3] == 0 and sel_cfg[4] == 1:
-            return gen_dist_breed_road(self) 
+            return self.gen_dist_breed_road() 
         # 0 0 1 0 0
         elif sel_cfg[0] == 0 and sel_cfg[1] == 0 and sel_cfg[2] == 1 and sel_cfg[3] == 0 and sel_cfg[4] == 0:
-            return gen_dist_spread(self) 
+            return self.gen_dist_spread() 
         # 0 0 1 1 0
         elif sel_cfg[0] == 0 and sel_cfg[1] == 0 and sel_cfg[2] == 1 and sel_cfg[3] == 1 and sel_cfg[4] == 0:
-            return gen_dist_spread_slope(self) 
+            return self.gen_dist_spread_slope() 
         # 0 0 1 1 1
         elif sel_cfg[0] == 0 and sel_cfg[1] == 0 and sel_cfg[2] == 1 and sel_cfg[3] == 1 and sel_cfg[4] == 1:
-            return gen_dist_spread_slope_road(self) 
+            return self.gen_dist_spread_slope_road() 
         # 0 0 1 0 1
         elif sel_cfg[0] == 0 and sel_cfg[1] == 0 and sel_cfg[2] == 1 and sel_cfg[3] == 0 and sel_cfg[4] == 1:
-            return gen_dist_spread_road(self) 
+            return self.gen_dist_spread_road() 
         # 0 0 0 1 0
         elif sel_cfg[0] == 0 and sel_cfg[1] == 0 and sel_cfg[2] == 0 and sel_cfg[3] == 1 and sel_cfg[4] == 0:
-            return gen_dist_slope(self) 
+            return self.gen_dist_slope() 
         # 0 0 0 1 1
         elif sel_cfg[0] == 0 and sel_cfg[1] == 0 and sel_cfg[2] == 0 and sel_cfg[3] == 1 and sel_cfg[4] == 1:
-            return gen_dist_slope_road(self) 
+            return self.gen_dist_slope_road() 
         # 0 0 0 0 1
         elif sel_cfg[0] == 0 and sel_cfg[1] == 0 and sel_cfg[2] == 0 and sel_cfg[3] == 0 and sel_cfg[4] == 1:
-            return gen_dist_road(self) 
+            return self.gen_dist_road() 
         # oops!
         else:
             print "OOPS!!!!"
@@ -170,15 +186,102 @@ class ScenarioUtil:
         """
         scens = []
         orig = self.original
-        for di in range(orig.diffStart, orig.diffStep, orig.diffStop):
+        # Note: python syntax for range(start, stop (exclusive), step)
+        # SLEUTH uses an inclusive stop value, hence the +1
+        for di in range(orig.diffStart, orig.diffStop + 1, orig.diffStep):
             this_scen = scenario.Scenario()
             this_scen.copy(orig)
             this_scen.diffStart = di
             this_scen.diffStop = di
             # everything else is the same
+            #this_scen.print_me()
             scens.append(this_scen)
 
         return scens
+
+
+    def gen_dist_breed(self):
+        """
+        generate and return scenario based on original distributing by:
+          BREED
+        """
+        scens = []
+        orig = self.original
+        # Note: python syntax for range(start, stop (exclusive), step)
+        # SLEUTH uses an inclusive stop value, hence the +1
+        for di in range(orig.breedStart, orig.breedStop + 1, orig.breedStep):
+            this_scen = scenario.Scenario()
+            this_scen.copy(orig)
+            this_scen.breedStart = br
+            this_scen.breedStop = br
+            # everything else is the same
+            #this_scen.print_me()
+            scens.append(this_scen)
+
+        return scens
+
+
+    def gen_dist_spread(self):
+        """
+        generate and return scenario based on original distributing by:
+          SPREAD
+        """
+        scens = []
+        orig = self.original
+        # Note: python syntax for range(start, stop (exclusive), step)
+        # SLEUTH uses an inclusive stop value, hence the +1
+        for sp in range(orig.spreadStart, orig.spreadStop + 1, orig.spreadStep):
+            this_scen = scenario.Scenario()
+            this_scen.copy(orig)
+            this_scen.spreadStart = sp
+            this_scen.spreadStop = sp
+            # everything else is the same
+            #this_scen.print_me()
+            scens.append(this_scen)
+
+        return scens
+
+
+    def gen_dist_slope(self):
+        """
+        generate and return scenario based on original distributing by:
+          SLOPE
+        """
+        scens = []
+        orig = self.original
+        # Note: python syntax for range(start, stop (exclusive), step)
+        # SLEUTH uses an inclusive stop value, hence the +1
+        for sl in range(orig.slopeStart, orig.slopeStop + 1, orig.slopeStep):
+            this_scen = scenario.Scenario()
+            this_scen.copy(orig)
+            this_scen.slopeStart = sl
+            this_scen.slopeStop = sl
+            # everything else is the same
+            #this_scen.print_me()
+            scens.append(this_scen)
+
+        return scens
+
+    def gen_dist_road(self):
+        """
+        generate and return scenario based on original distributing by:
+          ROAD
+        """
+        scens = []
+        orig = self.original
+        # Note: python syntax for range(start, stop (exclusive), step)
+        # SLEUTH uses an inclusive stop value, hence the +1
+        for rd in range(orig.roadStart, orig.roadStop + 1, orig.roadStep):
+            this_scen = scenario.Scenario()
+            this_scen.copy(orig)
+            this_scen.roadStart = rd
+            this_scen.roadStop = rd
+            # everything else is the same
+            #this_scen.print_me()
+            scens.append(this_scen)
+
+        return scens
+
 
 
     def gen_dist_diff_breed(self):
@@ -189,8 +292,8 @@ class ScenarioUtil:
         """
         scens = []
         orig = self.original
-        for di in range(orig.diffStart, orig.diffStep, orig.diffStop):
-            for br in range(orig.breedStart, orig.breedStep, orig.breedStop):
+        for di in range(orig.diffStart, orig.diffStop + 1, orig.diffStep):
+            for br in range(orig.breedStart, orig.breedStop + 1, orig.breedStep):
                 this_scen = scenario.Scenario()
                 this_scen.copy(orig)
                 this_scen.diffStart = di
@@ -202,6 +305,197 @@ class ScenarioUtil:
 
         return scens
 
+    def gen_dist_diff_spread(self):
+        """
+        generate and return scenario based on original distributing by:
+          DIFFUSION
+          SPREAD
+        """
+        scens = []
+        orig = self.original
+        for di in range(orig.diffStart, orig.diffStop + 1, orig.diffStep):
+            for sp in range(orig.spreadStart, orig.spreadStop + 1, orig.spreadStep):
+                this_scen = scenario.Scenario()
+                this_scen.copy(orig)
+                this_scen.diffStart = di
+                this_scen.diffStop = di
+                this_scen.spreadStart = sp
+                this_scen.spreadStop = sp
+                # everything else is the same
+                scens.append(this_scen)
+
+        return scens
+
+    def gen_dist_diff_slope(self):
+        """
+        generate and return scenario based on original distributing by:
+          DIFFUSION
+          SLOPE
+        """
+        scens = []
+        orig = self.original
+        for di in range(orig.diffStart, orig.diffStop + 1, orig.diffStep):
+            for sl in range(orig.slopeStart, orig.slopeStop + 1, orig.slopeStep):
+                this_scen = scenario.Scenario()
+                this_scen.copy(orig)
+                this_scen.diffStart = di
+                this_scen.diffStop = di
+                this_scen.slopeStart = sl
+                this_scen.slopeStop = sl
+                # everything else is the same
+                scens.append(this_scen)
+
+        return scens
+
+    def gen_dist_diff_road(self):
+        """
+        generate and return scenario based on original distributing by:
+          DIFFUSION
+          ROAD
+        """
+        scens = []
+        orig = self.original
+        for di in range(orig.diffStart, orig.diffStop + 1, orig.diffStep):
+            for rd in range(orig.roadStart, orig.roadStop + 1, orig.roadStep):
+                this_scen = scenario.Scenario()
+                this_scen.copy(orig)
+                this_scen.diffStart = di
+                this_scen.diffStop = di
+                this_scen.roadStart = rd
+                this_scen.roadStop = rd
+                # everything else is the same
+                scens.append(this_scen)
+
+        return scens
+
+
+    def gen_dist_breed_spread(self):
+        """
+        generate and return scenario based on original distributing by:
+          BREED
+          SPREAD
+        """
+        scens = []
+        orig = self.original
+        for br in range(orig.breedStart, orig.breedStop + 1, orig.breedStep):
+            for sp in range(orig.spreadStart, orig.spreadStop + 1, orig.spreadStep):
+                this_scen = scenario.Scenario()
+                this_scen.copy(orig)
+                this_scen.breedStart = br
+                this_scen.breedStop = br
+                this_scen.spreadStart = sp
+                this_scen.spreadStop = sp
+                # everything else is the same
+                scens.append(this_scen)
+
+        return scens
+
+    def gen_dist_breed_slope(self):
+        """
+        generate and return scenario based on original distributing by:
+          BREED
+          SLOPE
+        """
+        scens = []
+        orig = self.original
+        for br in range(orig.breedStart, orig.breedStop + 1, orig.breedStep):
+            for sl in range(orig.slopeStart, orig.slopeStop + 1, orig.slopeStep):
+                this_scen = scenario.Scenario()
+                this_scen.copy(orig)
+                this_scen.breedStart = br
+                this_scen.breedStop = br
+                this_scen.slopeStart = sl
+                this_scen.slopeStop = sl
+                # everything else is the same
+                scens.append(this_scen)
+
+        return scens
+
+    def gen_dist_breed_road(self):
+        """
+        generate and return scenario based on original distributing by:
+          BREED
+          ROAD
+        """
+        scens = []
+        orig = self.original
+        for br in range(orig.breedStart, orig.breedStop + 1, orig.breedStep):
+            for rd in range(orig.roadStart, orig.roadStop + 1, orig.roadStep):
+                this_scen = scenario.Scenario()
+                this_scen.copy(orig)
+                this_scen.breedStart = br
+                this_scen.breedStop = br
+                this_scen.roadStart = rd
+                this_scen.roadStop = rd
+                # everything else is the same
+                scens.append(this_scen)
+
+        return scens
+
+    def gen_dist_spread_slope(self):
+        """
+        generate and return scenario based on original distributing by:
+          SPRED
+          SLOPE
+        """
+        scens = []
+        orig = self.original
+        for sp in range(orig.spreadStart, orig.spreadStop + 1, orig.spreadStep):
+            for sl in range(orig.slopeStart, orig.slopeStop + 1, orig.slopeStep):
+                this_scen = scenario.Scenario()
+                this_scen.copy(orig)
+                this_scen.spreadStart = sp
+                this_scen.spreadStop = sp
+                this_scen.slopeStart = sl
+                this_scen.slopeStop = sl
+                # everything else is the same
+                scens.append(this_scen)
+
+        return scens
+
+    def gen_dist_spread_road(self):
+        """
+        generate and return scenario based on original distributing by:
+          SPREAD
+          ROAD
+        """
+        scens = []
+        orig = self.original
+        for sp in range(orig.spreadStart, orig.spreadStop + 1, orig.spreadStep):
+            for rd in range(orig.roadStart, orig.roadStop + 1, orig.roadStep):
+                this_scen = scenario.Scenario()
+                this_scen.copy(orig)
+                this_scen.spreadStart = br
+                this_scen.spreadStop = br
+                this_scen.roadStart = rd
+                this_scen.roadStop = rd
+                # everything else is the same
+                scens.append(this_scen)
+
+        return scens
+
+    def gen_dist_slope_road(self):
+        """
+        generate and return scenario based on original distributing by:
+          SLOPE
+          ROAD
+        """
+        scens = []
+        orig = self.original
+        for sl in range(orig.slopeStart, orig.slopeStop + 1, orig.slopeStep):
+            for rd in range(orig.roadStart, orig.roadStop + 1, orig.roadStep):
+                this_scen = scenario.Scenario()
+                this_scen.copy(orig)
+                this_scen.slopeStart = sl
+                this_scen.slopeStop = sl
+                this_scen.roadStart = rd
+                this_scen.roadStop = rd
+                # everything else is the same
+                scens.append(this_scen)
+
+        return scens
+
+
     def gen_dist_diff_breed_spread(self):
         """
         generate and return scenario based on original distributing by:
@@ -211,9 +505,9 @@ class ScenarioUtil:
         """
         scens = []
         orig = self.original
-        for di in range(orig.diffStart, orig.diffStep, orig.diffStop):
-            for br in range(orig.breedStart, orig.breedStep, orig.breedStop):
-                for sp in range(orig.spreadStart, orig.spreadStep, orig.spreadStop):
+        for di in range(orig.diffStart, orig.diffStop + 1, orig.diffStep):
+            for br in range(orig.breedStart, orig.breedStop + 1, orig.breedStep):
+                for sp in range(orig.spreadStart, orig.spreadStop + 1, orig.spreadStep):
                     this_scen = scenario.Scenario()
                     this_scen.copy(orig)
                     this_scen.diffStart = di
@@ -222,6 +516,230 @@ class ScenarioUtil:
                     this_scen.breedStop = br
                     this_scen.spreadStart = sp
                     this_scen.spreadStop = sp
+                    # everything else is the same
+                    scens.append(this_scen)
+
+        return scens
+
+    def gen_dist_diff_breed_slope(self):
+        """
+        generate and return scenario based on original distributing by:
+          DIFFUSION
+          BREED
+          Spread
+        """
+        scens = []
+        orig = self.original
+        for di in range(orig.diffStart, orig.diffStop + 1, orig.diffStep):
+            for br in range(orig.breedStart, orig.breedStop + 1, orig.breedStep):
+                for sl in range(orig.slopeStart, orig.slopeStop + 1, orig.slopeStep):
+                    this_scen = scenario.Scenario()
+                    this_scen.copy(orig)
+                    this_scen.diffStart = di
+                    this_scen.diffStop = di
+                    this_scen.breedStart = br
+                    this_scen.breedStop = br
+                    this_scen.slopeStart = sl
+                    this_scen.slopeStop = sl
+                    # everything else is the same
+                    scens.append(this_scen)
+
+        return scens
+    def gen_dist_diff_breed_road(self):
+        """
+        generate and return scenario based on original distributing by:
+          DIFFUSION
+          BREED
+          road
+        """
+        scens = []
+        orig = self.original
+        for di in range(orig.diffStart, orig.diffStop + 1, orig.diffStep):
+            for br in range(orig.breedStart, orig.breedStop + 1, orig.breedStep):
+                for rd in range(orig.roadStart, orig.roadStop + 1, orig.roadStep):
+                    this_scen = scenario.Scenario()
+                    this_scen.copy(orig)
+                    this_scen.diffStart = di
+                    this_scen.diffStop = di
+                    this_scen.breedStart = br
+                    this_scen.breedStop = br
+                    this_scen.roadStart = rd
+                    this_scen.roadStop = rd
+                    # everything else is the same
+                    scens.append(this_scen)
+
+        return scens
+
+    def gen_dist_diff_spread_slope(self):
+        """
+        generate and return scenario based on original distributing by:
+          DIFFUSION
+          Spread
+          slope
+        """
+        scens = []
+        orig = self.original
+        for di in range(orig.diffStart, orig.diffStop + 1, orig.diffStep):
+            for sp in range(orig.spreadStart, orig.spreadStop + 1, orig.spreadStep):
+                for sl in range(orig.slopeStart, orig.slopeStop + 1, orig.slopeStep):
+                    this_scen = scenario.Scenario()
+                    this_scen.copy(orig)
+                    this_scen.diffStart = di
+                    this_scen.diffStop = di
+                    this_scen.spreadStart = sp
+                    this_scen.spreadStop = sp
+                    this_scen.slopeStart = sl
+                    this_scen.slopeStop = sl
+                    # everything else is the same
+                    scens.append(this_scen)
+
+        return scens
+
+    def gen_dist_diff_spread_road(self):
+        """
+        generate and return scenario based on original distributing by:
+          DIFFUSION
+          Spread
+          ROAD
+        """
+        scens = []
+        orig = self.original
+        for di in range(orig.diffStart, orig.diffStop + 1, orig.diffStep):
+            for sp in range(orig.spreadStart, orig.spreadStop + 1, orig.spreadStep):
+                for rd in range(orig.roadStart, orig.roadStop + 1, orig.roadStep):
+                    this_scen = scenario.Scenario()
+                    this_scen.copy(orig)
+                    this_scen.diffStart = di
+                    this_scen.diffStop = di
+                    this_scen.spreadStart = sp
+                    this_scen.spreadStop = sp
+                    this_scen.roadStart = rd
+                    this_scen.roadStop = rd
+                    # everything else is the same
+                    scens.append(this_scen)
+
+        return scens
+
+    def gen_dist_diff_slope_road(self):
+        """
+        generate and return scenario based on original distributing by:
+          DIFFUSION
+          SLOPE
+          ROAD
+        """
+        scens = []
+        orig = self.original
+        for di in range(orig.diffStart, orig.diffStop + 1, orig.diffStep):
+            for sl in range(orig.slopeStart, orig.slopeStop + 1, orig.slopeStep):
+                for rd in range(orig.roadStart, orig.roadStop + 1, orig.roadStep):
+                    this_scen = scenario.Scenario()
+                    this_scen.copy(orig)
+                    this_scen.diffStart = di
+                    this_scen.diffStop = di
+                    this_scen.slopeStart = sl
+                    this_scen.slopeStop = sl
+                    this_scen.roadStart = rd
+                    this_scen.roadStop = rd
+                    # everything else is the same
+                    scens.append(this_scen)
+
+        return scens
+
+    def gen_dist_breed_spread_slope(self):
+        """
+        generate and return scenario based on original distributing by:
+          BREED
+          SPREAD
+          SLOPE
+        """
+        scens = []
+        orig = self.original
+        for br in range(orig.breedStart, orig.breedStop + 1, orig.breedStep):
+            for sp in range(orig.spreadStart, orig.spreadStop + 1, orig.spreadStep):
+                for sl in range(orig.slopeStart, orig.slopeStop + 1, orig.slopeStep):
+                    this_scen = scenario.Scenario()
+                    this_scen.copy(orig)
+                    this_scen.breedStart = br
+                    this_scen.breedStop = br
+                    this_scen.spreadStart = sp
+                    this_scen.spreadStop = sp
+                    this_scen.slopeStart = sl
+                    this_scen.slopeStop = sl
+                    # everything else is the same
+                    scens.append(this_scen)
+
+        return scens
+
+    def gen_dist_breed_spread_road(self):
+        """
+        generate and return scenario based on original distributing by:
+          BREED
+          SPREAD
+          ROAD
+        """
+        scens = []
+        orig = self.original
+        for br in range(orig.breedStart, orig.breedStop + 1, orig.breedStep):
+            for sp in range(orig.spreadStart, orig.spreadStop + 1, orig.spreadStep):
+                for rd in range(orig.roadStart, orig.roadStop + 1, orig.roadStep):
+                    this_scen = scenario.Scenario()
+                    this_scen.copy(orig)
+                    this_scen.breedStart = br
+                    this_scen.breedStop = br
+                    this_scen.spreadStart = sp
+                    this_scen.spreadStop = sp
+                    this_scen.roadStart = rd
+                    this_scen.roadStop = rd
+                    # everything else is the same
+                    scens.append(this_scen)
+
+        return scens
+
+    def gen_dist_breed_slope_road(self):
+        """
+        generate and return scenario based on original distributing by:
+          BREED
+          SLOPE
+          ROAD
+        """
+        scens = []
+        orig = self.original
+        for br in range(orig.breedStart, orig.breedStop + 1, orig.breedStep):
+            for sl in range(orig.slopeStart, orig.slopeStop + 1, orig.slopeStep):
+                for rd in range(orig.roadStart, orig.roadStop + 1, orig.roadStep):
+                    this_scen = scenario.Scenario()
+                    this_scen.copy(orig)
+                    this_scen.breedStart = br
+                    this_scen.breedStop = br
+                    this_scen.slopeStart = sl
+                    this_scen.slopeStop = sl
+                    this_scen.roadStart = rd
+                    this_scen.roadStop = rd
+                    # everything else is the same
+                    scens.append(this_scen)
+
+        return scens
+
+    def gen_dist_spread_slope_road(self):
+        """
+        generate and return scenario based on original distributing by:
+          SPREAD
+          SLOPE
+          ROAD
+        """
+        scens = []
+        orig = self.original
+        for sp in range(orig.spreadStart, orig.spreadStop + 1, orig.spreadStep):
+            for sl in range(orig.slopeStart, orig.slopeStop + 1, orig.slopeStep):
+                for rd in range(orig.roadStart, orig.roadStop + 1, orig.roadStep):
+                    this_scen = scenario.Scenario()
+                    this_scen.copy(orig)
+                    this_scen.spreadStart = sp
+                    this_scen.spreadStop = sp
+                    this_scen.slopeStart = sl
+                    this_scen.slopeStop = sl
+                    this_scen.roadStart = rd
+                    this_scen.roadStop = rd
                     # everything else is the same
                     scens.append(this_scen)
 
@@ -375,33 +893,39 @@ class ScenarioUtil:
         best2 = poss_config[0]
         best3 = poss_config[0]
 
-        exists = (False, False, False, False)
+        exists = [False, False, False, False]
 
         for poss in poss_config:
-            print poss
-            exists[poss[7]] = True
+            print poss, poss[7]
+
             if poss[7] == 0:
-                if poss[5] > best0[5]: # faster to do int comparison as opposed to float comparisons
+                if exists[0] == False or poss[5] > best0[5]: # faster to do int comparison as opposed to float comparisons
                     best0 = poss
+                    print "new best 0"
             elif poss[7] == 1:
-                if poss[6] < best1[6]:
+                if exists[1] == False or poss[6] < best1[6]:
                     best1 = poss
+                    print "new best 1"
             elif poss[7] == 2:
-                if poss[6] - int(poss[6]) > best2[6] - int(best2[6]):
+                if exists[2] == False or poss[6] - int(poss[6]) > best2[6] - int(best2[6]):
                     best2 = poss
+                    print "new best 2"
             else: # poss[7] == 3
-                if poss[6] < best3[6]:
+                if exists[3] == False or poss[6] < best3[6]:
                     best3 = poss
+                    print "new best 3"
+            exists[poss[7]] = True
 
         selected_config = None
-        if exists[0]:
-            selected_config = best0
-        elif exists[1]:
+
+        if exists[1]:
             selected_config = best1
         elif exists[2]:
             selected_config = best2
         elif exists[3]:
             selected_config = best3
+        elif exists[0]:
+            selected_config = best0
 
         return selected_config
 
@@ -429,59 +953,10 @@ class ScenarioUtil:
         obj.roadNum = ((obj.roadStop - obj.roadStart) / obj.roadStep) + 1
         return obj.diffNum * obj.breedNum * obj.spreadNum * obj.slopeNum * obj.roadNum
 
-    def lines_to_data(self, lines, obj):
-        for line in lines:
-            line = line.strip()
-            if line is not "" and line[0] != '#':
-                if obj.diffusionStartPattern in line:
-                    # found diffusion start
-                    obj.diffStart = int(line.split("=")[1].strip())
-                elif obj.diffusionStepPattern in line:
-                    # found diffusion step
-                    obj.diffStep = int(line.split("=")[1].strip())
-                elif obj.diffusionStopPattern in line:
-                    # found diffusion stop
-                    obj.diffStop = int(line.split("=")[1].strip())
-                elif obj.spreadStartPattern in line:
-                    # found spread start
-                    obj.spreadStart = int(line.split("=")[1].strip())
-                elif obj.spreadStepPattern in line:
-                    # found spread step
-                    obj.spreadStep = int(line.split("=")[1].strip())
-                elif obj.spreadStopPattern in line:
-                    # found spread stop
-                    obj.spreadStop = int(line.split("=")[1].strip())
-                elif obj.slopeStartPattern in line:
-                    # found slope start
-                    obj.slopeStart = int(line.split("=")[1].strip())
-                elif obj.slopeStepPattern in line:
-                    # found slope step
-                    obj.slopeStep = int(line.split("=")[1].strip())
-                elif obj.slopeStopPattern in line:
-                    # found slope stop
-                    obj.slopeStop = int(line.split("=")[1].strip())
-                elif obj.breedStartPattern in line:
-                    # found breed start
-                    obj.breedStart = int(line.split("=")[1].strip())
-                elif obj.breedStepPattern in line:
-                    # found breed step
-                    obj.breedStep = int(line.split("=")[1].strip())
-                elif obj.breedStopPattern in line:
-                    # found breed stop
-                    obj.breedStop = int(line.split("=")[1].strip())
-                elif obj.roadStartPattern in line:
-                    # found road start
-                    obj.roadStart = int(line.split("=")[1].strip())
-                elif obj.roadStepPattern in line:
-                    # found road step
-                    obj.roadStep = int(line.split("=")[1].strip())
-                elif obj.roadStopPattern in line:
-                    # found road stop
-                    obj.roadStop = int(line.split("=")[1].strip())
 
 
     def get_num_files(self):
-        return self.num_files
+        return len(self.scen_file_list)
 
     def get_output_dir(self):
         return self.output_dir
