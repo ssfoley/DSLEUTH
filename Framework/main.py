@@ -4,15 +4,15 @@ import sys
 import scenarioUtil
 import time
 import os
-#import hostlist
-#import processAttribute
-#import mergeResult
+
 
 class Main:
 	nodelist = {}
 	queue = Queue.Queue()
         sched = "unknown"
         num_nodes = 1
+        DEBUG = False
+        TESTING = False
 
         def __init__(self):
                 """
@@ -21,13 +21,23 @@ class Main:
                 number of nodes
                 """
                 setfile = open("run_settings", "r")
-                self.sched, num = setfile.read().split()
+                self.sched, num, debug_val, testing_run = setfile.read().split()
                 self.num_nodes = int(num)
-                print "scheduler type: ", self.sched
-                print "num_nodes: ", str(self.num_nodes)
+                print "DSLEUTH: scheduler type: ", self.sched
+                print "DSLEUTH: num_nodes: ", str(self.num_nodes)
+                self.getNodelist()
+                if int(debug_val) is 1:
+                        self.DEBUG = True
+                if int(testing_run) is 1:
+                        self.TESTING = True
 
 	
 	def getNodelist(self):
+                """
+                Returns a dictionary of nodes and their states.
+                If it is SLURM, the nodes are picked up from the scheduler.
+                Otherwise, the run_settings file number of nodes is used to generate arbitrary nodes.
+                """
                 if self.sched is "SLURM":
                         import hostlist
                         slurmlist = hostlist.expand_hostlist(os.environ["SLURM_JOB_NODELIST"])
@@ -37,29 +47,34 @@ class Main:
                                 self.nodelist.update({"".join(["node", str(n)]): -1})
 
 	def done(self, p):
+                """
+                Checks to see if the process is done.  If it is done, the node is freed and bookkeeping updated.
+                Otherwise returns false.
+                """
+                cur_pid = p.pid
 	 	if p.poll() is not None:
                         # done
-                        print "pid just finished ", str(p.pid)
+                        if self.DEBUG:
+                                print "DSLEUTH: pid just finished ", str(cur_pid)
+                                print "DSELUTH: ", self.nodelist.values().index(cur_pid)
+                                print "DSLEUTH: node just freed ", self.nodelist.keys()[self.nodelist.values().index(cur_pid)]
                         # update node list
-                        print self.nodelist.values().index(p.pid)
-                        print "node just freed ", self.nodelist.keys()[self.nodelist.values().index(p.pid)]
-                        self.nodelist[self.nodelist.keys()[self.nodelist.values().index(p.pid)]] = -1
+                        self.nodelist[self.nodelist.keys()[self.nodelist.values().index(cur_pid)]] = -1
                         # return true
                         return True
                 else:
-                        print "not done! ", str(p.poll())
+                        if self.DEBUG:
+                                print "DSLEUTH: not done! ", str(cur_pid)
                         return False
 
         def get_free_node(self):
                 # assume there is a free node
                 return self.nodelist.keys()[self.nodelist.values().index(-1)]
 
-	def success(self, p):
-	 	return p.returncode == 0
 
         def merge(self, filePath, numOfFiles, finalPath):
                 numOfRun = 0
-                print os.getcwd()
+                print "DSLEUTH: ", os.getcwd()
                 with open(finalPath, 'w') as dest:
                         for i in range(1, numOfFiles + 1):
                                 fileName = filePath + str(i) + '/' + 'control_stats.log'
@@ -81,64 +96,70 @@ class Main:
 	def main(self):
 		args = sys.argv
 
+                # error checking for args
+                if len(sys.argv) != 4:
+                        print "DSLEUTH: Error! wrong number of arguments."
+                        return
+
+                # take care of the case when it is not a calibrate job and produce a warning
+                if args[2] != "calibrate":
+                        print "DSLEUTH: Warning: this framework is designed for distributing across multiple nodes, but only for calibrate mode.  Mode is ", args[2]
+                        print "DSLEUTH: Just running the code as is."
+                        p = subprocess.Popen([args[1], args[2], args[3]])
+                        p.wait()
+                        return
+
+
 		#args[3] is the scenario file path
 		destination_path = args[3] + "_steps/"
-		scena = scenarioUtil.ScenarioUtil()
-		print time.strftime("%H:%M:%S")
-		if not os.path.exists(destination_path):
-			scena.makeOutputDir(destination_path)
-		fileNum = scena.generatingBySplitDiffusionAndNum(args[3], destination_path, 9)
-		print time.strftime("%H:%M:%S")
-		#return
+		scena = scenarioUtil.ScenarioUtil(args[3], destination_path, self.num_nodes)
 
-		self.getNodelist()
-		#print "nodelist----" + self.nodelist.amount()
+
+                # if we are just testing, then return here and examine the output
+                if self.TESTING:
+                        return
+
+
+		fileNum = scena.get_num_files() + 1
+		print "DSLEUTH: ", time.strftime("%H:%M:%S")
+
+                # populate the queue with the scenario file names
 		for x in range(1,fileNum):
 			self.queue.put(x)
 		processes = []
 		
-		for node in self.nodelist.keys():
-			print node
-			if not self.queue.empty():
-				num = self.queue.get()
-                                print "attempting to launch on node: ", node
-                                if self.sched is "SLURM":
-                                        p = subprocess.Popen(["srun", "-N", "1", "--nodelist=" + node, args[1], args[2], args[3] + "_steps/" + str(num)])
-                                else:
-                                        p = subprocess.Popen([args[1], args[2], args[3] + "_steps/" + str(num)])
-				#pid = p.pid
-				#proc = processAttribute.ProcessAttribute(p, pid, node)
-				print p.pid
-                                self.nodelist[node] = p.pid
-				processes.append(p)
-
+                # launch jobs as long as there is work and free nodes
 		while not self.queue.empty():
-                        # check for finished processes
-                        #   somelist[:] = [tup for tup in somelist if determine(tup)]
-                        processes[:] = [ p for p in processes if not self.done(p) ]
-
                         # while there are available nodes and the queue is not empty
                         while len(processes) < self.num_nodes and not self.queue.empty():
                                 num = self.queue.get()
                                 node = self.get_free_node()
-                                print "attempting to launch on node: ", node
+                                print "DSLEUTH: attempting to launch on node: ", node
                                 if self.sched is "SLURM":
                                         p = subprocess.Popen(["srun", "-N", "1", "--nodelist=" + node, args[1], args[2], args[3] + "_steps/" + str(num)])
                                 else:
+                                        print "DSLEUTH: executing: {} {} {}+_steps/+{}".format(args[1], args[2], args[3], num)
                                         p = subprocess.Popen([args[1], args[2], args[3] + "_steps/" + str(num)])
-                                print p.pid
+                                if self.DEBUG:
+                                        print "DSLEUTH: ", p.pid
                                 self.nodelist[node] = p.pid
                                 processes.append(p)
                         # wait a little bit and then check again
 			time.sleep(1)
+                        # check for finished processes
+                        #   somelist[:] = [tup for tup in somelist if determine(tup)]
+                        processes[:] = [ p for p in processes if not self.done(p) ]
 
+
+
+                # all pieces of work have been divvied out, but processes are still working
 		for pro in processes:
 			pro.wait()
-		print time.strftime("%H:%M:%S")
+		print "DSLEUTH: ", time.strftime("%H:%M:%S")
 		
-		outputDir = scena.getAttribute("OUTPUT_DIR=",args[3])
-		outputDir = outputDir.replace("\n", "")
-		self.merge(outputDir, fileNum - 1, outputDir + "/control.stats.log")
+                outputDir = scena.get_output_dir()
+		self.merge(outputDir, fileNum - 1, outputDir + "control.stats.log")
+
 if __name__ == '__main__':
 	m = Main()
 	m.main()
