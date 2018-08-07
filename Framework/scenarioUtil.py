@@ -209,7 +209,7 @@ class ScenarioUtil:
         orig = self.original
         # Note: python syntax for range(start, stop (exclusive), step)
         # SLEUTH uses an inclusive stop value, hence the +1
-        for di in range(orig.breedStart, orig.breedStop + 1, orig.breedStep):
+        for br in range(orig.breedStart, orig.breedStop + 1, orig.breedStep):
             this_scen = scenario.Scenario()
             this_scen.copy(orig)
             this_scen.breedStart = br
@@ -465,8 +465,8 @@ class ScenarioUtil:
             for rd in range(orig.roadStart, orig.roadStop + 1, orig.roadStep):
                 this_scen = scenario.Scenario()
                 this_scen.copy(orig)
-                this_scen.spreadStart = br
-                this_scen.spreadStop = br
+                this_scen.spreadStart = sp
+                this_scen.spreadStop = sp
                 this_scen.roadStart = rd
                 this_scen.roadStop = rd
                 # everything else is the same
