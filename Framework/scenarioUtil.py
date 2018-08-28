@@ -23,7 +23,7 @@ class ScenarioUtil:
         # read the scenario file
         self.original = scenario.Scenario()
         self.original.read_file(scen_file_name)
-        self.original.print_me()
+        self.original.print_me(log_file)
         self.pieces = pieces
         self.output_dir = self.original.outputDir
         self.log_file = log_file
@@ -65,10 +65,7 @@ class ScenarioUtil:
 
         # cd to the appropriate directory
 
-        try:
-            os.makedirs(dest)
-        except OSError:
-            print >> log_file, "WARNING: file path exists for scenario files, old files may be overwritten"
+
 
         try:
             os.makedirs(self.original.outputDir)

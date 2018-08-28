@@ -112,6 +112,10 @@ class Main:
 
 		#args[3] is the scenario file path
 		destination_path = args[3] + "_steps/"
+		try:
+			os.makedirs(destination_path)
+		except OSError:
+			print "WARNING: file path exists for scenario files, old files may be overwritten"
 		log_file = open(destination_path + "dsleuth.log", "w")
 		scena = scenarioUtil.ScenarioUtil(args[3], destination_path, self.num_nodes, log_file)
 
