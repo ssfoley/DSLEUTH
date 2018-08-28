@@ -19,14 +19,14 @@ class ScenarioUtil:
     output_dir = None
 
 
-    def __init__(self, scen_file_name, dest_path, pieces):
+    def __init__(self, scen_file_name, dest_path, pieces, log_file):
         # read the scenario file
         self.original = scenario.Scenario()
         self.original.read_file(scen_file_name)
         self.original.print_me()
         self.pieces = pieces
         self.output_dir = self.original.outputDir
-
+        self.log_file = log_file
         # short-hand for self.original
         orig = self.original
         
@@ -36,8 +36,8 @@ class ScenarioUtil:
         gen_scens = []
         val_start = 0
         numper = combos / pieces
-        print "pieces: {} -- numper {} -- combos {}".format(pieces, numper, combos)
-        print "diffNum {} -- breedNum {} -- spreadNum {} -- slopeNum {} -- roadNum {}".format(orig.diffNum, orig.breedNum, orig.spreadNum, orig.slopeNum, orig.roadNum)
+        print >> log_file, "pieces: {} -- numper {} -- combos {}".format(pieces, numper, combos)
+        print >> log_file, "diffNum {} -- breedNum {} -- spreadNum {} -- slopeNum {} -- roadNum {}".format(orig.diffNum, orig.breedNum, orig.spreadNum, orig.slopeNum, orig.roadNum)
 
 
         poss_config = self.gen_poss_config()
@@ -60,7 +60,7 @@ class ScenarioUtil:
         call the appropriate function to generate these files
         returns the list of files
         """
-
+        log_file = self.log_file
         file_list = []
 
         # cd to the appropriate directory
@@ -68,19 +68,19 @@ class ScenarioUtil:
         try:
             os.makedirs(dest)
         except OSError:
-            print "WARNING: file path exists for scenario files, old files may be overwritten"
+            print >> log_file, "WARNING: file path exists for scenario files, old files may be overwritten"
 
         try:
             os.makedirs(self.original.outputDir)
         except OSError:
-            print "WARNING: file path exists for output files, old files may be overwritten"
+            print >> log_file, "WARNING: file path exists for output files, old files may be overwritten"
 
         # generate the scenario objects
-        scenarios = self.gen_scen_objs(sel_cfg)
+        scenarios = self.gen_scen_objs(sel_cfg, log_file)
         i = 1
         for scen in scenarios:
-            scen.print_me()
-            print " ------ "
+            scen.print_me(log_file)
+            print >> log_file, " ------ "
             scen.write_file(scen_base, dest + str(i), str(i))
             file_list.append(str(i))
             i += 1
@@ -91,7 +91,7 @@ class ScenarioUtil:
 
 
 
-    def gen_scen_objs(self, sel_cfg):
+    def gen_scen_objs(self, sel_cfg, log_file):
         """
         figure out and generate the scenario objects
         """
@@ -173,8 +173,8 @@ class ScenarioUtil:
             return self.gen_dist_road() 
         # oops!
         else:
-            print "OOPS!!!!"
-            print sel_cfg
+            print >> log_file, "OOPS!!!!"
+            print >> log_file, sel_cfg
             return []
 
 

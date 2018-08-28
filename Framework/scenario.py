@@ -54,13 +54,13 @@ class Scenario:
 
     outputDirPattern = "OUTPUT_DIR="
 
-    def print_me(self):
-        print "diffusion: {} {} {}".format(self.diffStart, self.diffStep, self.diffStop)
-        print "breed:  {} {} {}".format(self.breedStart, self.breedStep, self.breedStop)
-        print "spread:  {} {} {}".format(self.spreadStart, self.spreadStep, self.spreadStop)
-        print "slope:  {} {} {}".format(self.slopeStart, self.slopeStep, self.slopeStop)
-        print "road:  {} {} {}".format(self.roadStart, self.roadStep, self.roadStop)
-        print "output dir: {}".format(self.outputDir)
+    def print_me(self, log_file):
+        print >> log_file, "diffusion: {} {} {}".format(self.diffStart, self.diffStep, self.diffStop)
+        print >> log_file, "breed:  {} {} {}".format(self.breedStart, self.breedStep, self.breedStop)
+        print >> log_file, "spread:  {} {} {}".format(self.spreadStart, self.spreadStep, self.spreadStop)
+        print >> log_file, "slope:  {} {} {}".format(self.slopeStart, self.slopeStep, self.slopeStop)
+        print >> log_file, "road:  {} {} {}".format(self.roadStart, self.roadStep, self.roadStop)
+        print >> log_file, "output dir: {}".format(self.outputDir)
 
 
 

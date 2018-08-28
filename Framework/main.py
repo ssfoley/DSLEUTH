@@ -95,7 +95,7 @@ class Main:
 
 	def main(self):
 		args = sys.argv
-
+		
                 # error checking for args
                 if len(sys.argv) != 4:
                         print "DSLEUTH: Error! wrong number of arguments."
@@ -112,7 +112,8 @@ class Main:
 
 		#args[3] is the scenario file path
 		destination_path = args[3] + "_steps/"
-		scena = scenarioUtil.ScenarioUtil(args[3], destination_path, self.num_nodes)
+		log_file = open(destination_path + "dsleuth.log", "w")
+		scena = scenarioUtil.ScenarioUtil(args[3], destination_path, self.num_nodes, log_file)
 
 
                 # if we are just testing, then return here and examine the output
@@ -121,7 +122,7 @@ class Main:
 
 
 		fileNum = scena.get_num_files() + 1
-		print "DSLEUTH: ", time.strftime("%H:%M:%S")
+		print >> log_file, "DSLEUTH: ", time.strftime("%H:%M:%S")
 
                 # populate the queue with the scenario file names
 		for x in range(1,fileNum):
@@ -134,14 +135,14 @@ class Main:
                         while len(processes) < self.num_nodes and not self.queue.empty():
                                 num = self.queue.get()
                                 node = self.get_free_node()
-                                print "DSLEUTH: attempting to launch on node: ", node
+                                print >> log_file, "DSLEUTH: attempting to launch on node: ", node
                                 if self.sched is "SLURM":
                                         p = subprocess.Popen(["srun", "-N", "1", "--nodelist=" + node, args[1], args[2], args[3] + "_steps/" + str(num)])
                                 else:
-                                        print "DSLEUTH: executing: {} {} {}+_steps/+{}".format(args[1], args[2], args[3], num)
+                                        print >> log_file, "DSLEUTH: executing: {} {} {}+_steps/+{}".format(args[1], args[2], args[3], num)
                                         p = subprocess.Popen([args[1], args[2], args[3] + "_steps/" + str(num)])
                                 if self.DEBUG:
-                                        print "DSLEUTH: ", p.pid
+                                        print >> log_file, "DSLEUTH: ", p.pid
                                 self.nodelist[node] = p.pid
                                 processes.append(p)
                         # wait a little bit and then check again
@@ -155,7 +156,7 @@ class Main:
                 # all pieces of work have been divvied out, but processes are still working
 		for pro in processes:
 			pro.wait()
-		print "DSLEUTH: ", time.strftime("%H:%M:%S")
+		print >> log_file, "DSLEUTH: ", time.strftime("%H:%M:%S")
 		
                 outputDir = scena.get_output_dir()
 		self.merge(outputDir, fileNum - 1, outputDir + "control.stats.log")
