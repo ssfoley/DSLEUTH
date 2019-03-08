@@ -38,18 +38,22 @@ SRCS = ${SRCS_W_HDRS} ${SRCS_WO_HDRS}
 HDRS  = ${SRCS_W_HDRS:.c=.h} globals.h ugm_typedefs.h ugm_defines.h ugm_macros.h
 OBJS = ${SRCS:.c=.o}
 DEPS = ${SRCS:.c=.d}
+SUBFOL = GD
 
 grow : $(OBJS)
+	cd GD; ${MAKE}
 	$(CC) -I$(GD_LIB) $(OBJS) -o grow $(CLIBS)
+
 
 depend : $(SRCS) $(HDRS)
 	$(CC) $(DEP) -I$(GD_LIB) $(SRCS) > Makefile.inc
 
 clean :
 	rm $(OBJS)
+	cd GD; $(RM) *.o
 clean_all :
 	rm $(OBJS) grow
-
+	cd GD; $(RM) *.o
 #include $(DEPS)
 include Makefile.inc
 
@@ -61,4 +65,3 @@ include Makefile.inc
 #c.d:
 #       $(SHELL) -ec '$(CC) -MM $(CFLAGS) $< \
 #       | sed '\''s/$*\.o/& $@/g'\'' > $@'
-
