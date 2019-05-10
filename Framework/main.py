@@ -178,10 +178,11 @@ class Main:
 
                 outputDir = scena.get_output_dir()
 		self.merge(outputDir, fileNum - 1, outputDir + "control.stats.log")
-
-                subprocess.check_output(['make'])
-                #subprocess.check_output(['./readdata3', '../Output/control.stats.log'])
-                subprocess.check_output(['./readdata3', outputDir + "control.stats.log"])
+                
+                if arg[2] == "calibrate":
+                        subprocess.check_output(['make'])
+                        subprocess.check_output(['./readdata3', outputDir + "control.stats.log"])
+                        subprocess.check_output(['mv', 'top50b.log', outputDir])
 
 if __name__ == '__main__':
 	m = Main()
