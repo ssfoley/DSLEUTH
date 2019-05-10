@@ -106,17 +106,18 @@ class Main:
 		if self.invalid:
 			return;
 		# error checking for args
-        if len(sys.argv) != 4:
+                if len(sys.argv) != 4:
 			print "DSLEUTH: Error! wrong number of arguments."
 			return
 
                 # take care of the case when it is not a calibrate job and produce a warning
-    	if args[2] != "calibrate":
+                if args[2] != "calibrate":
 			print "DSLEUTH: Warning: this framework is designed for distributing across multiple nodes, but only for calibrate mode.  Mode is ", args[2]
 			print "DSLEUTH: Just running the code as is."
-        	p = subprocess.Popen([args[1], args[2], args[3]])
-            p.wait()
-            return
+                        print(args[1], args[2], args[3])
+                        p = subprocess.Popen([args[1], args[2], args[3]])
+                        p.wait()
+                        return
 
 
 		#args[3] is the scenario file path
@@ -128,12 +129,16 @@ class Main:
 		log_file = open(destination_path + "dsleuth.log", "w")
 		scena = scenarioUtil.ScenarioUtil(args[3], destination_path, self.num_nodes, log_file)
 
+                if scena.num_files == -2:
+                        print "Change ScenarioFile and run again"
+                        return
+                
 
                 # if we are just testing, then return here and examine the output
                 if self.TESTING:
                         return
 
-
+                print(scena)
 		fileNum = scena.get_num_files() + 1
 		print >> log_file, "DSLEUTH: ", time.strftime("%H:%M:%S")
 
@@ -173,6 +178,10 @@ class Main:
 
                 outputDir = scena.get_output_dir()
 		self.merge(outputDir, fileNum - 1, outputDir + "control.stats.log")
+
+                subprocess.check_output(['make'])
+                #subprocess.check_output(['./readdata3', '../Output/control.stats.log'])
+                subprocess.check_output(['./readdata3', outputDir + "control.stats.log"])
 
 if __name__ == '__main__':
 	m = Main()

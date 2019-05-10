@@ -16,3 +16,14 @@
  ```bash
  sbatch basic.sh
  ```
+1. Make sure that scenario files in DSLEUTH/Scenarios and the run_settings is set to your liking
+
+1. Make sure that the DSLEUTH/Output has a folder that matches Scenario name and that said folder is empty
+
+1. run with command: python main.py ../src/grow [Mode] [Scenario Files]
+
+1. After done running, there will be a top50b.log file -> created by reading the SLEUTH output control_stats.log file and compute OSM, then order
+
+Make clean removes the top50b.log file
+
+Future goal: make clean removes the files inside Output folder so it is easier to run again
