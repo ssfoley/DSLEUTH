@@ -17,7 +17,7 @@ echo " Python version"
 python --version
 echo "-------------------------"
 #python launch.py test1 test2
-python Framework/main.py src/grow calibrate Scenarios/scenario.wb100_calibrate
+python Framework/main.py src/grow test Scenarios/scenario.wb100_calibrate
 #src/grow calibrate Scenarios/scenario.demo200_calibrate
 #src/grow calibrate Scenarios/scenario.demo200_calibrate_steps/2
 #src/grow calibrate Scenarios/scenario.demo200_calibrate_steps/3
