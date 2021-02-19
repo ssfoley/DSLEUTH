@@ -7,10 +7,10 @@ files = []
 header = ""
 
 #reading through the avg.log file and storing data values in a list of dictionaries
-def read_data(the_file):
+def read_data(file):
     all_data = []
-    header = the_file.readline()
-    line = the_file.readline()
+    header = file.readline()
+    line = file.readline()
     while line!= '' and line != '\n' and line != ' ':
         vals = line.split()
         #create a dictionary for each line of data in the log file
@@ -43,7 +43,7 @@ def read_data(the_file):
         results.update({"leesalee":float(vals[25])})
         results.update({"grw_pix":float(vals[26])})
         all_data.append(results)
-        line = the_file.readline()
+        line = file.readline()
     return all_data
 
 #generate a bar graph of whatever dictionary values you want to study 
@@ -74,12 +74,7 @@ def growth_graph(graphtype, file_data):
         plt.bar(bar_index, file_vals[b], width = 0.2, label = f, color = ((b*0.1), (b*0.2), (b*0.3), 1.0), align='edge')
         bar_pos += 0.2
         b+=1
-    
-    print(b)
-    print(bar_pos)
 
-    offset = (bar_pos/2)
-    print(offset)
     plt.xlabel('Years', fontsize = 10)
     plt.legend()
     plt.xticks(index + offset, years, fontsize = 7, rotation= 0)
@@ -100,14 +95,12 @@ if __name__=="__main__":
             file_num += 1
     
     file_data = [[] for i in range(file_num)]
-    
+
     file_num = 0
     for i in files:
         my_file = open(current_directory + '/input/' + i, 'r')
         file_data[file_num] = (read_data(my_file))
         file_num += 1
-        
-    growth_graph("sdg", file_data)
-    growth_graph("sng", file_data)
-    growth_graph("og", file_data)
-    growth_graph("rt", file_data)
+
+    for graph_type in {"sdg", "sng", "og", "rt"}:
+        growth_graph(graph_type, file_data)
