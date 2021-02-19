@@ -65,7 +65,6 @@ def growth_graph(graphtype, file_data):
         a += 1
 
     plt.figure(figsize = (10.0, 5.0))
-    #plt.subplot(111)
     index = np.arange(num_of_years)
     bar_pos = 0
     b = 0
@@ -78,9 +77,7 @@ def growth_graph(graphtype, file_data):
     
     print(b)
     print(bar_pos)
-    
-    # offset = 0
-    # if b != 1:
+
     offset = (bar_pos/2)
     print(offset)
     plt.xlabel('Years', fontsize = 10)
