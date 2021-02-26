@@ -1,3 +1,4 @@
+#/usr/bin/env python3
 import rasterio
 import os
 import numpy as np
