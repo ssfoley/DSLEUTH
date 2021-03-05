@@ -3,9 +3,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 import random
+from argparse import ArgumentParser
 
 files = []
 header = ""
+global directory, input_directory, output_directory
+directory = os.getcwd()
 
 #reading through the avg.log file and storing data values in a list of dictionaries
 def read_data(file):
@@ -80,17 +83,24 @@ def growth_graph(graphtype, file_data):
     plt.legend()
     plt.xticks(index + offset, years, fontsize = 7, rotation= 0)
     plt.title(name + " Growth")
-    plt.savefig(os.path.join('results', name + '.png'))
-        
+    plt.savefig(os.path.join(output_directory, name + '.png'))
+
+
+def get_args():
+    parser = ArgumentParser(prog="python3 {}".format(sys.argv[0]))
+    parser.add_argument('-input', help="path to directory with input data", type=dir_path, default=directory)
+    parser.add_argument('-output', help="specify location to put output data", type=dir_path, default=directory)
+    return parser.parse_args()
+
 
 if __name__=="__main__":
     file_num = 0
+    parser = get_args()
+    input_directory = parser.input
+    output_directory = parser.output
+    files = []
     
-    if not os.path.exists('results'):
-        os.makedirs('results')
-    
-    current_directory = os.getcwd()
-    for file in os.listdir(current_directory + '/input'):
+    for file in os.listdir(input_directory):
         if file.endswith(".log"):
             files.append(file)
             file_num += 1
@@ -99,9 +109,10 @@ if __name__=="__main__":
 
     file_num = 0
     for i in files:
-        my_file = open(current_directory + '/input/' + i, 'r')
+        my_file = open(input_directory + i, 'r')
         file_data[file_num] = (read_data(my_file))
         file_num += 1
 
     for graph_type in {"sdg", "sng", "og", "rt"}:
         growth_graph(graph_type, file_data)
+
