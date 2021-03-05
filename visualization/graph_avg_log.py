@@ -1,14 +1,28 @@
 #/usr/bin/env python3
+
 import matplotlib.pyplot as plt
 import numpy as np
 import os
 import random
 from argparse import ArgumentParser
+import sys
 
 files = []
 header = ""
 global directory, input_directory, output_directory
 directory = os.getcwd()
+
+def dir_path(string):
+    if os.path.isdir(string):
+        return string
+    else:
+        raise NotADirectoryError
+
+def get_args():
+    parser = ArgumentParser(prog="python3 {}".format(sys.argv[0]))
+    parser.add_argument('-input', help="path to directory with input data", type=dir_path, default=directory)
+    parser.add_argument('-output', help="specify location to put output data", type=dir_path, default=directory)
+    return parser.parse_args()
 
 #reading through the avg.log file and storing data values in a list of dictionaries
 def read_data(file):
@@ -79,18 +93,13 @@ def growth_graph(graphtype, file_data):
         bar_pos += 0.2
         b+=1
 
+    offset = (bar_pos/2)
+
     plt.xlabel('Years', fontsize = 10)
     plt.legend()
     plt.xticks(index + offset, years, fontsize = 7, rotation= 0)
     plt.title(name + " Growth")
     plt.savefig(os.path.join(output_directory, name + '.png'))
-
-
-def get_args():
-    parser = ArgumentParser(prog="python3 {}".format(sys.argv[0]))
-    parser.add_argument('-input', help="path to directory with input data", type=dir_path, default=directory)
-    parser.add_argument('-output', help="specify location to put output data", type=dir_path, default=directory)
-    return parser.parse_args()
 
 
 if __name__=="__main__":
@@ -116,3 +125,7 @@ if __name__=="__main__":
     for graph_type in {"sdg", "sng", "og", "rt"}:
         growth_graph(graph_type, file_data)
 
+"""
+To run: 
+linux -- python -
+"""
