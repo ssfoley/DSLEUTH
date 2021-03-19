@@ -76,11 +76,13 @@ def growth_graph(graphtype, file_data):
         values = []
         num_of_years = 0
         for counter in i:
-            num_of_years += 1
-            years.append(counter["year"])
             values.append(counter[graphtype])
         file_vals[a] = values
         a += 1
+
+    for counter in file_data[0]:
+        num_of_years += 1
+        years.append(counter["year"])
 
     plt.figure(figsize = (10.0, 5.0))
     index = np.arange(num_of_years)
@@ -122,7 +124,7 @@ if __name__=="__main__":
         file_data[file_num] = (read_data(my_file))
         file_num += 1
 
-    for graph_type in {"sdg", "sng", "og", "rt"}:
+    for graph_type in {"sdg", "sng", "og", "rt", "breed"}:
         growth_graph(graph_type, file_data)
 
 """
