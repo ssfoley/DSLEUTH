@@ -4,7 +4,9 @@ import rasterio
 import os
 import numpy as np
 
-
+"""
+Creates a changemap from file1 to file2 in the output directory
+"""
 def generate_changes_image(input_directory, output_directory, file1, file2, colorized=0):
     one = rasterio.open(input_directory +"/"+ file1)
     two = rasterio.open(input_directory + "/" + file2)
@@ -42,7 +44,7 @@ def generate_changes_image(input_directory, output_directory, file1, file2, colo
     new.write(a, 1)
     new.write_colormap(
         1, {
-            #hard coded in based on colors and data in scenario file
+            # Hard coded in based on colors and data in scenario file
             0: (0, 0, 0, 255),
             1: (139, 35, 35, 255), #red urban
             2: (255, 236, 139, 255), #yellow agric
@@ -61,7 +63,9 @@ def generate_changes_image(input_directory, output_directory, file1, file2, colo
     )
     new.close()
 
-
+"""
+Runs on execution
+"""
 if __name__=="__main__":
     files = []
     file_num = 0

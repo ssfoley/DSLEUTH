@@ -12,26 +12,35 @@ header = ""
 global directory, input_directory, output_directory
 directory = os.getcwd()
 
+"""
+Check if the given export directory is valid
+"""
 def dir_path(string):
     if os.path.isdir(string):
         return string
     else:
         raise NotADirectoryError
 
+"""
+Interprets the arguments given from the command line, if any
+"""
 def get_args():
     parser = ArgumentParser(prog="python3 {}".format(sys.argv[0]))
     parser.add_argument('-input', help="path to directory with input data", type=dir_path, default=directory)
     parser.add_argument('-output', help="specify location to put output data", type=dir_path, default=directory)
     return parser.parse_args()
 
-#reading through the avg.log file and storing data values in a list of dictionaries
+"""
+Reading through the avg.log file and storing data values in a list of dictionaries
+"""
 def read_data(file):
     all_data = []
     header = file.readline()
     line = file.readline()
     while line!= '' and line != '\n' and line != ' ':
         vals = line.split()
-        #create a dictionary for each line of data in the log file
+
+        # Create a dictionary for each line of data in the log file
         results = {}
         results.update({"run":int(vals[0])})
         results.update({"year":int(vals[1])})
@@ -64,7 +73,9 @@ def read_data(file):
         line = file.readline()
     return all_data
 
-#generate a bar graph of whatever dictionary values you want to study 
+"""
+Generate a bar graph of whatever dictionary values you want to study 
+"""
 def growth_graph(graphtype, file_data):
     a = 0
     years = []
@@ -80,6 +91,7 @@ def growth_graph(graphtype, file_data):
         file_vals[a] = values
         a += 1
 
+    # Assuming all files have the same range of years, create an array of years from file 1
     for counter in file_data[0]:
         num_of_years += 1
         years.append(counter["year"])
@@ -103,7 +115,11 @@ def growth_graph(graphtype, file_data):
     plt.title(name + " Growth")
     plt.savefig(os.path.join(output_directory, name + '.png'))
 
+"""
+Runs on execution
 
+Creates graph files in the output directory based on the log files from the input directory
+"""
 if __name__=="__main__":
     file_num = 0
     parser = get_args()

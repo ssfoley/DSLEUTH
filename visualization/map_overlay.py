@@ -66,6 +66,9 @@ def color_values(x):
         r = (0, 0, 0, 0)
     return r
 
+"""
+Runs on program execution
+"""
 if __name__ == "__main__":
     # raster = gdal.Open(os.getcwd() + "/changeinput" + "/india_land_n_urban.2011.gif")
     # geotransform = raster.GetGeoTransform()
