@@ -1,0 +1,161 @@
+
+
+<!doctype html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Installing/Running DSLEUTH &#8212; DLSEUTH  documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bizstyle.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Visualization Tools" href="../Visualization%20Tools/general.html" />
+    <link rel="prev" title="About DSLEUTH" href="../index.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../Visualization%20Tools/general.html" title="Visualization Tools"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="About DSLEUTH"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">DLSEUTH  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Installing/Running DSLEUTH</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="installing-running-dsleuth">
+<h1>Installing/Running DSLEUTH<a class="headerlink" href="#installing-running-dsleuth" title="Permalink to this headline">¶</a></h1>
+<section id="installing-dsleuth">
+<h2>Installing DSLEUTH<a class="headerlink" href="#installing-dsleuth" title="Permalink to this headline">¶</a></h2>
+<p>The source code for DSLEUTH is available on <a class="reference external" href="https://github.com/ssfoley/DSLEUTH">GitHub.</a>  Installation instructions TBD.</p>
+</section>
+<section id="running-dsleuth">
+<h2>Running DSLEUTH<a class="headerlink" href="#running-dsleuth" title="Permalink to this headline">¶</a></h2>
+<p>To run the framework to distribute your code, run with a batchscript on a SLURM cluster, or in localhost mode to rely on the operating system to manage the separate processes. To set the mode and the number of nodes, write the run_settings file with the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">localhost</span> <span class="n">num</span><span class="o">-</span><span class="n">nodes</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SLURM</span> <span class="n">num</span><span class="o">-</span><span class="n">nodes</span>
+</pre></div>
+</div>
+<p>Then to run do:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">Framework</span><span class="o">/</span><span class="n">main</span><span class="o">.</span><span class="n">py</span> <span class="n">src</span><span class="o">/</span><span class="n">grow</span> <span class="n">mode</span> <span class="n">scenario</span><span class="o">-</span><span class="n">file</span>
+</pre></div>
+</div>
+<p><strong>OLD RUN INSTRUCTIONS</strong></p>
+<p>Assuming you are in the top-level directory and you have completed writing your scenario file, you can run the code from the commandline as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">src</span><span class="o">/</span><span class="n">grow</span> <span class="o">*&lt;</span><span class="n">mode</span><span class="o">&gt;</span> <span class="n">Scenarios</span><span class="o">/&lt;</span><span class="n">scenario</span> <span class="n">file</span><span class="o">&gt;*</span>
+</pre></div>
+</div>
+<p>You will want to replace <em>&lt;mode&gt;</em> with the correct mode of the code you want to use. The available modes are:</p>
+<ul class="simple">
+<li><p><em>test</em> - a mode where the images to be used are analyzed for anamolies that would cause the code to break.</p></li>
+<li><p><em>calibrate</em> - a mode where a parameter sweep over possible prediction parameters is performed to narrow down what the parameters for the final prediction phase should be.</p></li>
+<li><p><em>prediction</em> - a mode where future images are predicted based on previous data and parameters.</p></li>
+</ul>
+</section>
+<section id="directory-structure">
+<h2>Directory Structure<a class="headerlink" href="#directory-structure" title="Permalink to this headline">¶</a></h2>
+<p>Input/ - where the input images reside. (Not version controlled.)</p>
+<p>Output/ - where the generated output will be put. (Not version controlled.)</p>
+<p>Scenarios/ - simulation configuration files. (Not version controlled.)</p>
+<p>Whirlgif/ - an animated gif package. (Not version controlled.)</p>
+<p>sample_data/ - a directory of input and output files from Gargi Chaudhuri as a reference.</p>
+<p>src/ - the source code for SLEUTH</p>
+<p><strong>fwk/ - the distributed framework for running subsets of the parameters on different nodes.</strong></p>
+<p><strong>psrc/ - the parallel version of the SLEUTH source code using OpenMP.</strong></p>
+<p><strong>doc/ - documents and results for MSE capstone.</strong></p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Installing/Running DSLEUTH</a><ul>
+<li><a class="reference internal" href="#installing-dsleuth">Installing DSLEUTH</a></li>
+<li><a class="reference internal" href="#running-dsleuth">Running DSLEUTH</a></li>
+<li><a class="reference internal" href="#directory-structure">Directory Structure</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../index.html"
+                        title="previous chapter">About DSLEUTH</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../Visualization%20Tools/general.html"
+                        title="next chapter">Visualization Tools</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/DSLEUTH/general.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../Visualization%20Tools/general.html" title="Visualization Tools"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="About DSLEUTH"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">DLSEUTH  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Installing/Running DSLEUTH</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, University of Wisconsin-La Crosse.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
+    </div>
+  </body>
+</html>
