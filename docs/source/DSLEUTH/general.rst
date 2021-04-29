@@ -4,7 +4,7 @@ Installing/Running DSLEUTH
 Installing DSLEUTH
 ------------------
 
-The source code for DSLEUTH is available on `GitHub. <https://github.com/ssfoley/DSLEUTH>`_  Installation instructions TBD.
+The source code for DSLEUTH is available on `GitHub <https://github.com/ssfoley/DSLEUTH>`_.  Installation instructions TBD.
 
 Running DSLEUTH
 ---------------
