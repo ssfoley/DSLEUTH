@@ -4,7 +4,7 @@ Installing/Running DSLEUTH
 Installing DSLEUTH
 ------------------
 
-The source code for DSLEUTH is available on `GitHub <https://github.com/ssfoley/DSLEUTH>`_.  Installation instructions TBD.
+The source code for DSLEUTH is available on |dsleuth project link|.
 
 Running DSLEUTH
 ---------------
@@ -53,3 +53,7 @@ src/ - the source code for SLEUTH
 **psrc/ - the parallel version of the SLEUTH source code using OpenMP.**
 
 **doc/ - documents and results for MSE capstone.**
+
+.. |dsleuth project link| raw:: html
+
+	<a href="https://github.com/ssfoley/DSLEUTH" target="_blank">GitHub</a>
