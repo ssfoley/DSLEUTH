@@ -12,5 +12,8 @@ A distributed framework for running the SLEUTH application and a parallel versio
    :caption: Contents:
 
    Installing/Running DSLEUTH <DSLEUTH/general>
+   Installing/Running SLEUTH <SLEUTH/general>
+   Installing/Running KSLEUTH <KSLEUTH/general>
+   Installing/Running PYSLEUTH <PYSLEUTH/general>
    Visualization Tools <Visualization Tools/general>
    Documentation <Documentation/general>

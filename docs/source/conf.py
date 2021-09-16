@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'DLSEUTH'
+project = 'DSLEUTH'
 copyright = '2021, University of Wisconsin-La Crosse'
 author = 'University of Wisconsin-La Crosse'
 
@@ -48,6 +48,8 @@ html_theme = 'bizstyle'
 html_theme_options = {
 	"rightsidebar": "true"
 }
+
+html_favicon = '_static/favicon.ico'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
