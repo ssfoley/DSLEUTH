@@ -1,5 +1,5 @@
-Installing/Running DSLEUTH
-==========================
+DSLEUTH
+=======
 
 Installing DSLEUTH
 ------------------

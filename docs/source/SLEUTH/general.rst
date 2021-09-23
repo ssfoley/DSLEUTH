@@ -1,4 +1,12 @@
-Installing/Running SLEUTH
-=========================
+SLEUTH
+======
+
+Installing SLEUTH
+-----------------
+
+Coming Soon
+
+Running SLEUTH
+--------------
 
 Coming Soon
