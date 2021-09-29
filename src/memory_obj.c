@@ -256,7 +256,7 @@ GRID_P
 /******************************************************************************
 *******************************************************************************
 ** FUNCTION NAME: mem_GetWGridFree
-** PURPOSE:       
+** PURPOSE:
 ** AUTHOR:        Keith Clarke
 ** PROGRAMMER:    Tommy E. Cathey of NESC (919)541-1500
 ** CREATION DATE: 11/11/1999

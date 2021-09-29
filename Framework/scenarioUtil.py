@@ -24,6 +24,13 @@ class ScenarioUtil:
         self.original = scenario.Scenario()
         self.original.read_file(scen_file_name)
         self.original.print_me(log_file)
+        print "Scenario File: \n"
+        self.original.print_me_c()
+        cont = raw_input("Continue? (Y/n) ")
+        if (cont.find("Y") == -1):
+            self.num_files = -2
+            return None
+        
         self.pieces = pieces
         self.output_dir = self.original.outputDir
         self.log_file = log_file

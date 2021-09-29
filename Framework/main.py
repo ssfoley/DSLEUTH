@@ -13,25 +13,32 @@ class Main:
         num_nodes = 1
         DEBUG = False
         TESTING = False
+        invalid = False
 
         def __init__(self):
                 """
                 Set the type of environment for this run
-                Settings are defined in the run_settings file with the scheduler type and 
+                Settings are defined in the run_settings file with the scheduler type and
                 number of nodes
                 """
-                setfile = open("run_settings", "r")
-                self.sched, num, debug_val, testing_run = setfile.read().split()
-                self.num_nodes = int(num)
-                print "DSLEUTH: scheduler type: ", self.sched
-                print "DSLEUTH: num_nodes: ", str(self.num_nodes)
-                self.getNodelist()
-                if int(debug_val) is 1:
-                        self.DEBUG = True
-                if int(testing_run) is 1:
-                        self.TESTING = True
+                try:
+					setfile = open("run_settings", "r")
+					self.sched, num, debug_val, testing_run = setfile.read().split()
+					self.num_nodes = int(num)
+					print "DSLEUTH: scheduler type: ", self.sched
+					print "DSLEUTH: num_nodes: ", str(self.num_nodes)
+					self.getNodelist()
+					if int(debug_val) is 1:
+						self.DEBUG = True
+					if int(testing_run) is 1:
+						self.TESTING = True
+                except:
+					print("run_settings file misformed: [Scheduler] [Number_of_Nodes] [debug_val] [testing_run]")
+					self.invalid = True;
 
-	
+
+
+
 	def getNodelist(self):
                 """
                 Returns a dictionary of nodes and their states.
@@ -43,8 +50,9 @@ class Main:
                         slurmlist = hostlist.expand_hostlist(os.environ["SLURM_JOB_NODELIST"])
                         self.nodelist = dict(zip(slurmlist,[-1]*len(slurmlist)))
                 else:
-                        for n in range(self.num_nodes):
-                                self.nodelist.update({"".join(["node", str(n)]): -1})
+	#	print("h1")
+                    	for n in range(self.num_nodes):
+                            self.nodelist.update({"".join(["node", str(n)]): -1})
 
 	def done(self, p):
                 """
@@ -90,21 +98,23 @@ class Main:
                                                 firstWord = '{0:>5}'.format(numOfRun)
                                                 numOfRun = numOfRun + 1
                                                 newLine = (firstWord + '  ' + rest).rstrip("\n\r") + '\n'
-                                                #print newLine                                                                                            
+                                                #print newLine
                                                 dest.write(newLine)
 
 	def main(self):
 		args = sys.argv
-		
-                # error checking for args
+		if self.invalid:
+			return;
+		# error checking for args
                 if len(sys.argv) != 4:
-                        print "DSLEUTH: Error! wrong number of arguments."
-                        return
+			print "DSLEUTH: Error! wrong number of arguments."
+			return
 
                 # take care of the case when it is not a calibrate job and produce a warning
                 if args[2] != "calibrate":
-                        print "DSLEUTH: Warning: this framework is designed for distributing across multiple nodes, but only for calibrate mode.  Mode is ", args[2]
-                        print "DSLEUTH: Just running the code as is."
+			print "DSLEUTH: Warning: this framework is designed for distributing across multiple nodes, but only for calibrate mode.  Mode is ", args[2]
+			print "DSLEUTH: Just running the code as is."
+                        print(args[1], args[2], args[3])
                         p = subprocess.Popen([args[1], args[2], args[3]])
                         p.wait()
                         return
@@ -119,12 +129,16 @@ class Main:
 		log_file = open(destination_path + "dsleuth.log", "w")
 		scena = scenarioUtil.ScenarioUtil(args[3], destination_path, self.num_nodes, log_file)
 
+                if scena.num_files == -2:
+                        print "Change ScenarioFile and run again"
+                        return
+                
 
                 # if we are just testing, then return here and examine the output
                 if self.TESTING:
                         return
 
-
+                print(scena)
 		fileNum = scena.get_num_files() + 1
 		print >> log_file, "DSLEUTH: ", time.strftime("%H:%M:%S")
 
@@ -132,7 +146,7 @@ class Main:
 		for x in range(1,fileNum):
 			self.queue.put(x)
 		processes = []
-		
+
                 # launch jobs as long as there is work and free nodes
 		while not self.queue.empty():
                         # while there are available nodes and the queue is not empty
@@ -161,9 +175,14 @@ class Main:
 		for pro in processes:
 			pro.wait()
 		print >> log_file, "DSLEUTH: ", time.strftime("%H:%M:%S")
-		
+
                 outputDir = scena.get_output_dir()
 		self.merge(outputDir, fileNum - 1, outputDir + "control.stats.log")
+                
+                if arg[2] == "calibrate":
+                        subprocess.check_output(['make'])
+                        subprocess.check_output(['./readdata3', outputDir + "control.stats.log"])
+                        subprocess.check_output(['mv', 'top50b.log', outputDir])
 
 if __name__ == '__main__':
 	m = Main()

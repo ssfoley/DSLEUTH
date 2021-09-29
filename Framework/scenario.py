@@ -62,6 +62,17 @@ class Scenario:
         print >> log_file, "road:  {} {} {}".format(self.roadStart, self.roadStep, self.roadStop)
         print >> log_file, "output dir: {}".format(self.outputDir)
 
+    def print_me_c(self):
+        print "**************************************"
+        print "             Start    Step     Stop"
+        print "diffusion: {:>3}       {:>3}       {:>3}".format(self.diffStart, self.diffStep, self.diffStop)
+        print "breed:     {:>3}       {:>3}       {:>3}".format(self.breedStart, self.breedStep, self.breedStop)
+        print "spread:    {:>3}       {:>3}       {:>3}".format(self.spreadStart, self.spreadStep, self.spreadStop)
+        print "slope:     {:>3}       {:>3}       {:>3}".format(self.slopeStart, self.slopeStep, self.slopeStop)
+        print "road:      {:>3}       {:>3}       {:>3}\n".format(self.roadStart, self.roadStep, self.roadStop)
+        print "output dir: {}".format(self.outputDir)
+        print "**************************************"
+
 
 
     def copy(self, to_copy):
