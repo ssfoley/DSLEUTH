@@ -30,5 +30,5 @@ webgif: webgif.o libgd.a gd.h
 	$(CC) webgif.o -o webgif	$(LIBS)
 
 clean:
-	rm -f *.o *.a gddemo giftogd 
+	rm -f *.o *.a gddemo giftogd webgif *~
 
