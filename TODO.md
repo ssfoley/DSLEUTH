@@ -12,15 +12,18 @@
 
 
 ## New Directory Structure
- - top level:
-    - README
-    - license
-    - authors
- - docs
-    - where the sphinx docs go
- - src
-    - SLEUTH
-      - 
+- top level:
+  - README
+  - license
+  - authors
+- docs
+  - where the sphinx docs go
+- src
+  - SLEUTH - Readme and sample run scripts, src directory
+  - DSLEUTH - Readme and sample run scripts, src directory (this will contain the files from current Framework)
+  - KSLEUTH - Readme and sample run scripts, src directory (this will contain the files from current Framework)
+  - PySLEUTH - Readme and sample run scripts, src directory
+  - VizTools - Readme and sample run scripts, src directory
 
 ## Define branching and development process
 Probably a workflow with a stable master, a development branch, and feature branches.
