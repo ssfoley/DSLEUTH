@@ -1,0 +1,3 @@
+# PySLEUTH
+
+this is where the readme info for PySLEUTH will go...
