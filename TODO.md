@@ -6,8 +6,8 @@
  - [ ] test Elise's work on DSLEUTH
  - [ ] merge Annika's viz work
  - [ ] test Annika's viz work
- - [ ] make dev branch
- - [ ] make dev branch the default branch
+ - [x] make dev branch
+ - [x] make dev branch the default branch
  - [ ] setup directory structure for different versions
 
 
