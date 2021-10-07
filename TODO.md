@@ -17,13 +17,14 @@
   - license
   - authors
 - docs
-  - where the sphinx docs go
+  - where the sphinx docs go at the top level, specific docs for each subproject are in those directories
 - src
-  - SLEUTH - Readme and sample run scripts, src directory
-  - DSLEUTH - Readme and sample run scripts, src directory (this will contain the files from current Framework)
-  - KSLEUTH - Readme and sample run scripts, src directory (this will contain the files from current Framework)
-  - PySLEUTH - Readme and sample run scripts, src directory
-  - VizTools - Readme and sample run scripts, src directory
+  - SLEUTH - Readme and sample run scripts, docs directory, src directory
+  - DSLEUTH - Readme and sample run scripts, docs directory, src directory (this will contain the files from current Framework)
+  - KSLEUTH - Readme and sample run scripts, docs directory, src directory (this will contain the files from current Framework)
+  - PySLEUTH - Readme and sample run scripts, docs directory, src directory
+  - VizTools - Readme and sample run scripts, docs directory, src directory
+- all the other directories from the original will still be here
 
 ## Define branching and development process
 Probably a workflow with a stable master, a development branch, and feature branches.
