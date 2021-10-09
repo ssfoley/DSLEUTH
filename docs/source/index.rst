@@ -17,27 +17,3 @@ A distributed framework for running the SLEUTH application and a parallel versio
    PYSLEUTH <PYSLEUTH/general>
    Visualization Tools <Visualization Tools/general>
    Documentation <Documentation/general>
-
-.. automodule:: john-alg-scenarioUtil
-   :members:
-   :undoc-members:
-
-.. automodule:: main
-   :members:
-   :undoc-members:
-
-.. automodule:: mergeResult
-   :members:
-   :undoc-members:
-
-.. automodule:: old-scenarioUtil
-   :members:
-   :undoc-members:
-
-.. automodule:: scenario
-   :members:
-   :undoc-members:
-
-.. automodule:: scenarioUtil
-   :members:
-   :undoc-members:

@@ -12,7 +12,12 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../../Framework'))
+
+sys.path.insert(0, os.path.abspath('../../src/SLEUTH/src'))
+sys.path.insert(0, os.path.abspath('../../src/DSLEUTH/src'))
+sys.path.insert(0, os.path.abspath('../../src/PYSLEUTH/src'))
+sys.path.insert(0, os.path.abspath('../../src/KSLEUTH/src'))
+sys.path.insert(0, os.path.abspath('../../src/VizTools/src'))
 
 
 # -- Project information -----------------------------------------------------
