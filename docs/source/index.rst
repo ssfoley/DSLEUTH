@@ -14,6 +14,6 @@ A distributed framework for running the SLEUTH application and a parallel versio
    SLEUTH <SLEUTH/general>
    DSLEUTH <DSLEUTH/general>
    KSLEUTH <KSLEUTH/general>
-   PYSLEUTH <PYSLEUTH/general>
-   Visualization Tools <Visualization Tools/general>
+   PySLEUTH <PySLEUTH/general>
+   Visualization Tools <VizTools/general>
    Documentation <Documentation/general>

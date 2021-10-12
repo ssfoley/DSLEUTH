@@ -18,7 +18,8 @@ Note: It is highly recommended that you use a virtual environment while working 
 
 - Once Sphinx is installed, retrieve the latest version of the :code:`docs/source` and :code:`docs/build` directories from the :code:`master` branch of DSLEUTH.
 - After the :code:`source` directory is edited, run :code:`sphinx-build -b html source build` in the directory containing :code:`source` and :code:`build`.  More information can be found on Sphinx builds |sphinx build link|.
-- Once satisfactory changes have been made, push the new :code:`source` and :code:`build` directories to DSLEUTH.
+- Once satisfactory changes have been made, push the new :code:`source` and :code:`build` directories to the desired branch.
+- Don't forget to update the docs directories in the affected project!  As of now, the local docs directories do not update from the master docs directory.  For example, if you were to update documentation for DSLEUTH, the docs folder in src/DSLEUTH/docs would also need to be manually updated.
 
 .. |sphinx link| raw:: html
 
