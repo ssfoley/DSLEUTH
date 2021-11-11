@@ -1,0 +1,1 @@
+This directory contains some sample datasets for testing DSLEUTH.  The Makefile and readdata3.c code performs post-processing on the output data in control_stats.log producing the sorted top 50 parameter combinations.

@@ -1,0 +1,44 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: sleuth-job
+spec:
+  backoffLimit: 5
+  template:
+    metadata:
+      name: sleuth-pod
+      labels:
+        app: sleuth-job
+    spec:
+      containers:
+      - name: sleuth
+        image: feifanzhang/sleuth:1.0
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: input
+          mountPath: /SLEUTH/Input
+        - name: splitscenario
+          mountPath: /SLEUTH/KbsFramework/splitScenario
+        - name: splitoutput
+          mountPath: /SLEUTH/KbsFramework/splitOutput
+        env:
+          - name: SPLIT_SCENARIO_FILE
+            value: "scenario.demo200-calibrate0"
+        resources:
+          requests:
+            memory: "1000Mi"
+            cpu: "1000M"
+          limits:
+            memory: "2000Mi"
+            cpu: "2000M"
+      restartPolicy: OnFailure
+      volumes:
+      - name: input
+        persistentVolumeClaim:
+          claimName: input-pvc
+      - name: splitscenario
+        persistentVolumeClaim:
+          claimName: splitscenario-pvc
+      - name: splitoutput
+        persistentVolumeClaim:
+          claimName: splitoutput-pvc

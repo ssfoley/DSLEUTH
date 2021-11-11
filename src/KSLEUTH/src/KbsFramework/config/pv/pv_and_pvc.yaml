@@ -1,0 +1,108 @@
+# https://www.jianshu.com/p/bd4883bd95f2
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: input-pv
+spec:
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadOnlyMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: input-nfs
+  nfs:
+    path: /root/Input
+    server: 172.26.160.5
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: input-pvc
+spec:
+  storageClassName: input-nfs
+  accessModes:
+  - ReadOnlyMany
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: scenario-pv
+spec:
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: scenario-nfs
+  nfs:
+    path: /root/Scenarios
+    server: 172.26.160.5
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: scenario-pvc
+spec:
+  storageClassName: scenario-nfs
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: splitscenario-pv
+spec:
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: splitscenario-nfs
+  nfs:
+    path: /root/splitScenario
+    server: 172.26.160.5
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: splitscenario-pvc
+spec:
+  storageClassName: splitscenario-nfs
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: splitoutput-pv
+spec:
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: splitoutput-nfs
+  nfs:
+    path: /root/splitOutput
+    server: 172.26.160.5
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: splitoutput-pvc
+spec:
+  storageClassName: splitoutput-nfs
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi

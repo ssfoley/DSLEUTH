@@ -1,0 +1,36 @@
+README file for Whirlgif vers 3.0x
+
+To create your own version of the minimizing version of whirlgif,
+proceed as follows:
+  1) Inspect the Makefile and perhaps make apropriate changes.
+  2) Run make.  If you encounter problems, please mailto:dino@danbbs.dk
+  3) Read the (pure ascii) file whirlgif.man or the formated version
+     with the command:   nroff -man whirlgif.1 | more
+  4) Take a look at the page
+        http://www.danbbs.dk/~dino/whirlgif/guestbk.htm
+     where user comments and bug reports are collected - and perhaps also
+        http://www.danbbs.dk/~dino/whirlgif/examples.html
+  5) Create your own animated GIFs or optimize the size of the ones
+     you have created already.
+
+This version of whirlgif contains an angorithm for en-coding GIF
+files.  There may exist places in this world, where persons or
+organizations claim to have a patent covering *all* possible
+implementations of the LZW-algorithm.  Such persons or organizations
+are requested to complain by E-mail to dino@danbbs.dk, so that their
+claim can be publicized in connection with
+     http://www.danbbs.dk/~dino/whirlgif/disclaimer.html
+quickly after it has been received.
+
+Hans Dinsen-Hansen, the owner of above page, claims the right
+to comment on any such protests and to publish them in a form
+which references his comments.
+
+This software is provided solely "as is".  The authors disclaim all
+responsibility and liability with respect to this software's usage,
+its effect upon hardware, or its effect upon computer systems.  Apart
+from this, the code is free for all.
+
+There are copyright notices in the program texts.
+
+Version 3.02 is also available from http://sources.isc.org/apps/graphics/

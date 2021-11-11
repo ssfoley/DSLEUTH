@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Background &#8212; Python SLEUTH May 2021 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Structure" href="structure.html" />
+    <link rel="prev" title="Installation" href="installation.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="background">
+<h1>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h1>
+<p>The process of urbanization occurs mainly due to population growth, rural migration to cities, and industrialization,
+and often produces nearly irreversible changes to the land around it. It increases land used by people, which affects
+the biodiversity, ecosystems, urban climate, and natural areas.[1] Because of these affects, many academics and planners
+use models to mimic the growth of urbanization and forecast land use change. Urban growth models, also known as land use
+change models, are a type of spatial simulation model and are currently used to simulate and predict this urbanization.[2]
+A popular urban growth model used by domain scientists today is a cellular automata-based sequential land use change model
+called SLEUTH. The aim of this project is to ease the use and utility of SLEUTH for domain scientists and users as well as
+improve portability.</p>
+<p>SLEUTH is an open-source cellular automata-based land use change simulation model that is a combination of the Land Cover
+Deltatron Model and the Urban Growth Model. [3] Its name, SLEUTH, is an acronym for the data layers that the model uses to
+predict growth (Slope, Land use, Exclusion, Urban extent, Transportation, and Hill shade). The purpose of the SLEUTH model
+is to simulate future land use and urban planning scenarios. The SLEUTH model uses historical geographical data to calculate
+and predict future urban growth.[2] Its popularity stems from some of its features, including minimum data requirements,
+relatively simple modeling workflow, and ease of adaptation.</p>
+<p>Despite its many advantages, SLEUTH has disadvantages as well. The computational complexity of the model is large, especially
+with large data sets due to its brute-force calibration process. The model also needs a C compiler and runs on the command line,
+making it difficult to run on different operating systems and computer environments. Additionally, the data input and output of
+SLEUTH does not match current data sets available, so it requires an extra step to convert data into and out of the required format.
+The purpose of this project is to adapt the SLEUTH model to improve ease of use and portability to increase the usability of the model
+for land use or urban modeling simulation.</p>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><ol class="upperalpha simple" start="13">
+<li><p>Eslahi. “Urban Growth Simulations in order to Represent the Impacts of Constructions and Environmental Constraints on Urban Sprawl,” Ph.D. dissertation, Université Paris-Est, 2019.</p></li>
+</ol>
+</li>
+<li><ol class="upperalpha simple" start="7">
+<li><p>Chaudhuri and S. Foley, “Dsleuth: A Distributed Version of Sleuth Urban Growth Model,” 2019 Spring Simulation Conference (SpringSim), 2019, pp. 1-11, doi: 10.23919/SpringSim.2019.8732879.</p></li>
+</ol>
+</li>
+<li><ol class="upperalpha simple" start="7">
+<li><p>Chaudhuri and K. Clarke, “The Sleuth Land Use Change Model: A Review”, International Journal Of Environmental Resource Research, vol. 1, pp. 88-105, 2013</p></li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="structure.html">Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="growth.html">Growth</a></li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Elise Baumgartner.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/background.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

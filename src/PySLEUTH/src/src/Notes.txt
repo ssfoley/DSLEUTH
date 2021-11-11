@@ -1,0 +1,91 @@
+- glb_mype: going to be 0 (I think it has to do with parallelizing it)
+- FUNC_INIT: used for home brew call tracing (not needed)
+- FUNC_END: used for home brew call tracing
+
+
+SCENARIO FILE
+
+urban_data_file - string[]
+road_data_file - string[]
+landuse_data_file - string[]
+probability_color - prob_color_info[]
+landuse_class_info - landuse_class_info[]
+deltatron_color - int []
+
+growth_type_window
+deltatron_aging_window
+
+
+#These variables are not included in the dictionary because they can be
+	found by using len(list)
+
+Variable Name				   Scen Dictionary Key
+----------------------------|------------------------------------
+num_landuse_classes         |  landuse_class_info
+urban_data_file_count       |  urban_data_file
+road_data_file_count        |  road_data_file
+landuse_data_file_count     |  landuse_data_file
+probability_color_count     |  probability_color
+deltatron_color_count       |  deltatron_color
+
+#I saved all color values as Hex 
+
+
+LANDCLASS Object
+#I don't quite know what "idx" is used for, so I'll just assume it is
+	index for now and set the index within the list
+#"Trans" in Lanuse_Meta might be slightly wrong, I didn't know how to 
+	translate if strcomp > 0
+	
+	
+	
+IGRID Object
+#Uses PACKING defintion many times, but I can't find it. I am just passing it in as a boolean for now
+#total_pixels is set in set_grid_sizes(), but this doesnt make sense. Do I need to save it anywhere else? 
+	Therefore I'm not going to set it, I can just access it by doing gridrow*gridCol
+	**I ended up setting it, but it may be a source of error
+#Dang past Elise didn't mention that we removed the counts for the lists in igrid, therefore...
+	-urban_count == len(IGrid.igrid.urban)
+	-road_count  == len(IGrid.igrid.road)
+	-landuse_count == len(IGrid.igrid.landuse)
+#READING FILES IN
+	-for now, I am going ignore the "scratchpad" grid they have...I'll see if I need it later
+	-Instead of doing a function that looks for the min and the max, I will just do it as we read in the values
+		This way, there is not an unneccesarry loop
+#VERIFYING INPUT
+	-I think that the file names need to start with the directory that they reside in, so make sure to put that in the 
+	documentation so that future users know to do this
+	
+LandClass Object
+#I removed num_landclasses attribute, I think I can just use length landuse_classes
+	**Potential optimizaton -> save length so it doesn't need to be accessed
+#I added the attribute hexColor to landuse_meta so that it is easier to copy it
+
+Color Object
+#I'm adding the constants as a static attribute of the class...we'll see if I like the look of it
+#for landuse list, i think I'm only going to fill that spots that are needed instead of having a list that is
+	MAX_COLOR length...the plan is to just append user defined stuff to the end as needed
+#for probability color table probability, the order goes
+	0) Water color
+	1) Seed color
+	2) Date color
+	3...n) probability color
+	#I don't know how to portray transparency in rgb, so for right now I am going to just put a 
+	(-1,-1,-1) into the list...make sure to remember this so you don't get confused later
+#For color_table_growth, the order goes	
+	0) Phase 0
+	1) Phase 1
+	2) Phase 2 
+	3) Phase 3
+	4) Phase 4
+	5) Phase 5
+
+UGMDefines Class
+#it seems that I just copied the C and changed it to python syntax. You should change this later,
+obviously that is not right
+
+PGRID Class
+#For now, I am not going to implement pgrid because they seem to only correspond with the memory stuff
+
+***You want to go back and change the LogError stuff to throwing an error -> that will be more clear to the user overall
+***Go back and implement grow completion status --- I didn't run into it yet, so maybe it isn't called, but it could be useful for logging/testing

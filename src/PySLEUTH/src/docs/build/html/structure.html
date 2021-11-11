@@ -1,0 +1,206 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Structure &#8212; Python SLEUTH May 2021 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Data" href="data.html" />
+    <link rel="prev" title="Background" href="background.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="structure">
+<span id="id1"></span><h1>Structure<a class="headerlink" href="#structure" title="Permalink to this headline">¶</a></h1>
+<div class="line-block">
+<div class="line"><a class="reference internal" href="#structure-gc"><span class="std std-ref">Growth Cycle</span></a>: The basic unit of model growth</div>
+<div class="line"><a class="reference internal" href="#structure-bs"><span class="std std-ref">Basic Simulation</span></a>: A simulation is made up of a series of growth cycles. From start to stop these actions are always executed, regardless of mode.</div>
+</div>
+<div class="line-block">
+<div class="line">Each mode has variations on how simulations are executed.</div>
+<div class="line"><a class="reference internal" href="#structure-test"><span class="std std-ref">Test Mode Process Flow</span></a>: process flow for test mode</div>
+<div class="line"><a class="reference internal" href="#structure-calibrate"><span class="std std-ref">Calibration Mode Process Flow</span></a>: process flow for calibration mode</div>
+<div class="line"><a class="reference internal" href="#structure-predict"><span class="std std-ref">Predict Mode Process Flow</span></a>: process flow for predction mode</div>
+</div>
+<div class="section" id="growth-cycle">
+<span id="structure-gc"></span><h2>Growth Cycle<a class="headerlink" href="#growth-cycle" title="Permalink to this headline">¶</a></h2>
+<p>A growth cycle is the basic unit of SLEUTH execution. It begins by setting each of the coefficients to a unique value.
+Each of the growth rules are then applied. Finally, the resulting growth rate is evaluated. If the growth rate exceeds or
+falls short of the CRITICAL_HIGH or CRITICAL_LOW values, model self-modification is applied. Self-modification will slightly alter
+the coefficient values to simulate accelerated or depressed growth that is related with boom and bust conditions in urban development.</p>
+<img alt="_images/grow.png" src="_images/grow.png" />
+</div>
+<div class="section" id="basic-simulation">
+<span id="structure-bs"></span><h2>Basic Simulation<a class="headerlink" href="#basic-simulation" title="Permalink to this headline">¶</a></h2>
+<p>A simulation is a step up in complexity from a growth cycle. A simulation is a series of growth cycles that begins at a start date
+and completes at a stop date.</p>
+<div class="section" id="inital-conditions">
+<h3>Inital Conditions<a class="headerlink" href="#inital-conditions" title="Permalink to this headline">¶</a></h3>
+<p>A simulation must be initialized with a set of conditions. These initial conditions are a) an integer value, or seed, that initializes
+the random number generator b) a value for each of the five growth coefficients and c) SLEUTH input images most closely representing the
+start date. With these initial conditions growth cycles are generated.</p>
+</div>
+<div class="section" id="growth-cycles">
+<h3>Growth Cycles<a class="headerlink" href="#growth-cycles" title="Permalink to this headline">¶</a></h3>
+<p>It is assumed that one growth cycle represents a year of growth. Following this assumption:</p>
+<blockquote>
+<div><p><em>number of growth cycles in a simulation = stop_date - start_date</em></p>
+</div></blockquote>
+<p>When the required number of growth cycles has been generated, the simulation concludes.</p>
+</div>
+</div>
+<div class="section" id="test-mode-process-flow">
+<span id="structure-test"></span><h2>Test Mode Process Flow<a class="headerlink" href="#test-mode-process-flow" title="Permalink to this headline">¶</a></h2>
+<p>Test mode was created as a way to generate a set of historical data simulations, such as those described in calibration mode process flow,
+for a single coefficient set without requiring the START and STOP coefficients to be set to identical values. Only the START values are used
+when testing. The START value must be greater than the STOP value.</p>
+<p>Test mode can produce the same statistic and image files that may be generated in calibrate mode. Additionally, on the final Monte Carlo run,
+test mode will generate annual images of land cover change. In this way, a visual and further statistical evaluation of calibration coefficient
+performance may be made.</p>
+<div class="section" id="id2">
+<h3>Inital Conditions<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Each simulation in a test mode is initialized with the START values of each coefficient type and SLEUTH images as described in a basic simulation.
+The seed value for the first simulation is initialized with the RANDOM_SEED flag. After a simulation is completed, the initializing seed that began
+that simulation is reset and a new simulation is run. This process continues MC number of times.</p>
+</div>
+<div class="section" id="id3">
+<h3>Growth Cycles<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>It is assumed that one growth cycle represents a year of growth. Following this assumption:</p>
+<blockquote>
+<div><p><em>number of growth cycles in a simulation = stop_date - start_date</em></p>
+</div></blockquote>
+<p>When the required number of growth cycles has been generated, the simulation concludes.</p>
+</div>
+</div>
+<div class="section" id="calibration-mode-process-flow">
+<span id="structure-calibrate"></span><h2>Calibration Mode Process Flow<a class="headerlink" href="#calibration-mode-process-flow" title="Permalink to this headline">¶</a></h2>
+<p>Calibration is the most complex of the different mode types. Each coefficient set combination created by the coefficient START, STOP and STEP values
+will initialize a run (R). Each run will be executed MONTE_CARLO_ITERATIONS number of times. The RANDOM_SEED value initializes the first monte carlo
+simulation of every run.</p>
+<p>The run initializing seed value is set in the scenario file with the RANDOM_SEED flag. The number of monte carlo iterations is set in the scenario file
+using the MONTE_CARLO_ITERATION flag. Coefficient sets are defined in the scenario file with the CALIBRATION_* flags, where “*” indicates a coefficient type.</p>
+<p>Several statistic (_.log) and image files may be generated in calibrate mode by setting preferences in the scenario file. However, due to the computational
+requirements of calibration, it is recommended that these write flags are set to OFF. Instead, once a few top coefficient sets are identified, statistics and
+image files for these runs may be generated in test mode. For a description of mode output see the <a class="reference internal" href="data.html#data"><span class="std std-ref">Data</span></a> page.</p>
+<div class="section" id="id4">
+<h3>Inital Conditions<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>Each run of a calibration job is initialized with a permutation of the coefficient ranges. Each run will be executed MONTE_CARLO_ITERATIONS number of times.
+The first monte carlo of each run is initialized with the RANDOM_SEED value. After a simulation is completed, the initializing seed that began that simulation
+is reset and a new monte carlo simulation is run. This process continues MC number of times. When the number of monte carlo iterations for that run has been
+completed, a coefficient value will be incremented and a new run initialized. This will continue until all possible coefficient permutations have been completed.</p>
+</div>
+<div class="section" id="generated-simulations">
+<h3>Generated Simulations<a class="headerlink" href="#generated-simulations" title="Permalink to this headline">¶</a></h3>
+<p>It is assumed that one growth cycle represents a year of growth. Following this assumption:</p>
+<blockquote>
+<div><p><em>number of growth cycles in a simulation = stop_date - start_date</em></p>
+</div></blockquote>
+<p>As growth cycles (or years) complete, time passes. When a cycle completes that has a matching date from the urban input layers, a gif image of simulated data is
+produced and several metrics of urban form are measured and stored in memory. When the required number of monte carlo simulations has been completed the
+measurements for each metric are averaged over the number of monte carlo iterations. These averaged values are then compared to the input urban
+data, and Pearson regression scores are calculated for that run. These scores are written to the control_stats.log file and used to assess coefficient set
+performance.</p>
+<p>When the required number of growth cycles has been generated, the simulation concludes.</p>
+</div>
+</div>
+<div class="section" id="predict-mode-process-flow">
+<span id="structure-predict"></span><h2>Predict Mode Process Flow<a class="headerlink" href="#predict-mode-process-flow" title="Permalink to this headline">¶</a></h2>
+<p>Prediction mode is a collection of Monte Carlo simulations. The coefficient set and initial images for a prediction run are identical for every simulation,
+but the initializing seed value is altered a MONTE_CARLO_ITERATION (MC) number of times, with each simulation evolving slightly differently due to the modified
+random number series.</p>
+<p>The first seed value is set in the scenario file with the RANDOM_SEED flag. The number of Monte Carlo iterations is set in the scenario file using the
+MONTE_CARLO_ITERATION flag. The coefficient set is defined in the scenario file with the PREDCTION_*_BEST_FIT flag, where “*” indicates a coefficient type.
+For a description of prediction mode output see the <a class="reference internal" href="data.html#data"><span class="std std-ref">Data</span></a> page.</p>
+<div class="section" id="id5">
+<h3>Inital Conditions<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>Each simulation in a prediction run is initialized with the PREDCITION_*_BEST_FIT coefficient set and SLEUTH images as described in a <a class="reference internal" href="#structure-bs"><span class="std std-ref">Basic Simulation</span></a>.
+The seed value for the first simulation is initialized with the RANDOM_SEED flag. After a simulation is completed, the initializing seed that began that
+simulation is reset and a new simulation is run. This process continues MC number of times.</p>
+</div>
+<div class="section" id="id6">
+<h3>Growth Cycles<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>It is assumed that one growth cycle represents a year of growth. Following this assumption:</p>
+<blockquote>
+<div><p><em>number of growth cycles in a simulation = stop_date - start_date</em></p>
+</div></blockquote>
+<p>When the required number of growth cycles has been generated, the simulation concludes.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="background.html">Background</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Structure</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#growth-cycle">Growth Cycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#basic-simulation">Basic Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test-mode-process-flow">Test Mode Process Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#calibration-mode-process-flow">Calibration Mode Process Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#predict-mode-process-flow">Predict Mode Process Flow</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="growth.html">Growth</a></li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Elise Baumgartner.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/structure.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

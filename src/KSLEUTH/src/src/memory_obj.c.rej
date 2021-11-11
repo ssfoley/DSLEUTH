@@ -1,0 +1,45 @@
+--- memory_obj.c	2005-06-28 14:29:40.000000000 -0500
++++ memory_obj.c	2015-07-22 11:50:06.188747524 -0500
+@@ -70,7 +70,7 @@
+ static int bytes_p_grid_rounded2wordboundary;
+ static int bytes_p_packed_grid;
+ static int bytes_p_packed_grid_rounded2wordboundary;
+-static int bytes2allocate;
++static size_t bytes2allocate;
+ static void *mem_ptr;
+ static int igrid_count;
+ static int pgrid_count;
+@@ -347,16 +347,16 @@
+   bytes_p_packed_grid = BYTES_PER_PIXEL_PACKED * total_pixels;
+   bytes_p_packed_grid_rounded2wordboundary =
+     ROUND_BYTES_TO_WORD_BNDRY (bytes_p_packed_grid);
+-  bytes2allocate = igrid_count * bytes_p_packed_grid_rounded2wordboundary +
++  bytes2allocate = (size_t)igrid_count * bytes_p_packed_grid_rounded2wordboundary +
+     pgrid_count * bytes_p_grid_rounded2wordboundary +
+     wgrid_count * bytes_p_grid_rounded2wordboundary +
+-    check_pixel_count * BYTES_PER_PIXEL;
++      check_pixel_count * (size_t)BYTES_PER_PIXEL;
+   igrid_size = bytes_p_packed_grid_rounded2wordboundary / BYTES_PER_WORD;
+ #else
+-  bytes2allocate = igrid_count * bytes_p_grid_rounded2wordboundary +
++  bytes2allocate = (size_t)igrid_count * bytes_p_grid_rounded2wordboundary +
+     pgrid_count * bytes_p_grid_rounded2wordboundary +
+     wgrid_count * bytes_p_grid_rounded2wordboundary +
+-    check_pixel_count * BYTES_PER_PIXEL;
++      check_pixel_count * (size_t)BYTES_PER_PIXEL;
+   igrid_size = bytes_p_grid_rounded2wordboundary / BYTES_PER_WORD;
+ #endif
+   mem_check_size = 1;
+@@ -436,8 +436,10 @@
+ void
+   mem_CloseLog ()
+ {
+-  fclose (memlog_fp);
+-  memlog_fp = NULL;
++    if(memlog_fp != NULL ) {
++        fclose (memlog_fp);
++        memlog_fp = NULL;
++    }
+ }
+ 
+ /******************************************************************************
