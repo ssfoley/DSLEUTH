@@ -9,6 +9,6 @@ Visualization tools for DSLEUTH interpret the data into a comprehensive form.  T
    :maxdepth: 2
    :caption: Contents:
 
-   Installation <installation>
+   Installing Visualization Tools <installation>
    Map Visualization <map>
    Graph Visualization <graph>
