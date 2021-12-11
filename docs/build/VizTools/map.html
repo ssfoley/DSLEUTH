@@ -51,8 +51,16 @@
             
   <section id="map-visualization">
 <h1>Map Visualization<a class="headerlink" href="#map-visualization" title="Permalink to this headline">¶</a></h1>
-<p>The map visualization produces individual change maps and an animation from the data produced from the prediction phase of DSLEUTH.  Running <code class="code docutils literal notranslate"><span class="pre">py</span> <span class="pre">-m</span> <span class="pre">visualization</span> <span class="pre">-input</span> <span class="pre">inputFolder</span></code> in the <code class="code docutils literal notranslate"><span class="pre">visualization</span></code> directory will use the DSLEUTH input data provided in <code class="code docutils literal notranslate"><span class="pre">inputFolder</span></code> to produce change maps in a new <code class="code docutils literal notranslate"><span class="pre">change_maps</span></code> directory and an animated .gif in a new <code class="code docutils literal notranslate"><span class="pre">animation</span></code> directory.  Running <code class="code docutils literal notranslate"><span class="pre">py</span> <span class="pre">-m</span> <span class="pre">visualization</span> <span class="pre">-input</span> <span class="pre">dsleuth_wb100pred_output</span></code> will run the visualization tool on the sample data provided in the <code class="code docutils literal notranslate"><span class="pre">visualization</span></code> directory.</p>
-<img alt="../_images/animation.gif" src="../_images/animation.gif" />
+<p>The map visualization produces individual change maps and an animation from the data produced from the prediction phase of DSLEUTH.</p>
+<section id="input-files-for-map-visualization">
+<h2>Input Files for Map Visualization<a class="headerlink" href="#input-files-for-map-visualization" title="Permalink to this headline">¶</a></h2>
+<p>The folder <code class="code docutils literal notranslate"><span class="pre">dsleuth_wb100pred_output</span></code> contains the output data from DSLEUTH needed to run the map visualization.  This includes a log of the numerical data and individual maps depicting urban growth for each year.</p>
+</section>
+<section id="running-map-visualization">
+<h2>Running Map Visualization<a class="headerlink" href="#running-map-visualization" title="Permalink to this headline">¶</a></h2>
+<p>Running <code class="code docutils literal notranslate"><span class="pre">py</span> <span class="pre">-m</span> <span class="pre">visualization</span> <span class="pre">-input</span> <span class="pre">inputFolder</span></code> in the <code class="code docutils literal notranslate"><span class="pre">src</span></code> directory will use the DSLEUTH input data provided in <code class="code docutils literal notranslate"><span class="pre">inputFolder</span></code> to produce change maps in a new <code class="code docutils literal notranslate"><span class="pre">change_maps</span></code> directory and an animated .gif in a new <code class="code docutils literal notranslate"><span class="pre">animation</span></code> directory.  Running <code class="code docutils literal notranslate"><span class="pre">py</span> <span class="pre">-m</span> <span class="pre">visualization</span> <span class="pre">-input</span> <span class="pre">dsleuth_wb100pred_output</span></code> will run the visualization tool on the sample data provided in the <code class="code docutils literal notranslate"><span class="pre">dsleuth_wb100pred_output</span></code> directory.</p>
+<a class="reference internal image-reference" href="../_images/animation.gif"><img alt="../_images/animation.gif" src="../_images/animation.gif" style="width: 400px;" /></a>
+</section>
 </section>
 
 
@@ -62,6 +70,15 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Map Visualization</a><ul>
+<li><a class="reference internal" href="#input-files-for-map-visualization">Input Files for Map Visualization</a></li>
+<li><a class="reference internal" href="#running-map-visualization">Running Map Visualization</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="installation.html"
                         title="previous chapter">Installing Visualization Tools</a></p>

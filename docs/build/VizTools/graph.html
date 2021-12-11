@@ -51,8 +51,16 @@
             
   <section id="graph-visualization">
 <h1>Graph Visualization<a class="headerlink" href="#graph-visualization" title="Permalink to this headline">¶</a></h1>
-<p>The graph visualization produces average value graph images for each parameter (Breed, Spread, Road, etc.) from the data produced from the calibration phase of DSLEUTH.  Running <code class="code docutils literal notranslate"><span class="pre">py</span> <span class="pre">-m</span> <span class="pre">graph_avg_log</span> <span class="pre">-input</span> <span class="pre">inputFolder</span></code> in the <code class="code docutils literal notranslate"><span class="pre">visualization</span></code> directory will use the DSLEUTH input logs provided in <code class="code docutils literal notranslate"><span class="pre">inputFolder</span></code> to produce graph image files in the current directory.  Running <code class="code docutils literal notranslate"><span class="pre">py</span> <span class="pre">-m</span> <span class="pre">graph_avg_log</span> <span class="pre">-input</span> <span class="pre">avg_log_files/</span></code> will run the visualization tool on the sample logs provided in the <code class="code docutils literal notranslate"><span class="pre">visualization</span></code> directory.</p>
+<p>The graph visualization produces average value graph images for each parameter (Breed, Spread, Road, etc.) from the data produced from the calibration phase of DSLEUTH.</p>
+<section id="input-files-for-graph-visualization">
+<h2>Input Files for Graph Visualization<a class="headerlink" href="#input-files-for-graph-visualization" title="Permalink to this headline">¶</a></h2>
+<p>The folder <code class="code docutils literal notranslate"><span class="pre">graph_avg_log</span></code> contains the output data from DSLEUTH needed to run the graph visualization.  The log files include yearly data for each parameter.</p>
+</section>
+<section id="running-graph-visualization">
+<h2>Running Graph Visualization<a class="headerlink" href="#running-graph-visualization" title="Permalink to this headline">¶</a></h2>
+<p>Running <code class="code docutils literal notranslate"><span class="pre">py</span> <span class="pre">-m</span> <span class="pre">graph_avg_log</span> <span class="pre">-input</span> <span class="pre">inputFolder</span></code> in the <code class="code docutils literal notranslate"><span class="pre">src</span></code> directory will use the DSLEUTH input logs provided in <code class="code docutils literal notranslate"><span class="pre">inputFolder</span></code> to produce graph image files in the current directory.  Running <code class="code docutils literal notranslate"><span class="pre">py</span> <span class="pre">-m</span> <span class="pre">graph_avg_log</span> <span class="pre">-input</span> <span class="pre">avg_log_files/</span></code> will run the visualization tool on the sample logs provided in the <code class="code docutils literal notranslate"><span class="pre">avg_log_files</span></code> directory.</p>
 <img alt="../_images/Og.png" src="../_images/Og.png" />
+</section>
 </section>
 
 
@@ -62,6 +70,15 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Graph Visualization</a><ul>
+<li><a class="reference internal" href="#input-files-for-graph-visualization">Input Files for Graph Visualization</a></li>
+<li><a class="reference internal" href="#running-graph-visualization">Running Graph Visualization</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="map.html"
                         title="previous chapter">Map Visualization</a></p>
