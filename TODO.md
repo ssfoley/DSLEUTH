@@ -1,5 +1,13 @@
 # To Do Items for the project
 
+Notes from 1/28/22
+ - last semester: finished getting viz tools tested, documented, and working
+ - to do for 2/4/22: go back and make sure we can get the viz tools running to verify the docs (@heather)
+ - to do for 2/4/22: make a list of tasks for the semester and continue repo cleanup work (@ssfoley)
+
+
+
+
 ## Clean up repo
 
  - [x] merge Elise's work on DSLEUTH
