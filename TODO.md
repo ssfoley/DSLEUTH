@@ -1,5 +1,13 @@
 # To Do Items for the project
 
+Notes 2/4/22
+ - Heather will see what she can do to run DSLEUTH locally and write down all her questions
+ - Next meeting, we will both look at them and fix all the things we can
+ - Next steps:
+    - figure out other target machines -- VMs possibly on Euca
+    - look into getting KSLEUTH going too
+    - XSEDE resources for both
+
 Notes from 1/28/22
  - last semester: finished getting viz tools tested, documented, and working
  - to do for 2/4/22: go back and make sure we can get the viz tools running to verify the docs (@heather)
