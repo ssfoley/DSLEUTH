@@ -26,8 +26,8 @@ class ScenarioUtil:
         self.original.print_me(log_file)
         print "Scenario File: \n"
         self.original.print_me_c()
-        cont = raw_input("Continue? (Y/n) ")
-        if (cont.find("Y") == -1):
+        cont = raw_input("Continue? (y/n) ")
+        if (cont.find("Y") == -1 and cont.find("y") == -1):
             self.num_files = -2
             return None
         
