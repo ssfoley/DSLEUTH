@@ -1,5 +1,20 @@
 # To Do Items for the project
 
+Notes 4/1/22
+ - rewrite DSLEUTH in Python 3
+    - interface improvements:
+      - new ini file using Config Parser library (https://docs.python.org/3/library/configparser.html)
+      - new file will contain key value pairs for:
+        - path to SLEUTH executeable
+        - path to scenario file
+        - mode to execute SLEUTH
+        - number of processors to use
+        - scheduler mode (SLURM, SMP)
+        - testing (if true: stop after generating how the code will be distributed, if false: make all the scenario files and run the simulation)
+        - debug (a set of logging levels eventually, consider using a logging package)
+     - main.py --> dsleuth.py
+     - update the docs
+
 Notes 2/4/22
  - Heather will see what she can do to run DSLEUTH locally and write down all her questions
  - Next meeting, we will both look at them and fix all the things we can
