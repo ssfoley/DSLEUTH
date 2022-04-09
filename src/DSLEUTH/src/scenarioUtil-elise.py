@@ -17,35 +17,35 @@ NOTI = 3 # not ideal - >10
 class ScenarioUtil:
     num_files = -1
     output_dir = None
-	#diff breed spread slope road
-    
+        #diff breed spread slope road
+
     dict_scen_obj = {
-		"10000": ["diff"],
-		"11000": ["diff", "breed"],
-		"11100": ["diff", "breed", "spread"],
-		"11010": ["diff", "breed", "slope"],
-		"11001": ["diff", "breed", "road"],
-		"10100": ["diff", "spread"],
-		"10110": ["diff", "spread", "slope"],
-		"10101": ["diff", "spread", "road"],
-		"10010": ["diff", "slope"],
-		"10011": ["diff", "slope", "road"],
-		"10001": ["diff", "road"],
-		"01000": ["breed"],
-		"01100": ["breed", "spread"],
-		"01110": ["breed","spread", "slope"],
-		"01101": ["breed", "spread", "road"],
-		"01010": ["breed", "slope"],
-		"01011": ["breed", "slope", "road"],
-		"01001": ["breed", "road"],
-		"00100": ["spread"],
-		"00110": ["spread", "slope"],
-		"00111": ["spread", "slope", "road"],
-		"00101": ["spread", "road"],
-		"00010": ["slope"],
-		"00011": ["slope, road"],
-		"00001": ["road"]	
-	}
+                "10000": ["diff"],
+                "11000": ["diff", "breed"],
+                "11100": ["diff", "breed", "spread"],
+                "11010": ["diff", "breed", "slope"],
+                "11001": ["diff", "breed", "road"],
+                "10100": ["diff", "spread"],
+                "10110": ["diff", "spread", "slope"],
+                "10101": ["diff", "spread", "road"],
+                "10010": ["diff", "slope"],
+                "10011": ["diff", "slope", "road"],
+                "10001": ["diff", "road"],
+                "01000": ["breed"],
+                "01100": ["breed", "spread"],
+                "01110": ["breed","spread", "slope"],
+                "01101": ["breed", "spread", "road"],
+                "01010": ["breed", "slope"],
+                "01011": ["breed", "slope", "road"],
+                "01001": ["breed", "road"],
+                "00100": ["spread"],
+                "00110": ["spread", "slope"],
+                "00111": ["spread", "slope", "road"],
+                "00101": ["spread", "road"],
+                "00010": ["slope"],
+                "00011": ["slope, road"],
+                "00001": ["road"]
+        }
 
     def __init__(self, scen_file_name, dest_path, pieces, log_file):
         # read the scenario file
@@ -58,13 +58,13 @@ class ScenarioUtil:
         if (cont.find("Y") == -1):
             self.num_files = -2
             return None
-        
+
         self.pieces = pieces
         self.output_dir = self.original.outputDir
         self.log_file = log_file
         # short-hand for self.original
         orig = self.original
-        
+
         # calculate the number of values in each parameter
         combos = self.calc_combos(orig)
 
@@ -77,8 +77,8 @@ class ScenarioUtil:
 
         poss_config = self.gen_poss_config()
         selected_config = self.pick_best_config(poss_config)
-        
-        
+
+
         # generate the files
         self.scen_file_list = self.gen_files(selected_config, scen_file_name, dest_path)
 
@@ -113,10 +113,10 @@ class ScenarioUtil:
             scen.write_file(scen_base, dest + str(i), str(i))
             file_list.append(str(i))
             i += 1
-                            
+
         return file_list
 
-    
+
     def gen_scen_objs(self, sel_cfg, log_file):
         sel_cfg_key = "".join(sel_cfg)
         if sel_cfg_key in dict_scen_obj:
@@ -125,7 +125,7 @@ class ScenarioUtil:
             print >> log_file, "OOPS!!!!"
             print >> log_file, sel_cfg
             return []
-        
+
     def gen_scen_route(parameters):
         if len(parameters) == 1:
             return gen_scens_one_param(parameters[0])
@@ -137,13 +137,13 @@ class ScenarioUtil:
             print >> log_file, "OOPS!!!!"
             print >> log_file, sel_cfg
             return []
-        
+
     def gen_scens_one_param(inputName):
 
         start = getattr(orig, inputName+"Start", None)
         stop = getattr(orig, inputName+"Stop", None)
         step = getattr(orig, inputName+"Step", None)
-        
+
         scens = []
         orig = self.original
         # Note: python syntax for range(start, stop (exclusive), step)
@@ -158,17 +158,17 @@ class ScenarioUtil:
             scens.append(this_scen)
 
         return scens
-    
+
     def gen_scens_two_param(inputName1, inputName2):
 
         start1 = getattr(orig, inputName1 + "Start", None)
         stop1 = getattr(orig, inputName1 + "Stop", None)
         step1 = getattr(orig, inputName1 + "Step", None)
-        
+
         start2 = getattr(orig, inputName2 + "Start", None)
         stop2 = getattr(orig, inputName2 + "Stop", None)
         step2 = getattr(orig, inputName2 + "Step", None)
-        
+
         scens = []
         orig = self.original
         for di in range(start1, stop1 + 1, step1):
@@ -183,21 +183,21 @@ class ScenarioUtil:
                 scens.append(this_scen)
 
         return scens
-   
+
     def gen_scens_three_param(inputName1, inputName2, inputName3):
 
         start1 = getattr(orig, inputName1 + "Start", None)
         stop1 = getattr(orig, inputName1 + "Stop", None)
         step1 = getattr(orig, inputName1 + "Step", None)
-        
+
         start2 = getattr(orig, inputName2 + "Start", None)
         stop2 = getattr(orig, inputName2 + "Stop", None)
         step2 = getattr(orig, inputName2 + "Step", None)
-        
+
         start3 = getattr(orig, inputName3 + "Start", None)
         stop3 = getattr(orig, inputName3 + "Stop", None)
         step3 = getattr(orig, inputName3 + "Step", None)
-        
+
         scens = []
         orig = self.original
         for di in range(start1, stop1 + 1, step1):
@@ -218,7 +218,7 @@ class ScenarioUtil:
 
 
 
-    def gen_poss_config(self): 
+    def gen_poss_config(self):
         orig = self.original
         pieces = self.pieces
 
@@ -283,7 +283,7 @@ class ScenarioUtil:
         case = self.calc_case(perms, pieces)
         poss_config.append((0, 0, 1, 1, 0, perms, score, case))
         perms = orig.spreadNum * orig.roadNum
-        score = orig.spreadNum * orig.roadNum / float(pieces) 
+        score = orig.spreadNum * orig.roadNum / float(pieces)
         case = self.calc_case(perms, pieces)
         poss_config.append((0, 0, 1, 0, 1, perms, score, case))
         perms = orig.slopeNum * orig.roadNum
@@ -341,7 +341,7 @@ class ScenarioUtil:
         #poss_config.append((0, 1, 1, 1, 1, orig.breedNum * orig.spreadNum * orig.slopeNum * orig.roadNum))
 
         return poss_config
-    
+
 
 
 
@@ -391,7 +391,7 @@ class ScenarioUtil:
 
         return selected_config
 
-            
+
 
     def calc_case(self, perms, pieces):
         score = perms / float(pieces)
@@ -403,7 +403,7 @@ class ScenarioUtil:
             return BEST
         else:
             return NEXT
-        
+
 
 
 
@@ -422,4 +422,3 @@ class ScenarioUtil:
 
     def get_output_dir(self):
         return self.output_dir
-
