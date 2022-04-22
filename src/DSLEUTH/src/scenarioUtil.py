@@ -24,33 +24,33 @@ class ScenarioUtil:
         self.original = scenario.Scenario()
         self.original.read_file(scen_file_name)
         self.original.print_me(log_file)
-        print "Scenario File: \n"
+        print("Scenario File: \n")
         self.original.print_me_c()
-        cont = raw_input("Continue? (y/n) ")
+        cont = input("Continue? (y/n) ")
         if (cont.find("Y") == -1 and cont.find("y") == -1):
             self.num_files = -2
             return None
-        
+
         self.pieces = pieces
         self.output_dir = self.original.outputDir
         self.log_file = log_file
         # short-hand for self.original
         orig = self.original
-        
+
         # calculate the number of values in each parameter
         combos = self.calc_combos(orig)
 
         gen_scens = []
         val_start = 0
-        numper = combos / pieces
-        print >> log_file, "pieces: {} -- numper {} -- combos {}".format(pieces, numper, combos)
-        print >> log_file, "diffNum {} -- breedNum {} -- spreadNum {} -- slopeNum {} -- roadNum {}".format(orig.diffNum, orig.breedNum, orig.spreadNum, orig.slopeNum, orig.roadNum)
+        numper = combos // pieces
+        print("pieces: {} -- numper {} -- combos {}".format(pieces, numper, combos), file=log_file)
+        print("diffNum {} -- breedNum {} -- spreadNum {} -- slopeNum {} -- roadNum {}".format(orig.diffNum, orig.breedNum, orig.spreadNum, orig.slopeNum, orig.roadNum), file=log_file)
 
 
         poss_config = self.gen_poss_config()
         selected_config = self.pick_best_config(poss_config)
-        
-        
+
+
         # generate the files
         self.scen_file_list = self.gen_files(selected_config, scen_file_name, dest_path)
 
@@ -77,18 +77,18 @@ class ScenarioUtil:
         try:
             os.makedirs(self.original.outputDir)
         except OSError:
-            print >> log_file, "WARNING: file path exists for output files, old files may be overwritten"
+            print("WARNING: file path exists for output files, old files may be overwritten", file=log_file)
 
         # generate the scenario objects
         scenarios = self.gen_scen_objs(sel_cfg, log_file)
         i = 1
         for scen in scenarios:
             scen.print_me(log_file)
-            print >> log_file, " ------ "
+            print(" ------ ", file=log_file)
             scen.write_file(scen_base, dest + str(i), str(i))
             file_list.append(str(i))
             i += 1
-                            
+
         return file_list
 
 
@@ -135,50 +135,50 @@ class ScenarioUtil:
             return self.gen_dist_diff_road()
         # 0 1 0 0 0
         elif sel_cfg[0] == 0 and sel_cfg[1] == 1 and sel_cfg[2] == 0 and sel_cfg[3] == 0 and sel_cfg[4] == 0:
-            return self.gen_dist_breed() 
+            return self.gen_dist_breed()
         # 0 1 1 0 0
         elif sel_cfg[0] == 0 and sel_cfg[1] == 1 and sel_cfg[2] == 1 and sel_cfg[3] == 0 and sel_cfg[4] == 0:
-            return self.gen_dist_breed_spread() 
+            return self.gen_dist_breed_spread()
         # 0 1 1 1 0
         elif sel_cfg[0] == 0 and sel_cfg[1] == 1 and sel_cfg[2] == 1 and sel_cfg[3] == 1 and sel_cfg[4] == 0:
-            return self.gen_dist_breed_spread_slope() 
+            return self.gen_dist_breed_spread_slope()
         # 0 1 1 0 1
         elif sel_cfg[0] == 0 and sel_cfg[1] == 1 and sel_cfg[2] == 1 and sel_cfg[3] == 0 and sel_cfg[4] == 1:
-            return self.gen_dist_breed_spread_road() 
+            return self.gen_dist_breed_spread_road()
         # 0 1 0 1 0
         elif sel_cfg[0] == 0 and sel_cfg[1] == 1 and sel_cfg[2] == 0 and sel_cfg[3] == 1 and sel_cfg[4] == 0:
-            return self.gen_dist_breed_slope() 
+            return self.gen_dist_breed_slope()
         # 0 1 0 1 1
         elif sel_cfg[0] == 0 and sel_cfg[1] == 1 and sel_cfg[2] == 0 and sel_cfg[3] == 1 and sel_cfg[4] == 1:
-            return self.gen_dist_breed_slope_road() 
+            return self.gen_dist_breed_slope_road()
         # 0 1 0 0 1
         elif sel_cfg[0] == 0 and sel_cfg[1] == 1 and sel_cfg[2] == 0 and sel_cfg[3] == 0 and sel_cfg[4] == 1:
-            return self.gen_dist_breed_road() 
+            return self.gen_dist_breed_road()
         # 0 0 1 0 0
         elif sel_cfg[0] == 0 and sel_cfg[1] == 0 and sel_cfg[2] == 1 and sel_cfg[3] == 0 and sel_cfg[4] == 0:
-            return self.gen_dist_spread() 
+            return self.gen_dist_spread()
         # 0 0 1 1 0
         elif sel_cfg[0] == 0 and sel_cfg[1] == 0 and sel_cfg[2] == 1 and sel_cfg[3] == 1 and sel_cfg[4] == 0:
-            return self.gen_dist_spread_slope() 
+            return self.gen_dist_spread_slope()
         # 0 0 1 1 1
         elif sel_cfg[0] == 0 and sel_cfg[1] == 0 and sel_cfg[2] == 1 and sel_cfg[3] == 1 and sel_cfg[4] == 1:
-            return self.gen_dist_spread_slope_road() 
+            return self.gen_dist_spread_slope_road()
         # 0 0 1 0 1
         elif sel_cfg[0] == 0 and sel_cfg[1] == 0 and sel_cfg[2] == 1 and sel_cfg[3] == 0 and sel_cfg[4] == 1:
-            return self.gen_dist_spread_road() 
+            return self.gen_dist_spread_road()
         # 0 0 0 1 0
         elif sel_cfg[0] == 0 and sel_cfg[1] == 0 and sel_cfg[2] == 0 and sel_cfg[3] == 1 and sel_cfg[4] == 0:
-            return self.gen_dist_slope() 
+            return self.gen_dist_slope()
         # 0 0 0 1 1
         elif sel_cfg[0] == 0 and sel_cfg[1] == 0 and sel_cfg[2] == 0 and sel_cfg[3] == 1 and sel_cfg[4] == 1:
-            return self.gen_dist_slope_road() 
+            return self.gen_dist_slope_road()
         # 0 0 0 0 1
         elif sel_cfg[0] == 0 and sel_cfg[1] == 0 and sel_cfg[2] == 0 and sel_cfg[3] == 0 and sel_cfg[4] == 1:
-            return self.gen_dist_road() 
+            return self.gen_dist_road()
         # oops!
         else:
-            print >> log_file, "OOPS!!!!"
-            print >> log_file, sel_cfg
+            print("OOPS!!!!", file=log_file)
+            print(sel_cfg, file=log_file)
             return []
 
 
@@ -760,7 +760,7 @@ class ScenarioUtil:
 
 
 
-    def gen_poss_config(self): 
+    def gen_poss_config(self):
         orig = self.original
         pieces = self.pieces
 
@@ -825,7 +825,7 @@ class ScenarioUtil:
         case = self.calc_case(perms, pieces)
         poss_config.append((0, 0, 1, 1, 0, perms, score, case))
         perms = orig.spreadNum * orig.roadNum
-        score = orig.spreadNum * orig.roadNum / float(pieces) 
+        score = orig.spreadNum * orig.roadNum / float(pieces)
         case = self.calc_case(perms, pieces)
         poss_config.append((0, 0, 1, 0, 1, perms, score, case))
         perms = orig.slopeNum * orig.roadNum
@@ -883,7 +883,7 @@ class ScenarioUtil:
         #poss_config.append((0, 1, 1, 1, 1, orig.breedNum * orig.spreadNum * orig.slopeNum * orig.roadNum))
 
         return poss_config
-    
+
 
 
 
@@ -900,24 +900,24 @@ class ScenarioUtil:
         exists = [False, False, False, False]
 
         for poss in poss_config:
-            print poss, poss[7]
+            print(poss, poss[7])
 
             if poss[7] == 0:
                 if exists[0] == False or poss[5] > best0[5]: # faster to do int comparison as opposed to float comparisons
                     best0 = poss
-                    print "new best 0"
+                    print("new best 0")
             elif poss[7] == 1:
                 if exists[1] == False or poss[6] < best1[6]:
                     best1 = poss
-                    print "new best 1"
+                    print("new best 1")
             elif poss[7] == 2:
                 if exists[2] == False or poss[6] - int(poss[6]) > best2[6] - int(best2[6]):
                     best2 = poss
-                    print "new best 2"
+                    print("new best 2")
             else: # poss[7] == 3
                 if exists[3] == False or poss[6] < best3[6]:
                     best3 = poss
-                    print "new best 3"
+                    print("new best 3")
             exists[poss[7]] = True
 
         selected_config = None
@@ -933,7 +933,7 @@ class ScenarioUtil:
 
         return selected_config
 
-            
+
 
     def calc_case(self, perms, pieces):
         score = perms / float(pieces)
@@ -945,16 +945,16 @@ class ScenarioUtil:
             return BEST
         else:
             return NEXT
-        
+
 
 
 
     def calc_combos(self, obj):
-        obj.diffNum = ((obj.diffStop - obj.diffStart) / obj.diffStep) + 1
-        obj.breedNum = ((obj.breedStop - obj.breedStart) / obj.breedStep) + 1
-        obj.spreadNum = ((obj.spreadStop - obj.spreadStart) / obj.spreadStep) + 1
-        obj.slopeNum = ((obj.slopeStop - obj.slopeStart) / obj.slopeStep) + 1
-        obj.roadNum = ((obj.roadStop - obj.roadStart) / obj.roadStep) + 1
+        obj.diffNum = ((obj.diffStop - obj.diffStart) // obj.diffStep) + 1
+        obj.breedNum = ((obj.breedStop - obj.breedStart) // obj.breedStep) + 1
+        obj.spreadNum = ((obj.spreadStop - obj.spreadStart) // obj.spreadStep) + 1
+        obj.slopeNum = ((obj.slopeStop - obj.slopeStart) // obj.slopeStep) + 1
+        obj.roadNum = ((obj.roadStop - obj.roadStart) // obj.roadStep) + 1
         return obj.diffNum * obj.breedNum * obj.spreadNum * obj.slopeNum * obj.roadNum
 
 
@@ -964,4 +964,3 @@ class ScenarioUtil:
 
     def get_output_dir(self):
         return self.output_dir
-

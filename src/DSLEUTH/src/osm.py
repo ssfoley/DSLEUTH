@@ -8,7 +8,7 @@ class OSM:
     header1 = ""
     header2 = ""
     import operator
-   
+
     def read_data(theFile):
         header1 = theFile.readline()
         header2 = theFile.readline()
@@ -38,11 +38,11 @@ class OSM:
             results.update({"osm":float(0.0)})
             allData.append(results)
             line = myFile.readline()
-            
+
     def osm():
         for x in allData:
             x["osm"] = x["compare"]*x["pop"]*x["edges"]*x["clusters"]*x["slope"]*x["xmean"]* x["ymean"]
-            
+
     def sortData():
         allData.sort(key = operator.itemgetter('osm'), reverse = True)
 
@@ -69,4 +69,4 @@ if __name__=="__main__":
     read_data(myFile)
     osm()
     sortData()
-    top50() 
+    top50()
