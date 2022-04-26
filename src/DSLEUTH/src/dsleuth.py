@@ -4,12 +4,16 @@ import sys
 import scenarioUtil
 import time
 import os
+import parseConfig
 
 
 class Main:
         nodelist = {}
         queue = queue.Queue()
         sched = "unknown"
+        phase = "unknown"
+        sleuthPath = ""
+        scenarioPath = ""
         num_nodes = 1
         DEBUG = False
         TESTING = False
@@ -22,20 +26,21 @@ class Main:
 
                 number of nodes
                 """
-                try:
-                        setfile = open("run_settings", "r")
-                        self.sched, num, debug_val, testing_run = setfile.read().split()
-                        self.num_nodes = int(num)
+                config = parseConfig.ParseConfig()
+                if(config.parse()):
+                        self.sleuthPath = config.sleuthPath
+                        self.scenarioPath = config.scenarioPath
+                        self.sched = config.sleuthMode
+                        self.phase = config.phase
+                        self.num_nodes = config.processors
+                        self.DEBUG = config.debug
+                        self.TESTING = config.testing
                         print("DSLEUTH: scheduler type: ", self.sched)
                         print("DSLEUTH: num_nodes: ", str(self.num_nodes))
                         self.getNodelist()
-                        if int(debug_val) == 1:
-                                self.DEBUG = True
-                        if int(testing_run) == 1:
-                                self.TESTING = True
-                except:
-                        print("run_settings file misformed: [Scheduler] [Number_of_Nodes] [debug_val] [testing_run]")
-                        self.invalid = True;
+                else:
+                        print("There was an issue with parsing the config file.  Please ensure it is formatted correctly.")
+                        self.invalid = True
 
 
 
@@ -103,32 +108,23 @@ class Main:
                                                 dest.write(newLine)
 
         def main(self):
-                args = sys.argv
-                if self.invalid:
-                        return;
-                # error checking for args
-                if len(sys.argv) != 4:
-                        print("DSLEUTH: Error! wrong number of arguments.")
-                        return
-
                 # take care of the case when it is not a calibrate job and produce a warning
-                if args[2] != "calibrate":
-                        print("DSLEUTH: Warning: this framework is designed for distributing across multiple nodes, but only for calibrate mode.  Mode is ", args[2])
+                if self.phase != "calibrate":
+                        print("DSLEUTH: Warning: this framework is designed for distributing across multiple nodes, but only for calibrate mode.  Mode is ", self.phase)
                         print("DSLEUTH: Just running the code as is.")
-                        print(args[1], args[2], args[3])
-                        p = subprocess.Popen([args[1], args[2], args[3]])
+                        print(self.sleuthPath, self.phase, self.scenarioPath)
+                        p = subprocess.Popen([self.sleuthPath, self.path, self.scenarioPath])
                         p.wait()
                         return
 
 
-                #args[3] is the scenario file path
-                destination_path = args[3] + "_steps/"
+                destination_path = self.scenarioPath + "_steps/"
                 try:
                         os.makedirs(destination_path)
                 except OSError:
                         print("WARNING: file path exists for scenario files, old files may be overwritten")
                 log_file = open(destination_path + "dsleuth.log", "w")
-                scena = scenarioUtil.ScenarioUtil(args[3], destination_path, self.num_nodes, log_file)
+                scena = scenarioUtil.ScenarioUtil(self.scenarioPath, destination_path, self.num_nodes, log_file)
 
                 if scena.num_files == -2:
                         print("Change ScenarioFile and run again")
@@ -156,10 +152,10 @@ class Main:
                                 node = self.get_free_node()
                                 print("DSLEUTH: attempting to launch on node: ", node, file=log_file)
                                 if self.sched == "SLURM":
-                                        p = subprocess.Popen(["srun", "-N", "1", "--nodelist=" + node, args[1], args[2], args[3] + "_steps/" + str(num)])
+                                        p = subprocess.Popen(["srun", "-N", "1", "--nodelist=" + node, self.sleuthPath, self.phase, self.scenarioPath + "_steps/" + num])
                                 else:
-                                        print("DSLEUTH: executing: {} {} {}+_steps/+{}".format(args[1], args[2], args[3], num), file=log_file)
-                                        p = subprocess.Popen([args[1], args[2], args[3] + "_steps/" + str(num)])
+                                        print("DSLEUTH: executing: {} {} {}+_steps/+{}".format(self.sleuthPath, self.phase, self.scenarioPath, num), file=log_file)
+                                        p = subprocess.Popen([self.sleuthPath, self.phase, self.scenarioPath + "_steps/" + str(num)])
                                 if self.DEBUG:
                                         print("DSLEUTH: ", p.pid, file=log_file)
                                 self.nodelist[node] = p.pid
@@ -180,7 +176,7 @@ class Main:
                 outputDir = scena.get_output_dir()
                 self.merge(outputDir, fileNum - 1, outputDir + "control.stats.log")
 
-                if arg[2] == "calibrate":
+                if self.phase == "calibrate":
                         subprocess.check_output(['make'])
                         subprocess.check_output(['./readdata3', outputDir + "control.stats.log"])
                         subprocess.check_output(['mv', 'top50b.log', outputDir])
