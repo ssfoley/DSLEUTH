@@ -56,29 +56,24 @@
 </section>
 <section id="running-dsleuth">
 <h2>Running DSLEUTH<a class="headerlink" href="#running-dsleuth" title="Permalink to this headline">¶</a></h2>
-<p>To run the framework to distribute your code, run with a batchscript on a SLURM cluster, or in localhost mode to rely on the operating system to manage the separate processes. To set the mode and the number of nodes, write the run_settings file with the following:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">localhost</span> <span class="n">num</span><span class="o">-</span><span class="n">nodes</span>
-</pre></div>
-</div>
-<p>or</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SLURM</span> <span class="n">num</span><span class="o">-</span><span class="n">nodes</span>
-</pre></div>
-</div>
-<p>Then to run do:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">Framework</span><span class="o">/</span><span class="n">main</span><span class="o">.</span><span class="n">py</span> <span class="n">src</span><span class="o">/</span><span class="n">grow</span> <span class="n">mode</span> <span class="n">scenario</span><span class="o">-</span><span class="n">file</span>
-</pre></div>
-</div>
-<p><strong>OLD RUN INSTRUCTIONS</strong></p>
-<p>Assuming you are in the top-level directory and you have completed writing your scenario file, you can run the code from the commandline as follows:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">src</span><span class="o">/</span><span class="n">grow</span> <span class="o">*&lt;</span><span class="n">mode</span><span class="o">&gt;</span> <span class="n">Scenarios</span><span class="o">/&lt;</span><span class="n">scenario</span> <span class="n">file</span><span class="o">&gt;*</span>
-</pre></div>
-</div>
-<p>You will want to replace <em>&lt;mode&gt;</em> with the correct mode of the code you want to use. The available modes are:</p>
+<p>Settings for DSLEUTH are configured within a <code class="code docutils literal notranslate"><span class="pre">config.ini</span></code> file.  An example of this file can be found within the <code class="code docutils literal notranslate"><span class="pre">sample_data/</span></code> directory, or alternatively, one can be created by running the <code class="code docutils literal notranslate"><span class="pre">createConfig.py</span></code> script, found in the DSLEUTH source code folder.  The parameters in the configuration file are as follows:</p>
 <ul class="simple">
-<li><p><em>test</em> - a mode where the images to be used are analyzed for anamolies that would cause the code to break.</p></li>
-<li><p><em>calibrate</em> - a mode where a parameter sweep over possible prediction parameters is performed to narrow down what the parameters for the final prediction phase should be.</p></li>
-<li><p><em>prediction</em> - a mode where future images are predicted based on previous data and parameters.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">sleuthpath</span></code>: The path to the SLEUTH executable, relative to the directory in which you are running DSLEUTH</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">sleuthmode</span></code>: The mode to manage the processes.  Use “SMP” to rely on the operating system to manage the separate processes, or “SLURM” to run with a batchscript on a SLURM cluster.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">phase</span></code>: The phase in which DSLEUTH is being run for.  Use “calibrate” to run DSLEUTH for the calibration phase.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">scenariopath</span></code>: The path to the scenario file, relative to the directory in which you are running DSLEUTH</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">processors</span></code>: The number of processors to use during the run of DSLEUTH.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">isintestmode</span></code>: True/False.  If true, DSLEUTH will not run past the initial setup.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">isindebugmode</span></code>: True/False.  If true, DSLEUTH will print extra information to the console while running.</p></li>
 </ul>
+<p>To run DSLEUTH, place the <code class="code docutils literal notranslate"><span class="pre">config.ini</span></code> file in the directory in which you are running DSLEUTH and run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="o">&lt;</span><span class="n">path</span> <span class="n">to</span> <span class="n">DSLEUTH</span> <span class="n">script</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Both the example configuration file and the file created with the <code class="code docutils literal notranslate"><span class="pre">createConfig.py</span></code> script are created with path parameters relative to the root project directory.  To run DSLEUTH with these settings, place the required inputs in their directories as specified by the configuration, place <code class="code docutils literal notranslate"><span class="pre">config.ini</span></code> in the root project directory, and run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="n">src</span><span class="o">/</span><span class="n">DSLEUTH</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">dsleuth</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
 </section>
 <section id="directory-structure">
 <h2>Directory Structure<a class="headerlink" href="#directory-structure" title="Permalink to this headline">¶</a></h2>
@@ -101,8 +96,9 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">DSLEUTH</a><ul>
 <li><a class="reference internal" href="#installing-dsleuth">Installing DSLEUTH</a></li>
 <li><a class="reference internal" href="#running-dsleuth">Running DSLEUTH</a></li>
@@ -111,12 +107,17 @@
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="../SLEUTH/general.html"
-                        title="previous chapter">SLEUTH</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="../KSLEUTH/general.html"
-                        title="next chapter">KSLEUTH</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="../SLEUTH/general.html"
+                          title="previous chapter">SLEUTH</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="../KSLEUTH/general.html"
+                          title="next chapter">KSLEUTH</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -156,7 +157,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2021, University of Wisconsin-La Crosse.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.0.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
     </div>
   </body>
 </html>

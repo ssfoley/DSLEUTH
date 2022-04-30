@@ -9,29 +9,23 @@ The source code for DSLEUTH is available on |dsleuth project link|.
 Running DSLEUTH
 ---------------
 
-To run the framework to distribute your code, run with a batchscript on a SLURM cluster, or in localhost mode to rely on the operating system to manage the separate processes. To set the mode and the number of nodes, write the run_settings file with the following::
+Settings for DSLEUTH are configured within a :code:`config.ini` file.  An example of this file can be found within the :code:`sample_data/` directory, or alternatively, one can be created by running the :code:`createConfig.py` script, found in the DSLEUTH source code folder.  The parameters in the configuration file are as follows:
 
-	localhost num-nodes
+- :code:`sleuthpath`: The path to the SLEUTH executable, relative to the directory in which you are running DSLEUTH
+- :code:`sleuthmode`: The mode to manage the processes.  Use "SMP" to rely on the operating system to manage the separate processes, or "SLURM" to run with a batchscript on a SLURM cluster.
+- :code:`phase`: The phase in which DSLEUTH is being run for.  Use "calibrate" to run DSLEUTH for the calibration phase.
+- :code:`scenariopath`: The path to the scenario file, relative to the directory in which you are running DSLEUTH
+- :code:`processors`: The number of processors to use during the run of DSLEUTH.
+- :code:`isintestmode`: True/False.  If true, DSLEUTH will not run past the initial setup.
+- :code:`isindebugmode`: True/False.  If true, DSLEUTH will print extra information to the console while running.
 
-or ::
+To run DSLEUTH, place the :code:`config.ini` file in the directory in which you are running DSLEUTH and run::
 
-	SLURM num-nodes
+	python3 <path to DSLEUTH script>
 
-Then to run do::
+Both the example configuration file and the file created with the :code:`createConfig.py` script are created with path parameters relative to the root project directory.  To run DSLEUTH with these settings, place the required inputs in their directories as specified by the configuration, place :code:`config.ini` in the root project directory, and run::
 
-	python Framework/main.py src/grow mode scenario-file
-
-**OLD RUN INSTRUCTIONS**
-
-Assuming you are in the top-level directory and you have completed writing your scenario file, you can run the code from the commandline as follows::
-
-	src/grow *<mode> Scenarios/<scenario file>*
-
-You will want to replace *<mode>* with the correct mode of the code you want to use. The available modes are:
-
-* *test* - a mode where the images to be used are analyzed for anamolies that would cause the code to break.
-* *calibrate* - a mode where a parameter sweep over possible prediction parameters is performed to narrow down what the parameters for the final prediction phase should be.
-* *prediction* - a mode where future images are predicted based on previous data and parameters.
+	python3 src/DSLEUTH/src/dsleuth.py
 
 Directory Structure
 -------------------
