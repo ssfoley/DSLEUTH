@@ -4,7 +4,7 @@ from processing import Processing
 from ugm_defines import UGMDefines
 from scenario import Scenario
 from logger import Logger
-from rand import Random
+import random
 from stats import Stats
 from utilities import Utilities
 from timer import TimerUtility
@@ -114,14 +114,14 @@ class Spread:
 
         for k in range(1 + int(diffusion_value)):
             # get a random row and col index
-            i = Random.get_int(0, nrows - 1)
-            j = Random.get_int(0, ncols - 1)
+            i = random.randint(0, nrows - 1)
+            j = random.randint(0, ncols - 1)
 
             # check if it is an interior point
             if 0 < i < nrows - 1 and 0 < j < ncols - 1:
                 success, sng = Spread.urbanize(i, j, z, delta, slope, excld,
                                                slope_weights, UGMDefines.PHASE1G, sng)
-                if success and Random.get_int(0, 100) < breed_coeff:
+                if success and random.randint(0, 100) < breed_coeff:
                     count = 0
                     max_tries = 8
                     for tries in range(max_tries):
@@ -148,14 +148,14 @@ class Spread:
                 offset = row * ncols + col
 
                 # Is this an urban pixel and do we pass the random spread coefficient test?
-                if z[offset] > 0 and Random.get_int(0, 100) < spread_coeff:
+                if z[offset] > 0 and random.randint(0, 100) < spread_coeff:
 
                     # Examine the eight cell neighbors
                     # Spread at random if at least 2 are urban
                     # Pixel itself must be urban (3)
                     urb_count = Spread.count_neighbor(z, row, col)
                     if 2 <= urb_count < 8:
-                        x_neigh, y_neigh = Random.get_element(neighbor_options)
+                        x_neigh, y_neigh = random.choice(neighbor_options)
                         row_neighbor = row + x_neigh
                         col_neighbor = col + y_neigh
                         success, og = Spread.urbanize(row_neighbor, col_neighbor, z, delta,
@@ -199,7 +199,7 @@ class Spread:
                 max_search_index = max(max_search_index, ncols)
 
                 # Randomly select a growth pixel to start search for road
-                growth_row, growth_col = Random.get_element(growth_tracker)
+                growth_row, growth_col = random.choice(growth_tracker)
 
 
                 # Search for road about this growth point
@@ -251,8 +251,8 @@ class Spread:
         flag = False
         if z[offset] == 0:
             if delta[offset] == 0:
-                if Random.get_float() > slope_weights[slope[offset]]:
-                    if excld[offset] < Random.get_int(0, 99):
+                if random.random() > slope_weights[slope[offset]]:
+                    if excld[offset] < random.randint(0, 99):
                         flag = True
                         delta[offset] = pixel_val
                         stat += 1
@@ -285,7 +285,7 @@ class Spread:
         nrows = IGrid.nrows
         ncols = IGrid.ncols
         neighbor_options = [(-1, -1), (0, -1), (1, -1), (1, 0), (1, 1), (0, 1), (-1, 1), (-1, 0), (-1, -1)]
-        idx = Random.get_int(0, 7)
+        idx = random.randint(0, 7)
 
         valid = False
         neigh_row = 0
@@ -305,7 +305,7 @@ class Spread:
     @staticmethod
     def get_neighbor(row, col):
         neighbor_options = [(-1, -1), (0, -1), (1, -1), (1, 0), (1, 1), (0, 1), (-1, 1), (-1, 0), (-1, -1)]
-        idx = Random.get_int(0, 7)
+        idx = random.randint(0, 7)
 
         idx_x, idx_y = neighbor_options[idx]
         neigh_row = row + idx_x

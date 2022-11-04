@@ -36,13 +36,18 @@ class Scenario:
         with open(filename, 'r') as file: # Use file to refer to the file object
             for line in file:
                 line = line.rstrip()
+                
+                # skip over comments and empty lines
                 if line.startswith("#") or not line:
                     continue
 
+                # skip over empty pairs of values
+                # TODO: is this wise?
                 dict_pair = line.split("=")
                 if len(dict_pair) < 2:
                     continue
 
+                
                 key = dict_pair[0].lower().split("(")[0]
                 value = dict_pair[1].replace(" ", "")
                 # get rid of comments in line

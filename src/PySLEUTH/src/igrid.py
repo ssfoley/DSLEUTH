@@ -228,10 +228,9 @@ class IGrid:
 
     @staticmethod
     def read_into_grid(filepath, grid, save_echo_image, packing, outputdir):
-        if Globals.mype == 0:
-            ImageIO.read_gif(grid, filepath, IGrid.nrows, IGrid.ncols)
-            if save_echo_image:
-                IGrid.echo_input(grid, outputdir, filepath)
+        ImageIO.read_gif(grid, filepath, IGrid.nrows, IGrid.ncols)
+        if save_echo_image:
+            IGrid.echo_input(grid, outputdir, filepath)
 
     @staticmethod
     def echo_input(grid, outputdir, filepath):

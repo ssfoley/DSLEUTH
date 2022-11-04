@@ -1,4 +1,4 @@
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFilter
 from scenario import Scenario
 from logger import Logger
 from timer import TimerUtility
@@ -44,31 +44,23 @@ class ImageIO:
         if ncols != grid_ncols or nrows != grid_nrows:
             print(f"{filename}: {ncols} x {nrows} image does not match expected size {grid_ncols}x{nrows}")
             raise Exception
-        max_pixel = -1
-        min_pixel = 300
-
-        test_file = open(f"{Scenario.get_scen_value('output_dir')}ReadingRoad", "w")
 
         for j in range(grid_ncols):
             for i in range(grid_nrows):
                 red, green, blue = im.getpixel((j, i))
                 # red, green, blue = Gdif.__hex_to_rgb(pixel_val)
                 # Check that the image is a true grayscale image
+                # just need to save the red value since the values are the same.
                 if red == green and red == blue:
                     index = i * grid_ncols + j
-                    grid.gridData[index] = red
-                    test_file.write(f"{red}\n")
-                    if red > max_pixel:
-                        max_pixel = red
-                    if red < min_pixel:
-                        min_pixel = red
+                    grid.gridData[index] = red 
                 else:
                     print(f'File is not a true gray scale image -> {red} {green} {blue}')
 
-        test_file.close()
+        # use numpy to find min and max values for the file
+        grid.max = im.filter(ImageFilter.MaxFilter(size=im.size))
+        grid.min = im.filter(ImageFilter.MinFilter(size=im.size))
         im.close()
-        grid.max = max_pixel
-        grid.min = min_pixel
         TimerUtility.stop_timer('gdif_ReadGIF')
 
     @staticmethod

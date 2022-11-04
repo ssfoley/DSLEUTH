@@ -1,5 +1,5 @@
 from igrid import IGrid
-from rand import Random
+import random
 from landClass import LandClass
 from ugm_defines import UGMDefines
 from utilities import Utilities
@@ -53,7 +53,7 @@ class Deltatron:
             new_i = new_indices[urban_land[offset]]
             new_j = new_indices[new_landuse]
             trans_offset = new_i * LandClass.get_num_landclasses() + new_j
-            if Random.get_float() < ftransition[trans_offset]:
+            if random.random() < ftransition[trans_offset]:
                 # Transition the center pixel
                 phase1_land[offset] = new_landuse
                 deltatron[offset] = 1
@@ -63,7 +63,7 @@ class Deltatron:
                 j = j_center
                 for regions in range(UGMDefines.REGION_SIZE):
                     # Occasionally Reset to center of cluster
-                    random_int = Random.get_int(0, 7)
+                    random_int = random.randint(0, 7)
                     if random_int == 7:
                         i = i_center
                         j = j_center
@@ -77,7 +77,7 @@ class Deltatron:
                         new_i = new_indices[urban_index]
                         new_j = new_indices[new_landuse]
                         trans_offset = new_i * LandClass.get_num_landclasses() + new_j
-                        if Random.get_float() < ftransition[trans_offset]:
+                        if random.random() < ftransition[trans_offset]:
                             # If the immediate pixel is allowed to transition, then change it
                             index = new_indices[urban_land[offset]]
                             if landuse_classes[index].trans:
@@ -118,7 +118,7 @@ class Deltatron:
                     in previous year (IE Deltatron == 2)
                     """
                     deltatron_neighbors = Deltatron.count_neighbor(deltatron, i, j)
-                    random_int = 1 + Random.get_int(0, 1)
+                    random_int = 1 + random.randint(0, 1)
                     if deltatron_neighbors >= random_int:
                         max_tries = 16
                         for tries in range(max_tries):
@@ -129,7 +129,7 @@ class Deltatron:
                                 trans_i = new_indices[phase2_land[offset]]
                                 trans_j = new_indices[urban_land[offset_neigh]]
                                 offset_trans = trans_i * LandClass.get_num_landclasses() + trans_j
-                                if Random.get_float() < ftransition[offset_trans]:
+                                if random.random() < ftransition[offset_trans]:
                                     phase2_land[offset] = urban_land[offset_neigh]
                                     deltatron[offset] = 1
                                 break
@@ -162,15 +162,15 @@ class Deltatron:
         nrows = IGrid.nrows
         ncols = IGrid.ncols
 
-        i_center = Random.get_int(0, nrows - 1)
-        j_center = Random.get_int(0, ncols - 1)
+        i_center = random.randint(0, nrows - 1)
+        j_center = random.randint(0, ncols - 1)
         return int(i_center * ncols + j_center), i_center, j_center
 
     @staticmethod
     def get_new_landuse(class_indices, landuse_classes, local_slope, class_slope):
 
         # Find two unique land classes
-        first_choice, second_choice = Random.get_unique_elements(class_indices, 2)
+        first_choice, second_choice = random.sample(class_indices, 2)
 
         # Choose landuse with the most similar topographical slope
         slope_diff1 = local_slope - class_slope[first_choice.idx]

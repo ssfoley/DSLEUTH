@@ -3,6 +3,7 @@ from imageIO import ImageIO
 from logger import Logger
 from scenario import Scenario
 
+# TODO: use tools from Pillow to get these values more effiently
 
 class Color:
     _max_color = 256

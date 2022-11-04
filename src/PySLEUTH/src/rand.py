@@ -1,5 +1,6 @@
 import random
 
+#TODO: replace these wrappers with direct calls when random values are needed
 
 class Random:
     @staticmethod

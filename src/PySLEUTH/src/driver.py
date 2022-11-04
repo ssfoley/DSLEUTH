@@ -104,6 +104,7 @@ class Driver:
             print("--------------------")'''
 
             # Reset the Parameters
+            # use the getters and setters for dealing with corner cases
             Coeff.set_current_diffusion(Coeff.get_saved_diffusion())
             Coeff.set_current_spread(Coeff.get_saved_spread())
             Coeff.set_current_breed(Coeff.get_saved_breed())

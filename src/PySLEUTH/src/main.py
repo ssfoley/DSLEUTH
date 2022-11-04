@@ -1,5 +1,5 @@
 import sys
-from rand import Random
+import random
 from processing import Processing
 from scenario import Scenario
 from landClass import LandClass, LanduseMeta
@@ -49,7 +49,7 @@ def main():
 
         log_it = Scenario.get_scen_value("logging")
         random_seed = Scenario.get_scen_value("random_seed")
-        Random.set_seed(random_seed)
+        random.seed(random_seed)
 
         landuse_class_info = Scenario.get_scen_value("landuse_class_info")
         LandClass.num_landclasses = len(landuse_class_info)
