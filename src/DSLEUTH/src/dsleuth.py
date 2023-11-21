@@ -176,10 +176,13 @@ class Main:
                 outputDir = scena.get_output_dir()
                 self.merge(outputDir, fileNum - 1, outputDir + "control.stats.log")
 
+                # don't need to do this anymore, we can use osm.py later
+                """
                 if self.phase == "calibrate":
                         subprocess.check_output(['make'])
                         subprocess.check_output(['./readdata3', outputDir + "control.stats.log"])
                         subprocess.check_output(['mv', 'top50b.log', outputDir])
+                """
 
 if __name__ == '__main__':
         m = Main()
